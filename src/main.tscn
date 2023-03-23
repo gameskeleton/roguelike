@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4h8v068o18dn"]
+
+[ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
+[ext_resource type="PackedScene" path="res://src/player/player.tscn" id="2_ak6nv"]
+[ext_resource type="PackedScene" uid="uid://vthkop5ax7yk" path="res://src/levels/rooms/room_01.tscn" id="4_cl52o"]
+[ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/player/textures/_LightMask.png" id="4_me4t0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h3qe"]
+size = Vector2(1056, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4twal"]
+size = Vector2(16, 288)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7kkph")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_ak6nv")]
+position = Vector2(40, 176)
+safe_margin = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 288
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+metadata/_edit_lock_ = true
+
+[node name="TorchLight2D" type="PointLight2D" parent="Player"]
+position = Vector2(0, -16)
+color = Color(1, 0.27451, 0, 1)
+energy = 2.0
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("4_me4t0")
+texture_scale = 0.5
+metadata/_edit_lock_ = true
+
+[node name="PlayerLight2D" type="PointLight2D" parent="Player"]
+position = Vector2(0, -16)
+energy = 0.5
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("4_me4t0")
+texture_scale = 0.5
+metadata/_edit_lock_ = true
+
+[node name="Room_01" parent="." instance=ExtResource("4_cl52o")]
+
+[node name="Room_02" parent="." instance=ExtResource("4_cl52o")]
+position = Vector2(512, 0)
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(512, -8)
+shape = SubResource("RectangleShape2D_3h3qe")
+
+[node name="Left" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-8, 144)
+shape = SubResource("RectangleShape2D_4twal")
+
+[node name="Right" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(1032, 144)
+shape = SubResource("RectangleShape2D_4twal")
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(512, 296)
+shape = SubResource("RectangleShape2D_3h3qe")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.470588, 0.470588, 0.470588, 1)

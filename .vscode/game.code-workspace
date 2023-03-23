@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "../"
+        }
+    ],
+    "settings": {
+        // Editor
+        "editor.inlayHints.enabled": "offUnlessPressed",
+        "editor.formatOnSave": true,
+        "workbench.colorTheme": "Godot Adaptive"
+    }
+}

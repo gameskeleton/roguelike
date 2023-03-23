@@ -1,0 +1,7 @@
+# OS
+*.lnk
+.DS_Store
+
+# Godot
+.build
+.godot
