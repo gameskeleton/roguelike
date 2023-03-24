@@ -1,5 +1,5 @@
 @tool
-extends TileMap
+extends Node2D
 
 enum Exit {
 	none = 0,

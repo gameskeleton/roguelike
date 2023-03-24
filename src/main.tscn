@@ -1,15 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4h8v068o18dn"]
+[gd_scene load_steps=9 format=3 uid="uid://c4h8v068o18dn"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
-[ext_resource type="PackedScene" path="res://src/player/player.tscn" id="2_ak6nv"]
+[ext_resource type="PackedScene" uid="uid://co1ibwva7r8id" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="PackedScene" uid="uid://vthkop5ax7yk" path="res://src/levels/rooms/room_01.tscn" id="4_cl52o"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/player/textures/_LightMask.png" id="4_me4t0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h3qe"]
-size = Vector2(1056, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4twal"]
-size = Vector2(16, 288)
+[ext_resource type="PackedScene" uid="uid://b7t7qkrwpeqla" path="res://src/levels/rooms/room_03.tscn" id="5_x3q0v"]
+[ext_resource type="PackedScene" uid="uid://bxo3p0gum8bxs" path="res://src/levels/rooms/room_02.tscn" id="6_3dbyq"]
+[ext_resource type="PackedScene" uid="uid://cjhdnux2g7tt3" path="res://src/levels/rooms/room_04.tscn" id="7_jft6l"]
+[ext_resource type="PackedScene" uid="uid://buurb2kco73vi" path="res://src/levels/rooms/room_05.tscn" id="8_2ntls"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -21,6 +19,9 @@ grow_vertical = 2
 script = ExtResource("1_7kkph")
 metadata/_edit_lock_ = true
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.470588, 0.470588, 0.470588, 1)
+
 [node name="Player" parent="." instance=ExtResource("2_ak6nv")]
 position = Vector2(40, 176)
 safe_margin = 1.0
@@ -29,8 +30,11 @@ safe_margin = 1.0
 process_callback = 0
 limit_left = 0
 limit_top = 0
-limit_right = 1024
+limit_right = 512
 limit_bottom = 288
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_limits = true
@@ -57,28 +61,16 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="Room_01" parent="." instance=ExtResource("4_cl52o")]
+[node name="Room" parent="." instance=ExtResource("4_cl52o")]
 
-[node name="Room_02" parent="." instance=ExtResource("4_cl52o")]
+[node name="Room2" parent="." instance=ExtResource("5_x3q0v")]
 position = Vector2(512, 0)
 
-[node name="Boundaries" type="StaticBody2D" parent="."]
+[node name="Room3" parent="." instance=ExtResource("6_3dbyq")]
+position = Vector2(512, 288)
 
-[node name="Top" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(512, -8)
-shape = SubResource("RectangleShape2D_3h3qe")
+[node name="Room4" parent="." instance=ExtResource("7_jft6l")]
+position = Vector2(1024, 288)
 
-[node name="Left" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(-8, 144)
-shape = SubResource("RectangleShape2D_4twal")
-
-[node name="Right" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(1032, 144)
-shape = SubResource("RectangleShape2D_4twal")
-
-[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(512, 296)
-shape = SubResource("RectangleShape2D_3h3qe")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.470588, 0.470588, 0.470588, 1)
+[node name="Room5" parent="." instance=ExtResource("8_2ntls")]
+position = Vector2(-512, 0)

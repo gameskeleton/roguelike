@@ -16,7 +16,10 @@ const ROLL_BUMP_STRENGTH := -70.0
 const GRAVITY_MAX_SPEED := 800.0
 const GRAVITY_ACCELERATION := 850.0
 
+const ONE_WAY_MARGIN := 2
+
 @onready var sprite: Sprite2D = $Sprite
+@onready var one_way_detector: Area2D = $OneWayDetector
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 ###
@@ -167,6 +170,8 @@ func apply_deceleration(delta: float, value: float, deceleration: float) -> floa
 # Checks
 ###
 
+# is_stopped returns true if the player is nearly stopped.
+# @pure
 func is_stopped() -> bool:
 	return get_real_velocity().length_squared() < 0.1
 
@@ -179,6 +184,11 @@ func is_able_to_jump() -> bool:
 # @pure
 func is_able_to_roll() -> bool:
 	return true
+
+# is_on_floor_one_way returns true if the player is on floor and standing on a one way collider.
+# @pure
+func is_on_floor_one_way() -> bool:
+	return is_on_floor() and one_way_detector.has_overlapping_bodies()
 
 # is_on_wall_passive returns true if the player is really close to a wall.
 # @pure

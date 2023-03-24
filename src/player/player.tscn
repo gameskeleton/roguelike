@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://co1ibwva7r8id"]
+[gd_scene load_steps=41 format=3 uid="uid://co1ibwva7r8id"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/_Idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/_WallHang.png" id="23_ona11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wnfa"]
-size = Vector2(14, 32)
+size = Vector2(14, 28)
 
 [sub_resource type="Curve" id="Curve_8k3oh"]
 min_value = -10.0
@@ -572,9 +572,14 @@ _data = {
 "wallclimb": SubResource("Animation_3qcmk")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
+size = Vector2(16, 4)
+
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 2
-floor_stop_on_slope = false
+collision_layer = 8
+collision_mask = 3
+floor_constant_speed = true
+floor_snap_length = 5.0
 script = ExtResource("1_wluja")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -587,7 +592,7 @@ offset = Vector2(1, 1)
 hframes = 10
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16)
+position = Vector2(0, -14)
 shape = SubResource("RectangleShape2D_1wnfa")
 
 [node name="StateMachine" type="Node" parent="."]
@@ -627,3 +632,11 @@ script = ExtResource("11_nnruh")
 libraries = {
 "": SubResource("AnimationLibrary_w4g2l")
 }
+
+[node name="OneWayDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_7g7q4")
