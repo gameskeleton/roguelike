@@ -40,14 +40,14 @@ var input_down := false; var input_down_once := false
 var input_left := false; var input_left_once := false
 var input_right := false; var input_right_once := false
 var input_jump := false; var input_jump_once := false
-var input_attack_a := false; var input_attack_a_once := false
+var input_roll := false; var input_roll_once := false
 
 ###
 # Process
 ###
 
 var _up := false; var _down := false; var _left := false; var _right := false
-var _jump := false; var _attack_a := false
+var _jump := false; var _roll := false
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -64,21 +64,21 @@ func process_input(_delta: float):
 	input_down = Input.is_action_pressed("player_down")
 	input_right = Input.is_action_pressed("player_right")
 	input_jump = Input.is_action_pressed("player_jump")
-	input_attack_a = Input.is_action_pressed("player_attack_a")
+	input_roll = Input.is_action_pressed("player_roll")
 	# compute repeated input just once (valid the first frame it was pressed)
 	input_up_once = not _up and input_up
 	input_down_once = not _down and input_down
 	input_left_once = not _left and input_left
 	input_right_once = not _right and input_right
 	input_jump_once = not _jump and input_jump
-	input_attack_a_once = not _attack_a and input_attack_a
+	input_roll_once = not _roll and input_roll
 	# remember we pressed these inputs last frame
 	_up = input_up
 	_down = input_down
 	_left = input_left
 	_right = input_right
 	_jump = input_jump
-	_attack_a = input_attack_a
+	_roll = input_roll
 	# compute input velocity
 	input_velocity = Vector2(int(input_right) - int(input_left), int(input_down) - int(input_up))
 
@@ -189,11 +189,6 @@ func is_able_to_roll() -> bool:
 # @pure
 func is_on_floor_one_way() -> bool:
 	return is_on_floor() and one_way_detector.has_overlapping_bodies()
-
-# is_on_wall_passive returns true if the player is really close to a wall.
-# @pure
-func is_on_wall_passive() -> bool:
-	return test_move(transform, Vector2(direction, 0.0))
 
 ###
 # Animation
