@@ -1,11 +1,14 @@
 extends RkStateMachineState
 
 var _initial_direction := 0.0
+var _animation_initial_speed_scale := 1.0
 const TURN_AROUND_OFFSET := -2.0
 
 func start_state():
 	_initial_direction = player_node.direction
+	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
+	player_node.animation_player.speed_scale = 1.8
 	player_node.play_animation("turn_around")
 	if player_node.velocity.x == 0:
 		player_node.set_direction(-player_node.direction)
@@ -27,5 +30,6 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():
+	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	if player_node.direction == _initial_direction:
 		player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET

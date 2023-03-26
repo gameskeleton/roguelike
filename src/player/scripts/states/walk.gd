@@ -1,6 +1,10 @@
 extends RkStateMachineState
 
+var _animation_initial_speed_scale := 1.0
+
 func start_state():
+	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	player_node.animation_player.speed_scale = 1.2
 	player_node.play_animation("walk")
 	player_node.set_one_way_detector_active(true)
 
@@ -17,7 +21,7 @@ func process_state(delta: float):
 	if player_node.input_roll_once and player_node.is_able_to_roll():
 		return player_node.fsm.state_nodes.roll
 	if player_node.input_attack_once and player_node.is_able_to_attack():
-		return player_node.fsm.state_nodes.attack_01
+		return player_node.fsm.state_nodes.attack
 	if player_node.input_velocity.x != 0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
 	if player_node.input_velocity.x != 0 and player_node.is_on_wall():
@@ -28,4 +32,5 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():
+	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_one_way_detector_active(false)

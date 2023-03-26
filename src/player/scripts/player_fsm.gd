@@ -1,7 +1,7 @@
 extends Object
 class_name RkStateMachine
 
-var state_nodes: = {}
+var state_nodes := {}
 
 var player_node: RkPlayer
 var prev_state_node: RkStateMachineState

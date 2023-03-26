@@ -11,7 +11,7 @@ func start_state():
 	player_node.handle_roll(player_node.direction * player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
 	player_node.set_roll_detector_active(true)
-	player_node.animation_player.speed_scale = 1.8
+	player_node.animation_player.speed_scale = 2.1
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
