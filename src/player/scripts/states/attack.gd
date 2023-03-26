@@ -14,6 +14,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.animation_player.speed_scale = 1.6
 	player_node.play_animation("attack_01")
+	player_node.consume_stamina(player_node.ATTACK_STAMINA_COST)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -28,7 +29,7 @@ func process_state(delta: float):
 	if player_node.input_attack and player_node.get_animation_played_ratio() >= 0.8:
 		_combo = true
 	if player_node.is_animation_finished():
-		if _combo:
+		if _combo and player_node.try_consume_stamina(player_node.ATTACK_STAMINA_COST):
 			_combo = false
 			_attack_combo += 1
 			player_node.animation_player.speed_scale = min(3.0, player_node.animation_player.speed_scale + 0.2)

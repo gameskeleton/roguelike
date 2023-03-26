@@ -10,6 +10,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.handle_roll(player_node.direction * player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
+	player_node.consume_stamina(player_node.ROLL_STAMINA_COST)
 	player_node.set_roll_detector_active(true)
 	player_node.animation_player.speed_scale = 2.1
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4h8v068o18dn"]
+[gd_scene load_steps=11 format=3 uid="uid://c4h8v068o18dn"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cjhdnux2g7tt3" path="res://src/levels/rooms/room_04.tscn" id="7_jft6l"]
 [ext_resource type="PackedScene" uid="uid://buurb2kco73vi" path="res://src/levels/rooms/room_05.tscn" id="8_2ntls"]
 [ext_resource type="PackedScene" uid="uid://bqu50x7s8t702" path="res://src/levels/rooms/room_06.tscn" id="9_hrmjs"]
+[ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -19,9 +20,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 metadata/_edit_lock_ = true
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.470588, 0.470588, 0.470588, 1)
 
 [node name="Room" parent="." instance=ExtResource("4_cl52o")]
 
@@ -81,3 +79,22 @@ shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LifeMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
+offset_left = 8.0
+offset_top = 272.0
+offset_right = -440.0
+offset_bottom = -12.0
+color = Color(1, 0, 0, 1)
+
+[node name="StaminaMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
+offset_left = 8.0
+offset_top = 280.0
+offset_right = -440.0
+offset_bottom = -4.0
+progress = 0.8
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
+color = Color(0.470588, 0.470588, 0.470588, 1)

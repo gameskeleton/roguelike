@@ -8,7 +8,10 @@ var current_room := Vector2(0.0, 0.0)
 func _ready():
 	$Player/Camera2D.reset_smoothing()
 
-func _process(_delta: float):
+func _process(delta: float):
+	# gui update
+	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, $Player.get_stamina(), delta)
+	# room camera
 	if $Player.position.x > (current_room.x * ROOM_WIDTH) + ROOM_WIDTH:
 		current_room.x += 1
 		_restrict_camera()

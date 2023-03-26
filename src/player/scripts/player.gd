@@ -24,8 +24,8 @@ const ATTACK_ACCELERATION := 310.0
 const ATTACK_DECELERATION := 510.0
 
 const STAMINA_MAX := 10.0
-const STAMINA_REGEN := 1.0
-const STAMINA_BLOCK_REGEN_FOR := 1.0
+const STAMINA_REGEN := 10.0
+const STAMINA_BLOCK_REGEN_FOR := 1.5
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var roll_detector: Area2D = $RollDetector
@@ -212,12 +212,12 @@ func is_able_to_jump() -> bool:
 # is_able_to_roll returns true if the player is able to roll.
 # @pure
 func is_able_to_roll() -> bool:
-	return true
+	return has_stamina(ROLL_STAMINA_COST)
 
 # is_able_to_attack returns true if the player is able to attack.
 # @pure
 func is_able_to_attack() -> bool:
-	return true
+	return has_stamina(ATTACK_STAMINA_COST)
 
 # is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
 # note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
@@ -229,10 +229,15 @@ func is_on_floor_one_way() -> bool:
 # Stamina
 ###
 
+# get_stamina returns the stamina between 0 and 1.
+# @pure
+func get_stamina() -> float:
+	return stamina / STAMINA_MAX
+
 # has_stamina returns true if the player has the given of stamina left.
 # @pure
 func has_stamina(amount := 0.0) -> bool:
-	return stamina > amount
+	return stamina >= amount
 
 # consume_stamina reduces the stamina by the specified amount, if there is not enough, the stamina will be zeroed.
 # the optional parameter bloc_regen_for takes a number of seconds during which the stamina won't be regenerated.
