@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://co1ibwva7r8id"]
+[gd_scene load_steps=46 format=3 uid="uid://co1ibwva7r8id"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/_Idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -17,12 +17,14 @@
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/_JumpFallInbetween.png" id="8_hg6ir"]
 [ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
 [ext_resource type="Texture2D" uid="uid://cst63b8sexvs0" path="res://src/player/textures/_Death.png" id="9_a75to"]
+[ext_resource type="Script" path="res://src/player/scripts/states/attack_01.gd" id="9_fb2tt"]
 [ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/_DeathNoMovement.png" id="10_1ksv1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
 [ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/_WallSlide.png" id="11_o6r45"]
 [ext_resource type="Texture2D" uid="uid://hsex3dhqjsne" path="res://src/player/textures/_WallClimbNoMovement.png" id="12_uslnu"]
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/_WallHang.png" id="23_ona11"]
+[ext_resource type="Texture2D" uid="uid://bb3d6ugmx4xlb" path="res://src/player/textures/_Attack.png" id="24_j5ws0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wnfa"]
 size = Vector2(14, 28)
@@ -32,6 +34,16 @@ min_value = -10.0
 max_value = 0.0
 _data = [Vector2(0, -2), 0.0, -15.0, 0, 0, Vector2(0.35, -7.5), -8.0, -8.5, 0, 0, Vector2(1, -9), -2.5, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
+size = Vector2(14, 8)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3y2r"]
+radius = 16.0
+height = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
+size = Vector2(14, 4)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -70,6 +82,63 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_i0u8u"]
+resource_name = "attack_01"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("24_j5ws0")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StateMachine/attack_01")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_enable_hitbox"
+}, {
+"args": [],
+"method": &"_disable_hitbox"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_alnxv"]
@@ -558,6 +627,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 "RESET": SubResource("Animation_11iq3"),
+"attack_01": SubResource("Animation_i0u8u"),
 "death": SubResource("Animation_alnxv"),
 "death_in_place": SubResource("Animation_jlirl"),
 "fall": SubResource("Animation_ginsg"),
@@ -571,12 +641,6 @@ _data = {
 "wall_slide": SubResource("Animation_v4465"),
 "wallclimb": SubResource("Animation_3qcmk")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
-size = Vector2(14, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
-size = Vector2(14, 4)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
@@ -619,6 +683,9 @@ script = ExtResource("6_grvpe")
 [node name="stand" type="Node" parent="StateMachine"]
 script = ExtResource("3_8ll75")
 
+[node name="attack_01" type="Node" parent="StateMachine"]
+script = ExtResource("9_fb2tt")
+
 [node name="push_wall" type="Node" parent="StateMachine"]
 script = ExtResource("9_3cgs6")
 
@@ -631,11 +698,6 @@ script = ExtResource("5_0i2rd")
 [node name="bump_into_wall" type="Node" parent="StateMachine"]
 script = ExtResource("11_nnruh")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_w4g2l")
-}
-
 [node name="RollDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 16
@@ -647,6 +709,15 @@ position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_qf2lc")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
+[node name="AttackDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+position = Vector2(47, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g3y2r")
+
 [node name="OneWayDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -657,3 +728,8 @@ monitorable = false
 position = Vector2(0, 22)
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w4g2l")
+}

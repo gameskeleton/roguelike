@@ -16,6 +16,8 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.jump
 	if player_node.input_roll_once and player_node.is_able_to_roll():
 		return player_node.fsm.state_nodes.roll
+	if player_node.input_attack_once and player_node.is_able_to_attack():
+		return player_node.fsm.state_nodes.attack_01
 	if player_node.input_velocity.x != 0 and player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and player_node.is_on_wall():
 		return player_node.fsm.state_nodes.push_wall
 	if player_node.input_velocity.x != 0 and player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and not player_node.is_on_wall():

@@ -13,6 +13,8 @@ const ROLL_STRENGTH := 220.0
 const ROLL_DECELERATION := 280.0
 const ROLL_BUMP_STRENGTH := -70.0
 
+const ATTACK_DECELERATION := 280.0
+
 const GRAVITY_MAX_SPEED := 800.0
 const GRAVITY_ACCELERATION := 850.0
 
@@ -20,6 +22,7 @@ const ONE_WAY_MARGIN := 2
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var roll_detector: Area2D = $RollDetector
+@onready var attack_detector: Area2D = $AttackDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -42,13 +45,14 @@ var input_left := false; var input_left_once := false
 var input_right := false; var input_right_once := false
 var input_jump := false; var input_jump_once := false
 var input_roll := false; var input_roll_once := false
+var input_attack := false; var input_attack_once := false
 
 ###
 # Process
 ###
 
 var _up := false; var _down := false; var _left := false; var _right := false
-var _jump := false; var _roll := false
+var _jump := false; var _roll := false; var _attack := false
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -66,6 +70,7 @@ func process_input(_delta: float):
 	input_right = Input.is_action_pressed("player_right")
 	input_jump = Input.is_action_pressed("player_jump")
 	input_roll = Input.is_action_pressed("player_roll")
+	input_attack = Input.is_action_pressed("player_attack")
 	# compute repeated input just once (valid the first frame it was pressed)
 	input_up_once = not _up and input_up
 	input_down_once = not _down and input_down
@@ -73,6 +78,7 @@ func process_input(_delta: float):
 	input_right_once = not _right and input_right
 	input_jump_once = not _jump and input_jump
 	input_roll_once = not _roll and input_roll
+	input_attack_once = not _attack and input_attack
 	# remember we pressed these inputs last frame
 	_up = input_up
 	_down = input_down
@@ -80,6 +86,7 @@ func process_input(_delta: float):
 	_right = input_right
 	_jump = input_jump
 	_roll = input_roll
+	_attack = input_attack
 	# compute input velocity
 	input_velocity = Vector2(int(input_right) - int(input_left), int(input_down) - int(input_up))
 
@@ -98,6 +105,7 @@ func set_direction(new_direction: float):
 	direction = new_direction
 	sprite.flip_h = new_direction < 0
 	sprite.offset.x = -8 if new_direction < 0 else 1
+	attack_detector.scale.x = new_direction
 
 # handle_jump applies sudden strength to y-velocity.
 # @impure
@@ -186,6 +194,11 @@ func is_able_to_jump() -> bool:
 func is_able_to_roll() -> bool:
 	return true
 
+# is_able_to_attack returns true if the player is able to attack.
+# @pure
+func is_able_to_attack() -> bool:
+	return true
+
 # is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
 # note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
 # @pure
@@ -216,12 +229,12 @@ func is_animation_playing(animation: String) -> bool:
 # is_animation_finished returns true if the animation is finished (and not looping).
 # @pure
 func is_animation_finished() -> bool:
-	return animation_player.current_animation_position >= animation_player.current_animation_length - 0.1
+	return animation_player.current_animation_position >= animation_player.current_animation_length - 0.001
 
 # get_animation_played_ratio returns the ratio of the animation played by its length.
 # @impure
 func get_animation_played_ratio() -> float:
-	return clamp(animation_player.current_animation_position / (animation_player.current_animation_length - 0.1), 0.0, 1.0)
+	return clamp(animation_player.current_animation_position / (animation_player.current_animation_length - 0.05), 0.0, 1.0)
 
 ###
 # Detectors
@@ -232,6 +245,12 @@ func get_animation_played_ratio() -> float:
 func set_roll_detector_active(active: bool):
 	roll_detector.monitoring = active
 	roll_detector.monitorable = active
+
+# set_attack_detector_active activates or deactivates the monitoring for attack colliders.
+# @impure
+func set_attack_detector_active(active: bool):
+	attack_detector.monitoring = active
+	attack_detector.monitorable = active
 
 # set_one_way_detector_active activates or deactivates the monitoring for one way colliders.
 # @impure

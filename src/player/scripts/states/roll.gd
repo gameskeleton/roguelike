@@ -27,7 +27,7 @@ func process_state(delta: float):
 	if player_node.roll_detector.has_overlapping_bodies():
 		for body in player_node.roll_detector.get_overlapping_bodies():
 			if body is RkDecor:
-				body._roll(player_node)
+				body._destroyed(player_node)
 
 func finish_state():
 	player_node.sprite.offset = _sprite_initial_offset
