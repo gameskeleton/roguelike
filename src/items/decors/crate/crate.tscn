@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cimrc6477daus"]
+
+[ext_resource type="Texture2D" uid="uid://0obpqpceh0km" path="res://src/levels/textures/tileset_decors.png" id="1_17d5j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
+size = Vector2(16, 16)
+
+[node name="Crate" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_17d5j")
+region_enabled = true
+region_rect = Rect2(0, 80, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1quh3")

@@ -585,14 +585,13 @@ script = ExtResource("1_wluja")
 [node name="Sprite" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-56, -80)
+position = Vector2(4, -20)
 texture = ExtResource("1_6pmwu")
-centered = false
 offset = Vector2(1, 1)
 hframes = 10
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -14)
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_1wnfa")
 
 [node name="StateMachine" type="Node" parent="."]
@@ -638,5 +637,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
-position = Vector2(0, 3)
+position = Vector2(0, 22)
 shape = SubResource("RectangleShape2D_7g7q4")

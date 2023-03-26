@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name RkPlayer
 
-const JUMP_STRENGTH := -280.0
+const JUMP_STRENGTH := -260.0
 const CEILING_KNOCKDOWN := 0.0
 
 const RUN_MAX_SPEED := 116.0

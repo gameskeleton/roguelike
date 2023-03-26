@@ -74,6 +74,8 @@ player_roll={
 
 2d_render/layer_1="Wall"
 2d_render/layer_2="Player"
+2d_render/layer_3="Chest"
+2d_render/layer_4="Pickups"
 2d_physics/layer_1="Wall"
 2d_physics/layer_2="OneWay"
 2d_physics/layer_3="Platform"
