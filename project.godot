@@ -80,6 +80,7 @@ player_roll={
 2d_physics/layer_2="OneWay"
 2d_physics/layer_3="Platform"
 2d_physics/layer_4="Player"
+2d_physics/layer_5="Decor"
 
 [physics]
 

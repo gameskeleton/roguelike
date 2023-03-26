@@ -19,6 +19,7 @@ const GRAVITY_ACCELERATION := 850.0
 const ONE_WAY_MARGIN := 2
 
 @onready var sprite: Sprite2D = $Sprite
+@onready var roll_detector: Area2D = $RollDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -185,7 +186,8 @@ func is_able_to_jump() -> bool:
 func is_able_to_roll() -> bool:
 	return true
 
-# is_on_floor_one_way returns true if the player is on floor and standing on a one way collider.
+# is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
+# note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
 # @pure
 func is_on_floor_one_way() -> bool:
 	return is_on_floor() and one_way_detector.has_overlapping_bodies()
@@ -220,3 +222,19 @@ func is_animation_finished() -> bool:
 # @impure
 func get_animation_played_ratio() -> float:
 	return clamp(animation_player.current_animation_position / (animation_player.current_animation_length - 0.1), 0.0, 1.0)
+
+###
+# Detectors
+###
+
+# set_roll_detector_active activates or deactivates the monitoring for decors colliders.
+# @impure
+func set_roll_detector_active(active: bool):
+	roll_detector.monitoring = active
+	roll_detector.monitorable = active
+
+# set_one_way_detector_active activates or deactivates the monitoring for one way colliders.
+# @impure
+func set_one_way_detector_active(active: bool):
+	one_way_detector.monitoring = active
+	one_way_detector.monitorable = active

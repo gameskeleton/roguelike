@@ -2,6 +2,7 @@ extends RkStateMachineState
 
 func start_state():
 	player_node.play_animation("walk")
+	player_node.set_one_way_detector_active(true)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -23,3 +24,6 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.skid
 	if player_node.input_velocity.x == 0 and player_node.velocity.x == 0:
 		return player_node.fsm.state_nodes.stand
+
+func finish_state():
+	player_node.set_one_way_detector_active(false)

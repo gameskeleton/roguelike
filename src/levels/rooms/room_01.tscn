@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://vthkop5ax7yk"]
+[gd_scene load_steps=5 format=3 uid="uid://vthkop5ax7yk"]
 
 [ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_733o4"]
+[ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="3_nskyk"]
 [ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="4_av526"]
+[ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="4_ej8b5"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_733o4")
@@ -41,3 +43,21 @@ layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = -1
 layer_4/tile_data = PackedInt32Array(983043, 196609, 5, 1048583, 196609, 5, 1048600, 196609, 5, 983069, 196609, 5, 327697, 262145, 5, 196628, 262145, 5, 65564, 262145, 5, 196634, 262145, 5, 196608, 262145, 5, 2, 262145, 5, 8, 196609, 5, 458771, 196609, 5, 131089, 196609, 5, 65559, 196609, 5, 327708, 196609, 5, 786434, 262145, 5, 1114112, 262145, 5, 983050, 262145, 5, 983066, 262145, 5, 1048607, 262145, 5, 786462, 262145, 5, 917505, 262145, 5, 65549, 262145, 5)
+
+[node name="Barrel" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(88, 200)
+
+[node name="Barrel2" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(92, 184)
+
+[node name="Barrel3" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(92, 168)
+
+[node name="Barrel4" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(92, 152)
+
+[node name="Barrel5" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(92, 136)
+
+[node name="Crate" parent="." instance=ExtResource("4_ej8b5")]
+position = Vector2(104, 200)

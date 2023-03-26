@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://co1ibwva7r8id"]
+[gd_scene load_steps=42 format=3 uid="uid://co1ibwva7r8id"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/_Idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -572,8 +572,11 @@ _data = {
 "wallclimb": SubResource("Animation_3qcmk")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
+size = Vector2(14, 8)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
-size = Vector2(16, 4)
+size = Vector2(14, 4)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
@@ -593,6 +596,7 @@ hframes = 10
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_1wnfa")
+debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -632,10 +636,24 @@ libraries = {
 "": SubResource("AnimationLibrary_w4g2l")
 }
 
+[node name="RollDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RollDetector"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_qf2lc")
+debug_color = Color(0.129412, 0, 0.701961, 0.419608)
+
 [node name="OneWayDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
 position = Vector2(0, 22)
 shape = SubResource("RectangleShape2D_7g7q4")
+debug_color = Color(0.701961, 0.647059, 0, 0.419608)

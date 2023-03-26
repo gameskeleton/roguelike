@@ -2,6 +2,7 @@ extends RkStateMachineState
 
 func start_state():
 	player_node.play_animation("idle")
+	player_node.set_one_way_detector_active(true)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -21,3 +22,6 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.walk
 	if player_node.input_velocity.x != 0 and not player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
+
+func finish_state():
+	player_node.set_one_way_detector_active(false)

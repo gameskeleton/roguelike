@@ -10,6 +10,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.handle_roll(player_node.direction * player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
+	player_node.set_roll_detector_active(true)
 	player_node.animation_player.speed_scale = 1.8
 
 func process_state(delta: float):
@@ -22,7 +23,13 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.jump
 	if player_node.is_animation_finished():
 		return player_node.fsm.state_nodes.stand
+	# cosmetics
+	if player_node.roll_detector.has_overlapping_bodies():
+		for body in player_node.roll_detector.get_overlapping_bodies():
+			if body is RkDecor:
+				body._roll(player_node)
 
 func finish_state():
 	player_node.sprite.offset = _sprite_initial_offset
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.set_roll_detector_active(false)
