@@ -17,3 +17,5 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.fall
 	if player_node.velocity.y > 0:
 		return player_node.fsm.state_nodes.fall
+	if player_node.input_attack_once and player_node.is_able_to_attack():
+		return player_node.fsm.state_nodes.attack

@@ -1,12 +1,14 @@
 extends RkStateMachineState
 
 var _combo := false
+var _air_control := false
 var _attack_combo := 0
 var _hitbox_enabled := false
 var _animation_initial_speed_scale := 1.0
 
 func start_state():
 	_combo = false
+	_air_control = not player_node.is_on_floor()
 	_attack_combo = 0
 	_hitbox_enabled = false
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
@@ -15,7 +17,14 @@ func start_state():
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_deceleration_move(delta, player_node.ATTACK_DECELERATION)
+	# air control
+	if _air_control:
+		if player_node.is_on_floor():
+			_air_control = false
+		player_node.handle_airborne_move(delta, player_node.ATTACK_MAX_SPEED, player_node.ATTACK_ACCELERATION, player_node.ATTACK_DECELERATION)
+	else:
+		player_node.handle_deceleration_move(delta, player_node.ATTACK_DECELERATION)
+	# attack combo
 	if player_node.input_attack and player_node.get_animation_played_ratio() >= 0.8:
 		_combo = true
 	if player_node.is_animation_finished():
