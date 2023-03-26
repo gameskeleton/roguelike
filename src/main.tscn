@@ -23,8 +23,31 @@ metadata/_edit_lock_ = true
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.470588, 0.470588, 0.470588, 1)
 
+[node name="Room" parent="." instance=ExtResource("4_cl52o")]
+
+[node name="Room6" parent="." instance=ExtResource("4_cl52o")]
+position = Vector2(0, 288)
+
+[node name="Room2" parent="." instance=ExtResource("5_x3q0v")]
+position = Vector2(512, 0)
+
+[node name="Room4" parent="." instance=ExtResource("7_jft6l")]
+position = Vector2(1024, 288)
+
+[node name="Room5" parent="." instance=ExtResource("8_2ntls")]
+position = Vector2(-512, 0)
+
+[node name="Room7" parent="." instance=ExtResource("9_hrmjs")]
+position = Vector2(512, 288)
+
+[node name="Room8" parent="." instance=ExtResource("4_cl52o")]
+position = Vector2(-512, 288)
+
+[node name="Room3" parent="." instance=ExtResource("6_3dbyq")]
+position = Vector2(-1024, 288)
+
 [node name="Player" parent="." instance=ExtResource("2_ak6nv")]
-position = Vector2(40, 144)
+position = Vector2(40, 155)
 safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -58,26 +81,3 @@ shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
-
-[node name="Room" parent="." instance=ExtResource("4_cl52o")]
-
-[node name="Room6" parent="." instance=ExtResource("4_cl52o")]
-position = Vector2(0, 288)
-
-[node name="Room2" parent="." instance=ExtResource("5_x3q0v")]
-position = Vector2(512, 0)
-
-[node name="Room4" parent="." instance=ExtResource("7_jft6l")]
-position = Vector2(1024, 288)
-
-[node name="Room5" parent="." instance=ExtResource("8_2ntls")]
-position = Vector2(-512, 0)
-
-[node name="Room7" parent="." instance=ExtResource("9_hrmjs")]
-position = Vector2(512, 288)
-
-[node name="Room8" parent="." instance=ExtResource("4_cl52o")]
-position = Vector2(-512, 288)
-
-[node name="Room3" parent="." instance=ExtResource("6_3dbyq")]
-position = Vector2(-1024, 288)

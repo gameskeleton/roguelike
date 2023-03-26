@@ -295,7 +295,6 @@ texture = ExtResource("1_r6bj0")
 3:3/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qgeoy"]
-resource_name = "tileset_wall"
 texture = ExtResource("2_eyk7y")
 use_texture_padding = false
 0:0/0 = 0
