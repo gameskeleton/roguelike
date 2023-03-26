@@ -22,13 +22,13 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.roll
 	if player_node.input_attack_once and player_node.is_able_to_attack():
 		return player_node.fsm.state_nodes.attack
-	if player_node.input_velocity.x != 0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
+	if player_node.input_velocity.x != 0.0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
-	if player_node.input_velocity.x != 0 and player_node.is_on_wall():
+	if player_node.input_velocity.x != 0.0 and player_node.is_on_wall():
 		return player_node.fsm.state_nodes.push_wall
-	if player_node.input_velocity.x == 0 and player_node.velocity.x != 0:
+	if player_node.input_velocity.x == 0.0 and player_node.velocity.x != 0.0:
 		return player_node.fsm.state_nodes.skid
-	if player_node.input_velocity.x == 0 and player_node.velocity.x == 0:
+	if player_node.input_velocity.x == 0.0 and player_node.velocity.x == 0.0:
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():

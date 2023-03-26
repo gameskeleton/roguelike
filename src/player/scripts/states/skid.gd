@@ -1,7 +1,7 @@
 extends RkStateMachineState
 
 func start_state():
-	if player_node.input_velocity.x != 0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
+	if player_node.input_velocity.x != 0.0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
 
 func process_state(delta: float):
@@ -15,9 +15,9 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.roll
 	if player_node.input_attack_once and player_node.is_able_to_attack():
 		return player_node.fsm.state_nodes.attack
-	if player_node.input_velocity.x != 0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
+	if player_node.input_velocity.x != 0.0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
-	if player_node.input_velocity.x != 0:
+	if player_node.input_velocity.x != 0.0:
 		return player_node.fsm.state_nodes.walk
-	if player_node.velocity.x == 0:
+	if player_node.velocity.x == 0.0:
 		return player_node.fsm.state_nodes.stand

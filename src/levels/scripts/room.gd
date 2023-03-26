@@ -57,18 +57,18 @@ const INVALID_EXIT_COLOR := Color(1.0, 0.0, 0.0, 0.2)
 func _draw():
 	if not Engine.is_editor_hint():
 		return
-	draw_rect(Rect2(0, 0, width * ROOM_WIDTH, height * ROOM_HEIGHT), ROOM_COLOR)
+	draw_rect(Rect2(0.0, 0.0, width * ROOM_WIDTH, height * ROOM_HEIGHT), ROOM_COLOR)
 	for x in width:
 		for y in height:
 			var exits := all_exits[y + x * height]
 			var off_x := x * ROOM_WIDTH
 			var off_y := y * ROOM_HEIGHT
 			if exits & Exit.up == Exit.up:
-				draw_rect(Rect2(off_x + ROOM_WIDTH / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, off_y, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), VALID_EXIT_COLOR if y == 0 else INVALID_EXIT_COLOR)
+				draw_rect(Rect2(off_x + ROOM_WIDTH / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, off_y, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), VALID_EXIT_COLOR if y == 0.0 else INVALID_EXIT_COLOR)
 			if exits & Exit.down == Exit.down:
 				draw_rect(Rect2(off_x + ROOM_WIDTH / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, off_y + ROOM_HEIGHT - ROOM_EXIT_VERTICAL_SIZE.y, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), VALID_EXIT_COLOR if y == height - 1 else INVALID_EXIT_COLOR)
 			if exits & Exit.left == Exit.left:
-				draw_rect(Rect2(off_x, off_y + ROOM_HEIGHT / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), VALID_EXIT_COLOR if x == 0 else INVALID_EXIT_COLOR)
+				draw_rect(Rect2(off_x, off_y + ROOM_HEIGHT / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), VALID_EXIT_COLOR if x == 0.0 else INVALID_EXIT_COLOR)
 			if exits & Exit.right == Exit.right:
 				draw_rect(Rect2(off_x + ROOM_WIDTH - ROOM_EXIT_HORIZONTAL_SIZE.x, off_y + ROOM_HEIGHT / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), VALID_EXIT_COLOR if x == width - 1 else INVALID_EXIT_COLOR)
 

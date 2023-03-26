@@ -3,7 +3,7 @@ extends RkStateMachineState
 func start_state():
 	player_node.handle_jump(player_node.JUMP_STRENGTH)
 	player_node.play_animation("jump")
-	if player_node.input_velocity.x != 0:
+	if player_node.input_velocity.x != 0.0:
 		player_node.set_direction(int(sign(player_node.input_velocity.x)))
 
 func process_state(delta: float):
@@ -15,7 +15,7 @@ func process_state(delta: float):
 	if player_node.is_on_ceiling():
 		player_node.velocity.y = player_node.CEILING_KNOCKDOWN
 		return player_node.fsm.state_nodes.fall
-	if player_node.velocity.y > 0:
+	if player_node.velocity.y > 0.0:
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_attack_once and player_node.is_able_to_attack():
 		return player_node.fsm.state_nodes.attack

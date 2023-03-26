@@ -3,6 +3,10 @@ class_name RkPlayer
 
 const JUMP_STRENGTH := -260.0
 const CEILING_KNOCKDOWN := 0.0
+const GRAVITY_MAX_SPEED := 800.0
+const GRAVITY_ACCELERATION := 850.0
+
+const ONE_WAY_MARGIN := 2
 
 const RUN_MAX_SPEED := 126.0
 const RUN_ACCELERATION := 410.0
@@ -10,17 +14,18 @@ const RUN_DECELERATION := 480.0
 const RUN_DECELERATION_BRAKE := 1.6
 
 const ROLL_STRENGTH := 220.0
+const ROLL_STAMINA_COST := 2.0
 const ROLL_DECELERATION := 290.0
 const ROLL_BUMP_STRENGTH := -70.0
 
 const ATTACK_MAX_SPEED := 120.0
+const ATTACK_STAMINA_COST := 2.0
 const ATTACK_ACCELERATION := 310.0
 const ATTACK_DECELERATION := 510.0
 
-const GRAVITY_MAX_SPEED := 800.0
-const GRAVITY_ACCELERATION := 850.0
-
-const ONE_WAY_MARGIN := 2
+const STAMINA_MAX := 10.0
+const STAMINA_REGEN := 1.0
+const STAMINA_BLOCK_REGEN_FOR := 1.0
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var roll_detector: Area2D = $RollDetector
@@ -32,8 +37,10 @@ const ONE_WAY_MARGIN := 2
 # State
 ###
 
+var stamina := STAMINA_MAX
+var stamina_regen_blocked_for := 0.0
+
 var direction := 1.0
-var input_velocity := Vector2.ZERO
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 
@@ -48,6 +55,7 @@ var input_right := false; var input_right_once := false
 var input_jump := false; var input_jump_once := false
 var input_roll := false; var input_roll_once := false
 var input_attack := false; var input_attack_once := false
+var input_velocity := Vector2.ZERO
 
 ###
 # Process
@@ -60,6 +68,7 @@ var _jump := false; var _roll := false; var _attack := false
 # @impure
 func _physics_process(delta: float):
 	process_input(delta)
+	process_stamina(delta)
 	process_velocity(delta)
 	fsm.process_state_machine(delta)
 
@@ -92,6 +101,15 @@ func process_input(_delta: float):
 	# compute input velocity
 	input_velocity = Vector2(int(input_right) - int(input_left), int(input_down) - int(input_up))
 
+# process_stamina regenerates the player stamina if not blocked.
+# @impure
+func process_stamina(delta: float):
+	if stamina_regen_blocked_for > 0.0:
+		stamina_regen_blocked_for = max(0.0, stamina_regen_blocked_for - delta)
+		if stamina_regen_blocked_for > 0.0:
+			return
+	stamina = clamp(stamina + delta * STAMINA_REGEN, 0.0, STAMINA_MAX)
+
 # process_velocity updates player position after applying velocity.
 # @impure
 func process_velocity(_delta: float):
@@ -105,8 +123,8 @@ func process_velocity(_delta: float):
 # @impure
 func set_direction(new_direction: float):
 	direction = new_direction
-	sprite.flip_h = new_direction < 0
-	sprite.offset.x = -8 if new_direction < 0 else 1
+	sprite.flip_h = new_direction < 0.0
+	sprite.offset.x = -8 if new_direction < 0.0 else 1
 	attack_detector.scale.x = new_direction
 
 # handle_jump applies sudden strength to y-velocity.
@@ -128,13 +146,13 @@ func handle_gravity(delta: float, max_speed: float, acceleration: float):
 # @impure
 func handle_direction():
 	var input_direction := int(sign(input_velocity.x))
-	if input_direction != 0:
+	if input_direction != 0.0:
 		set_direction(input_direction)
 
 # handle_floor_move applies acceleration or deceleration depending on the input_velocity on the floor.
 # @impure
 func handle_floor_move(delta: float, max_speed: float, acceleration: float, deceleration: float):
-	if velocity.x == 0 or has_same_direction(velocity.x, input_velocity.x):
+	if velocity.x == 0.0 or has_same_direction(velocity.x, input_velocity.x):
 		velocity.x = apply_acceleration(delta, velocity.x, max_speed, acceleration)
 	else:
 		handle_deceleration_move(delta, deceleration)
@@ -142,7 +160,7 @@ func handle_floor_move(delta: float, max_speed: float, acceleration: float, dece
 # handle_airborne_move applies acceleration or deceleration depending on the input_velocity while airborne.
 # @impure
 func handle_airborne_move(delta: float, max_speed: float, acceleration: float, deceleration: float):
-	if velocity.x == 0 or has_same_direction(velocity.x, input_velocity.x):
+	if velocity.x == 0.0 or has_same_direction(velocity.x, input_velocity.x):
 		velocity.x = apply_acceleration(delta, velocity.x, max_speed, acceleration, input_velocity.x)
 	else:
 		handle_deceleration_move(delta, deceleration)
@@ -160,12 +178,12 @@ func is_nearly(value1: float, value2: float, epsilon = 0.001) -> bool:
 # has_same_direction returns true if the two given numbers are non-zero and of the same sign.
 # @pure
 func has_same_direction(dir1: float, dir2: float) -> bool:
-	return dir1 != 0 and dir2 != 0 and sign(dir1) == sign(dir2)
+	return dir1 != 0.0 and dir2 != 0.0 and sign(dir1) == sign(dir2)
 
 # has_invert_direction returns true if the two given numbers are non-zero and of the opposed sign.
 # @pure
 func has_invert_direction(dir1: float, dir2: float) -> bool:
-	return dir1 != 0 and dir2 != 0 and sign(dir1) != sign(dir2)
+	return dir1 != 0.0 and dir2 != 0.0 and sign(dir1) != sign(dir2)
 
 # apply_acceleration returns the next value after acceleration is applied.
 # @pure
@@ -206,6 +224,31 @@ func is_able_to_attack() -> bool:
 # @pure
 func is_on_floor_one_way() -> bool:
 	return is_on_floor() and one_way_detector.has_overlapping_bodies()
+
+###
+# Stamina
+###
+
+# has_stamina returns true if the player has the given of stamina left.
+# @pure
+func has_stamina(amount := 0.0) -> bool:
+	return stamina > amount
+
+# consume_stamina reduces the stamina by the specified amount, if there is not enough, the stamina will be zeroed.
+# the optional parameter bloc_regen_for takes a number of seconds during which the stamina won't be regenerated.
+# @impure
+func consume_stamina(amount: float, block_regen_for := STAMINA_BLOCK_REGEN_FOR):
+	stamina = clamp(stamina - amount, 0.0, STAMINA_MAX)
+	stamina_regen_blocked_for = block_regen_for
+
+# try_consume_stamina return true if the player has the given of stamina left and will consume that amount if it does.
+# the optional parameter bloc_regen_for takes a number of seconds during which the stamina won't be regenerated.
+# @impure
+func try_consume_stamina(amount: float, block_regen_for := STAMINA_BLOCK_REGEN_FOR) -> bool:
+	if has_stamina(amount):
+		consume_stamina(amount, block_regen_for)
+		return true
+	return false
 
 ###
 # Animation

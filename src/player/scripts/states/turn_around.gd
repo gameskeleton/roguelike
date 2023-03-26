@@ -10,7 +10,7 @@ func start_state():
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
 	player_node.animation_player.speed_scale = 1.8
 	player_node.play_animation("turn_around")
-	if player_node.velocity.x == 0:
+	if player_node.velocity.x == 0.0:
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.walk
 
