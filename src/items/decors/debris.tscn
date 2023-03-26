@@ -1,0 +1,146 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvlisggierype"]
+
+[ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/items/decors/textures/decors.png" id="1_ofhpo"]
+
+[sub_resource type="GDScript" id="GDScript_65eam"]
+script/source = "extends Node2D
+
+const FORCE := 200.0
+const FADE_OUT_SPEED := 1.0
+
+@onready var pieces := [$BarrelTopPiece, $BarrelLeftPiece, $BarrelRightPiece, $BarrelBottomPiece, $BarrelMiddlePiece1, $BarrelMiddlePiece2, $BarrelMiddlePiece3]
+
+var _fade_out := 1.0
+var _start_fade_out := 2.0
+
+func _ready():
+	for piece in pieces:
+		piece.apply_central_impulse(Vector2.from_angle(randf_range(0.0, 360.0)) * FORCE)
+
+func _process(delta):
+	if _start_fade_out > 0:
+		_start_fade_out -= delta * FADE_OUT_SPEED
+		return
+	modulate.a = _fade_out
+	_fade_out -= delta * FADE_OUT_SPEED
+	if _fade_out <= 0:
+		queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl1ix"]
+size = Vector2(12, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
+size = Vector2(1, 10)
+
+[node name="Debris" type="Node2D"]
+script = SubResource("GDScript_65eam")
+
+[node name="BarrelTopPiece" type="RigidBody2D" parent="."]
+position = Vector2(0, -6)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelTopPiece"]
+z_index = -3
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelTopPiece"]
+shape = SubResource("RectangleShape2D_pl1ix")
+
+[node name="BarrelLeftPiece" type="RigidBody2D" parent="."]
+position = Vector2(-7, 0)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelLeftPiece"]
+z_index = -3
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(16, 0, 2, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelLeftPiece"]
+shape = SubResource("RectangleShape2D_1quh3")
+
+[node name="BarrelMiddlePiece1" type="RigidBody2D" parent="."]
+position = Vector2(-4, 0)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece1"]
+z_index = -3
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(18, 3, 2, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece1"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_1quh3")
+
+[node name="BarrelMiddlePiece2" type="RigidBody2D" parent="."]
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece2"]
+z_index = -3
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(18, 3, 2, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece2"]
+shape = SubResource("RectangleShape2D_1quh3")
+
+[node name="BarrelMiddlePiece3" type="RigidBody2D" parent="."]
+position = Vector2(3, 0)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece3"]
+z_index = -3
+position = Vector2(1, 0)
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(18, 3, 2, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece3"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_1quh3")
+
+[node name="BarrelRightPiece" type="RigidBody2D" parent="."]
+position = Vector2(7, 0)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelRightPiece"]
+z_index = -3
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(30, 0, 2, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelRightPiece"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_1quh3")
+
+[node name="BarrelBottomPiece" type="RigidBody2D" parent="."]
+position = Vector2(0, 6)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BarrelBottomPiece"]
+z_index = -3
+position = Vector2(0, 1)
+texture = ExtResource("1_ofhpo")
+region_enabled = true
+region_rect = Rect2(16, 13, 16, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelBottomPiece"]
+shape = SubResource("RectangleShape2D_pl1ix")

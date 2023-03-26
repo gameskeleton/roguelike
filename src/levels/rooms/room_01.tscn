@@ -59,5 +59,14 @@ position = Vector2(92, 152)
 [node name="Barrel5" parent="." instance=ExtResource("3_nskyk")]
 position = Vector2(92, 136)
 
+[node name="Barrel6" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(256, 248)
+
+[node name="Barrel7" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(272, 248)
+
+[node name="Barrel8" parent="." instance=ExtResource("3_nskyk")]
+position = Vector2(288, 248)
+
 [node name="Crate" parent="." instance=ExtResource("4_ej8b5")]
 position = Vector2(104, 200)
