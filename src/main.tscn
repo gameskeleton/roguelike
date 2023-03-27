@@ -86,6 +86,16 @@ metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="State" type="Label" parent="CanvasLayer"]
+offset_left = 4.0
+offset_top = 252.0
+offset_right = 56.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 10
+text = "Standing"
+vertical_alignment = 1
+uppercase = true
+
 [node name="LifeBg" type="ColorRect" parent="CanvasLayer"]
 offset_left = 19.0
 offset_top = 271.0
