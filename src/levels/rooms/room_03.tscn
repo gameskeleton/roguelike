@@ -5,7 +5,8 @@
 
 [node name="Room" type="Node2D"]
 script = ExtResource("2_78dm4")
-all_exits = Array[int]([6])
+exit_down = true
+exit_left = true
 
 [node name="Tilemap" type="TileMap" parent="."]
 tile_set = ExtResource("1_bqd33")

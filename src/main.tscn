@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4h8v068o18dn"]
+[gd_scene load_steps=16 format=3 uid="uid://c4h8v068o18dn"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -10,7 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://buurb2kco73vi" path="res://src/levels/rooms/room_05.tscn" id="8_2ntls"]
 [ext_resource type="PackedScene" uid="uid://bqu50x7s8t702" path="res://src/levels/rooms/room_06.tscn" id="9_hrmjs"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
+[ext_resource type="PackedScene" uid="uid://ch461dul56xc6" path="res://src/levels/rooms/room_08.tscn" id="11_6sovj"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
+[ext_resource type="PackedScene" uid="uid://dt3nmder0f47" path="res://src/levels/rooms/room_07.tscn" id="12_g65ks"]
+[ext_resource type="PackedScene" uid="uid://bivysisom6pde" path="res://src/levels/rooms/room_09.tscn" id="14_wi7dw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
 light_mode = 1
@@ -28,7 +31,7 @@ metadata/_edit_lock_ = true
 [node name="Room" parent="." instance=ExtResource("4_cl52o")]
 
 [node name="Room6" parent="." instance=ExtResource("4_cl52o")]
-position = Vector2(0, 288)
+position = Vector2(-512, 576)
 
 [node name="Room2" parent="." instance=ExtResource("5_x3q0v")]
 position = Vector2(512, 0)
@@ -42,10 +45,16 @@ position = Vector2(-512, 0)
 [node name="Room7" parent="." instance=ExtResource("9_hrmjs")]
 position = Vector2(512, 288)
 
-[node name="Room8" parent="." instance=ExtResource("4_cl52o")]
-position = Vector2(-512, 288)
+[node name="Room3" parent="." instance=ExtResource("11_6sovj")]
+position = Vector2(0, 288)
 
-[node name="Room3" parent="." instance=ExtResource("6_3dbyq")]
+[node name="Room9" parent="." instance=ExtResource("12_g65ks")]
+position = Vector2(0, 576)
+
+[node name="Room8" parent="." instance=ExtResource("6_3dbyq")]
+position = Vector2(-1024, 576)
+
+[node name="Room10" parent="." instance=ExtResource("14_wi7dw")]
 position = Vector2(-1024, 288)
 
 [node name="Player" parent="." instance=ExtResource("2_ak6nv")]
