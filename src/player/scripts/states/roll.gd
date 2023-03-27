@@ -20,7 +20,7 @@ func process_state(delta: float):
 	player_node.sprite.offset.x = _sprite_initial_offset.x + player_node.direction * offset_curve.sample_baked(player_node.get_animation_played_ratio())
 	if player_node.is_on_wall() and player_node.get_animation_played_ratio() < 0.5:
 		return player_node.fsm.state_nodes.bump_into_wall
-	if player_node.input_jump_once and player_node.is_on_floor() and player_node.is_able_to_jump() and player_node.get_animation_played_ratio() > 0.8:
+	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_on_floor() and player_node.is_able_to_jump() and player_node.get_animation_played_ratio() > 0.8:
 		return player_node.fsm.state_nodes.jump
 	if player_node.is_animation_finished():
 		return player_node.fsm.state_nodes.stand

@@ -48,21 +48,18 @@ var direction := 1.0
 # Input
 ###
 
-var input_up := false; var input_up_once := false
-var input_down := false; var input_down_once := false
-var input_left := false; var input_left_once := false
-var input_right := false; var input_right_once := false
-var input_jump := false; var input_jump_once := false
-var input_roll := false; var input_roll_once := false
-var input_attack := false; var input_attack_once := false
+var input_up := 0.0
+var input_down := 0.0
+var input_left := 0.0
+var input_right := 0.0
+var input_jump := 0.0
+var input_roll := 0.0
+var input_attack := 0.0
 var input_velocity := Vector2.ZERO
 
 ###
 # Process
 ###
-
-var _up := false; var _down := false; var _left := false; var _right := false
-var _jump := false; var _roll := false; var _attack := false
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -74,32 +71,21 @@ func _physics_process(delta: float):
 
 # process_input updates player inputs.
 # @impure
-func process_input(_delta: float):
-	input_up = Input.is_action_pressed("player_up")
-	input_left = Input.is_action_pressed("player_left")
-	input_down = Input.is_action_pressed("player_down")
-	input_right = Input.is_action_pressed("player_right")
-	input_jump = Input.is_action_pressed("player_jump")
-	input_roll = Input.is_action_pressed("player_roll")
-	input_attack = Input.is_action_pressed("player_attack")
-	# compute repeated input just once (valid the first frame it was pressed)
-	input_up_once = not _up and input_up
-	input_down_once = not _down and input_down
-	input_left_once = not _left and input_left
-	input_right_once = not _right and input_right
-	input_jump_once = not _jump and input_jump
-	input_roll_once = not _roll and input_roll
-	input_attack_once = not _attack and input_attack
-	# remember we pressed these inputs last frame
-	_up = input_up
-	_down = input_down
-	_left = input_left
-	_right = input_right
-	_jump = input_jump
-	_roll = input_roll
-	_attack = input_attack
+func process_input(delta: float):
+	var up := Input.is_action_pressed("player_up")
+	var down := Input.is_action_pressed("player_down")
+	var left := Input.is_action_pressed("player_left")
+	var right := Input.is_action_pressed("player_right")
+	# compute input held
+	input_up = input_up + delta if up else 0.0
+	input_down = input_down + delta if down else 0.0
+	input_left = input_left + delta if left else 0.0
+	input_right = input_right + delta if right else 0.0
+	input_jump = input_jump + delta if Input.is_action_pressed("player_jump") else 0.0
+	input_roll = input_roll + delta if Input.is_action_pressed("player_roll") else 0.0
+	input_attack = input_attack + delta if Input.is_action_pressed("player_attack") else 0.0
 	# compute input velocity
-	input_velocity = Vector2(int(input_right) - int(input_left), int(input_down) - int(input_up))
+	input_velocity = Vector2(int(right) - int(left), int(down) - int(up))
 
 # process_stamina regenerates the player stamina if not blocked.
 # @impure
@@ -114,6 +100,20 @@ func process_stamina(delta: float):
 # @impure
 func process_velocity(_delta: float):
 	move_and_slide()
+
+###
+# Input
+###
+
+# input_pressed return true if the given input buffer is pressed.
+# @pure
+func input_pressed(input: float) -> bool:
+	return input > 0.0
+
+# input_just_pressed return true if the given input was just pressed.
+# @pure
+func input_just_pressed(input: float, buffer := 2.0 / 60.0) -> bool:
+	return input > 0.0 and input <= buffer
 
 ###
 # Movement
