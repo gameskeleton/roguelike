@@ -18,9 +18,9 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.roll
 	if player_node.input_just_pressed(player_node.input_attack) and player_node.is_able_to_attack():
 		return player_node.fsm.state_nodes.attack
-	if player_node.input_velocity.x != 0.0 and player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and player_node.is_on_wall():
+	if player_node.input_velocity.x != 0.0 and player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and player_node.is_on_wall_passive():
 		return player_node.fsm.state_nodes.push_wall
-	if player_node.input_velocity.x != 0.0 and player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and not player_node.is_on_wall():
+	if player_node.input_velocity.x != 0.0 and player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and not player_node.is_on_wall_passive():
 		return player_node.fsm.state_nodes.walk
 	if player_node.input_velocity.x != 0.0 and not player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around

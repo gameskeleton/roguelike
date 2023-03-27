@@ -1,7 +1,7 @@
 extends RkStateMachineState
 
 func start_state():
-	player_node.play_animation("jump")
+	player_node.play_animation("push_wall")
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)

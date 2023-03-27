@@ -219,6 +219,11 @@ func is_able_to_roll() -> bool:
 func is_able_to_attack() -> bool:
 	return has_stamina(ATTACK_STAMINA_COST)
 
+# is_on_wall_passive returns true if there is a wall in the player's direction.
+# note: this is useful if the player is not moving horizontally, whereas is_on_wall only work with a velocity going into a wall.
+func is_on_wall_passive() -> bool:
+	return is_on_wall() or test_move(transform, Vector2.RIGHT * direction)
+
 # is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
 # note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
 # @pure
