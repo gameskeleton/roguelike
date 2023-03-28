@@ -30,23 +30,29 @@ extends Node2D
 		exit_right = value
 		if Engine.is_editor_hint():
 			queue_redraw()
+@export var player_spawn := RkMain.ROOM_SIZE / 2.0:
+	get:
+		return player_spawn
+	set(value):
+		player_spawn = value
+		if Engine.is_editor_hint():
+			queue_redraw()
 
-const ROOM_COLOR := Color(0.0, 0.0, 0.0, 0.2)
+const PLAYER_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
-const ROOM_EXIT_VERTICAL_SIZE := Vector2(64.0, 64.0)
-const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
 
 func _draw():
 	if not Engine.is_editor_hint():
 		return
+	draw_rect(Rect2(player_spawn.x - RkMain.PLAYER_SIZE.x / 2.0, player_spawn.y - RkMain.PLAYER_SIZE.x / 2.0, RkMain.PLAYER_SIZE.x, RkMain.PLAYER_SIZE.y), PLAYER_COLOR)
 	if exit_up:
-		draw_rect(Rect2(RkMain.ROOM_WIDTH / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, 0.0, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(RkMain.ROOM_SIZE.x / 2.0 - RkMain.ROOM_EXIT_VERTICAL_SIZE.x / 2.0, 0.0, RkMain.ROOM_EXIT_VERTICAL_SIZE.x, RkMain.ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_down:
-		draw_rect(Rect2(RkMain.ROOM_WIDTH / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, RkMain.ROOM_HEIGHT - ROOM_EXIT_VERTICAL_SIZE.y, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(RkMain.ROOM_SIZE.x / 2.0 - RkMain.ROOM_EXIT_VERTICAL_SIZE.x / 2.0, RkMain.ROOM_SIZE.y - RkMain.ROOM_EXIT_VERTICAL_SIZE.y, RkMain.ROOM_EXIT_VERTICAL_SIZE.x, RkMain.ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_left:
-		draw_rect(Rect2(0.0, RkMain.ROOM_HEIGHT / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(0.0, RkMain.ROOM_SIZE.y / 2.0 - RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_right:
-		draw_rect(Rect2(RkMain.ROOM_WIDTH - ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_HEIGHT / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(RkMain.ROOM_SIZE.x - RkMain.ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_SIZE.y / 2.0 - RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
 
 func _ready():
 	if Engine.is_editor_hint():

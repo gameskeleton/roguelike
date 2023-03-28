@@ -1,9 +1,11 @@
 extends Control
 class_name RkMain
 
-const ROOM_WIDTH := 512.0
-const ROOM_HEIGHT := 288.0
+const ROOM_SIZE := Vector2(512.0, 288.0)
+const PLAYER_SIZE := Vector2(14.0, 28.0)
 const ROOMS_DIRECTORY = "res://src/levels/rooms"
+const ROOM_EXIT_VERTICAL_SIZE := Vector2(64.0, 64.0)
+const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
 
 @export var generate_dungeon := true
 
@@ -28,15 +30,15 @@ func _process(delta: float):
 	$CanvasLayer/State.text = $Player.fsm.current_state_node.name
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, $Player.get_stamina(), delta)
 	# room camera
-	current_room.x = floor($Player.position.x / ROOM_WIDTH)
-	current_room.y = floor($Player.position.y / ROOM_HEIGHT)
+	current_room.x = floor($Player.position.x / ROOM_SIZE.x)
+	current_room.y = floor($Player.position.y / ROOM_SIZE.y)
 	_restrict_camera()
 
 func _restrict_camera():
-	$Player/Camera2D.limit_top = current_room.y * ROOM_HEIGHT
-	$Player/Camera2D.limit_left = current_room.x * ROOM_WIDTH
-	$Player/Camera2D.limit_right = (current_room.x + 1) * ROOM_WIDTH
-	$Player/Camera2D.limit_bottom = (current_room.y + 1) * ROOM_HEIGHT
+	$Player/Camera2D.limit_top = current_room.y * ROOM_SIZE.y
+	$Player/Camera2D.limit_left = current_room.x * ROOM_SIZE.x
+	$Player/Camera2D.limit_right = (current_room.x + 1) * ROOM_SIZE.x
+	$Player/Camera2D.limit_bottom = (current_room.y + 1) * ROOM_SIZE.y
 
 func _generate_dungeon():
 	# clear
@@ -78,9 +80,9 @@ func _generate_dungeon():
 			if room_scenes.has(cell_exits):
 				var room_node: Node2D = (room_scenes[cell_exits] as Array[PackedScene]).pick_random().instantiate()
 				spawns.push_back(Vector2(x, y))
-				room_node.position.x = x * ROOM_WIDTH
-				room_node.position.y = y * ROOM_HEIGHT
+				room_node.position.x = x * ROOM_SIZE.x
+				room_node.position.y = y * ROOM_SIZE.y
 				$Rooms.add_child(room_node)
 	# position player
 	current_room = spawns.pick_random()
-	$Player.position = Vector2(current_room.x * ROOM_WIDTH + ROOM_WIDTH / 2, current_room.y * ROOM_HEIGHT + ROOM_HEIGHT / 2)
+	$Player.position = Vector2(current_room.x * ROOM_SIZE.x + ROOM_SIZE.x / 2, current_room.y * ROOM_SIZE.y + ROOM_SIZE.y / 2)
