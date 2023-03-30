@@ -4,8 +4,8 @@ var rng := RandomNumberGenerator.new()
 var start := 45 # x: 5, y: 4
 var min_rooms := 20
 var max_rooms := 25
-
 var end_rooms: Array[int] = []
+
 var _floorplan: Array[int] = []
 var _cell_queue: Array[int] = []
 var _floor_plan_count := 0

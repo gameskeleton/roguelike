@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://dttbnip0rirv2"]
 
-[ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_ggp38"]
-[ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="2_qwman"]
-[ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="3_jqd0v"]
+[ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_6ty6t"]
+[ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="2_vqa88"]
+[ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="3_tejp7"]
 
 [node name="Room" type="Node2D"]
-script = ExtResource("1_ggp38")
+script = ExtResource("1_6ty6t")
 exit_left = true
 exit_right = true
 
 [node name="Tilemap" type="TileMap" parent="."]
-tile_set = ExtResource("2_qwman")
+tile_set = ExtResource("2_vqa88")
 format = 2
 layer_0/name = "Bg"
 layer_0/z_index = -4
@@ -44,218 +44,218 @@ layer_4/y_sort_origin = 0
 layer_4/z_index = -1
 layer_4/tile_data = PackedInt32Array()
 
-[node name="Barrel" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(64, 168)
 
-[node name="Barrel2" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel2" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(80, 168)
 
-[node name="Barrel3" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel3" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(96, 168)
 
-[node name="Barrel4" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel4" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(112, 168)
 
-[node name="Barrel5" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel5" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(128, 168)
 
-[node name="Barrel6" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel6" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(144, 168)
 
-[node name="Barrel7" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel7" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(160, 168)
 
-[node name="Barrel8" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel8" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(176, 168)
 
-[node name="Barrel9" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel9" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(192, 168)
 
-[node name="Barrel10" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel10" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(208, 168)
 
-[node name="Barrel11" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel11" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(224, 168)
 
-[node name="Barrel12" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel12" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(240, 168)
 
-[node name="Barrel13" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel13" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(256, 168)
 
-[node name="Barrel14" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel14" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(272, 168)
 
-[node name="Barrel15" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel15" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(288, 168)
 
-[node name="Barrel16" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel16" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(304, 168)
 
-[node name="Barrel17" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel17" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(320, 168)
 
-[node name="Barrel18" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel18" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(336, 168)
 
-[node name="Barrel19" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel19" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(352, 168)
 
-[node name="Barrel20" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel20" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(368, 168)
 
-[node name="Barrel21" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel21" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(384, 168)
 
-[node name="Barrel22" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel22" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(400, 168)
 
-[node name="Barrel23" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel23" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(416, 168)
 
-[node name="Barrel24" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel24" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(432, 168)
 
-[node name="Barrel26" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel26" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(72, 152)
 
-[node name="Barrel27" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel27" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(88, 152)
 
-[node name="Barrel28" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel28" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(104, 152)
 
-[node name="Barrel29" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel29" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(120, 152)
 
-[node name="Barrel30" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel30" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(136, 152)
 
-[node name="Barrel31" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel31" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(152, 152)
 
-[node name="Barrel32" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel32" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(168, 152)
 
-[node name="Barrel33" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel33" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(184, 152)
 
-[node name="Barrel34" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel34" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(200, 152)
 
-[node name="Barrel35" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel35" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(216, 152)
 
-[node name="Barrel36" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel36" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(232, 152)
 
-[node name="Barrel37" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel37" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(248, 152)
 
-[node name="Barrel38" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel38" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(264, 152)
 
-[node name="Barrel39" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel39" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(280, 152)
 
-[node name="Barrel40" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel40" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(296, 152)
 
-[node name="Barrel41" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel41" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(312, 152)
 
-[node name="Barrel42" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel42" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(328, 152)
 
-[node name="Barrel43" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel43" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(344, 152)
 
-[node name="Barrel44" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel44" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(360, 152)
 
-[node name="Barrel45" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel45" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(376, 152)
 
-[node name="Barrel46" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel46" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(392, 152)
 
-[node name="Barrel47" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel47" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(408, 152)
 
-[node name="Barrel48" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel48" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(424, 152)
 
-[node name="Barrel50" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel50" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(80, 136)
 
-[node name="Barrel51" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel51" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(96, 136)
 
-[node name="Barrel52" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel52" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(112, 136)
 
-[node name="Barrel53" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel53" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(128, 136)
 
-[node name="Barrel54" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel54" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(144, 136)
 
-[node name="Barrel55" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel55" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(160, 136)
 
-[node name="Barrel56" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel56" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(176, 136)
 
-[node name="Barrel57" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel57" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(192, 136)
 
-[node name="Barrel58" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel58" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(208, 136)
 
-[node name="Barrel59" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel59" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(224, 136)
 
-[node name="Barrel60" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel60" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(240, 136)
 
-[node name="Barrel61" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel61" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(256, 136)
 
-[node name="Barrel62" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel62" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(272, 136)
 
-[node name="Barrel63" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel63" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(288, 136)
 
-[node name="Barrel64" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel64" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(304, 136)
 
-[node name="Barrel65" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel65" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(320, 136)
 
-[node name="Barrel66" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel66" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(336, 136)
 
-[node name="Barrel67" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel67" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(352, 136)
 
-[node name="Barrel68" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel68" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(368, 136)
 
-[node name="Barrel69" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel69" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(384, 136)
 
-[node name="Barrel70" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel70" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(400, 136)
 
-[node name="Barrel71" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel71" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(416, 136)
 
-[node name="Barrel72" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel72" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(432, 136)
 
-[node name="Barrel49" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel49" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(440, 152)
 
-[node name="Barrel25" parent="." instance=ExtResource("3_jqd0v")]
+[node name="Barrel25" parent="." instance=ExtResource("3_tejp7")]
 position = Vector2(448, 168)

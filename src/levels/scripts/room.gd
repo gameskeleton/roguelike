@@ -1,5 +1,13 @@
 @tool
 extends Node2D
+class_name RkRoom
+
+enum Exit {
+	up = 0x1,
+	down = 0x2,
+	left = 0x4,
+	right = 0x8
+}
 
 @export_category("Exits")
 @export var exit_up := false :

@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4h8v068o18dn"]
+[gd_scene load_steps=8 format=3 uid="uid://bovgtajeguq2v"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
-[ext_resource type="PackedScene" uid="uid://vthkop5ax7yk" path="res://src/levels/rooms/room_01.tscn" id="2_yhhig"]
+[ext_resource type="PackedScene" uid="uid://vthkop5ax7yk" path="res://src/levels/rooms/left_right/room_01.tscn" id="2_yhhig"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/player/textures/_LightMask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
@@ -11,6 +11,7 @@
 light_mode = 1
 
 [node name="Main" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,15 +21,15 @@ grow_vertical = 2
 script = ExtResource("1_7kkph")
 metadata/_edit_lock_ = true
 
-[node name="Rooms" type="Node2D" parent="."]
+[node name="Game" type="Node2D" parent="."]
+process_mode = 1
 
-[node name="Room" parent="Rooms" instance=ExtResource("2_yhhig")]
-
-[node name="Player" parent="." instance=ExtResource("2_ak6nv")]
+[node name="Player" parent="Game" instance=ExtResource("2_ak6nv")]
 position = Vector2(136, 187)
 safe_margin = 1.0
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
+process_mode = 3
 process_callback = 0
 limit_left = 0
 limit_top = 0
@@ -43,7 +44,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 metadata/_edit_lock_ = true
 
-[node name="TorchLight2D" type="PointLight2D" parent="Player"]
+[node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
 color = Color(1, 0.27451, 0, 1)
 shadow_enabled = true
 shadow_filter = 2
@@ -51,7 +52,7 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="PlayerLight2D" type="PointLight2D" parent="Player"]
+[node name="PlayerLight2D" type="PointLight2D" parent="Game/Player"]
 energy = 0.5
 range_item_cull_mask = 2
 shadow_enabled = true
@@ -59,6 +60,10 @@ shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
+
+[node name="AllRooms" type="Node2D" parent="Game"]
+
+[node name="Room" parent="Game/AllRooms" instance=ExtResource("2_yhhig")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -93,13 +98,13 @@ offset_right = 16.0
 offset_bottom = 285.0
 color = Color(1, 0.827451, 0, 0.392157)
 
-[node name="MagicSlot" type="TextureRect" parent="CanvasLayer"]
+[node name="MagicSlot" type="TextureButton" parent="CanvasLayer"]
 material = SubResource("CanvasItemMaterial_ucwvp")
 offset_left = 6.0
 offset_top = 272.0
 offset_right = 14.0
 offset_bottom = 284.0
-texture = ExtResource("11_jxnrm")
+texture_normal = ExtResource("11_jxnrm")
 
 [node name="StaminaBg" type="ColorRect" parent="CanvasLayer"]
 offset_left = 19.0
@@ -115,5 +120,39 @@ offset_right = -428.0
 offset_bottom = -4.0
 progress = 0.8
 
+[node name="Pause" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlurBg" type="ColorRect" parent="CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="MapLabel" type="Label" parent="CanvasLayer/Pause"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Map"
+
+[node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.470588, 0.470588, 0.470588, 1)
+
+[connection signal="pressed" from="CanvasLayer/MagicSlot" to="." method="_on_magic_slot_button_pressed"]
