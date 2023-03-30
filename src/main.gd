@@ -74,45 +74,44 @@ func _generate_dungeon() -> bool:
 			else:
 				room_scenes[room_exits] = [room_scene]
 	# generate dungeon
-	generator.start = 45
-	generator.min_rooms = 6
-	generator.max_rooms = 10
+	generator.start = Vector2i(2, 2)
+	generator.min_rooms = 7
 	var dungeon := generator.next()
 	var room_nodes: Array[RkRoom] = []
 	# loop over each cell and create a room
-	for i in dungeon.size():
-		var x := (i % 10) - 1
-		var y: int = (ceil(i / 10.0)) - 1
-		var cell := dungeon[i]
-		var cell_exits := 0
-		if cell == 1:
-			if dungeon[i - 1]: cell_exits |= RkRoom.Exit.left
-			if dungeon[i + 1]: cell_exits |= RkRoom.Exit.right
-			if dungeon[i - 10]: cell_exits |= RkRoom.Exit.up
-			if dungeon[i + 10]: cell_exits |= RkRoom.Exit.down
-			if room_scenes.has(cell_exits):
-				# create dungeon room node
-				var room_node: Node2D = (room_scenes[cell_exits] as Array[PackedScene]).pick_random().instantiate()
-				room_node.position.x = x * ROOM_SIZE.x
-				room_node.position.y = y * ROOM_SIZE.y
-				all_rooms_node.add_child(room_node)
-				room_node.owner = all_rooms_node
-				room_nodes.push_back(room_node)
-				# create pause map room control
-				var map_margin := Vector2(2.0, 2.0)
-				var map_spacing := Vector2(2.0, 2.0)
-				var room_map_pos := Vector2(
-					map_margin.x + (x * RkMapRoom.MAP_ROOM_SIZE.x) + (x * map_spacing.x),
-					map_margin.y + (y * RkMapRoom.MAP_ROOM_SIZE.y) + (y * map_spacing.y)
-				)
-				var map_room_control: RkMapRoom = map_room_scene.instantiate()
-				gui_all_rooms_control.add_child(map_room_control)
-				map_room_control.set_position(room_map_pos)
-				map_room_control.owner = gui_all_rooms_control
-				map_room_control.room_node = room_node
-			else:
-				print("room with ", cell_exits, "exits does not exist...")
-				return false
+	for y in generator.height:
+		for x in generator.width:
+			var pos = Vector2i(x + 1, y + 1)
+			var cell: int = dungeon[pos.y][pos.x]
+			var cell_exits := 0
+			if cell == 1:
+				if dungeon[pos.y][pos.x - 1]: cell_exits |= RkRoom.Exit.left
+				if dungeon[pos.y][pos.x + 1]: cell_exits |= RkRoom.Exit.right
+				if dungeon[pos.y - 1][pos.x]: cell_exits |= RkRoom.Exit.up
+				if dungeon[pos.y + 1][pos.x]: cell_exits |= RkRoom.Exit.down
+				if room_scenes.has(cell_exits):
+					# create dungeon room node
+					var room_node: Node2D = (room_scenes[cell_exits] as Array[PackedScene]).pick_random().instantiate()
+					room_node.position.x = x * ROOM_SIZE.x
+					room_node.position.y = y * ROOM_SIZE.y
+					all_rooms_node.add_child(room_node)
+					room_node.owner = all_rooms_node
+					room_nodes.push_back(room_node)
+					# create pause map room control
+					var map_margin := Vector2(2.0, 2.0)
+					var map_spacing := Vector2(2.0, 2.0)
+					var room_map_pos := Vector2(
+						map_margin.x + (x * RkMapRoom.MAP_ROOM_SIZE.x) + (x * map_spacing.x),
+						map_margin.y + (y * RkMapRoom.MAP_ROOM_SIZE.y) + (y * map_spacing.y)
+					)
+					var map_room_control: RkMapRoom = map_room_scene.instantiate()
+					gui_all_rooms_control.add_child(map_room_control)
+					map_room_control.set_position(room_map_pos)
+					map_room_control.owner = gui_all_rooms_control
+					map_room_control.room_node = room_node
+				else:
+					print("room with ", cell_exits, "exits does not exist...")
+					return false
 	# position player
 	var start_room_node: RkRoom = room_nodes.pick_random()
 	current_room = start_room_node.position / ROOM_SIZE
