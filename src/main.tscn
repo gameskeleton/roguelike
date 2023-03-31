@@ -10,6 +10,21 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
 light_mode = 1
 
+[sub_resource type="Animation" id="Animation_oxdy1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerDot:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0.403922, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_7hmug"]
 resource_name = "pulse"
 loop_mode = 1
@@ -24,21 +39,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 1, 0.403922, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_oxdy1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerDot:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 1, 0.403922, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_trlk5"]
@@ -99,7 +99,7 @@ metadata/_edit_lock_ = true
 
 [node name="AllRooms" type="Node2D" parent="Game"]
 
-[node name="Room" parent="Game/AllRooms" instance=ExtResource("2_yhhig")]
+[node name="Room_0_0" parent="Game/AllRooms" instance=ExtResource("2_yhhig")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
