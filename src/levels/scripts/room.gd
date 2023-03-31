@@ -9,6 +9,12 @@ enum Exit {
 	right = 0x8
 }
 
+enum Tile {
+	empty = 0,
+	filled = 1,
+	border = 2
+}
+
 enum Layer {
 	bg = 0,
 	decor_behind = 1,
@@ -17,6 +23,7 @@ enum Layer {
 	decor_front = 4,
 }
 
+const TILE_COUNT := Vector2i(32, 18)
 const PLAYER_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
 
@@ -81,3 +88,23 @@ func get_wall_tiles() -> Array[Vector2i]:
 
 func get_one_way_tiles() -> Array[Vector2i]:
 	return tile_map.get_used_cells(Layer.one_way)
+
+func get_wall_tiles_with_border() -> Array[Array]:
+	var tiles_grid: Array[Array] = []
+	var used_tiles := tile_map.get_used_cells(Layer.wall)
+	# fill tile grid
+	tiles_grid.resize(TILE_COUNT.y)
+	for y in TILE_COUNT.y:
+		tiles_grid[y].resize(TILE_COUNT.x)
+		for x in TILE_COUNT.x:
+			tiles_grid[y][x] = Vector3i(x, y, Tile.filled if used_tiles.has(Vector2i(x, y)) else Tile.empty)
+	# generate border for each used tile
+	for y in TILE_COUNT.y:
+		for x in TILE_COUNT.x:
+			var tile: Vector3i = tiles_grid[y][x]
+			if tile.z == 0:
+				if tile.x > 0 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x - 1].z == Tile.filled: tiles_grid[tile.y - 1][tile.x - 1].z = Tile.border
+				if tile.x > 0 and tile.y < 17 and tiles_grid[tile.y + 1][tile.x - 1].z == Tile.filled: tiles_grid[tile.y + 1][tile.x - 1].z = Tile.border
+				if tile.x < 31 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x + 1].z == Tile.filled: tiles_grid[tile.y - 1][tile.x + 1].z = Tile.border
+				if tile.x < 31 and tile.y < 17 and tiles_grid[tile.y + 1][tile.x + 1].z == Tile.filled: tiles_grid[tile.y + 1][tile.x + 1].z = Tile.border
+	return tiles_grid

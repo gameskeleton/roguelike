@@ -2,7 +2,6 @@ extends Control
 class_name RkMain
 
 const MAP_MARGIN := Vector2(2.0, 2.0)
-const MAP_SPACING := Vector2(2.0, 2.0)
 
 const PLAYER_SIZE := Vector2(14.0, 28.0)
 const PLAYER_DOT_SIZE := Vector2(5.0, 5.0)
@@ -39,7 +38,7 @@ func _process(delta: float):
 		var new_paused := not get_tree().paused
 		get_tree().paused = new_paused
 		ui_pause_control.visible = new_paused
-		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / ROOM_SIZE)) + (current_room * MAP_SPACING) + MAP_MARGIN - (PLAYER_DOT_SIZE / 2)
+		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / ROOM_SIZE)) + MAP_MARGIN - (PLAYER_DOT_SIZE / 2)
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.get_stamina(), delta)
@@ -122,8 +121,8 @@ func _generate_dungeon() -> bool:
 					room_nodes.push_back(room_node)
 					# create pause map room control
 					var room_map_pos := Vector2(
-						MAP_MARGIN.x + (x * RkMapRoom.MAP_ROOM_SIZE.x) + (x * MAP_SPACING.x),
-						MAP_MARGIN.y + (y * RkMapRoom.MAP_ROOM_SIZE.y) + (y * MAP_SPACING.y)
+						MAP_MARGIN.x + (x * RkMapRoom.MAP_ROOM_SIZE.x),
+						MAP_MARGIN.y + (y * RkMapRoom.MAP_ROOM_SIZE.y)
 					)
 					var map_room_control: RkMapRoom = map_room_scene.instantiate()
 					map_room_control.name = _get_map_room_control_name(Vector2i(x, y))
