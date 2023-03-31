@@ -23,9 +23,15 @@ enum Layer {
 	decor_front = 4,
 }
 
-const TILE_COUNT := Vector2i(32, 18)
-const PLAYER_COLOR := Color(1.0, 1.0, 1.0, 0.6)
+const ROOM_SIZE := Vector2(512.0, 288.0)
+const ROOM_TILE_COUNT := Vector2i(32, 18)
+const ROOMS_DIRECTORY := "res://src/levels/rooms"
+
 const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
+const ROOM_EXIT_VERTICAL_SIZE := Vector2(64.0, 64.0)
+const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
+
+const PLAYER_SPAWN_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 
 @export_category("Exits")
 @export var exit_up := false :
@@ -56,7 +62,7 @@ const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
 		exit_right = value
 		if Engine.is_editor_hint():
 			queue_redraw()
-@export var player_spawn := RkMain.ROOM_SIZE / 2.0:
+@export var player_spawn := ROOM_SIZE / 2.0:
 	get:
 		return player_spawn
 	set(value):
@@ -69,15 +75,15 @@ const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
 func _draw():
 	if not Engine.is_editor_hint():
 		return
-	draw_rect(Rect2(player_spawn.x - RkMain.PLAYER_SIZE.x / 2.0, player_spawn.y - RkMain.PLAYER_SIZE.x / 2.0, RkMain.PLAYER_SIZE.x, RkMain.PLAYER_SIZE.y), PLAYER_COLOR)
+	draw_rect(Rect2(player_spawn.x - RkMain.PLAYER_SIZE.x / 2.0, player_spawn.y - RkMain.PLAYER_SIZE.x / 2.0, RkMain.PLAYER_SIZE.x, RkMain.PLAYER_SIZE.y), PLAYER_SPAWN_COLOR)
 	if exit_up:
-		draw_rect(Rect2(RkMain.ROOM_SIZE.x / 2.0 - RkMain.ROOM_EXIT_VERTICAL_SIZE.x / 2.0, 0.0, RkMain.ROOM_EXIT_VERTICAL_SIZE.x, RkMain.ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(ROOM_SIZE.x / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, 0.0, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_down:
-		draw_rect(Rect2(RkMain.ROOM_SIZE.x / 2.0 - RkMain.ROOM_EXIT_VERTICAL_SIZE.x / 2.0, RkMain.ROOM_SIZE.y - RkMain.ROOM_EXIT_VERTICAL_SIZE.y, RkMain.ROOM_EXIT_VERTICAL_SIZE.x, RkMain.ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(ROOM_SIZE.x / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, ROOM_SIZE.y - ROOM_EXIT_VERTICAL_SIZE.y, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_left:
-		draw_rect(Rect2(0.0, RkMain.ROOM_SIZE.y / 2.0 - RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(0.0, ROOM_SIZE.y / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_right:
-		draw_rect(Rect2(RkMain.ROOM_SIZE.x - RkMain.ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_SIZE.y / 2.0 - RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.x, RkMain.ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
+		draw_rect(Rect2(ROOM_SIZE.x - ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_SIZE.y / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -93,14 +99,14 @@ func get_wall_tiles_with_border() -> Array[Array]:
 	var tiles_grid: Array[Array] = []
 	var used_tiles := tile_map.get_used_cells(Layer.wall)
 	# fill tile grid
-	tiles_grid.resize(TILE_COUNT.y)
-	for y in TILE_COUNT.y:
-		tiles_grid[y].resize(TILE_COUNT.x)
-		for x in TILE_COUNT.x:
+	tiles_grid.resize(ROOM_TILE_COUNT.y)
+	for y in ROOM_TILE_COUNT.y:
+		tiles_grid[y].resize(ROOM_TILE_COUNT.x)
+		for x in ROOM_TILE_COUNT.x:
 			tiles_grid[y][x] = Vector3i(x, y, Tile.filled if used_tiles.has(Vector2i(x, y)) else Tile.empty)
 	# generate border for each used tile
-	for y in TILE_COUNT.y:
-		for x in TILE_COUNT.x:
+	for y in ROOM_TILE_COUNT.y:
+		for x in ROOM_TILE_COUNT.x:
 			var tile: Vector3i = tiles_grid[y][x]
 			if tile.z == 0:
 				if tile.x > 0 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x - 1].z == Tile.filled: tiles_grid[tile.y - 1][tile.x - 1].z = Tile.border

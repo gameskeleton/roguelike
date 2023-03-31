@@ -5,8 +5,8 @@
 [node name="MapRoom" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 48.0
-offset_bottom = 27.0
+offset_right = 128.0
+offset_bottom = 72.0
 script = ExtResource("1_ne471")
 empty_color = Color(0.321569, 0.443137, 1, 1)
 border_color = Color(1, 1, 1, 1)

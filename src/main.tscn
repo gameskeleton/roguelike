@@ -191,8 +191,8 @@ grow_vertical = 2
 
 [node name="PlayerDot" type="ColorRect" parent="CanvasLayer/Pause"]
 layout_mode = 0
-offset_right = 5.0
-offset_bottom = 5.0
+offset_right = 4.0
+offset_bottom = 4.0
 color = Color(0, 1, 0.403922, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Pause"]
