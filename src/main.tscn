@@ -175,12 +175,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="MapLabel" type="Label" parent="CanvasLayer/Pause"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Map"
-
 [node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause"]
 layout_mode = 1
 anchors_preset = 15
