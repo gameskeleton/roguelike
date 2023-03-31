@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjhdnux2g7tt3"]
+[gd_scene load_steps=4 format=3 uid="uid://cjhdnux2g7tt3"]
 
 [ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_nieb4"]
 [ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="2_16gso"]
+[ext_resource type="PackedScene" uid="uid://3hmd1ig2yyba" path="res://src/items/enemies/orb.tscn" id="3_nevyy"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_nieb4")
@@ -42,3 +43,6 @@ layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = -1
 layer_4/tile_data = PackedInt32Array(65536, 196609, 5, 524302, 196609, 5, 327698, 196609, 5, 65551, 196609, 5, 1048590, 196609, 5, 1114131, 196609, 5, 1048602, 196609, 5, 1114143, 196609, 5, 851968, 262145, 5, 1048577, 262145, 5, 983062, 262145, 5, 262157, 262145, 5, 524307, 262145, 5, 65556, 262145, 5, 65542, 262145, 5, 131082, 262145, 5, 3, 196609, 5)
+
+[node name="Orb" parent="." instance=ExtResource("3_nevyy")]
+position = Vector2(154, 139)

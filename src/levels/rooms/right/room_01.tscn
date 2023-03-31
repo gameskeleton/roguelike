@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://buurb2kco73vi"]
+[gd_scene load_steps=4 format=3 uid="uid://buurb2kco73vi"]
 
 [ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_o6w51"]
 [ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="2_ysh8n"]
+[ext_resource type="PackedScene" uid="uid://3hmd1ig2yyba" path="res://src/items/enemies/orb.tscn" id="3_qk1yb"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_o6w51")
@@ -41,3 +42,6 @@ layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = -1
 layer_4/tile_data = PackedInt32Array()
+
+[node name="Orb" parent="." instance=ExtResource("3_qk1yb")]
+position = Vector2(82, 146)

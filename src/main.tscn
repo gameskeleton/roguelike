@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
-[ext_resource type="PackedScene" uid="uid://vthkop5ax7yk" path="res://src/levels/rooms/left_right/room_01.tscn" id="2_yhhig"]
+[ext_resource type="PackedScene" uid="uid://vese7g1py6u3" path="res://src/levels/rooms/void/room_01.tscn" id="4_a2foi"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/player/textures/_LightMask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
@@ -62,7 +62,7 @@ metadata/_edit_lock_ = true
 process_mode = 1
 
 [node name="Player" parent="Game" instance=ExtResource("2_ak6nv")]
-position = Vector2(136, 187)
+position = Vector2(256, 145)
 safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
@@ -99,7 +99,7 @@ metadata/_edit_lock_ = true
 
 [node name="AllRooms" type="Node2D" parent="Game"]
 
-[node name="Room_0_0" parent="Game/AllRooms" instance=ExtResource("2_yhhig")]
+[node name="Room" parent="Game/AllRooms" instance=ExtResource("4_a2foi")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

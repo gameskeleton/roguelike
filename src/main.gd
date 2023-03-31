@@ -15,13 +15,17 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/AllMapRooms
 @onready var ui_player_dot_color_rect: ColorRect = $CanvasLayer/Pause/PlayerDot
 
+signal room_enter(room_node: RkRoom)
+signal room_leave(room_node: RkRoom)
+
 var generator := RkDungeonGenerator.new()
 var current_room := Vector2()
+var previous_room := Vector2()
 
 func _ready():
 	if generate_dungeon:
 		_try_generate_dungeon()
-	_discover_room(current_room)
+	_enter_room()
 	_restrict_camera()
 	player_camera_node.reset_smoothing()
 
@@ -36,14 +40,47 @@ func _process(delta: float):
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.get_stamina(), delta)
 	# current room and camera
+	_process_room()
+	_restrict_camera()
+
+static func get_main_node(from_node: Node) -> RkMain:
+	return from_node.get_tree().root.get_node("/root/Main")
+
+###
+# Room
+###
+
+func _enter_room():
+	room_enter.emit(_get_room_node(current_room))
+	var map_room_control := _get_map_room_control(current_room)
+	if map_room_control:
+		map_room_control.discovered = true
+
+func _leave_room():
+	room_leave.emit(_get_room_node(previous_room))
+
+func _process_room():
 	var player_room := Vector2(
 		floor(player_node.position.x / RkRoom.ROOM_SIZE.x),
 		floor(player_node.position.y / RkRoom.ROOM_SIZE.y)
 	)
 	if player_room != current_room:
+		previous_room = current_room
 		current_room = player_room
-		_discover_room(current_room)
-	_restrict_camera()
+		_leave_room()
+		_enter_room()
+
+func _get_room_node(pos: Vector2i) -> RkRoom:
+	return all_rooms_node.find_child(_get_room_node_name(pos))
+
+func _get_room_node_name(pos: Vector2i) -> StringName:
+	return "Room_%s_%s" % [pos.x, pos.y]
+
+func _get_map_room_control(pos: Vector2i) -> RkMapRoom:
+	return ui_all_rooms_control.find_child(_get_map_room_control_name(pos))
+
+func _get_map_room_control_name(pos: Vector2i) -> StringName:
+	return "MapRoom_%s_%s" % [pos.x, pos.y]
 
 ###
 # Camera
@@ -136,28 +173,11 @@ func _try_generate_dungeon():
 	while not _generate_dungeon():
 		pass
 
-func _discover_room(pos := current_room):
-	var map_room_control := _get_map_room_control(pos)
-	if map_room_control:
-		map_room_control.discovered = true
-
-func _get_room_node(pos: Vector2i) -> RkRoom:
-	return all_rooms_node.find_child(_get_room_node_name(pos))
-
-func _get_room_node_name(pos: Vector2i) -> StringName:
-	return "Room_%s_%s" % [pos.x, pos.y]
-
-func _get_map_room_control(pos: Vector2i) -> RkMapRoom:
-	return ui_all_rooms_control.find_child(_get_map_room_control_name(pos))
-
-func _get_map_room_control_name(pos: Vector2i) -> StringName:
-	return "MapRoom_%s_%s" % [pos.x, pos.y]
-
 ###
 # User interface
 ###
 
 func _on_magic_slot_button_pressed():
 	_try_generate_dungeon()
-	_discover_room(current_room)
+	_enter_room()
 	$CanvasLayer/MagicSlot.release_focus()

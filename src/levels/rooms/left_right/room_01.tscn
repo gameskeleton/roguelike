@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://vthkop5ax7yk"]
+[gd_scene load_steps=6 format=3 uid="uid://vthkop5ax7yk"]
 
 [ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_733o4"]
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="3_nskyk"]
 [ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="4_av526"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="4_ej8b5"]
+[ext_resource type="PackedScene" uid="uid://3hmd1ig2yyba" path="res://src/items/enemies/orb.tscn" id="5_c0hgt"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_733o4")
@@ -72,3 +73,6 @@ position = Vector2(288, 248)
 
 [node name="Crate" parent="." instance=ExtResource("4_ej8b5")]
 position = Vector2(104, 200)
+
+[node name="Orb" parent="." instance=ExtResource("5_c0hgt")]
+position = Vector2(252, 180)
