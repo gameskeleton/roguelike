@@ -89,6 +89,9 @@ func _ready():
 	if Engine.is_editor_hint():
 		queue_redraw()
 
+func get_grid_pos() -> Vector2i:
+	return Vector2i(floor(position.x / ROOM_SIZE.x), floor(position.y / ROOM_SIZE.y))
+
 func get_wall_tiles() -> Array[Vector2i]:
 	return tile_map.get_used_cells(Layer.wall)
 
