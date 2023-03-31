@@ -29,6 +29,7 @@ var current_room := Vector2()
 func _ready():
 	if generate_dungeon:
 		_try_generate_dungeon()
+	_discover_room(current_room)
 	_restrict_camera()
 	player_camera_node.reset_smoothing()
 
@@ -43,8 +44,13 @@ func _process(delta: float):
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.get_stamina(), delta)
 	# current room and camera
-	current_room.x = floor(player_node.position.x / ROOM_SIZE.x)
-	current_room.y = floor(player_node.position.y / ROOM_SIZE.y)
+	var player_room := Vector2(
+		floor(player_node.position.x / ROOM_SIZE.x),
+		floor(player_node.position.y / ROOM_SIZE.y)
+	)
+	if player_room != current_room:
+		current_room = player_room
+		_discover_room(current_room)
 	_restrict_camera()
 
 ###
@@ -90,7 +96,8 @@ func _generate_dungeon() -> bool:
 				room_scenes[room_exits] = [room_scene]
 	# generate dungeon
 	generator.start = Vector2i(2, 2)
-	generator.min_rooms = 7
+	generator.min_rooms = 12
+	generator.max_rooms = 12
 	var dungeon := generator.next()
 	var room_nodes: Array[RkRoom] = []
 	# loop over each cell and create a room
@@ -136,6 +143,11 @@ func _generate_dungeon() -> bool:
 func _try_generate_dungeon():
 	while not _generate_dungeon():
 		pass
+
+func _discover_room(pos := current_room):
+	var map_room_control := _get_map_room_control(pos)
+	if map_room_control:
+		map_room_control.discovered = true
 
 func _get_room_node(pos: Vector2i) -> RkRoom:
 	return all_rooms_node.find_child(_get_room_node_name(pos))

@@ -9,6 +9,17 @@ enum Exit {
 	right = 0x8
 }
 
+enum Layer {
+	bg = 0,
+	decor_behind = 1,
+	wall = 2,
+	one_way = 3,
+	decor_front = 4,
+}
+
+const PLAYER_COLOR := Color(1.0, 1.0, 1.0, 0.6)
+const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
+
 @export_category("Exits")
 @export var exit_up := false :
 	get:
@@ -46,8 +57,7 @@ enum Exit {
 		if Engine.is_editor_hint():
 			queue_redraw()
 
-const PLAYER_COLOR := Color(1.0, 1.0, 1.0, 0.6)
-const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
+@onready var tile_map: TileMap = $Tilemap
 
 func _draw():
 	if not Engine.is_editor_hint():
@@ -65,3 +75,9 @@ func _draw():
 func _ready():
 	if Engine.is_editor_hint():
 		queue_redraw()
+
+func get_wall_tiles() -> Array[Vector2i]:
+	return tile_map.get_used_cells(Layer.wall)
+
+func get_one_way_tiles() -> Array[Vector2i]:
+	return tile_map.get_used_cells(Layer.one_way)

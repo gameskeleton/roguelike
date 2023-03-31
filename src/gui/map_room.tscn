@@ -8,19 +8,6 @@ anchors_preset = 0
 offset_right = 48.0
 offset_bottom = 27.0
 script = ExtResource("1_ne471")
-
-[node name="Bg" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Room" type="ColorRect" parent="."]
-layout_mode = 1
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 47.0
-offset_bottom = 26.0
-color = Color(0.470588, 0.313726, 0.313726, 1)
+bg_color = Color(0.321569, 0.321569, 0.321569, 1)
+wall_color = Color(0.235294, 0.235294, 0.235294, 1)
+one_way_color = Color(0.129412, 0.129412, 0.129412, 1)
