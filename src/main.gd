@@ -3,9 +3,13 @@ class_name RkMain
 
 const ROOM_SIZE := Vector2(512.0, 288.0)
 const PLAYER_SIZE := Vector2(14.0, 28.0)
-const ROOMS_DIRECTORY = "res://src/levels/rooms"
+const PLAYER_DOT_SIZE := Vector2(5.0, 5.0)
+const ROOMS_DIRECTORY := "res://src/levels/rooms"
 const ROOM_EXIT_VERTICAL_SIZE := Vector2(64.0, 64.0)
 const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
+
+const MAP_MARGIN := Vector2(2.0, 2.0)
+const MAP_SPACING := Vector2(2.0, 2.0)
 
 @export var map_room_scene: PackedScene = preload("res://src/gui/map_room.tscn")
 @export var generate_dungeon := true
@@ -16,6 +20,7 @@ const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
 
 @onready var gui_pause_control: Control = $CanvasLayer/Pause
 @onready var gui_all_rooms_control: Control = $CanvasLayer/Pause/AllMapRooms
+@onready var gui_player_dot_color_rect: ColorRect = $CanvasLayer/Pause/PlayerDot
 
 var generator := RkDungeonGenerator.new()
 var current_room := Vector2()
@@ -32,10 +37,11 @@ func _process(delta: float):
 		var new_paused := not get_tree().paused
 		get_tree().paused = new_paused
 		gui_pause_control.visible = new_paused
+		gui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / ROOM_SIZE)) + (current_room * MAP_SPACING) + MAP_MARGIN - (PLAYER_DOT_SIZE / 2)
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.get_stamina(), delta)
-	# room camera
+	# current room and camera
 	current_room.x = floor(player_node.position.x / ROOM_SIZE.x)
 	current_room.y = floor(player_node.position.y / ROOM_SIZE.y)
 	_restrict_camera()
@@ -92,23 +98,23 @@ func _generate_dungeon() -> bool:
 				if room_scenes.has(cell_exits):
 					# create dungeon room node
 					var room_node: Node2D = (room_scenes[cell_exits] as Array[PackedScene]).pick_random().instantiate()
+					room_node.name = "Room_%d_%d" % [x, y]
 					room_node.position.x = x * ROOM_SIZE.x
 					room_node.position.y = y * ROOM_SIZE.y
 					all_rooms_node.add_child(room_node)
 					room_node.owner = all_rooms_node
 					room_nodes.push_back(room_node)
 					# create pause map room control
-					var map_margin := Vector2(2.0, 2.0)
-					var map_spacing := Vector2(2.0, 2.0)
 					var room_map_pos := Vector2(
-						map_margin.x + (x * RkMapRoom.MAP_ROOM_SIZE.x) + (x * map_spacing.x),
-						map_margin.y + (y * RkMapRoom.MAP_ROOM_SIZE.y) + (y * map_spacing.y)
+						MAP_MARGIN.x + (x * RkMapRoom.MAP_ROOM_SIZE.x) + (x * MAP_SPACING.x),
+						MAP_MARGIN.y + (y * RkMapRoom.MAP_ROOM_SIZE.y) + (y * MAP_SPACING.y)
 					)
 					var map_room_control: RkMapRoom = map_room_scene.instantiate()
-					gui_all_rooms_control.add_child(map_room_control)
-					map_room_control.set_position(room_map_pos)
-					map_room_control.owner = gui_all_rooms_control
+					map_room_control.name = "MapRoom_%d_%d" % [x, y]
 					map_room_control.room_node = room_node
+					map_room_control.set_position(room_map_pos)
+					gui_all_rooms_control.add_child(map_room_control)
+					map_room_control.owner = gui_all_rooms_control
 				else:
 					print("room with ", cell_exits, "exits does not exist...")
 					return false

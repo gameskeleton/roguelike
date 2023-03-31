@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bovgtajeguq2v"]
+[gd_scene load_steps=11 format=3 uid="uid://bovgtajeguq2v"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -9,6 +9,43 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
 light_mode = 1
+
+[sub_resource type="Animation" id="Animation_7hmug"]
+resource_name = "pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerDot:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 0.403922, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_oxdy1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerDot:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0.403922, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trlk5"]
+_data = {
+"RESET": SubResource("Animation_oxdy1"),
+"pulse": SubResource("Animation_7hmug")
+}
 
 [node name="Main" type="Control"]
 process_mode = 3
@@ -40,8 +77,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
+editor_draw_screen = false
 metadata/_edit_lock_ = true
 
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
@@ -121,6 +157,7 @@ offset_bottom = -4.0
 progress = 0.8
 
 [node name="Pause" type="Control" parent="CanvasLayer"]
+process_mode = 2
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -152,7 +189,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="PlayerDot" type="ColorRect" parent="CanvasLayer/Pause"]
+layout_mode = 0
+offset_right = 5.0
+offset_bottom = 5.0
+color = Color(0, 1, 0.403922, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Pause"]
+autoplay = "pulse"
+libraries = {
+"": SubResource("AnimationLibrary_trlk5")
+}
+
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
-color = Color(0.470588, 0.470588, 0.470588, 1)
+color = Color(0.588235, 0.588235, 0.588235, 1)
 
 [connection signal="pressed" from="CanvasLayer/MagicSlot" to="." method="_on_magic_slot_button_pressed"]

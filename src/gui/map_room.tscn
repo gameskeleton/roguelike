@@ -1,13 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://mdihrm5s4ac7"]
 
-[ext_resource type="Script" path="res://src/gui/scripts/map_room.gd" id="1_yks5m"]
+[ext_resource type="Script" path="res://src/gui/scripts/map_room.gd" id="1_ne471"]
 
 [node name="MapRoom" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 48.0
 offset_bottom = 27.0
-script = ExtResource("1_yks5m")
+script = ExtResource("1_ne471")
 
 [node name="Bg" type="ColorRect" parent="."]
 layout_mode = 1
@@ -23,4 +23,4 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = 47.0
 offset_bottom = 26.0
-color = Color(0.847059, 0, 1, 1)
+color = Color(0.470588, 0.313726, 0.313726, 1)
