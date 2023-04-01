@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://6lipthcf7km8"]
 
 [ext_resource type="Script" path="res://src/items/enemies/scripts/orb.gd" id="1_6h6eh"]
 [ext_resource type="Script" path="res://src/utilities/scripts/on_room_enter_notifier_2d.gd" id="2_w65hc"]

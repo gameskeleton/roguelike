@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="3_nskyk"]
 [ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="4_av526"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="4_ej8b5"]
-[ext_resource type="PackedScene" uid="uid://3hmd1ig2yyba" path="res://src/items/enemies/orb.tscn" id="5_c0hgt"]
+[ext_resource type="PackedScene" uid="uid://6lipthcf7km8" path="res://src/items/enemies/orb.tscn" id="5_c0hgt"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_733o4")
