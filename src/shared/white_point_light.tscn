@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://qt3kps4yxxl"]
+
+[ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="1_wn2vk"]
+
+[node name="WhitePointLight2D" type="PointLight2D"]
+range_item_cull_mask = 3
+shadow_enabled = true
+texture = ExtResource("1_wn2vk")

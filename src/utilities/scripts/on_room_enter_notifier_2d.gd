@@ -7,6 +7,7 @@ signal room_enter()
 # room_leave is triggered when the player leaves this room in which this notifier is.
 signal room_leave()
 
+var active := false
 var room_node: RkRoom
 
 # _ready finds the nearest room possible in this node parents.
@@ -24,8 +25,10 @@ func _ready():
 
 func _on_room_enter(enter_room_node: RkRoom):
 	if room_node == enter_room_node:
+		active = true
 		room_enter.emit()
 
 func _on_room_leave(enter_room_node: RkRoom):
 	if room_node == enter_room_node:
+		active = false
 		room_leave.emit()

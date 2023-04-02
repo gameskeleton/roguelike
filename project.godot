@@ -89,13 +89,17 @@ player_pause={
 2d_render/layer_1="Wall"
 2d_render/layer_2="Player"
 2d_render/layer_3="Chest"
-2d_render/layer_4="Pickups"
+2d_render/layer_4="Pickup"
+2d_render/layer_5="Enemy"
+2d_render/layer_6="Projectile"
 2d_physics/layer_1="Wall"
 2d_physics/layer_2="OneWay"
 2d_physics/layer_3="Platform"
 2d_physics/layer_4="Player"
 2d_physics/layer_5="Decor"
 2d_physics/layer_6="Debris"
+2d_physics/layer_7="Enemy"
+2d_physics/layer_8="Projectile"
 
 [physics]
 

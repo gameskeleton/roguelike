@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://p4mmc2y4h6hq"]
+
+[ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="1_s2rx3"]
+
+[node name="WarmPointLight2D" type="PointLight2D"]
+color = Color(1, 0.517647, 0, 1)
+range_item_cull_mask = 3
+shadow_enabled = true
+texture = ExtResource("1_s2rx3")
