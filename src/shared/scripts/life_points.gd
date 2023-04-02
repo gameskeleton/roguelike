@@ -25,14 +25,20 @@ signal damage_taken(damage: float, life_points: float, instigator: Object)
 @export var damage_multiplier_physical := 1.0
 @export var damage_multiplier_lightning := 1.0
 
-# get_ratio returns the life points ratio between 0 and 1.
+# set_max sets the maximum life points and resplenishes the life points.
+# @impure
+func set_max(amount: float):
+	life_points = amount
+	max_life_points = amount
+
+# get_ratio returns ratio [0; 1] between life_points and max_life_points.
 # @pure
 func get_ratio() -> float:
 	return life_points / max_life_points
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
-func take_damage(damage: int, damage_type := DmgType.none, instigator: Object = null) -> bool:
+func take_damage(damage: float, damage_type := DmgType.none, instigator: Object = null) -> bool:
 	assert(damage >= 0.0, "damage must be positive")
 	if invincible:
 		return false

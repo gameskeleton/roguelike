@@ -8,7 +8,7 @@ signal level_up(level: int) # emitted when levelling up, can be emitted multiple
 @export var max_level := 10
 @export var experience := 0
 
-var experience_required_for_next_level: int :
+var experience_required_to_level_up: int :
 	get:
 		return int(round(pow(1.0, 1.8) + 1.0 * 4.0))
 
@@ -16,6 +16,16 @@ var experience_required_for_next_level: int :
 func _init(start_level := 0, start_experience := 0):
 	level = start_level
 	earn_experience(start_experience)
+
+# get_ratio returns the ratio [0; 1] between level and max level.
+# @pure
+func get_ratio() -> float:
+	return float(level) / float(max_level)
+
+# get_xp_ratio returns the ratio [0; 1] between experience and the experience required to level up.
+# @pure
+func get_xp_ratio() -> float:
+	return float(experience) / float(experience_required_to_level_up)
 
 # can_level_up returns true if the player has not reached max level.
 # @pure
@@ -26,9 +36,10 @@ func can_level_up():
 # @impure
 func earn_experience(amount_exp: int):
 	experience += amount_exp
-	var experience_required := experience_required_for_next_level
-	while experience > experience_required:
-		if can_level_up():
-			level += 1
-			experience -= experience_required
-			level_up.emit(level)
+	var experience_required := experience_required_to_level_up
+	while experience >= experience_required:
+		if not can_level_up():
+			return
+		level += 1
+		experience -= experience_required
+		level_up.emit(level)

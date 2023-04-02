@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://ctg8r7dbxjhos"]
+[gd_scene load_steps=55 format=3 uid="uid://ctg8r7dbxjhos"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/_Idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -30,6 +30,18 @@
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/_WallHang.png" id="23_ona11"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/_PushWall.png" id="27_s6a2l"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/_Attack2NoMovement.png" id="27_tfjow"]
+
+[sub_resource type="Curve" id="Curve_5ghgr"]
+max_value = 20.0
+bake_resolution = 10
+_data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vector2(0.2, 2), 10.0, 10.0, 1, 1, Vector2(0.3, 3), 10.0, 10.0, 1, 1, Vector2(0.4, 4), 10.0, 10.0, 1, 1, Vector2(0.5, 5), 10.0, 10.0, 1, 1, Vector2(0.6, 6), 10.0, 10.0, 1, 1, Vector2(0.7, 7), 10.0, 10.0, 1, 1, Vector2(0.8, 8), 10.0, 10.0, 1, 1, Vector2(0.9, 9), 10.0, 10.0, 1, 1, Vector2(1, 10), 10.0, 10.0, 1, 1]
+point_count = 11
+
+[sub_resource type="Curve" id="Curve_gr7ew"]
+max_value = 20.0
+bake_resolution = 10
+_data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vector2(0.2, 2), 10.0, 10.0, 1, 1, Vector2(0.3, 3), 10.0, 10.0, 1, 1, Vector2(0.4, 4), 10.0, 10.0, 1, 1, Vector2(0.5, 5), 10.0, 10.0, 1, 1, Vector2(0.6, 6), 10.0, 10.0, 1, 1, Vector2(0.7, 7), 10.0, 10.0, 1, 1, Vector2(0.8, 8), 10.0, 10.0, 1, 1, Vector2(0.9, 9), 10.0, 10.0, 1, 1, Vector2(1, 10), 10.0, 10.0, 1, 1]
+point_count = 11
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wnfa"]
 size = Vector2(14, 28)
@@ -751,6 +763,8 @@ collision_mask = 3
 floor_constant_speed = true
 floor_snap_length = 5.0
 script = ExtResource("1_wluja")
+additional_stamina_per_level = SubResource("Curve_5ghgr")
+additional_life_points_per_level = SubResource("Curve_gr7ew")
 
 [node name="Level" parent="." instance=ExtResource("2_7w2hd")]
 
@@ -842,3 +856,6 @@ debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 libraries = {
 "": SubResource("AnimationLibrary_w4g2l")
 }
+
+[connection signal="level_up" from="Level" to="." method="_on_level_up"]
+[connection signal="damage_taken" from="LifePoints" to="." method="_on_damage_taken"]

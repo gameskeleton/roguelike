@@ -1,12 +1,12 @@
 extends CharacterBody2D
 class_name RkPlayer
 
+const ONE_WAY_MARGIN := 2
+
 const JUMP_STRENGTH := -260.0
 const CEILING_KNOCKDOWN := 0.0
 const GRAVITY_MAX_SPEED := 800.0
 const GRAVITY_ACCELERATION := 850.0
-
-const ONE_WAY_MARGIN := 2
 
 const RUN_MAX_SPEED := 126.0
 const RUN_ACCELERATION := 410.0
@@ -23,6 +23,10 @@ const ATTACK_STAMINA_COST := 2.0
 const ATTACK_ACCELERATION := 310.0
 const ATTACK_DECELERATION := 510.0
 
+###
+# Nodes
+###
+
 @onready var sprite: Sprite2D = $Sprite
 @onready var roll_detector: Area2D = $RollDetector
 @onready var attack_detector: Area2D = $AttackDetector
@@ -33,7 +37,11 @@ const ATTACK_DECELERATION := 510.0
 # State
 ###
 
-var direction := 1.0
+@export var direction := 1.0
+@export var base_stamina := 10.0
+@export var base_life_points := 10.0
+@export var additional_stamina_per_level := Curve.new()
+@export var additional_life_points_per_level := Curve.new()
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var level: RkLevel = $Level
@@ -56,6 +64,12 @@ var input_velocity := Vector2.ZERO
 ###
 # Process
 ###
+
+# _ready readies the player.
+# @impure
+func _ready():
+	_on_level_up(level.level)
+	set_direction(direction)
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -268,3 +282,14 @@ func set_attack_detector_active(active: bool):
 func set_one_way_detector_active(active: bool):
 	one_way_detector.monitoring = active
 	one_way_detector.monitorable = active
+
+###
+# Signals
+###
+
+func _on_level_up(new_level: int):
+	stamina.set_max(base_stamina + additional_stamina_per_level.sample_baked(new_level))
+	life_points.set_max(base_life_points + additional_life_points_per_level.sample_baked(new_level))
+
+func _on_damage_taken(damage_taken: float, new_life_points: float, instigator: Object):
+	print("_on_damage_taken: %d %d %s" % [damage_taken, new_life_points, instigator])

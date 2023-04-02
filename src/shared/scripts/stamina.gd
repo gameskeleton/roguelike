@@ -18,7 +18,13 @@ func _process(delta):
 			return
 	stamina = clamp(stamina + delta * regen_speed, 0.0, max_stamina)
 
-# get_ratio returns the stamina ratio between 0 and 1.
+# set_max sets the maximum stamina and resplenishes the stamina.
+# @impure
+func set_max(amount: float):
+	stamina = amount
+	max_stamina = amount
+
+# get_ratio returns the ratio [0; 1] between stamina and max_stamina.
 # @pure
 func get_ratio() -> float:
 	return stamina / max_stamina
