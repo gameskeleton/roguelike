@@ -19,7 +19,7 @@ func _draw():
 	for y in RkRoom.ROOM_TILE_COUNT.y:
 		for x in RkRoom.ROOM_TILE_COUNT.x:
 			match tiles[y][x].z:
-				RkRoom.Tile.empty: draw_rect(Rect2(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), empty_color)
+				RkRoom.Tile.none: draw_rect(Rect2(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), empty_color)
 				RkRoom.Tile.border: draw_rect(Rect2(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), border_color)
 	# draw one way tiles
 	for tile in room_node.get_one_way_tiles():

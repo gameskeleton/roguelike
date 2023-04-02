@@ -16,10 +16,12 @@ var _timer := 0.0
 var _state := State.idle
 var _player_node: RkPlayer
 
+# @impure
 func _ready():
 	_player_node = RkMain.get_main_node(self).player_node
-	_on_room_leave()
+	_on_player_leave_room()
 
+# @impure
 func _process(delta: float):
 	$AnimatedSprite2D.flip_h = _player_node.global_position.x < global_position.x
 	match _state:
@@ -41,9 +43,11 @@ func _process(delta: float):
 				_state = State.idle
 				_timer = 0.0
 
+# @impure
 func _lock():
 	$AnimationPlayer.play("lock")
 
+# @impure
 func _fire():
 	var projectile_node: RkProjectile = projectile_scene.instantiate()
 	projectile_node.position = Vector2(-5, -4) if $AnimatedSprite2D.flip_h else Vector2(5, -4)
@@ -51,14 +55,17 @@ func _fire():
 	add_child(projectile_node)
 	$AnimationPlayer.play("RESET")
 
+# @impure
 func _reset():
 	_timer = 0.0
 
-func _on_room_enter():
+# @impure
+func _on_player_enter_room():
 	set_process(true)
 	set_physics_process(true)
 
-func _on_room_leave():
+# @impure
+func _on_player_leave_room():
 	_reset()
 	set_process(false)
 	set_physics_process(false)

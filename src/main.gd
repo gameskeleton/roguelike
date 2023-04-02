@@ -15,25 +15,28 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/AllMapRooms
 @onready var ui_player_dot_color_rect: ColorRect = $CanvasLayer/Pause/PlayerDot
 
-signal room_enter(room_node: RkRoom)
-signal room_leave(room_node: RkRoom)
+signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
+signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
 
-var generator := RkDungeonGenerator.new()
-var current_room_node: RkRoom
-var previous_room_node: RkRoom
+var current_room_node: RkRoom # the room node the player is in.
+var previous_room_node: RkRoom # the previous room node the player was in.
 
+var _generator := RkDungeonGenerator.new()
+
+# @impure
 func _ready():
 	_generate_dungeon()
 	_limit_camera_to_room()
 	player_camera_node.reset_smoothing()
 
+# @impure
 func _process(delta: float):
 	# pause
 	if Input.is_action_just_pressed("player_pause"):
 		var new_paused := not get_tree().paused
 		get_tree().paused = new_paused
 		ui_pause_control.visible = new_paused
-		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / RkRoom.ROOM_SIZE)) - (PLAYER_DOT_SIZE / 2)
+		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.get_stamina(), delta)
@@ -41,6 +44,7 @@ func _process(delta: float):
 	_process_room()
 	_limit_camera_to_room()
 
+# @pure
 static func get_main_node(from_node: Node) -> RkMain:
 	return from_node.get_tree().root.get_node("/root/Main")
 
@@ -48,6 +52,7 @@ static func get_main_node(from_node: Node) -> RkMain:
 # Room
 ###
 
+# @impure
 func _enter_room(room_node := current_room_node):
 	current_room_node = room_node
 	room_enter.emit(current_room_node)
@@ -56,10 +61,12 @@ func _enter_room(room_node := current_room_node):
 	if map_room_control:
 		map_room_control.discovered = true
 
+# @impure
 func _leave_room(room_node := current_room_node):
 	previous_room_node = room_node
 	room_leave.emit(previous_room_node)
 
+# @impure
 func _process_room():
 	var player_grid_pos := Vector2i(
 		floor(player_node.position.x / RkRoom.ROOM_SIZE.x),
@@ -71,15 +78,19 @@ func _process_room():
 			_leave_room(current_room_node)
 			_enter_room(room_node_at_player_grid_pos)
 
+# @pure
 func _get_room_node(grid_pos: Vector2i) -> RkRoom:
 	return all_rooms_node.find_child(_get_room_node_name(grid_pos))
 
+# @pure
 func _get_room_node_name(grid_pos: Vector2i) -> StringName:
 	return "Room_%s_%s" % [grid_pos.x, grid_pos.y]
 
+# @pure
 func _get_map_room_control(grid_pos: Vector2i) -> RkMapRoom:
 	return ui_all_rooms_control.find_child(_get_map_room_control_name(grid_pos))
 
+# @pure
 func _get_map_room_control_name(grid_pos: Vector2i) -> StringName:
 	return "MapRoom_%s_%s" % [grid_pos.x, grid_pos.y]
 
@@ -87,6 +98,7 @@ func _get_map_room_control_name(grid_pos: Vector2i) -> StringName:
 # Camera
 ###
 
+# @impure
 func _limit_camera_to_room():
 	var current_room_grid_pos := current_room_node.get_grid_pos()
 	player_camera_node.limit_top = int(current_room_grid_pos.y * RkRoom.ROOM_SIZE.y)
@@ -98,6 +110,7 @@ func _limit_camera_to_room():
 # Dungeon
 ###
 
+# @impure
 func _generate_dungeon():
 	# clear rooms
 	for room_node in all_rooms_node.get_children():
@@ -126,14 +139,14 @@ func _generate_dungeon():
 			else:
 				room_scenes[room_exits] = [room_scene]
 	# generate dungeon
-	generator.start = Vector2i(2, 2)
-	generator.min_rooms = 12
-	generator.max_rooms = 12
-	var dungeon := generator.next()
+	_generator.start = Vector2i(2, 2)
+	_generator.min_rooms = 12
+	_generator.max_rooms = 12
+	var dungeon := _generator.next()
 	var room_nodes: Array[RkRoom] = []
 	# loop over each cell and create a room
-	for y in generator.height:
-		for x in generator.width:
+	for y in _generator.height:
+		for x in _generator.width:
 			var pos = Vector2i(x + 1, y + 1)
 			var cell: int = dungeon[pos.y][pos.x]
 			var cell_exits := 0
@@ -176,6 +189,8 @@ func _generate_dungeon():
 # User interface
 ###
 
+# @signal
+# @impure
 func _on_magic_slot_button_pressed():
 	_generate_dungeon()
 	$CanvasLayer/MagicSlot.release_focus()

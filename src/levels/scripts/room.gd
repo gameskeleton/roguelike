@@ -10,8 +10,8 @@ enum Exit {
 }
 
 enum Tile {
-	empty = 0,
-	filled = 1,
+	none = 0,
+	wall = 1,
 	border = 2
 }
 
@@ -23,7 +23,7 @@ enum Layer {
 	decor_front = 4,
 }
 
-const ROOM_SIZE := Vector2(512.0, 288.0)
+const ROOM_SIZE := Vector2i(512, 288)
 const ROOM_TILE_COUNT := Vector2i(32, 18)
 const ROOMS_DIRECTORY := "res://src/levels/rooms"
 
@@ -72,6 +72,8 @@ const PLAYER_SPAWN_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 
 @onready var tile_map: TileMap = $Tilemap
 
+# _draw will draw this room exits in the editor.
+# @impure
 func _draw():
 	if not Engine.is_editor_hint():
 		return
@@ -85,19 +87,34 @@ func _draw():
 	if exit_right:
 		draw_rect(Rect2(ROOM_SIZE.x - ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_SIZE.y / 2.0 - ROOM_EXIT_HORIZONTAL_SIZE.y / 2.0, ROOM_EXIT_HORIZONTAL_SIZE.x, ROOM_EXIT_HORIZONTAL_SIZE.y), ROOM_EXIT_COLOR)
 
+# _ready will queue a redraw in the editor.
+# @impure
 func _ready():
 	if Engine.is_editor_hint():
 		queue_redraw()
 
+# get_grid_pos returns the position in the grid of this room.
+# @pure
 func get_grid_pos() -> Vector2i:
 	return Vector2i(floor(position.x / ROOM_SIZE.x), floor(position.y / ROOM_SIZE.y))
 
+# get_coll_rect returns the collision rectangle of this room.
+# @pure
+func get_coll_rect() -> Rect2i:
+	return Rect2i(get_grid_pos() * RkRoom.ROOM_SIZE, RkRoom.ROOM_SIZE)
+
+# get_wall_tiles returns the position of all wall tiles in this room's tilemap.
+# @pure
 func get_wall_tiles() -> Array[Vector2i]:
 	return tile_map.get_used_cells(Layer.wall)
 
+# get_one_way_tiles returns the position of all one way tiles in this room's tilemap.
+# @pure
 func get_one_way_tiles() -> Array[Vector2i]:
 	return tile_map.get_used_cells(Layer.one_way)
 
+# get_wall_tiles_with_border returns a 2D grid of all wall tiles and add border tiles around the walls, useful for drawing map.
+# @pure
 func get_wall_tiles_with_border() -> Array[Array]:
 	var tiles_grid: Array[Array] = []
 	var used_tiles := tile_map.get_used_cells(Layer.wall)
@@ -106,14 +123,14 @@ func get_wall_tiles_with_border() -> Array[Array]:
 	for y in ROOM_TILE_COUNT.y:
 		tiles_grid[y].resize(ROOM_TILE_COUNT.x)
 		for x in ROOM_TILE_COUNT.x:
-			tiles_grid[y][x] = Vector3i(x, y, Tile.filled if used_tiles.has(Vector2i(x, y)) else Tile.empty)
-	# generate border for each used tile
+			tiles_grid[y][x] = Vector3i(x, y, Tile.wall if used_tiles.has(Vector2i(x, y)) else Tile.none)
+	# generate border for each filled tile
 	for y in ROOM_TILE_COUNT.y:
 		for x in ROOM_TILE_COUNT.x:
 			var tile: Vector3i = tiles_grid[y][x]
 			if tile.z == 0:
-				if tile.x > 0 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x - 1].z == Tile.filled: tiles_grid[tile.y - 1][tile.x - 1].z = Tile.border
-				if tile.x > 0 and tile.y < 17 and tiles_grid[tile.y + 1][tile.x - 1].z == Tile.filled: tiles_grid[tile.y + 1][tile.x - 1].z = Tile.border
-				if tile.x < 31 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x + 1].z == Tile.filled: tiles_grid[tile.y - 1][tile.x + 1].z = Tile.border
-				if tile.x < 31 and tile.y < 17 and tiles_grid[tile.y + 1][tile.x + 1].z == Tile.filled: tiles_grid[tile.y + 1][tile.x + 1].z = Tile.border
+				if tile.x > 0 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x - 1].z == Tile.wall: tiles_grid[tile.y - 1][tile.x - 1].z = Tile.border
+				if tile.x > 0 and tile.y < ROOM_TILE_COUNT.y - 1 and tiles_grid[tile.y + 1][tile.x - 1].z == Tile.wall: tiles_grid[tile.y + 1][tile.x - 1].z = Tile.border
+				if tile.x < ROOM_TILE_COUNT.x - 1 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x + 1].z == Tile.wall: tiles_grid[tile.y - 1][tile.x + 1].z = Tile.border
+				if tile.x < ROOM_TILE_COUNT.x - 1 and tile.y < ROOM_TILE_COUNT.y - 1 and tiles_grid[tile.y + 1][tile.x + 1].z == Tile.wall: tiles_grid[tile.y + 1][tile.x + 1].z = Tile.border
 	return tiles_grid

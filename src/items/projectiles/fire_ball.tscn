@@ -1,9 +1,25 @@
-[gd_scene load_steps=17 format=3 uid="uid://ctn5liymkk2hk"]
+[gd_scene load_steps=18 format=3 uid="uid://0oabjlh5inqy"]
 
 [ext_resource type="Script" path="res://src/items/projectiles/scripts/projectile.gd" id="1_ia1t0"]
 [ext_resource type="Texture2D" uid="uid://bgmu0w67e3vbs" path="res://src/items/projectiles/textures/fire_ball.png" id="2_701lj"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_wpg84"]
+[ext_resource type="Script" path="res://src/utilities/scripts/room_notifier_2d.gd" id="4_m218n"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="4_srtqf"]
+
+[sub_resource type="Animation" id="Animation_ngnek"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
 
 [sub_resource type="Animation" id="Animation_sj4dy"]
 resource_name = "spawn"
@@ -19,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0.75, 0.75)]
-}
-
-[sub_resource type="Animation" id="Animation_ngnek"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.75, 0.75)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iej5t"]
@@ -124,5 +125,12 @@ sprite_frames = SubResource("SpriteFrames_8ilf4")
 autoplay = "default"
 frame_progress = 0.824858
 
+[node name="RkRoomNotifier2D" type="Node2D" parent="." node_paths=PackedStringArray("listen_room_node")]
+script = ExtResource("4_m218n")
+listen_room_node = NodePath("..")
+
 [node name="WarmPointLight2D" parent="." instance=ExtResource("4_srtqf")]
 texture_scale = 0.25
+
+[connection signal="player_leave" from="RkRoomNotifier2D" to="." method="_on_player_leave_room"]
+[connection signal="room_leave" from="RkRoomNotifier2D" to="." method="_on_projectile_leave_room"]
