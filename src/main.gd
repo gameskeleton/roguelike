@@ -39,7 +39,8 @@ func _process(delta: float):
 		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
-	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.get_stamina(), delta)
+	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina.get_ratio(), delta)
+	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points.get_ratio(), delta)
 	# room and camera
 	_process_room()
 	_limit_camera_to_room()

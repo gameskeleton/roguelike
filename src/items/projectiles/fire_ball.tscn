@@ -1,9 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://0oabjlh5inqy"]
+[gd_scene load_steps=18 format=3 uid="uid://cv24luk0sodu5"]
 
 [ext_resource type="Script" path="res://src/items/projectiles/scripts/projectile.gd" id="1_ia1t0"]
 [ext_resource type="Texture2D" uid="uid://bgmu0w67e3vbs" path="res://src/items/projectiles/textures/fire_ball.png" id="2_701lj"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_wpg84"]
-[ext_resource type="Script" path="res://src/utilities/scripts/room_notifier_2d.gd" id="4_m218n"]
+[ext_resource type="Script" path="res://src/shared/scripts/room_notifier_2d.gd" id="4_0ra78"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="4_srtqf"]
 
 [sub_resource type="Animation" id="Animation_ngnek"]
@@ -126,7 +126,7 @@ autoplay = "default"
 frame_progress = 0.824858
 
 [node name="RkRoomNotifier2D" type="Node2D" parent="." node_paths=PackedStringArray("listen_room_node")]
-script = ExtResource("4_m218n")
+script = ExtResource("4_0ra78")
 listen_room_node = NodePath("..")
 
 [node name="WarmPointLight2D" parent="." instance=ExtResource("4_srtqf")]

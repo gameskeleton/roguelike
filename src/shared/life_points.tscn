@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw7hi3bvxpur2"]
+
+[ext_resource type="Script" path="res://src/shared/scripts/life_points.gd" id="1_us5ds"]
+
+[node name="LifePoints" type="Node"]
+script = ExtResource("1_us5ds")

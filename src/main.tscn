@@ -7,9 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
-light_mode = 1
-
 [sub_resource type="Animation" id="Animation_oxdy1"]
 length = 0.001
 tracks/0/type = "value"
@@ -46,6 +43,9 @@ _data = {
 "RESET": SubResource("Animation_oxdy1"),
 "pulse": SubResource("Animation_7hmug")
 }
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
+light_mode = 1
 
 [node name="Main" type="Control"]
 process_mode = 3
@@ -103,59 +103,6 @@ metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="State" type="Label" parent="CanvasLayer"]
-offset_left = 4.0
-offset_top = 252.0
-offset_right = 56.0
-offset_bottom = 272.0
-theme_override_font_sizes/font_size = 10
-text = "Standing"
-vertical_alignment = 1
-uppercase = true
-
-[node name="LifeBg" type="ColorRect" parent="CanvasLayer"]
-offset_left = 19.0
-offset_top = 271.0
-offset_right = 85.0
-offset_bottom = 277.0
-color = Color(1, 0.827451, 0, 0.392157)
-
-[node name="LifeMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
-offset_left = 20.0
-offset_top = 272.0
-offset_right = -428.0
-offset_bottom = -12.0
-color = Color(1, 0, 0, 1)
-
-[node name="MagicBg" type="ColorRect" parent="CanvasLayer"]
-offset_left = 4.0
-offset_top = 271.0
-offset_right = 16.0
-offset_bottom = 285.0
-color = Color(1, 0.827451, 0, 0.392157)
-
-[node name="MagicSlot" type="TextureButton" parent="CanvasLayer"]
-material = SubResource("CanvasItemMaterial_ucwvp")
-offset_left = 6.0
-offset_top = 272.0
-offset_right = 14.0
-offset_bottom = 284.0
-texture_normal = ExtResource("11_jxnrm")
-
-[node name="StaminaBg" type="ColorRect" parent="CanvasLayer"]
-offset_left = 19.0
-offset_top = 279.0
-offset_right = 85.0
-offset_bottom = 285.0
-color = Color(1, 0.827451, 0, 0.392157)
-
-[node name="StaminaMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
-offset_left = 20.0
-offset_top = 280.0
-offset_right = -428.0
-offset_bottom = -4.0
-progress = 0.8
-
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2
 visible = false
@@ -194,6 +141,59 @@ autoplay = "pulse"
 libraries = {
 "": SubResource("AnimationLibrary_trlk5")
 }
+
+[node name="State" type="Label" parent="CanvasLayer"]
+offset_left = 4.0
+offset_top = 252.0
+offset_right = 56.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 10
+text = "Standing"
+vertical_alignment = 1
+uppercase = true
+
+[node name="MagicBg" type="ColorRect" parent="CanvasLayer"]
+offset_left = 4.0
+offset_top = 271.0
+offset_right = 16.0
+offset_bottom = 285.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="MagicSlot" type="TextureButton" parent="CanvasLayer"]
+material = SubResource("CanvasItemMaterial_ucwvp")
+offset_left = 6.0
+offset_top = 272.0
+offset_right = 14.0
+offset_bottom = 284.0
+texture_normal = ExtResource("11_jxnrm")
+
+[node name="StaminaBg" type="ColorRect" parent="CanvasLayer"]
+offset_left = 19.0
+offset_top = 279.0
+offset_right = 85.0
+offset_bottom = 285.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="StaminaMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
+offset_left = 20.0
+offset_top = 280.0
+offset_right = -428.0
+offset_bottom = -4.0
+progress = 0.8
+
+[node name="LifePointsBg" type="ColorRect" parent="CanvasLayer"]
+offset_left = 19.0
+offset_top = 271.0
+offset_right = 85.0
+offset_bottom = 277.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="LifePointsMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
+offset_left = 20.0
+offset_top = 272.0
+offset_right = -428.0
+offset_bottom = -12.0
+color = Color(1, 0, 0, 1)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.588235, 0.588235, 0.588235, 1)

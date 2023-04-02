@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/levels/scripts/room.gd" id="1_nieb4"]
 [ext_resource type="TileSet" uid="uid://dpk873vxehcxm" path="res://src/levels/tileset.tres" id="2_16gso"]
-[ext_resource type="PackedScene" uid="uid://buroo5wep6s0p" path="res://src/items/enemies/orb.tscn" id="3_nevyy"]
+[ext_resource type="PackedScene" uid="uid://cc6modjmby7h7" path="res://src/items/enemies/orb.tscn" id="3_nevyy"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_nieb4")

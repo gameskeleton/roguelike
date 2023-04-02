@@ -1,10 +1,13 @@
-[gd_scene load_steps=50 format=3 uid="uid://ctg8r7dbxjhos"]
+[gd_scene load_steps=53 format=3 uid="uid://ctg8r7dbxjhos"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/_Idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
+[ext_resource type="PackedScene" uid="uid://ycp25141qhor" path="res://src/shared/level.tscn" id="2_7w2hd"]
 [ext_resource type="Script" path="res://src/player/scripts/states/stand.gd" id="3_8ll75"]
 [ext_resource type="Script" path="res://src/player/scripts/states/fall.gd" id="3_73fy0"]
 [ext_resource type="Texture2D" uid="uid://5ing80amv0u5" path="res://src/player/textures/_Run.png" id="3_acrg5"]
+[ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="3_h8vvb"]
+[ext_resource type="PackedScene" uid="uid://cnj7fnnbs25u7" path="res://src/shared/stamina.tscn" id="3_kren4"]
 [ext_resource type="Script" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
 [ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/_Roll.png" id="4_80fq1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
@@ -748,6 +751,12 @@ collision_mask = 3
 floor_constant_speed = true
 floor_snap_length = 5.0
 script = ExtResource("1_wluja")
+
+[node name="Level" parent="." instance=ExtResource("2_7w2hd")]
+
+[node name="Stamina" parent="." instance=ExtResource("3_kren4")]
+
+[node name="LifePoints" parent="." instance=ExtResource("3_h8vvb")]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 light_mask = 2

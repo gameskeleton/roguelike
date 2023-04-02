@@ -23,10 +23,6 @@ const ATTACK_STAMINA_COST := 2.0
 const ATTACK_ACCELERATION := 310.0
 const ATTACK_DECELERATION := 510.0
 
-const STAMINA_MAX := 10.0
-const STAMINA_REGEN := 10.0
-const STAMINA_BLOCK_REGEN_FOR := 1.5
-
 @onready var sprite: Sprite2D = $Sprite
 @onready var roll_detector: Area2D = $RollDetector
 @onready var attack_detector: Area2D = $AttackDetector
@@ -37,12 +33,12 @@ const STAMINA_BLOCK_REGEN_FOR := 1.5
 # State
 ###
 
-var stamina := STAMINA_MAX
-var stamina_regen_blocked_for := 0.0
-
 var direction := 1.0
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
+@onready var level: RkLevel = $Level
+@onready var stamina: RkStamina = $Stamina
+@onready var life_points: RkLifePoints = $LifePoints
 
 ###
 # Input
@@ -65,7 +61,6 @@ var input_velocity := Vector2.ZERO
 # @impure
 func _physics_process(delta: float):
 	process_input(delta)
-	process_stamina(delta)
 	process_velocity(delta)
 	fsm.process_state_machine(delta)
 
@@ -86,15 +81,6 @@ func process_input(delta: float):
 	input_attack = input_attack + delta if Input.is_action_pressed("player_attack") else 0.0
 	# compute input velocity
 	input_velocity = Vector2(int(right) - int(left), int(down) - int(up))
-
-# process_stamina regenerates the player stamina if not blocked.
-# @impure
-func process_stamina(delta: float):
-	if stamina_regen_blocked_for > 0.0:
-		stamina_regen_blocked_for = max(0.0, stamina_regen_blocked_for - delta)
-		if stamina_regen_blocked_for > 0.0:
-			return
-	stamina = clamp(stamina + delta * STAMINA_REGEN, 0.0, STAMINA_MAX)
 
 # process_velocity updates player position after applying velocity.
 # @impure
@@ -212,12 +198,12 @@ func is_able_to_jump() -> bool:
 # is_able_to_roll returns true if the player is able to roll.
 # @pure
 func is_able_to_roll() -> bool:
-	return has_stamina(ROLL_STAMINA_COST)
+	return stamina.has_enough(ROLL_STAMINA_COST)
 
 # is_able_to_attack returns true if the player is able to attack.
 # @pure
 func is_able_to_attack() -> bool:
-	return has_stamina(ATTACK_STAMINA_COST)
+	return stamina.has_enough(ATTACK_STAMINA_COST)
 
 # is_on_wall_passive returns true if there is a wall in the player's direction.
 # note: this is useful if the player is not moving horizontally, whereas is_on_wall only work with a velocity going into a wall.
@@ -229,36 +215,6 @@ func is_on_wall_passive() -> bool:
 # @pure
 func is_on_floor_one_way() -> bool:
 	return is_on_floor() and one_way_detector.has_overlapping_bodies()
-
-###
-# Stamina
-###
-
-# get_stamina returns the stamina between 0 and 1.
-# @pure
-func get_stamina() -> float:
-	return stamina / STAMINA_MAX
-
-# has_stamina returns true if the player has the given of stamina left.
-# @pure
-func has_stamina(amount := 0.0) -> bool:
-	return stamina >= amount
-
-# consume_stamina reduces the stamina by the specified amount, if there is not enough, the stamina will be zeroed.
-# the optional parameter bloc_regen_for takes a number of seconds during which the stamina won't be regenerated.
-# @impure
-func consume_stamina(amount: float, block_regen_for := STAMINA_BLOCK_REGEN_FOR):
-	stamina = clamp(stamina - amount, 0.0, STAMINA_MAX)
-	stamina_regen_blocked_for = block_regen_for
-
-# try_consume_stamina return true if the player has the given of stamina left and will consume that amount if it does.
-# the optional parameter bloc_regen_for takes a number of seconds during which the stamina won't be regenerated.
-# @impure
-func try_consume_stamina(amount: float, block_regen_for := STAMINA_BLOCK_REGEN_FOR) -> bool:
-	if has_stamina(amount):
-		consume_stamina(amount, block_regen_for)
-		return true
-	return false
 
 ###
 # Animation

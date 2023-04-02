@@ -1,4 +1,4 @@
-@icon("res://src/utilities/icons/room_notifier_2d.svg")
+@icon("res://src/shared/icons/room_notifier_2d.svg")
 extends Node2D
 class_name RkRoomNotifier2D
 
@@ -19,8 +19,16 @@ var room_node: RkRoom # the room this notifier belongs to, by default the neares
 var room_node_grid_pos: Vector2i # the room grid position.
 var room_node_collision_rect: Rect2i  # the room collision rectangle.
 
-var room_inside := false # whether this notifier is inside this room's collision rectangle. WILL NOT BE UPDATED if listen_room_on is set to false.
-var player_inside := false # whether the player inside the same room. WILL NOT BE UPDATED if listen_player_on is set to false.
+var room_inside := false : # whether this notifier is inside this room's collision rectangle. WILL NOT BE UPDATED if listen_room_on is set to false.
+	get:
+		if not listen_room_on:
+			push_error("room_inside cannot be accessed if listen_room_on is set to false")
+		return room_inside
+var player_inside := false : # whether the player inside the same room. WILL NOT BE UPDATED if listen_player_on is set to false.
+	get:
+		if not listen_player_on:
+			push_error("player_inside cannot be accessed if listen_room_on is set to false")
+		return player_inside
 
 # _ready finds the nearest room possible in this notifier parents.
 # @impure
@@ -43,11 +51,11 @@ func _ready():
 # _process checks if this notifier is inside this room's collision rectangle.
 # @impure
 func _process(_delta: float):
-	var inside := _inside_room()
-	if room_inside and not inside:
+	var still_inside := _inside_room()
+	if room_inside and not still_inside:
 		room_inside = false
 		room_leave.emit()
-	elif not room_inside and inside:
+	elif not room_inside and still_inside:
 		room_inside = true
 		room_enter.emit()
 
