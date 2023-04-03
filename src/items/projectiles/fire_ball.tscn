@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cv24luk0sodu5"]
+[gd_scene load_steps=21 format=3 uid="uid://cv24luk0sodu5"]
 
 [ext_resource type="Script" path="res://src/items/projectiles/scripts/projectile.gd" id="1_ia1t0"]
 [ext_resource type="Texture2D" uid="uid://bgmu0w67e3vbs" path="res://src/items/projectiles/textures/fire_ball.png" id="2_701lj"]
@@ -21,6 +21,47 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0.75, 0.75)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tuc30"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"destroy_projectile"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_sj4dy"]
 resource_name = "spawn"
@@ -41,6 +82,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iej5t"]
 _data = {
 "RESET": SubResource("Animation_ngnek"),
+"death": SubResource("Animation_tuc30"),
 "spawn": SubResource("Animation_sj4dy")
 }
 
@@ -152,7 +194,7 @@ collision_mask = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_jmpmo")
 
-[connection signal="damage_taken" from="LifePoints" to="." method="_on_damage_taken"]
+[connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="player_leave" from="RkRoomNotifier2D" to="." method="_on_player_leave_room"]
 [connection signal="room_leave" from="RkRoomNotifier2D" to="." method="_on_projectile_leave_room"]
 [connection signal="body_entered" from="AttackDetector" to="." method="_on_body_entered"]

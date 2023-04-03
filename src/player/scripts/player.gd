@@ -68,8 +68,8 @@ var input_velocity := Vector2.ZERO
 # _ready readies the player.
 # @impure
 func _ready():
-	_on_level_up(level.level)
 	set_direction(direction)
+	_on_level_level_up(level.level)
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -287,9 +287,13 @@ func set_one_way_detector_active(active: bool):
 # Signals
 ###
 
-func _on_level_up(new_level: int):
+# @signal
+# @impure
+func _on_level_level_up(new_level: int):
 	stamina.set_max(base_stamina + additional_stamina_per_level.sample_baked(new_level))
 	life_points.set_max(base_life_points + additional_life_points_per_level.sample_baked(new_level))
 
-func _on_damage_taken(damage_taken: float, new_life_points: float, instigator: Object):
-	print("_on_damage_taken: %d %d %s" % [damage_taken, new_life_points, instigator])
+# @signal
+# @impure
+func _on_life_points_damage_taken(damage_taken: float, new_life_points: float, instigator: Object):
+	print("_on_life_points_damage_taken: %d %d %s" % [damage_taken, new_life_points, instigator])

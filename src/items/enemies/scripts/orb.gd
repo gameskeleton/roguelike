@@ -62,12 +62,6 @@ func _reset():
 
 # @signal
 # @impure
-func _on_damage_taken(_damage: float, life_points: float, _instigator: Object):
-	if life_points <= 0.0:
-		queue_free()
-
-# @signal
-# @impure
 func _on_player_enter_room():
 	set_process(true)
 	set_physics_process(true)
@@ -78,3 +72,9 @@ func _on_player_leave_room():
 	_reset()
 	set_process(false)
 	set_physics_process(false)
+
+# @signal
+# @impure
+func _on_life_points_damage_taken(_damage: float, life_points: float, _instigator: Object):
+	if life_points <= 0.0:
+		queue_free()

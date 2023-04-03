@@ -835,6 +835,8 @@ debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 [node name="AttackDetector" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 208
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 position = Vector2(25, 6.00001)
@@ -857,5 +859,7 @@ libraries = {
 "": SubResource("AnimationLibrary_w4g2l")
 }
 
-[connection signal="level_up" from="Level" to="." method="_on_level_up"]
-[connection signal="damage_taken" from="LifePoints" to="." method="_on_damage_taken"]
+[connection signal="level_up" from="Level" to="." method="_on_level_level_up"]
+[connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
+[connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]

@@ -6,9 +6,11 @@ enum DmgType {
 	none,
 	world,
 	#
+	roll,
+	physical,
+	#
 	ice,
 	fire,
-	physical,
 	lightning,
 }
 
@@ -57,3 +59,11 @@ func take_damage(damage: float, damage_type := DmgType.none, instigator: Object 
 # @pure
 func has_lethal_damage() -> bool:
 	return life_points <= 0.0
+
+# find_life_points_in_node returns the first life points node in the given node.
+# @pure
+static func find_life_points_in_node(node: Node) -> RkLifePoints:
+	var life_points_node := node.get_node("LifePoints")
+	if life_points_node is RkLifePoints:
+		return life_points_node
+	return null

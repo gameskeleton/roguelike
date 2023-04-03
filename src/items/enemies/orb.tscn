@@ -646,6 +646,6 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_7opvg")
 
-[connection signal="damage_taken" from="LifePoints" to="." method="_on_damage_taken"]
+[connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_player_enter_room"]
 [connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_player_leave_room"]

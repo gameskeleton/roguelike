@@ -34,11 +34,6 @@ func _on_body_entered(body: Node2D):
 
 # @signal
 # @impure
-func _on_damage_taken(_damage: float, _life_points: float, _instigator: Object):
-	destroy_projectile()
-
-# @signal
-# @impure
 func _on_player_leave_room():
 	destroy_projectile(true)
 
@@ -46,3 +41,8 @@ func _on_player_leave_room():
 # @impure
 func _on_projectile_leave_room():
 	destroy_projectile(true)
+
+# @signal
+# @impure
+func _on_life_points_damage_taken(_damage: float, _life_points: float, _instigator: Object):
+	destroy_projectile()
