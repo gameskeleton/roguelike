@@ -52,6 +52,7 @@ func _fire():
 	var projectile_node: RkProjectile = projectile_scene.instantiate()
 	projectile_node.position = Vector2(-5, -4) if $AnimatedSprite2D.flip_h else Vector2(5, -4)
 	projectile_node.direction = (_player_node.global_position - global_position).normalized()
+	projectile_node.damage_type = RkLifePoints.DmgType.fire
 	add_child(projectile_node)
 	$AnimationPlayer.play("RESET")
 
@@ -59,11 +60,19 @@ func _fire():
 func _reset():
 	_timer = 0.0
 
+# @signal
+# @impure
+func _on_damage_taken(_damage: float, life_points: float, _instigator: Object):
+	if life_points <= 0.0:
+		queue_free()
+
+# @signal
 # @impure
 func _on_player_enter_room():
 	set_process(true)
 	set_physics_process(true)
 
+# @signal
 # @impure
 func _on_player_leave_room():
 	_reset()

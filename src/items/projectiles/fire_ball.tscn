@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cv24luk0sodu5"]
+[gd_scene load_steps=20 format=3 uid="uid://cv24luk0sodu5"]
 
 [ext_resource type="Script" path="res://src/items/projectiles/scripts/projectile.gd" id="1_ia1t0"]
 [ext_resource type="Texture2D" uid="uid://bgmu0w67e3vbs" path="res://src/items/projectiles/textures/fire_ball.png" id="2_701lj"]
+[ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_lcedw"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_wpg84"]
 [ext_resource type="Script" path="res://src/shared/scripts/room_notifier_2d.gd" id="4_0ra78"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="4_srtqf"]
@@ -107,8 +108,20 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jmpmo"]
+radius = 6.0
+
 [node name="Projectile" type="Node2D"]
 script = ExtResource("1_ia1t0")
+
+[node name="LifePoints" parent="." instance=ExtResource("2_lcedw")]
+life_points = 1.0
+max_life_points = 1.0
+damage_multiplier_world = 1000.0
+damage_multiplier_ice = 1000.0
+damage_multiplier_fire = 1000.0
+damage_multiplier_physical = 1000.0
+damage_multiplier_lightning = 1000.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
@@ -132,5 +145,14 @@ listen_room_node = NodePath("..")
 [node name="WarmPointLight2D" parent="." instance=ExtResource("4_srtqf")]
 texture_scale = 0.25
 
+[node name="AttackDetector" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+shape = SubResource("CircleShape2D_jmpmo")
+
+[connection signal="damage_taken" from="LifePoints" to="." method="_on_damage_taken"]
 [connection signal="player_leave" from="RkRoomNotifier2D" to="." method="_on_player_leave_room"]
 [connection signal="room_leave" from="RkRoomNotifier2D" to="." method="_on_projectile_leave_room"]
+[connection signal="body_entered" from="AttackDetector" to="." method="_on_body_entered"]

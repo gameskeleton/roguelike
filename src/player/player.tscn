@@ -833,8 +833,8 @@ shape = SubResource("RectangleShape2D_qf2lc")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="AttackDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
+collision_layer = 8
+collision_mask = 208
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 position = Vector2(25, 6.00001)

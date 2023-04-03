@@ -38,10 +38,18 @@ func process_state(delta: float):
 			player_node.animation_player.stop()
 			return player_node.fsm.state_nodes.stand
 	# collision detection
-	if _hitbox_enabled and player_node.attack_detector.has_overlapping_bodies():
-		for body in player_node.attack_detector.get_overlapping_bodies():
-			if body is RkDecor:
-				body._destroyed(player_node)
+	if _hitbox_enabled:
+		if player_node.attack_detector.has_overlapping_areas():
+			for area in player_node.attack_detector.get_overlapping_areas():
+				var parent := area.get_parent()
+				if parent:
+					var life_points := parent.get_node("LifePoints")
+					if life_points is RkLifePoints:
+						life_points.take_damage(1.4 + 0.8 * player_node.level.level, RkLifePoints.DmgType.physical)
+		if player_node.attack_detector.has_overlapping_bodies():
+			for body in player_node.attack_detector.get_overlapping_bodies():
+				if body is RkDecor:
+					body._destroyed(player_node)
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
