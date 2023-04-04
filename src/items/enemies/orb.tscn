@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://src/items/enemies/scripts/orb.gd" id="1_6h6eh"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_fgvy3"]
 [ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_qwrfn"]
-[ext_resource type="Script" path="res://src/shared/scripts/room_notifier_2d.gd" id="2_w65hc"]
 [ext_resource type="Texture2D" uid="uid://di0jio3iymru5" path="res://src/items/enemies/textures/orb.png" id="3_c5am6"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="3_ylveh"]
+[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_m51gx"]
 
 [sub_resource type="Animation" id="Animation_enp13"]
 length = 0.001
@@ -620,8 +620,7 @@ script = ExtResource("1_6h6eh")
 
 [node name="LifePoints" parent="." instance=ExtResource("2_qwrfn")]
 
-[node name="RoomNotifier2D" type="Node2D" parent="."]
-script = ExtResource("2_w65hc")
+[node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
 listen_room_on = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

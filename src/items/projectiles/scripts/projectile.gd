@@ -39,10 +39,11 @@ func _on_attack_detector_body_entered(body: Node2D):
 
 # @signal
 # @impure
-func _on_room_notifier_2d_player_leave():
+func _on_room_notifier_2d_room_leave():
 	destroy_projectile(true)
+
 
 # @signal
 # @impure
-func _on_rk_room_notifier_2d_room_leave():
+func _on_room_notifier_2d_player_leave():
 	destroy_projectile(true)

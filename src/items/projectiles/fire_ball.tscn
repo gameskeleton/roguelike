@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bgmu0w67e3vbs" path="res://src/items/projectiles/textures/fire_ball.png" id="2_701lj"]
 [ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_lcedw"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_wpg84"]
-[ext_resource type="Script" path="res://src/shared/scripts/room_notifier_2d.gd" id="4_0ra78"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="4_srtqf"]
+[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="6_3stcl"]
 
 [sub_resource type="Animation" id="Animation_ngnek"]
 length = 0.001
@@ -165,6 +165,9 @@ damage_multiplier_fire = 1000.0
 damage_multiplier_physical = 1000.0
 damage_multiplier_lightning = 1000.0
 
+[node name="RoomNotifier2D" parent="." node_paths=PackedStringArray("listen_room_node") instance=ExtResource("6_3stcl")]
+listen_room_node = NodePath("..")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
 libraries = {
@@ -180,10 +183,6 @@ sprite_frames = SubResource("SpriteFrames_8ilf4")
 autoplay = "default"
 frame_progress = 0.824858
 
-[node name="RkRoomNotifier2D" type="Node2D" parent="." node_paths=PackedStringArray("listen_room_node")]
-script = ExtResource("4_0ra78")
-listen_room_node = NodePath("..")
-
 [node name="WarmPointLight2D" parent="." instance=ExtResource("4_srtqf")]
 texture_scale = 0.25
 
@@ -195,6 +194,6 @@ collision_mask = 9
 shape = SubResource("CircleShape2D_jmpmo")
 
 [connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
-[connection signal="player_leave" from="RkRoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]
-[connection signal="room_leave" from="RkRoomNotifier2D" to="." method="_on_rk_room_notifier_2d_room_leave"]
+[connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]
+[connection signal="room_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_room_leave"]
 [connection signal="body_entered" from="AttackDetector" to="." method="_on_attack_detector_body_entered"]
