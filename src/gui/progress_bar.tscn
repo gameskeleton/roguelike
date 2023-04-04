@@ -23,8 +23,8 @@ grow_vertical = 2
 
 [node name="Progress" type="ColorRect" parent="."]
 layout_mode = 1
-offset_right = 72.0
+offset_right = 80.0
 offset_bottom = 8.0
 color = Color(0, 1, 0, 1)
 
-[connection signal="resized" from="." to="." method="_resized"]
+[connection signal="resized" from="." to="." method="_on_resized"]

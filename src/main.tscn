@@ -198,4 +198,4 @@ color = Color(1, 0, 0, 1)
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.588235, 0.588235, 0.588235, 1)
 
-[connection signal="pressed" from="CanvasLayer/MagicSlot" to="." method="_on_magic_slot_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MagicSlot" to="." method="_on_magic_slot_pressed"]

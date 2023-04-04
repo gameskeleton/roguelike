@@ -197,6 +197,6 @@ func _generate_dungeon():
 
 # @signal
 # @impure
-func _on_magic_slot_button_pressed():
+func _on_magic_slot_pressed():
 	_generate_dungeon()
 	$CanvasLayer/MagicSlot.release_focus()

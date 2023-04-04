@@ -20,17 +20,22 @@ extends Control
 		progress = value
 		_update_progress()
 
+# @impure
 func _ready():
 	_update_colors()
 	_update_progress()
 
-func _resized():
-	_update_progress()
-
+# @impure
 func _update_colors():
 	$Bg.color = bg_color
 	$Progress.color = color
 
+# @impure
 func _update_progress():
 	var rect := get_rect()
 	$Progress.size = Vector2(lerp(0.0, rect.size.x, progress), rect.size.y)
+
+# @signal
+# @impure
+func _on_resized():
+	_update_progress()

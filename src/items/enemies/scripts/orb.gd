@@ -19,7 +19,7 @@ var _player_node: RkPlayer
 # @impure
 func _ready():
 	_player_node = RkMain.get_main_node(self).player_node
-	_on_player_leave_room()
+	_on_room_notifier_2d_player_leave()
 
 # @impure
 func _process(delta: float):
@@ -62,19 +62,19 @@ func _reset():
 
 # @signal
 # @impure
-func _on_player_enter_room():
+func _on_life_points_damage_taken(_damage: float, life_points: float, _instigator: Object):
+	if life_points <= 0.0:
+		queue_free()
+
+# @signal
+# @impure
+func _on_room_notifier_2d_player_enter():
 	set_process(true)
 	set_physics_process(true)
 
 # @signal
 # @impure
-func _on_player_leave_room():
+func _on_room_notifier_2d_player_leave():
 	_reset()
 	set_process(false)
 	set_physics_process(false)
-
-# @signal
-# @impure
-func _on_life_points_damage_taken(_damage: float, life_points: float, _instigator: Object):
-	if life_points <= 0.0:
-		queue_free()

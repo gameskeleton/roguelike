@@ -11,6 +11,7 @@ const MAP_ROOM_SIZE := Vector2((RkRoom.ROOM_SIZE.x / 16.0) * MAP_TILE_SIZE, (RkR
 var room_node: RkRoom
 var discovered := false
 
+# @impure
 func _draw():
 	if not discovered:
 		return
@@ -25,5 +26,6 @@ func _draw():
 	for tile in room_node.get_one_way_tiles():
 		draw_rect(Rect2(tile.x * MAP_TILE_SIZE, tile.y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), one_way_color)
 
+# @impure
 func _process(_delta: float):
 	queue_redraw()
