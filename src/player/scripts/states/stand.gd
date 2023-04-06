@@ -10,7 +10,7 @@ func process_state(delta: float):
 	if not player_node.is_on_floor():
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_just_pressed(player_node.input_jump) and player_node.input_pressed(player_node.input_down) and player_node.is_on_floor_one_way():
-		player_node.position.y += player_node.ONE_WAY_MARGIN
+		player_node.handle_drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_able_to_jump():
 		return player_node.fsm.state_nodes.jump

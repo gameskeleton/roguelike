@@ -170,6 +170,11 @@ func handle_airborne_move(delta: float, max_speed: float, acceleration: float, d
 func handle_deceleration_move(delta: float, deceleration: float):
 	velocity.x = apply_deceleration(delta, velocity.x, deceleration)
 
+# handle_drop_through_one_way positions the player a little down to make it drop through one ways.
+# @impure
+func handle_drop_through_one_way():
+	position.y += ONE_WAY_MARGIN
+
 # is_nearly returns true if the first given value nearly equals the second given value.
 # @pure
 func is_nearly(value1: float, value2: float, epsilon = 0.001) -> bool:

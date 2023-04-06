@@ -10,6 +10,7 @@ func start_state():
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
 	player_node.animation_player.speed_scale = 1.8
 	player_node.play_animation("turn_around")
+	player_node.set_one_way_detector_active(true)
 	if player_node.velocity.x == 0.0:
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.walk
@@ -19,6 +20,9 @@ func process_state(delta: float):
 	player_node.handle_deceleration_move(delta, player_node.RUN_DECELERATION * player_node.RUN_DECELERATION_BRAKE)
 	if not player_node.is_on_floor():
 		player_node.set_direction(-player_node.direction)
+		return player_node.fsm.state_nodes.fall
+	if player_node.input_just_pressed(player_node.input_jump) and player_node.input_pressed(player_node.input_down) and player_node.is_on_floor_one_way():
+		player_node.handle_drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_able_to_jump():
 		player_node.set_direction(-player_node.direction)
@@ -31,5 +35,6 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.set_one_way_detector_active(false)
 	if player_node.direction == _initial_direction:
 		player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
