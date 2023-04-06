@@ -134,3 +134,14 @@ func get_wall_tiles_with_border() -> Array[Array]:
 				if tile.x < ROOM_TILE_COUNT.x - 1 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x + 1].z == Tile.wall: tiles_grid[tile.y - 1][tile.x + 1].z = Tile.border
 				if tile.x < ROOM_TILE_COUNT.x - 1 and tile.y < ROOM_TILE_COUNT.y - 1 and tiles_grid[tile.y + 1][tile.x + 1].z == Tile.wall: tiles_grid[tile.y + 1][tile.x + 1].z = Tile.border
 	return tiles_grid
+
+# generate_room_exits_name returns a list of human readable exits.
+# @pure
+static func generate_room_exits_name(exits: Exit) -> String:
+	var exit_parts: Array[String] = []
+	# sort alphabetically to get the same order in the filesystem
+	if exits & Exit.down == Exit.down: exit_parts.push_back("down")
+	if exits & Exit.left == Exit.left: exit_parts.push_back("left")
+	if exits & Exit.right == Exit.right: exit_parts.push_back("right")
+	if exits & Exit.up == Exit.up: exit_parts.push_back("up")
+	return "_".join(exit_parts)

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
-[ext_resource type="PackedScene" uid="uid://vese7g1py6u3" path="res://src/levels/rooms/void/room_01.tscn" id="4_a2foi"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
+[ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="4_poqhe"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
@@ -56,6 +56,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
+map_revealed = true
 metadata/_edit_lock_ = true
 
 [node name="Game" type="Node2D" parent="."]
@@ -99,7 +100,7 @@ metadata/_edit_lock_ = true
 
 [node name="AllRooms" type="Node2D" parent="Game"]
 
-[node name="Room" parent="Game/AllRooms" instance=ExtResource("4_a2foi")]
+[node name="Room" parent="Game/AllRooms" instance=ExtResource("4_poqhe")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

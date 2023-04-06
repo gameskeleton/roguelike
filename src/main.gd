@@ -183,7 +183,7 @@ func _generate_dungeon():
 					ui_all_rooms_control.add_child(map_room_control)
 					map_room_control.owner = ui_all_rooms_control
 				else:
-					push_error("room with %d exits does not exist..." % [cell_exits])
+					push_error("room %s does not exist..." % [RkRoom.generate_room_exits_name(cell_exits)])
 					return
 	# position player
 	var start_room_node: RkRoom = room_nodes.pick_random()
