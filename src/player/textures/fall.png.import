@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dngl1affbd1t5"
-path="res://.godot/imported/_AttackCombo.png-57d9d35515825a06a4df1c8d192d9a29.ctex"
+uid="uid://bmxx3x47vayqd"
+path="res://.godot/imported/fall.png-7dcce00adaa049e640cb4a7f2408e0fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_AttackCombo.png"
-dest_files=["res://.godot/imported/_AttackCombo.png-57d9d35515825a06a4df1c8d192d9a29.ctex"]
+source_file="res://src/player/textures/fall.png"
+dest_files=["res://.godot/imported/fall.png-7dcce00adaa049e640cb4a7f2408e0fa.ctex"]
 
 [params]
 

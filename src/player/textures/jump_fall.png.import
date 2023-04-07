@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0uaxunpcv42c"
-path="res://.godot/imported/_PushWall.png-2ab72a32e5a3a0ddc73053d5020a8a66.ctex"
+uid="uid://br8ph63uuonv5"
+path="res://.godot/imported/jump_fall.png-dc965897d0b2a898f53afc24908a5b60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_PushWall.png"
-dest_files=["res://.godot/imported/_PushWall.png-2ab72a32e5a3a0ddc73053d5020a8a66.ctex"]
+source_file="res://src/player/textures/jump_fall.png"
+dest_files=["res://.godot/imported/jump_fall.png-dc965897d0b2a898f53afc24908a5b60.ctex"]
 
 [params]
 

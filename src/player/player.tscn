@@ -1,36 +1,35 @@
-[gd_scene load_steps=56 format=3 uid="uid://ctg8r7dbxjhos"]
+[gd_scene load_steps=54 format=3 uid="uid://bmcp82q3j58at"]
 
-[ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/_Idle.png" id="1_6pmwu"]
+[ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://ycp25141qhor" path="res://src/shared/level.tscn" id="2_7w2hd"]
 [ext_resource type="Script" path="res://src/player/scripts/states/stand.gd" id="3_8ll75"]
 [ext_resource type="Script" path="res://src/player/scripts/states/fall.gd" id="3_73fy0"]
-[ext_resource type="Texture2D" uid="uid://5ing80amv0u5" path="res://src/player/textures/_Run.png" id="3_acrg5"]
+[ext_resource type="Texture2D" uid="uid://5ing80amv0u5" path="res://src/player/textures/walk.png" id="3_acrg5"]
 [ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="3_h8vvb"]
 [ext_resource type="PackedScene" uid="uid://cnj7fnnbs25u7" path="res://src/shared/stamina.tscn" id="3_kren4"]
 [ext_resource type="Script" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
-[ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/_Roll.png" id="4_80fq1"]
+[ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/roll.png" id="4_80fq1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
 [ext_resource type="Script" path="res://src/player/scripts/states/turn_around.gd" id="5_0i2rd"]
-[ext_resource type="Texture2D" uid="uid://dq457ojnbnmn0" path="res://src/player/textures/_TurnAround.png" id="5_eb2fg"]
+[ext_resource type="Texture2D" uid="uid://dq457ojnbnmn0" path="res://src/player/textures/turn_around.png" id="5_eb2fg"]
 [ext_resource type="Script" path="res://src/player/scripts/states/jump.gd" id="6_grvpe"]
-[ext_resource type="Texture2D" uid="uid://clnc3derlho4i" path="res://src/player/textures/_Jump.png" id="6_ss6l5"]
-[ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/_Fall.png" id="7_2bcbe"]
+[ext_resource type="Texture2D" uid="uid://clnc3derlho4i" path="res://src/player/textures/jump.png" id="6_ss6l5"]
+[ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/fall.png" id="7_2bcbe"]
 [ext_resource type="Script" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
-[ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/_JumpFallInbetween.png" id="8_hg6ir"]
+[ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
 [ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
-[ext_resource type="Texture2D" uid="uid://cst63b8sexvs0" path="res://src/player/textures/_Death.png" id="9_a75to"]
+[ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/death.png" id="9_a75to"]
 [ext_resource type="Script" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
-[ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/_DeathNoMovement.png" id="10_1ksv1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
 [ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
-[ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/_WallSlide.png" id="11_o6r45"]
-[ext_resource type="Texture2D" uid="uid://hsex3dhqjsne" path="res://src/player/textures/_WallClimbNoMovement.png" id="12_uslnu"]
+[ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
-[ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/_AttackNoMovement.png" id="14_7sfq0"]
-[ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/_WallHang.png" id="23_ona11"]
-[ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/_PushWall.png" id="27_s6a2l"]
-[ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/_Attack2NoMovement.png" id="27_tfjow"]
+[ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
+[ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
+[ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
+[ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
+[ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
 
 [sub_resource type="Curve" id="Curve_5ghgr"]
 max_value = 20.0
@@ -126,7 +125,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("14_7sfq0")]
+"values": [ExtResource("18_kg8o1")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -183,7 +182,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("27_tfjow")]
+"values": [ExtResource("19_y10ov")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -215,7 +214,7 @@ tracks/3/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_alnxv"]
+[sub_resource type="Animation" id="Animation_jlirl"]
 resource_name = "death"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -240,45 +239,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("9_a75to")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-
-[sub_resource type="Animation" id="Animation_jlirl"]
-resource_name = "death_in_place"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("10_1ksv1")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -616,6 +576,46 @@ tracks/2/keys = {
 "values": [10]
 }
 
+[sub_resource type="Animation" id="Animation_3qcmk"]
+resource_name = "wall_climb"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("30_pd4ss")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
 [sub_resource type="Animation" id="Animation_xw7du"]
 resource_name = "wall_hang"
 length = 0.1
@@ -698,53 +698,12 @@ tracks/2/keys = {
 "values": [3]
 }
 
-[sub_resource type="Animation" id="Animation_3qcmk"]
-resource_name = "wallclimb"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 4, 5, 6]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("12_uslnu")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 "RESET": SubResource("Animation_11iq3"),
 "attack_01": SubResource("Animation_i0u8u"),
 "attack_02": SubResource("Animation_0dkd4"),
-"death": SubResource("Animation_alnxv"),
-"death_in_place": SubResource("Animation_jlirl"),
+"death": SubResource("Animation_jlirl"),
 "fall": SubResource("Animation_ginsg"),
 "idle": SubResource("Animation_rquo4"),
 "jump": SubResource("Animation_roadd"),
@@ -753,9 +712,9 @@ _data = {
 "roll": SubResource("Animation_5lkvp"),
 "turn_around": SubResource("Animation_rsfdr"),
 "walk": SubResource("Animation_gwxbh"),
+"wall_climb": SubResource("Animation_3qcmk"),
 "wall_hang": SubResource("Animation_xw7du"),
-"wall_slide": SubResource("Animation_v4465"),
-"wallclimb": SubResource("Animation_3qcmk")
+"wall_slide": SubResource("Animation_v4465")
 }
 
 [node name="Player" type="CharacterBody2D"]

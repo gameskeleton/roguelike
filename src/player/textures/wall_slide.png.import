@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2ioebltlh2hx"
-path="res://.godot/imported/_WallClimb.png-339826798656954476781a221da69e37.ctex"
+uid="uid://k1jioeppm2bd"
+path="res://.godot/imported/wall_slide.png-5e621d87db641c0aafad3815ae902042.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_WallClimb.png"
-dest_files=["res://.godot/imported/_WallClimb.png-339826798656954476781a221da69e37.ctex"]
+source_file="res://src/player/textures/wall_slide.png"
+dest_files=["res://.godot/imported/wall_slide.png-5e621d87db641c0aafad3815ae902042.ctex"]
 
 [params]
 

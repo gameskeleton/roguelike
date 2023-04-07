@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sttce7k7tty3"
-path="res://.godot/imported/_Dash.png-5e3e1977ef59d8648f04581adca77e7b.ctex"
+uid="uid://c2ioebltlh2hx"
+path="res://.godot/imported/wall_climb.png-c980528392d81b1a7d2dcf0bffb9793b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_Dash.png"
-dest_files=["res://.godot/imported/_Dash.png-5e3e1977ef59d8648f04581adca77e7b.ctex"]
+source_file="res://src/player/textures/wall_climb.png"
+dest_files=["res://.godot/imported/wall_climb.png-c980528392d81b1a7d2dcf0bffb9793b.ctex"]
 
 [params]
 

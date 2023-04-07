@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j2bo6ypvt2qf"
-path="res://.godot/imported/_SlideFull.png-60c9a7d24742cc133d0094d22b00bff6.ctex"
+uid="uid://dq457ojnbnmn0"
+path="res://.godot/imported/turn_around.png-1480190b3524695506d35cfa8e121e17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_SlideFull.png"
-dest_files=["res://.godot/imported/_SlideFull.png-60c9a7d24742cc133d0094d22b00bff6.ctex"]
+source_file="res://src/player/textures/turn_around.png"
+dest_files=["res://.godot/imported/turn_around.png-1480190b3524695506d35cfa8e121e17.ctex"]
 
 [params]
 

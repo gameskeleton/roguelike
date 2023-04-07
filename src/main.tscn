@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bbc3gv347mvhd"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
-[ext_resource type="PackedScene" uid="uid://ctg8r7dbxjhos" path="res://src/player/player.tscn" id="2_ak6nv"]
+[ext_resource type="PackedScene" uid="uid://bmcp82q3j58at" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="4_poqhe"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]

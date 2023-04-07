@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qqxqfbypx3w7"
-path="res://.godot/imported/_AttackComboNoMovement.png-15de56a6a507c01d2a88bd169ecb34c5.ctex"
+uid="uid://b6cj4jaq8mxb2"
+path="res://.godot/imported/idle.png-5e9e411e951f0e29c8f2551df25fde7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_AttackComboNoMovement.png"
-dest_files=["res://.godot/imported/_AttackComboNoMovement.png-15de56a6a507c01d2a88bd169ecb34c5.ctex"]
+source_file="res://src/player/textures/idle.png"
+dest_files=["res://.godot/imported/idle.png-5e9e411e951f0e29c8f2551df25fde7a.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkg3ds3fx72n"
-path="res://.godot/imported/_CrouchAttack.png-af5dd89493f546d553c40c46881d3449.ctex"
+uid="uid://dd7or7xh8rhva"
+path="res://.godot/imported/hit.png-d47a4e158f1ae4dbce50f9d35643e0bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_CrouchAttack.png"
-dest_files=["res://.godot/imported/_CrouchAttack.png-af5dd89493f546d553c40c46881d3449.ctex"]
+source_file="res://src/player/textures/hit.png"
+dest_files=["res://.godot/imported/hit.png-d47a4e158f1ae4dbce50f9d35643e0bb.ctex"]
 
 [params]
 

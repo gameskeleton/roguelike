@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dga1utln6piqv"
-path="res://.godot/imported/_AttackNoMovement.png-dc5830cbde21929024415edd0a722bb5.ctex"
+uid="uid://ltfknefd2iei"
+path="res://.godot/imported/wall_hang.png-977b8c92742a7dc6aa4b2e01e76c2804.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/player/textures/_AttackNoMovement.png"
-dest_files=["res://.godot/imported/_AttackNoMovement.png-dc5830cbde21929024415edd0a722bb5.ctex"]
+source_file="res://src/player/textures/wall_hang.png"
+dest_files=["res://.godot/imported/wall_hang.png-977b8c92742a7dc6aa4b2e01e76c2804.ctex"]
 
 [params]
 
