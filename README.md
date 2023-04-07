@@ -26,8 +26,10 @@ dungeon tileset: genewheel (https://genewheel.itch.io/)
         -   [x] stand
         -   [x] attack
         -   [x] push_wall
-        -   [ ] cast magic
         -   [ ] wall_hang
+        -   [x] wall_jump
+        -   [x] wall_slide
+        -   [ ] cast magic
         -   [x] turn_around
         -   [x] bump_into_wall
     -   [x] stamina

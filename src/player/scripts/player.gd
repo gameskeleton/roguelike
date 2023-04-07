@@ -18,6 +18,13 @@ const ROLL_STAMINA_COST := 2.0
 const ROLL_DECELERATION := 290.0
 const ROLL_BUMP_STRENGTH := -70.0
 
+const WALL_JUMP_STRENGTH := -230.0
+const WALL_JUMP_EXPULSE_STRENGTH := -160.0
+
+const WALL_SLIDE_GRAVITY_MAX_SPEED := GRAVITY_MAX_SPEED * 0.2
+const WALL_SLIDE_GRAVITY_ACCELERATION := GRAVITY_ACCELERATION * 0.1
+const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
+
 const ATTACK_MAX_SPEED := 120.0
 const ATTACK_STAMINA_COST := 2.0
 const ATTACK_ACCELERATION := 310.0
@@ -32,6 +39,9 @@ const ATTACK_DECELERATION := 510.0
 @onready var attack_detector: Area2D = $AttackDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
+@onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
+@onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
 
 ###
 # State
@@ -126,6 +136,8 @@ func set_direction(new_direction: float):
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -8 if new_direction < 0.0 else 1
 	attack_detector.scale.x = new_direction
+	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
+	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
 
 # handle_jump applies sudden strength to y-velocity.
 # @impure
@@ -224,6 +236,11 @@ func is_able_to_roll() -> bool:
 func is_able_to_attack() -> bool:
 	return stamina.has_enough(ATTACK_STAMINA_COST)
 
+# is_able_to_wall_slide returns true if the player is able to slide on a wall.
+# @pure
+func is_able_to_wall_slide() -> bool:
+	return is_on_wall() and wall_slide_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()
+
 # is_on_wall_passive returns true if there is a wall in the player's direction.
 # note: this is useful if the player is not moving horizontally, whereas is_on_wall only work with a velocity going into a wall.
 func is_on_wall_passive() -> bool:
@@ -267,7 +284,7 @@ func get_animation_played_ratio() -> float:
 	return clamp(animation_player.current_animation_position / (animation_player.current_animation_length - 0.05), 0.0, 1.0)
 
 ###
-# Detectors
+# Raycasts and detectors
 ###
 
 # set_roll_detector_active activates or deactivates the monitoring for decors colliders.
@@ -287,6 +304,13 @@ func set_attack_detector_active(active: bool):
 func set_one_way_detector_active(active: bool):
 	one_way_detector.monitoring = active
 	one_way_detector.monitorable = active
+
+# set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
+# @impure
+func set_wall_slide_raycast_active(active: bool):
+	wall_slide_down_raycast.enabled = active
+	wall_slide_side_raycast.enabled = active
+	wall_slide_down_side_raycast.enabled = active
 
 ###
 # Signals

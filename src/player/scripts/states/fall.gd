@@ -2,6 +2,7 @@ extends RkStateMachineState
 
 func start_state():
 	player_node.play_animation("jump_to_fall")
+	player_node.set_wall_slide_raycast_active(true)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -12,3 +13,8 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.stand if player_node.velocity.x == 0.0 else player_node.fsm.state_nodes.walk
 	if player_node.input_just_pressed(player_node.input_attack) and player_node.is_able_to_attack():
 		return player_node.fsm.state_nodes.attack
+	if player_node.has_same_direction(player_node.input_velocity.x, player_node.direction) and player_node.is_able_to_wall_slide():
+		return player_node.fsm.state_nodes.wall_slide
+
+func finish_state():
+	player_node.set_wall_slide_raycast_active(false)
