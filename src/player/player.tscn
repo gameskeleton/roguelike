@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bmcp82q3j58at"]
+[gd_scene load_steps=56 format=3 uid="uid://bmcp82q3j58at"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
+[ext_resource type="Script" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
 [ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
@@ -59,6 +60,9 @@ size = Vector2(14, 8)
 size = Vector2(28, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
+size = Vector2(14, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sk3wo"]
 size = Vector2(14, 4)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
@@ -778,6 +782,9 @@ script = ExtResource("9_3cgs6")
 [node name="wall_hang" type="Node" parent="StateMachine"]
 script = ExtResource("10_ml0y4")
 
+[node name="wall_climb" type="Node" parent="StateMachine"]
+script = ExtResource("16_gdcg3")
+
 [node name="turn_around" type="Node" parent="StateMachine"]
 script = ExtResource("5_0i2rd")
 
@@ -816,6 +823,28 @@ monitorable = false
 position = Vector2(0, 22)
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
+
+[node name="WallHangUpDetector" type="Area2D" parent="."]
+position = Vector2(16, -25)
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangUpDetector"]
+shape = SubResource("RectangleShape2D_1wnfa")
+debug_color = Color(1, 0, 0.0156863, 0.419608)
+metadata/_edit_lock_ = true
+
+[node name="WallHangDownDetector" type="Area2D" parent="."]
+position = Vector2(16, -8)
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangDownDetector"]
+shape = SubResource("RectangleShape2D_sk3wo")
+debug_color = Color(1, 0.823529, 0, 0.419608)
+metadata/_edit_lock_ = true
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 position = Vector2(0, -4)

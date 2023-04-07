@@ -21,6 +21,7 @@ const ROLL_BUMP_STRENGTH := -70.0
 const WALL_JUMP_STRENGTH := -230.0
 const WALL_JUMP_EXPULSE_STRENGTH := -160.0
 
+const WALL_SLIDE_WALL_TIMER := 0.1
 const WALL_SLIDE_GRAVITY_MAX_SPEED := GRAVITY_MAX_SPEED * 0.2
 const WALL_SLIDE_GRAVITY_ACCELERATION := GRAVITY_ACCELERATION * 0.1
 const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
@@ -35,10 +36,13 @@ const ATTACK_DECELERATION := 510.0
 ###
 
 @onready var sprite: Sprite2D = $Sprite
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 @onready var roll_detector: Area2D = $RollDetector
 @onready var attack_detector: Area2D = $AttackDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var wall_hang_up_detector: Area2D = $WallHangUpDetector
+@onready var wall_hang_down_detector: Area2D = $WallHangDownDetector
 @onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
 @onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
 @onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
@@ -136,6 +140,8 @@ func set_direction(new_direction: float):
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -8 if new_direction < 0.0 else 1
 	attack_detector.scale.x = new_direction
+	wall_hang_up_detector.position.x = abs(wall_hang_up_detector.position.x) * new_direction
+	wall_hang_down_detector.position.x = abs(wall_hang_down_detector.position.x) * new_direction
 	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
 	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
 
@@ -212,6 +218,14 @@ func apply_acceleration(delta: float, value: float, max_speed: float, accelerati
 func apply_deceleration(delta: float, value: float, deceleration: float) -> float:
 	return move_toward(value, 0.0, deceleration * delta)
 
+# get_corner_position returns the snapped position to the nearest corner wall.
+# @pure
+func get_corner_position() -> Vector2:
+	return Vector2(
+		floor(floor(position.x / 16.0) * 16.0) + (16.0 if direction > 0 else 0.0),
+		floor(floor(position.y / 16.0) * 16.0)
+	)
+
 ###
 # Checks
 ###
@@ -235,6 +249,11 @@ func is_able_to_roll() -> bool:
 # @pure
 func is_able_to_attack() -> bool:
 	return stamina.has_enough(ATTACK_STAMINA_COST)
+
+# is_able_to_wall_hang returns true if the player is near a corner wall.
+# @pure
+func is_able_to_wall_hang() -> bool:
+	return is_on_wall() and wall_hang_down_detector.has_overlapping_bodies() and not wall_hang_up_detector.has_overlapping_bodies()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
 # @pure
@@ -304,6 +323,14 @@ func set_attack_detector_active(active: bool):
 func set_one_way_detector_active(active: bool):
 	one_way_detector.monitoring = active
 	one_way_detector.monitorable = active
+
+# set_wall_hang_detector_active activates or deactivates the monitoring for hanging/climbing to a wall.
+# @impure
+func set_wall_hang_detector_active(active: bool):
+	wall_hang_up_detector.monitoring = active
+	wall_hang_up_detector.monitorable = active
+	wall_hang_down_detector.monitoring = active
+	wall_hang_down_detector.monitorable = active
 
 # set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
 # @impure
