@@ -20,6 +20,7 @@ func _ready():
 	set_state_node(current_state_node)
 
 func set_state_node(state_node: RkStateMachineState):
+	next_state_node = state_node
 	if current_state_node:
 		current_state_node.finish_state()
 	prev_state_node = current_state_node

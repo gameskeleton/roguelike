@@ -63,7 +63,7 @@ size = Vector2(28, 40)
 size = Vector2(14, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sk3wo"]
-size = Vector2(14, 4)
+size = Vector2(14, 6)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -825,7 +825,7 @@ shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
 [node name="WallHangUpDetector" type="Area2D" parent="."]
-position = Vector2(16, -25)
+position = Vector2(16, -24)
 collision_layer = 0
 monitoring = false
 monitorable = false
@@ -842,6 +842,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangDownDetector"]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_sk3wo")
 debug_color = Color(1, 0.823529, 0, 0.419608)
 metadata/_edit_lock_ = true
