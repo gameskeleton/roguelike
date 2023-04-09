@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://i0bivn4u0r86"]
+
+[ext_resource type="Script" path="res://src/items/pickups/scripts/experience.gd" id="1_5bi77"]
+[ext_resource type="Texture2D" uid="uid://bd8oyo2df73nu" path="res://src/items/pickups/textures/experience.png" id="2_bckax"]
+[ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_rk81a"]
+[ext_resource type="PackedScene" uid="uid://qt3kps4yxxl" path="res://src/shared/white_point_light.tscn" id="3_elcbl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i2lns"]
+bounce = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctdi1"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60a7h"]
+atlas = ExtResource("2_bckax")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m2mye"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60a7h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
+size = Vector2(8, 8)
+
+[node name="Experience" type="RigidBody2D"]
+collision_layer = 256
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_i2lns")
+lock_rotation = true
+angular_damp = 10.0
+script = ExtResource("1_5bi77")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Line2D" type="Line2D" parent="Node"]
+z_index = -1
+width = 2.0
+default_color = Color(0, 0.396078, 0.8, 0.784314)
+joint_mode = 2
+round_precision = 16
+antialiased = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_ctdi1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+material = ExtResource("2_rk81a")
+sprite_frames = SubResource("SpriteFrames_m2mye")
+
+[node name="WhitePointLight2D" parent="." instance=ExtResource("3_elcbl")]
+color = Color(0.388235, 0.607843, 1, 1)
+texture_scale = 0.1
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+visible = false
+shape = SubResource("RectangleShape2D_wogr8")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

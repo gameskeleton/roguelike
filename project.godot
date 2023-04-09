@@ -100,6 +100,7 @@ player_pause={
 2d_physics/layer_6="Debris"
 2d_physics/layer_7="Enemy"
 2d_physics/layer_8="Projectile"
+2d_physics/layer_9="Pickup"
 
 [physics]
 
