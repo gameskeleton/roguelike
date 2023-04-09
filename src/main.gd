@@ -73,6 +73,15 @@ func _leave_room(room_node := current_room_node):
 	room_leave.emit(previous_room_node)
 
 # @impure
+func _clear_rooms():
+	for room_node in all_rooms_node.get_children():
+		all_rooms_node.remove_child(room_node)
+		room_node.queue_free()
+	for map_room_control in ui_all_rooms_control.get_children():
+		ui_all_rooms_control.remove_child(map_room_control)
+		map_room_control.queue_free()
+
+# @impure
 func _process_room():
 	var player_grid_pos := Vector2i(
 		floor(player_node.position.x / RkRoom.ROOM_SIZE.x),
@@ -83,6 +92,27 @@ func _process_room():
 		if current_room_node != room_node_at_player_grid_pos:
 			_leave_room(current_room_node)
 			_enter_room(room_node_at_player_grid_pos)
+
+# @impure
+func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i) -> RkRoom:
+	var room_node: Node2D = room_scene.instantiate()
+	room_node.name = _get_room_node_name(room_grid_pos)
+	room_node.position = room_grid_pos * RkRoom.ROOM_SIZE
+	all_rooms_node.add_child(room_node)
+	room_node.owner = all_rooms_node
+	# create pause map room control
+	var room_map_pos := Vector2(
+		room_grid_pos.x * RkMapRoom.MAP_ROOM_SIZE.x,
+		room_grid_pos.y * RkMapRoom.MAP_ROOM_SIZE.y
+	)
+	var map_room_control: RkMapRoom = map_room_scene.instantiate()
+	map_room_control.name = _get_map_room_control_name(room_grid_pos)
+	map_room_control.room_node = room_node
+	map_room_control.discovered = map_revealed
+	map_room_control.set_position(room_map_pos)
+	ui_all_rooms_control.add_child(map_room_control)
+	map_room_control.owner = ui_all_rooms_control
+	return room_node
 
 # @pure
 func _get_room_node(grid_pos: Vector2i) -> RkRoom:
@@ -118,13 +148,7 @@ func _limit_camera_to_room():
 
 # @impure
 func _generate_dungeon():
-	# clear rooms
-	for room_node in all_rooms_node.get_children():
-		all_rooms_node.remove_child(room_node)
-		room_node.queue_free()
-	for map_room_control in ui_all_rooms_control.get_children():
-		ui_all_rooms_control.remove_child(map_room_control)
-		map_room_control.queue_free()
+	_clear_rooms()
 	# load room scenes
 	var dir := DirAccess.open(RkRoom.ROOMS_DIRECTORY)
 	var room_scenes := {}
@@ -163,25 +187,8 @@ func _generate_dungeon():
 				if dungeon[pos.y + 1][pos.x]: cell_exits |= RkRoom.Exit.down
 				if room_scenes.has(cell_exits):
 					# create dungeon room node
-					var room_node: Node2D = (room_scenes[cell_exits] as Array[PackedScene]).pick_random().instantiate()
-					room_node.name = _get_room_node_name(Vector2i(x, y))
-					room_node.position.x = x * RkRoom.ROOM_SIZE.x
-					room_node.position.y = y * RkRoom.ROOM_SIZE.y
-					all_rooms_node.add_child(room_node)
-					room_node.owner = all_rooms_node
+					var room_node := _instantiate_room((room_scenes[cell_exits] as Array[PackedScene]).pick_random(), Vector2i(x, y))
 					room_nodes.push_back(room_node)
-					# create pause map room control
-					var room_map_pos := Vector2(
-						x * RkMapRoom.MAP_ROOM_SIZE.x,
-						y * RkMapRoom.MAP_ROOM_SIZE.y
-					)
-					var map_room_control: RkMapRoom = map_room_scene.instantiate()
-					map_room_control.name = _get_map_room_control_name(Vector2i(x, y))
-					map_room_control.room_node = room_node
-					map_room_control.discovered = map_revealed
-					map_room_control.set_position(room_map_pos)
-					ui_all_rooms_control.add_child(map_room_control)
-					map_room_control.owner = ui_all_rooms_control
 				else:
 					push_error("room %s does not exist..." % [RkRoom.generate_room_exits_name(cell_exits)])
 					return
