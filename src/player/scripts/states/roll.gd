@@ -2,6 +2,8 @@ extends RkStateMachineState
 
 @export var offset_curve: Curve
 
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 var _sprite_initial_offset := Vector2()
 var _animation_initial_speed_scale := 1.0
 
@@ -10,6 +12,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.handle_roll(player_node.direction * player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
+	player_node.play_sound_effect(audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_detector_active(true)
 	player_node.stamina.consume(player_node.ROLL_STAMINA_COST)
 	player_node.life_points.invincible += 1
@@ -30,6 +33,7 @@ func finish_state():
 	player_node.sprite.offset = _sprite_initial_offset
 	player_node.life_points.invincible -= 1
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.stop_sound_effect(audio_stream_player)
 	player_node.set_roll_detector_active(false)
 
 func _on_roll_detector_area_entered(area: Area2D):

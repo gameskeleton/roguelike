@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bmcp82q3j58at"]
+[gd_scene load_steps=63 format=3 uid="uid://diqapemb0iyy4"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -20,15 +20,19 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
 [ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
+[ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/sounds/effects/roll.wav" id="9_7l0y8"]
 [ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/death.png" id="9_a75to"]
 [ext_resource type="Script" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
 [ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
+[ext_resource type="AudioStream" uid="uid://cd17eiunch3uo" path="res://src/sounds/effects/stand.wav" id="12_nfhlm"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
+[ext_resource type="AudioStream" uid="uid://coae4lk6cowab" path="res://src/sounds/effects/attack.wav" id="15_8gyqs"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
 [ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
+[ext_resource type="AudioStream" uid="uid://bcvwnlep707ax" path="res://src/sounds/effects/wall_climb.wav" id="20_onny2"]
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
@@ -310,6 +314,58 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_2epva"]
+resource_name = "hit"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("32_lv00v")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_rquo4"]
@@ -716,58 +772,6 @@ tracks/2/keys = {
 "values": [3]
 }
 
-[sub_resource type="Animation" id="Animation_2epva"]
-resource_name = "hit"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("32_lv00v")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 "RESET": SubResource("Animation_11iq3"),
@@ -828,11 +832,20 @@ script = ExtResource("3_73fy0")
 script = ExtResource("4_giqnr")
 offset_curve = SubResource("Curve_8k3oh")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/roll"]
+stream = ExtResource("9_7l0y8")
+volume_db = -1.0
+bus = &"SFX - Roll"
+
 [node name="skid" type="Node" parent="StateMachine"]
 script = ExtResource("7_3fko7")
 
 [node name="walk" type="Node" parent="StateMachine"]
 script = ExtResource("4_74l6q")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
+stream = ExtResource("12_nfhlm")
+bus = &"SFX - Touch Ground"
 
 [node name="jump" type="Node" parent="StateMachine"]
 script = ExtResource("6_grvpe")
@@ -840,8 +853,16 @@ script = ExtResource("6_grvpe")
 [node name="stand" type="Node" parent="StateMachine"]
 script = ExtResource("3_8ll75")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/stand"]
+stream = ExtResource("12_nfhlm")
+bus = &"SFX - Touch Ground"
+
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_fb2tt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/attack"]
+stream = ExtResource("15_8gyqs")
+bus = &"SFX"
 
 [node name="wall_slide" type="Node" parent="StateMachine"]
 script = ExtResource("13_ma8tw")
@@ -854,6 +875,10 @@ script = ExtResource("10_ml0y4")
 
 [node name="wall_climb" type="Node" parent="StateMachine"]
 script = ExtResource("16_gdcg3")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/wall_climb"]
+stream = ExtResource("20_onny2")
+bus = &"SFX - Wall Climb"
 
 [node name="turn_around" type="Node" parent="StateMachine"]
 script = ExtResource("5_0i2rd")

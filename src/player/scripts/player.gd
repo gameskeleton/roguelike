@@ -273,6 +273,21 @@ func is_on_floor_one_way() -> bool:
 	return is_on_floor() and one_way_detector.has_overlapping_bodies()
 
 ###
+# Sound
+###
+
+# stop_sound_effect stops sound effect from playing.
+# @impure
+func stop_sound_effect(audio_stream_player: AudioStreamPlayer):
+	audio_stream_player.stop()
+
+# play_sound_effect plays a sound effect and applies a small random pitch variation.
+# @impure
+func play_sound_effect(audio_stream_player: AudioStreamPlayer, from_position := 0.0, low_pitch := 0.98, high_pitch := 1.02):
+	audio_stream_player.pitch_scale = randf_range(low_pitch, high_pitch)
+	audio_stream_player.play(from_position)
+
+###
 # Animation
 ###
 

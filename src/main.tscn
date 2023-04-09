@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbc3gv347mvhd"]
+[gd_scene load_steps=12 format=3 uid="uid://bcpa26805ite1"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
-[ext_resource type="PackedScene" uid="uid://bmcp82q3j58at" path="res://src/player/player.tscn" id="2_ak6nv"]
+[ext_resource type="PackedScene" uid="uid://diqapemb0iyy4" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="4_poqhe"]
+[ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/sounds/musics/dungeons_and_tunnels.mp3" id="7_kroh0"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
@@ -201,5 +202,11 @@ color = Color(0.588235, 0.588235, 0.588235, 1)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.588235, 0.588235, 0.588235, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_kroh0")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="CanvasLayer/MagicSlot" to="." method="_on_magic_slot_pressed"]

@@ -8,6 +8,10 @@ knight sprite: aamatniekss (https://aamatniekss.itch.io/)
 
 dungeon tileset: genewheel (https://genewheel.itch.io/)
 
+dungeons and tunnels music: Eric Matyas (https://soundimage.org/)
+
+roll, stand, attack and wall_climb sound effects: Krotos Audio Free Library
+
 # features
 
 -   [ ] level:
@@ -26,10 +30,10 @@ dungeon tileset: genewheel (https://genewheel.itch.io/)
         -   [x] stand
         -   [x] attack
         -   [x] push_wall
-        -   [ ] wall_hang
+        -   [x] wall_hang
         -   [x] wall_jump
         -   [x] wall_slide
-        -   [ ] cast magic
+        -   [ ] cast_magic
         -   [x] turn_around
         -   [x] bump_into_wall
     -   [x] stamina

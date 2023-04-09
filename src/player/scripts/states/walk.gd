@@ -1,5 +1,7 @@
 extends RkStateMachineState
 
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 var _animation_initial_speed_scale := 1.0
 
 func start_state():
@@ -7,6 +9,8 @@ func start_state():
 	player_node.animation_player.speed_scale = 1.2
 	player_node.play_animation("walk")
 	player_node.set_one_way_detector_active(true)
+	if player_node.fsm.prev_state_node == player_node.fsm.state_nodes.fall:
+		player_node.play_sound_effect(audio_stream_player)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
