@@ -8,61 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_m51gx"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="7_0qkkf"]
 
-[sub_resource type="Animation" id="Animation_enp13"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_q0pkt"]
-resource_name = "hit"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_wl67o"]
-resource_name = "lock"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbo2r"]
-_data = {
-"RESET": SubResource("Animation_enp13"),
-"hit": SubResource("Animation_q0pkt"),
-"lock": SubResource("Animation_wl67o")
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_7opvg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ww17q"]
 atlas = ExtResource("3_c5am6")
@@ -632,7 +578,61 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7opvg"]
+[sub_resource type="Animation" id="Animation_enp13"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q0pkt"]
+resource_name = "hit"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wl67o"]
+resource_name = "lock"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbo2r"]
+_data = {
+"RESET": SubResource("Animation_enp13"),
+"hit": SubResource("Animation_q0pkt"),
+"lock": SubResource("Animation_wl67o")
+}
 
 [node name="Orb" type="Node2D"]
 script = ExtResource("1_6h6eh")
@@ -641,24 +641,6 @@ script = ExtResource("1_6h6eh")
 life_points = 5.0
 max_life_points = 5.0
 
-[node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
-listen_room_on = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_pbo2r")
-}
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-light_mask = 16
-visibility_layer = 16
-material = ExtResource("3_ylveh")
-sprite_frames = SubResource("SpriteFrames_87iom")
-autoplay = "default"
-
-[node name="WarmPointLight2D" parent="." instance=ExtResource("2_fgvy3")]
-texture_scale = 0.25
-
 [node name="AttackDetector" type="Area2D" parent="."]
 collision_layer = 64
 collision_mask = 8
@@ -666,20 +648,32 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_7opvg")
 
-[node name="StaminaBg" type="ColorRect" parent="."]
-offset_left = -15.0
-offset_top = -19.0
-offset_right = 15.0
-offset_bottom = -14.0
-color = Color(0, 1, 0, 0.392157)
+[node name="LifePointsMeter" parent="." instance=ExtResource("7_0qkkf")]
+offset_left = -14.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = -15.0
+margin_color = Color(1, 0.843137, 0, 0.196078)
 
-[node name="ProgressBar" parent="StaminaBg" instance=ExtResource("7_0qkkf")]
-layout_mode = 1
-offset_left = 1.0
-offset_top = 1.0
-offset_right = -1.0
-offset_bottom = -1.0
-bg_color = Color(1, 1, 1, 0.392157)
+[node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
+listen_room_on = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 16
+visibility_layer = 16
+material = ExtResource("3_ylveh")
+sprite_frames = SubResource("SpriteFrames_87iom")
+autoplay = "default"
+metadata/_edit_lock_ = true
+
+[node name="WarmPointLight2D" parent="." instance=ExtResource("2_fgvy3")]
+texture_scale = 0.25
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pbo2r")
+}
 
 [connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]
