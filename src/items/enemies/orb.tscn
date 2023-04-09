@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://src/items/enemies/scripts/orb.gd" id="1_6h6eh"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_fgvy3"]
 [ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_qwrfn"]
+[ext_resource type="PackedScene" uid="uid://dnsftlwm0bb55" path="res://src/shared/life_points_meter.tscn" id="3_7vjfj"]
 [ext_resource type="Texture2D" uid="uid://di0jio3iymru5" path="res://src/items/enemies/textures/orb.png" id="3_c5am6"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="3_ylveh"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_m51gx"]
-[ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="7_0qkkf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7opvg"]
 
@@ -648,12 +648,7 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_7opvg")
 
-[node name="LifePointsMeter" parent="." instance=ExtResource("7_0qkkf")]
-offset_left = -14.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = -15.0
-margin_color = Color(1, 0.843137, 0, 0.196078)
+[node name="LifePointsMeter" parent="." instance=ExtResource("3_7vjfj")]
 
 [node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
 listen_room_on = false

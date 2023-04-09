@@ -16,10 +16,8 @@ const EXPULSE_STRENGTH := 10.0
 @export var projectile_scene := preload("res://src/items/projectiles/fire_ball.tscn")
 @export var pickup_experience_scene := preload("res://src/items/pickups/experience.tscn")
 
-@onready var life_points: RkLifePoints = $LifePoints
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var life_points_meter: RkGuiProgressBar = $LifePointsMeter
 
 var _timer := 0.0
 var _state := State.idle
@@ -99,7 +97,6 @@ func _on_life_points_damage_taken(_damage: float, new_life_points: float, source
 	_expulse = (global_position - source.global_position).normalized() * EXPULSE_STRENGTH
 	_expulse_alpha = 1.0
 	animation_player.play("hit")
-	life_points_meter.progress = life_points.get_ratio()
 	if new_life_points <= 0.0:
 		for i in 10:
 			var pickup_node: RkPickupExperience = pickup_experience_scene.instantiate()

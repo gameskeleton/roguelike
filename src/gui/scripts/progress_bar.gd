@@ -27,7 +27,6 @@ class_name RkGuiProgressBar
 	set(value):
 		margin = value
 		_update_progress()
-
 @export var progress := 1.0 :
 	get:
 		return progress
