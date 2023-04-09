@@ -54,6 +54,7 @@ func _fire():
 	projectile_node.direction = (_player_node.global_position - global_position).normalized()
 	projectile_node.damage_type = RkLifePoints.DmgType.fire
 	add_child(projectile_node)
+	projectile_node.owner = self
 	$AnimationPlayer.play("RESET")
 
 # @impure
@@ -62,7 +63,7 @@ func _reset():
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage: float, life_points: float, _instigator: Object):
+func _on_life_points_damage_taken(_damage: float, life_points: float, _source: Object, _instigator: Object):
 	if life_points <= 0.0:
 		queue_free()
 

@@ -8,6 +8,8 @@ const CEILING_KNOCKDOWN := 0.0
 const GRAVITY_MAX_SPEED := 800.0
 const GRAVITY_ACCELERATION := 850.0
 
+const HIT_IMPULSE := Vector2(140.0, -140.0)
+
 const RUN_MAX_SPEED := 126.0
 const RUN_ACCELERATION := 410.0
 const RUN_DECELERATION := 480.0
@@ -350,5 +352,5 @@ func _on_level_level_up(new_level: int):
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(damage_taken: float, new_life_points: float, instigator: Object):
-	print("_on_life_points_damage_taken: %d %d %s" % [damage_taken, new_life_points, instigator])
+func _on_life_points_damage_taken(_damage_taken: float, _new_life_points: float, _source: Object, _instigator: Object):
+	fsm.call_deferred("set_state_node", fsm.state_nodes.hit)

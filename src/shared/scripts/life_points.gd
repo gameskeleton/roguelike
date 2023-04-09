@@ -14,9 +14,9 @@ enum DmgType {
 	lightning,
 }
 
-signal damage_taken(damage: float, life_points: float, instigator: Object)
+signal damage_taken(damage: float, life_points: float, source: Object, instigator: Object)
 
-@export var invincible := false
+@export var invincible := 0
 @export var life_points := 10.0
 @export var max_life_points := 10.0
 
@@ -26,6 +26,9 @@ signal damage_taken(damage: float, life_points: float, instigator: Object)
 @export var damage_multiplier_fire := 1.0
 @export var damage_multiplier_physical := 1.0
 @export var damage_multiplier_lightning := 1.0
+
+var last_damage_source: Object
+var last_damage_instigator: Object
 
 # set_max sets the maximum life points and resplenishes the life points.
 # @impure
@@ -40,9 +43,9 @@ func get_ratio() -> float:
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
-func take_damage(damage: float, damage_type := DmgType.none, instigator: Object = null) -> bool:
+func take_damage(damage: float, damage_type := DmgType.none, source: Object = null, instigator: Object = null) -> bool:
 	assert(damage >= 0.0, "damage must be positive")
-	if invincible:
+	if invincible > 0:
 		return false
 	var damage_multiplier := 1.0
 	match damage_type:
@@ -52,7 +55,9 @@ func take_damage(damage: float, damage_type := DmgType.none, instigator: Object 
 		DmgType.lightning: damage_multiplier = damage_multiplier_lightning
 	var total_damage := damage * damage_multiplier
 	life_points -= total_damage
-	damage_taken.emit(total_damage, life_points, instigator)
+	last_damage_source = source
+	last_damage_instigator = instigator
+	damage_taken.emit(total_damage, life_points, source, instigator)
 	return true
 
 # has_lethal_damage returns true if our life points are lower or equal than zero.

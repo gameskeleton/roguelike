@@ -28,14 +28,14 @@ func destroy_projectile(force := false):
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage: float, _life_points: float, _instigator: Object):
+func _on_life_points_damage_taken(_damage: float, _life_points: float, _source: Object, _instigator: Object):
 	destroy_projectile()
 
 # @signal
 # @impure
 func _on_attack_detector_body_entered(body: Node2D):
 	if body is RkPlayer:
-		body.life_points.take_damage(damage, damage_type)
+		body.life_points.take_damage(damage, damage_type, self, owner)
 
 # @signal
 # @impure

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bmcp82q3j58at"]
+[gd_scene load_steps=59 format=3 uid="uid://bmcp82q3j58at"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
 [ext_resource type="Script" path="res://src/player/scripts/states/turn_around.gd" id="5_0i2rd"]
 [ext_resource type="Texture2D" uid="uid://dq457ojnbnmn0" path="res://src/player/textures/turn_around.png" id="5_eb2fg"]
+[ext_resource type="Script" path="res://src/player/scripts/states/hit.gd" id="6_ei416"]
 [ext_resource type="Script" path="res://src/player/scripts/states/jump.gd" id="6_grvpe"]
 [ext_resource type="Texture2D" uid="uid://clnc3derlho4i" path="res://src/player/textures/jump.png" id="6_ss6l5"]
 [ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/fall.png" id="7_2bcbe"]
@@ -31,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
+[ext_resource type="Texture2D" uid="uid://dd7or7xh8rhva" path="res://src/player/textures/hit.png" id="32_lv00v"]
 
 [sub_resource type="Curve" id="Curve_5ghgr"]
 max_value = 20.0
@@ -102,6 +104,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [10]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_i0u8u"]
@@ -702,6 +716,58 @@ tracks/2/keys = {
 "values": [3]
 }
 
+[sub_resource type="Animation" id="Animation_2epva"]
+resource_name = "hit"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("32_lv00v")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 "RESET": SubResource("Animation_11iq3"),
@@ -709,6 +775,7 @@ _data = {
 "attack_02": SubResource("Animation_0dkd4"),
 "death": SubResource("Animation_jlirl"),
 "fall": SubResource("Animation_ginsg"),
+"hit": SubResource("Animation_2epva"),
 "idle": SubResource("Animation_rquo4"),
 "jump": SubResource("Animation_roadd"),
 "jump_to_fall": SubResource("Animation_bqla8"),
@@ -750,6 +817,9 @@ shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="StateMachine" type="Node" parent="."]
+
+[node name="hit" type="Node" parent="StateMachine"]
+script = ExtResource("6_ei416")
 
 [node name="fall" type="Node" parent="StateMachine"]
 script = ExtResource("3_73fy0")

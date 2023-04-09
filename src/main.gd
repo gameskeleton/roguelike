@@ -6,6 +6,7 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 
 @export var map_revealed := false
 @export var map_room_scene: PackedScene = preload("res://src/gui/map_room.tscn")
+@export var start_room_scene: PackedScene
 
 @onready var player_node: RkPlayer = $Game/Player
 @onready var all_rooms_node: Node2D = $Game/AllRooms
@@ -149,6 +150,13 @@ func _limit_camera_to_room():
 # @impure
 func _generate_dungeon():
 	_clear_rooms()
+	# load room scene
+	if start_room_scene != null:
+		var start_room_node := _instantiate_room(start_room_scene, Vector2i.ZERO)
+		var start_room_grid_pos := start_room_node.get_grid_pos()
+		_enter_room(start_room_node)
+		player_node.position = Vector2(start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
+		return
 	# load room scenes
 	var dir := DirAccess.open(RkRoom.ROOMS_DIRECTORY)
 	var room_scenes := {}

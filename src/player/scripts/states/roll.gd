@@ -12,6 +12,7 @@ func start_state():
 	player_node.play_animation("roll")
 	player_node.set_roll_detector_active(true)
 	player_node.stamina.consume(player_node.ROLL_STAMINA_COST)
+	player_node.life_points.invincible += 1
 	player_node.animation_player.speed_scale = 2.1
 
 func process_state(delta: float):
@@ -27,6 +28,7 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.sprite.offset = _sprite_initial_offset
+	player_node.life_points.invincible -= 1
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_roll_detector_active(false)
 
