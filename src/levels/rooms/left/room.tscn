@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwu422hgcytk7"]
+[gd_scene load_steps=5 format=3 uid="uid://dwu422hgcytk7"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_6ttmn"]
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_ltsuq"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="3_f1wgf"]
+[ext_resource type="PackedScene" uid="uid://cc6modjmby7h7" path="res://src/items/enemies/orb.tscn" id="4_odw06"]
 
 [node name="Room" instance=ExtResource("1_6ttmn")]
 exit_left = true
@@ -34,3 +35,6 @@ position = Vector2(220, 232)
 
 [node name="Barrel7" parent="." index="7" instance=ExtResource("2_ltsuq")]
 position = Vector2(236, 232)
+
+[node name="Orb" parent="." index="8" instance=ExtResource("4_odw06")]
+position = Vector2(344, 224)

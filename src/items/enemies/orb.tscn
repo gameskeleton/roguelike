@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://cc6modjmby7h7"]
+[gd_scene load_steps=94 format=3 uid="uid://cc6modjmby7h7"]
 
 [ext_resource type="Script" path="res://src/items/enemies/scripts/orb.gd" id="1_6h6eh"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_fgvy3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://di0jio3iymru5" path="res://src/items/enemies/textures/orb.png" id="3_c5am6"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="3_ylveh"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_m51gx"]
+[ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="7_0qkkf"]
 
 [sub_resource type="Animation" id="Animation_enp13"]
 length = 0.001
@@ -20,23 +21,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_wl67o"]
-resource_name = "lock"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_q0pkt"]
@@ -54,6 +38,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wl67o"]
+resource_name = "lock"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pbo2r"]
@@ -664,6 +665,21 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_7opvg")
+
+[node name="StaminaBg" type="ColorRect" parent="."]
+offset_left = -15.0
+offset_top = -19.0
+offset_right = 15.0
+offset_bottom = -14.0
+color = Color(0, 1, 0, 0.392157)
+
+[node name="ProgressBar" parent="StaminaBg" instance=ExtResource("7_0qkkf")]
+layout_mode = 1
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+bg_color = Color(1, 1, 1, 0.392157)
 
 [connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]

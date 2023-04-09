@@ -33,6 +33,8 @@ func _ready():
 # @impure
 func _process(delta: float):
 	# debug
+	if Input.is_action_just_pressed("ui_home"):
+		_generate_dungeon()
 	if Input.is_action_just_pressed("ui_page_up"):
 		player_node.level.earn_experience(player_node.level.experience_required_to_level_up)
 	if Input.is_action_just_pressed("ui_page_down"):

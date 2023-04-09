@@ -1,5 +1,6 @@
 @tool
 extends Control
+class_name RkGuiProgressBar
 
 @export var color := Color.GREEN :
 	get:
