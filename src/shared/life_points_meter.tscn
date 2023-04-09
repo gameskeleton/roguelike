@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnsftlwm0bb55"]
+[gd_scene load_steps=4 format=3 uid="uid://dnsftlwm0bb55"]
 
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="1_4ul0w"]
 [ext_resource type="Script" path="res://src/shared/scripts/life_points_meter.gd" id="1_8oacj"]
+[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="3_g6jw6"]
 
 [node name="LifePointsMeter" type="Control"]
-custom_minimum_size = Vector2(32, 3)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 32.0
@@ -12,7 +12,13 @@ offset_bottom = 3.0
 script = ExtResource("1_8oacj")
 
 [node name="ProgressBar" parent="." instance=ExtResource("1_4ul0w")]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
 margin_color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="RoomNotifier2D" parent="." instance=ExtResource("3_g6jw6")]
+
+[connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]
+[connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]

@@ -649,6 +649,10 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_7opvg")
 
 [node name="LifePointsMeter" parent="." instance=ExtResource("3_7vjfj")]
+offset_left = -16.0
+offset_top = -19.0
+offset_right = 16.0
+offset_bottom = -16.0
 
 [node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
 listen_room_on = false
