@@ -59,4 +59,4 @@ func _on_attack_detector_area_entered(area: Area2D):
 	if parent_node:
 		var life_points_node := RkLifePoints.find_life_points_in_node(parent_node)
 		if life_points_node is RkLifePoints:
-			life_points_node.call_deferred("take_damage", 1.4 + 0.8 * player_node.level.level, RkLifePoints.DmgType.physical)
+			life_points_node.call_deferred("take_damage", 1.4 + 0.8 * player_node.level.level, RkLifePoints.DmgType.physical, player_node, player_node)
