@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcpa26805ite1"]
+[gd_scene load_steps=19 format=3 uid="uid://bcpa26805ite1"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://diqapemb0iyy4" path="res://src/player/player.tscn" id="2_ak6nv"]
+[ext_resource type="PackedScene" uid="uid://c3222vqdfeowx" path="res://src/playground.tscn" id="2_uvile"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="4_poqhe"]
+[ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/sounds/musics/dungeons_and_tunnels.mp3" id="7_kroh0"]
+[ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="7_qcw21"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
@@ -45,6 +48,83 @@ _data = {
 "pulse": SubResource("Animation_7hmug")
 }
 
+[sub_resource type="Animation" id="Animation_58koh"]
+resource_name = "level_up!"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.294118, 1, 0.298039, 1), Color(0.317647, 0.52549, 1, 1), Color(1, 0.262745, 0.129412, 1), Color(1, 0.996078, 0.196078, 1), Color(1, 0.219608, 0.709804, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 2.75, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8ny6t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j46gx"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7n18l"]
+_data = {
+"RESET": SubResource("Animation_8ny6t"),
+"hide": SubResource("Animation_j46gx"),
+"level_up!": SubResource("Animation_58koh")
+}
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
 light_mode = 1
 
@@ -58,6 +138,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
+start_room_scene = ExtResource("2_uvile")
 metadata/_edit_lock_ = true
 
 [node name="Game" type="Node2D" parent="."]
@@ -154,6 +235,44 @@ text = "Standing"
 vertical_alignment = 1
 uppercase = true
 
+[node name="LevelBg" type="ColorRect" parent="CanvasLayer"]
+offset_left = 497.0
+offset_top = 271.0
+offset_right = 509.0
+offset_bottom = 285.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+offset_left = 498.0
+offset_top = 269.0
+offset_right = 510.0
+offset_bottom = 289.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+theme_override_font_sizes/font_size = 13
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelUpLabel" type="Label" parent="CanvasLayer"]
+material = ExtResource("6_41hv6")
+offset_left = 429.0
+offset_top = 256.0
+offset_right = 493.0
+offset_bottom = 276.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+theme_override_font_sizes/font_size = 14
+text = "Level up!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/LevelUpLabel"]
+autoplay = "hide"
+libraries = {
+"": SubResource("AnimationLibrary_7n18l")
+}
+
 [node name="MagicBg" type="ColorRect" parent="CanvasLayer"]
 offset_left = 4.0
 offset_top = 271.0
@@ -182,6 +301,16 @@ offset_right = -428.0
 offset_bottom = -12.0
 color = Color(1, 0, 0, 1)
 lag_color = Color(1, 0, 0, 0.392157)
+
+[node name="ExperienceMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
+offset_left = 429.0
+offset_top = 280.0
+offset_right = -19.0
+offset_bottom = -4.0
+color = Color(0, 0.470588, 1, 1)
+lag_color = Color(0, 0.470588, 1, 0.392157)
+progress = 0.0
+lag_speed = 60.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.588235, 0.588235, 0.588235, 1)

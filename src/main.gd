@@ -28,6 +28,10 @@ var _generator := RkDungeonGenerator.new()
 func _ready():
 	_generate_dungeon()
 	_limit_camera_to_room()
+	player_node.level.level_up.connect(func(_level: int):
+		$CanvasLayer/ExperienceMeter.progress = 1.0
+		$CanvasLayer/LevelUpLabel/AnimationPlayer.play("level_up!")
+	)
 	player_camera_node.reset_smoothing()
 
 # @impure
@@ -36,7 +40,7 @@ func _process(delta: float):
 	if Input.is_action_just_pressed("ui_home"):
 		_generate_dungeon()
 	if Input.is_action_just_pressed("ui_page_up"):
-		player_node.level.earn_experience(player_node.level.experience_required_to_level_up)
+		player_node.level.earn_experience(1)
 	if Input.is_action_just_pressed("ui_page_down"):
 		player_node.life_points.take_damage(1.0)
 	# pause
@@ -47,7 +51,9 @@ func _process(delta: float):
 		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
+	$CanvasLayer/LevelLabel.text = str(player_node.level.level)
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina.get_ratio(), delta)
+	$CanvasLayer/ExperienceMeter.progress = move_toward($CanvasLayer/ExperienceMeter.progress, player_node.level.get_xp_ratio(), delta)
 	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points.get_ratio(), delta)
 	# room and camera
 	_process_room()

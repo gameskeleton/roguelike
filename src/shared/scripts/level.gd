@@ -39,6 +39,7 @@ func earn_experience(amount_exp: int):
 	var experience_required := experience_required_to_level_up
 	while experience >= experience_required:
 		if not can_level_up():
+			experience = experience_required
 			return
 		level += 1
 		experience -= experience_required
