@@ -10,7 +10,7 @@ signal level_up(level: int) # emitted when levelling up, can be emitted multiple
 
 var experience_required_to_level_up: int :
 	get:
-		return int(round(pow(1.0, 1.8) + 1.0 * 4.0))
+		return int(round(pow((level + 1), 1.8) + (level + 1) * 4.0))
 
 # @impure
 func _init(start_level := 0, start_experience := 0):
