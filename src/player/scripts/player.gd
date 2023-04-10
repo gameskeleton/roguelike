@@ -43,6 +43,7 @@ const ATTACK_DECELERATION := 510.0
 @onready var attack_detector: Area2D = $AttackDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
 @onready var wall_hang_up_detector: Area2D = $WallHangUpDetector
+@onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
 @onready var wall_hang_down_detector: Area2D = $WallHangDownDetector
 @onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
 @onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
@@ -254,7 +255,7 @@ func is_able_to_attack() -> bool:
 # is_able_to_wall_hang returns true if the player is near a corner wall.
 # @pure
 func is_able_to_wall_hang() -> bool:
-	return is_on_wall() and wall_hang_down_detector.has_overlapping_bodies() and not wall_hang_up_detector.has_overlapping_bodies()
+	return is_on_wall() and not wall_hang_down_raycast.is_colliding() and wall_hang_down_detector.has_overlapping_bodies() and not wall_hang_up_detector.has_overlapping_bodies()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
 # @pure
@@ -345,6 +346,7 @@ func set_one_way_detector_active(active: bool):
 func set_wall_hang_detector_active(active: bool):
 	wall_hang_up_detector.monitoring = active
 	wall_hang_up_detector.monitorable = active
+	wall_hang_down_raycast.enabled = active
 	wall_hang_down_detector.monitoring = active
 	wall_hang_down_detector.monitorable = active
 

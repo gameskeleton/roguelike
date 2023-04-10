@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bcpa26805ite1"]
+[gd_scene load_steps=18 format=3 uid="uid://bcpa26805ite1"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://diqapemb0iyy4" path="res://src/player/player.tscn" id="2_ak6nv"]
-[ext_resource type="PackedScene" uid="uid://c3222vqdfeowx" path="res://src/playground.tscn" id="2_uvile"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
@@ -138,7 +137,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
-start_room_scene = ExtResource("2_uvile")
 metadata/_edit_lock_ = true
 
 [node name="Game" type="Node2D" parent="."]
