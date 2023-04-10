@@ -2,25 +2,25 @@
 extends Control
 class_name RkGuiProgressBar
 
-@export var color := Color.GREEN :
+@export var color := Color("00ff00ff") :
 	get:
 		return color
 	set(value):
 		color = value
 		_update_colors()
-@export var lag_color := Color.DARK_GREEN :
+@export var lag_color := Color("00ff0064") :
 	get:
 		return lag_color
 	set(value):
 		lag_color = value
 		_update_colors()
-@export var margin_color := Color.GOLD :
+@export var margin_color := Color("ffd30064") :
 	get:
 		return margin_color
 	set(value):
 		margin_color = value
 		_update_colors()
-@export var background_color := Color.WHITE :
+@export var background_color := Color("333333") :
 	get:
 		return background_color
 	set(value):

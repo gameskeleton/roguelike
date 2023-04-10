@@ -174,7 +174,6 @@ offset_left = 20.0
 offset_top = 280.0
 offset_right = -428.0
 offset_bottom = -4.0
-margin_color = Color(1, 0.827451, 0, 0.392157)
 
 [node name="LifePointsMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
 offset_left = 20.0
@@ -182,7 +181,7 @@ offset_top = 272.0
 offset_right = -428.0
 offset_bottom = -12.0
 color = Color(1, 0, 0, 1)
-margin_color = Color(1, 0.827451, 0, 0.392157)
+lag_color = Color(1, 0, 0, 0.392157)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.588235, 0.588235, 0.588235, 1)

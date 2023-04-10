@@ -19,18 +19,19 @@ offset_left = -1.0
 offset_top = -1.0
 offset_right = 81.0
 offset_bottom = 9.0
-color = Color(1, 0.843137, 0, 1)
+color = Color(1, 0.827451, 0, 0.392157)
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
+color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="ProgressBarLag" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
-color = Color(0, 0.392157, 0, 1)
+color = Color(0, 1, 0, 0.392157)
 
 [node name="ProgressBarCurrent" type="ColorRect" parent="."]
 layout_mode = 0
