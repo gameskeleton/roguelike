@@ -26,7 +26,13 @@ layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
 
-[node name="ProgressBar" type="ColorRect" parent="."]
+[node name="ProgressBarLag" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 8.0
+color = Color(0, 0.392157, 0, 1)
+
+[node name="ProgressBarCurrent" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
