@@ -21,6 +21,8 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var ui_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaValueLabel
 @onready var ui_experience_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceValueLabel
 
+@onready var ui_player_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
+
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
 
@@ -33,10 +35,7 @@ var _generator := RkDungeonGenerator.new()
 func _ready():
 	_generate_dungeon()
 	_limit_camera_to_room()
-	player_node.level.level_up.connect(func(_level: int):
-		$CanvasLayer/ExperienceMeter.progress = 1.0
-		$CanvasLayer/LevelUpLabel/AnimationPlayer.play("level_up!")
-	)
+	player_node.level.level_up.connect(func(_level: int): ui_player_level_up_animation_player.play("level_up!"))
 	player_camera_node.reset_smoothing()
 
 # @impure
@@ -58,9 +57,7 @@ func _process(delta: float):
 		ui_pause_control.visible = new_paused
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
-	$CanvasLayer/LevelLabel.text = str(player_node.level.level)
 	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina.get_ratio(), delta)
-	$CanvasLayer/ExperienceMeter.progress = move_toward($CanvasLayer/ExperienceMeter.progress, player_node.level.get_xp_ratio(), delta)
 	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points.get_ratio(), delta)
 	# room and camera
 	_process_room()

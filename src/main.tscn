@@ -11,43 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
-[sub_resource type="Animation" id="Animation_oxdy1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 1, 0.403922, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7hmug"]
-resource_name = "pulse"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 1, 0.403922, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_trlk5"]
-_data = {
-"RESET": SubResource("Animation_oxdy1"),
-"pulse": SubResource("Animation_7hmug")
-}
-
 [sub_resource type="Animation" id="Animation_8ny6t"]
 length = 0.001
 tracks/0/type = "value"
@@ -125,6 +88,43 @@ _data = {
 "level_up!": SubResource("Animation_58koh")
 }
 
+[sub_resource type="Animation" id="Animation_oxdy1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0.403922, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7hmug"]
+resource_name = "pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 0.403922, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trlk5"]
+_data = {
+"RESET": SubResource("Animation_oxdy1"),
+"pulse": SubResource("Animation_7hmug")
+}
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
 light_mode = 1
 
@@ -180,6 +180,26 @@ shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
+
+[node name="LevelUpLabel" type="Label" parent="Game/Player"]
+material = ExtResource("6_41hv6")
+offset_left = -32.0
+offset_top = -41.0
+offset_right = 32.0
+offset_bottom = -21.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+theme_override_font_sizes/font_size = 14
+text = "Level up!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpLabel"]
+autoplay = "hide"
+libraries = {
+"": SubResource("AnimationLibrary_7n18l")
+}
 
 [node name="AllRooms" type="Node2D" parent="Game"]
 
@@ -427,44 +447,6 @@ text = "Standing"
 vertical_alignment = 1
 uppercase = true
 
-[node name="LevelBg" type="ColorRect" parent="CanvasLayer"]
-offset_left = 497.0
-offset_top = 271.0
-offset_right = 509.0
-offset_bottom = 285.0
-color = Color(1, 0.827451, 0, 0.392157)
-
-[node name="LevelLabel" type="Label" parent="CanvasLayer"]
-offset_left = 498.0
-offset_top = 269.0
-offset_right = 510.0
-offset_bottom = 289.0
-theme_override_fonts/font = ExtResource("7_qcw21")
-theme_override_font_sizes/font_size = 13
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LevelUpLabel" type="Label" parent="CanvasLayer"]
-material = ExtResource("6_41hv6")
-offset_left = 429.0
-offset_top = 256.0
-offset_right = 493.0
-offset_bottom = 276.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_qcw21")
-theme_override_font_sizes/font_size = 14
-text = "Level up!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/LevelUpLabel"]
-autoplay = "hide"
-libraries = {
-"": SubResource("AnimationLibrary_7n18l")
-}
-
 [node name="MagicBg" type="ColorRect" parent="CanvasLayer"]
 offset_left = 4.0
 offset_top = 271.0
@@ -493,16 +475,6 @@ offset_right = -428.0
 offset_bottom = -12.0
 color = Color(1, 0, 0, 1)
 lag_color = Color(1, 0, 0, 0.392157)
-
-[node name="ExperienceMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
-offset_left = 429.0
-offset_top = 280.0
-offset_right = -19.0
-offset_bottom = -4.0
-color = Color(0, 0.470588, 1, 1)
-lag_color = Color(0, 0.470588, 1, 0.392157)
-progress = 0.0
-lag_speed = 60.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.588235, 0.588235, 0.588235, 1)
