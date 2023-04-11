@@ -16,9 +16,11 @@ enum DmgType {
 
 signal damage_taken(damage: float, life_points: float, source: Object, instigator: Object)
 
-@export var invincible := 0
 @export var life_points := 10.0
 @export var max_life_points := 10.0
+
+@export var invincible := 0
+@export var invincibility_delay := 0.0
 
 @export_group("Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_world := 1.0
@@ -29,6 +31,11 @@ signal damage_taken(damage: float, life_points: float, source: Object, instigato
 
 var last_damage_source: Object
 var last_damage_instigator: Object
+
+# _process reduces the invincibility delay.
+# @impure
+func _process(delta: float):
+	invincibility_delay = max(0.0, invincibility_delay - delta)
 
 # set_max sets the maximum life points and resplenishes the life points.
 # @impure
@@ -45,7 +52,7 @@ func get_ratio() -> float:
 # @impure
 func take_damage(damage: float, damage_type := DmgType.none, source: Object = null, instigator: Object = null) -> bool:
 	assert(damage >= 0.0, "damage must be positive")
-	if invincible > 0:
+	if invincible > 0 or invincibility_delay > 0.0:
 		return false
 	var damage_multiplier := 1.0
 	match damage_type:
@@ -64,6 +71,11 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Object = nu
 # @pure
 func has_lethal_damage() -> bool:
 	return life_points <= 0.0
+
+# set_invincibility_delay refills the invincibility delay towards the given value.
+# @impure
+func set_invincibility_delay(delay: float):
+	invincibility_delay = max(delay, invincibility_delay)
 
 # find_life_points_in_node returns the first life points node in the given node.
 # @pure

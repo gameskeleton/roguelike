@@ -16,3 +16,4 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.life_points.invincible -= 1
+	player_node.life_points.set_invincibility_delay(player_node.HIT_INVINCIBILITY_DELAY)
