@@ -4,8 +4,8 @@ class_name RkLevel
 
 signal level_up(level: int) # emitted when levelling up, can be emitted multiple times in a frame.
 
-@export var level := 0
-@export var max_level := 10
+@export var level := 0 # +1 for humans
+@export var max_level := 9 # +1 for humans
 @export var experience := 0
 
 var experience_required_to_level_up: int :
