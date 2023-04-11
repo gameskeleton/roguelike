@@ -1,7 +1,7 @@
 extends Control
 class_name RkMapRoom
 
-const MAP_TILE_SIZE := 3
+const MAP_TILE_SIZE := 2
 const MAP_ROOM_SIZE := Vector2((RkRoom.ROOM_SIZE.x / 16.0) * MAP_TILE_SIZE, (RkRoom.ROOM_SIZE.y / 16.0) * MAP_TILE_SIZE)
 
 @export var empty_color: Color

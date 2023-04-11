@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bcpa26805ite1"]
+[gd_scene load_steps=19 format=3 uid="uid://dv4faverjtc14"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://diqapemb0iyy4" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
+[ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="6_i4jlm"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/sounds/musics/dungeons_and_tunnels.mp3" id="7_kroh0"]
 [ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="7_qcw21"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
@@ -15,7 +16,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerDot:color")
+tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -31,7 +32,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerDot:color")
+tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -45,34 +46,6 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_oxdy1"),
 "pulse": SubResource("Animation_7hmug")
-}
-
-[sub_resource type="Animation" id="Animation_58koh"]
-resource_name = "level_up!"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.294118, 1, 0.298039, 1), Color(0.317647, 0.52549, 1, 1), Color(1, 0.262745, 0.129412, 1), Color(1, 0.996078, 0.196078, 1), Color(1, 0.219608, 0.709804, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 2.75, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8ny6t"]
@@ -117,6 +90,34 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_58koh"]
+resource_name = "level_up!"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.294118, 1, 0.298039, 1), Color(0.317647, 0.52549, 1, 1), Color(1, 0.262745, 0.129412, 1), Color(1, 0.996078, 0.196078, 1), Color(1, 0.219608, 0.709804, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 2.75, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7n18l"]
 _data = {
 "RESET": SubResource("Animation_8ny6t"),
@@ -138,12 +139,14 @@ grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
 metadata/_edit_lock_ = true
+metadata/_edit_horizontal_guides_ = []
+metadata/_edit_vertical_guides_ = []
 
 [node name="Game" type="Node2D" parent="."]
 process_mode = 1
 
 [node name="Player" parent="Game" instance=ExtResource("2_ak6nv")]
-position = Vector2(256, 145)
+position = Vector2(-16, -31)
 safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
@@ -203,7 +206,28 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause"]
+[node name="Tabs" type="Control" parent="CanvasLayer/Pause"]
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 64.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Pause/Tabs"]
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 91.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "(LB) Map"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Pause/Tabs"]
+offset_left = 120.0
+offset_top = 16.0
+offset_right = 221.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "(RB) Stats"
+
+[node name="MapTab" type="Control" parent="CanvasLayer/Pause"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,11 +235,180 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerDot" type="ColorRect" parent="CanvasLayer/Pause"]
+[node name="Map" type="Control" parent="CanvasLayer/Pause/MapTab"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause/MapTab/Map"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PlayerDot" type="ColorRect" parent="CanvasLayer/Pause/MapTab/Map"]
 layout_mode = 0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -4.0
+offset_bottom = -4.0
 color = Color(0, 1, 0.403922, 1)
+
+[node name="StatsTab" type="Control" parent="CanvasLayer/Pause"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerStats" type="Control" parent="CanvasLayer/Pause/StatsTab"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 40.0
+offset_right = -317.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Border" type="NinePatchRect" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_right = 171.0
+offset_bottom = 128.0
+texture = ExtResource("6_i4jlm")
+region_rect = Rect2(2, 34, 20, 20)
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Background" type="NinePatchRect" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 165.0
+offset_bottom = 122.0
+texture = ExtResource("6_i4jlm")
+region_rect = Rect2(96, 0, 24, 24)
+patch_margin_left = 21
+patch_margin_top = 21
+patch_margin_right = 21
+patch_margin_bottom = 21
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="ForceLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 14.0
+offset_top = 16.0
+offset_right = 60.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "Force:"
+vertical_alignment = 2
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 14.0
+offset_top = 40.0
+offset_right = 65.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "Health:"
+vertical_alignment = 2
+
+[node name="MaxHealthLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 14.0
+offset_top = 64.0
+offset_right = 108.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "Max Health:"
+vertical_alignment = 2
+
+[node name="MaxStaminaLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 14.0
+offset_top = 88.0
+offset_right = 103.0
+offset_bottom = 106.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "Stamina:"
+vertical_alignment = 2
+
+[node name="ForceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 141.0
+offset_top = 16.0
+offset_right = 158.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "10
+"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HealthValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 141.0
+offset_top = 40.0
+offset_right = 158.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "10
+"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="MaxHealthValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 141.0
+offset_top = 64.0
+offset_right = 158.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "10
+"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="MaxStaminaValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 141.0
+offset_top = 88.0
+offset_right = 158.0
+offset_bottom = 106.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "10
+"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Pause"]
 autoplay = "pulse"

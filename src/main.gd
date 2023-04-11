@@ -13,8 +13,13 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var player_camera_node: Camera2D = $Game/Player/Camera2D
 
 @onready var ui_pause_control: Control = $CanvasLayer/Pause
-@onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/AllMapRooms
-@onready var ui_player_dot_color_rect: ColorRect = $CanvasLayer/Pause/PlayerDot
+@onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/MapTab/Map/AllMapRooms
+@onready var ui_player_dot_color_rect: ColorRect = $CanvasLayer/Pause/MapTab/Map/PlayerDot
+
+@onready var ui_force_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ForceValueLabel
+@onready var ui_health_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/HealthValueLabel
+@onready var ui_max_health_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/MaxHealthValueLabel
+@onready var ui_max_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/MaxStaminaValueLabel
 
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
@@ -44,11 +49,12 @@ func _process(delta: float):
 	if Input.is_action_just_pressed("ui_page_down"):
 		player_node.life_points.take_damage(1.0)
 	# pause
+	if get_tree().paused:
+		_process_pause(delta)
 	if Input.is_action_just_pressed("player_pause"):
 		var new_paused := not get_tree().paused
 		get_tree().paused = new_paused
 		ui_pause_control.visible = new_paused
-		ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
 	$CanvasLayer/LevelLabel.text = str(player_node.level.level)
@@ -138,6 +144,25 @@ func _get_map_room_control(grid_pos: Vector2i) -> RkMapRoom:
 # @pure
 func _get_map_room_control_name(grid_pos: Vector2i) -> StringName:
 	return "MapRoom_%s_%s" % [grid_pos.x, grid_pos.y]
+
+###
+# Pause
+###
+
+func _process_pause(_delta: float):
+	if Input.is_action_just_pressed("player_pause_next"):
+		$CanvasLayer/Pause/MapTab.visible = false
+		$CanvasLayer/Pause/StatsTab.visible = true
+	if Input.is_action_just_pressed("player_pause_previous"):
+		$CanvasLayer/Pause/MapTab.visible = true
+		$CanvasLayer/Pause/StatsTab.visible = false
+	# position player dot
+	ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
+	# update stats values
+	ui_force_value_label.text = str(round(10.0))
+	ui_health_value_label.text = str(round(player_node.life_points.life_points))
+	ui_max_health_value_label.text = str(round(player_node.life_points.max_life_points))
+	ui_max_stamina_value_label.text = str(round(player_node.stamina.max_stamina))
 
 ###
 # Camera

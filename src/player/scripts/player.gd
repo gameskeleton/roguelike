@@ -363,9 +363,9 @@ func set_wall_slide_raycast_active(active: bool):
 
 # @signal
 # @impure
-func _on_level_level_up(new_level: int):
-	stamina.set_max(base_stamina + additional_stamina_per_level.sample_baked(new_level))
-	life_points.set_max(base_life_points + additional_life_points_per_level.sample_baked(new_level))
+func _on_level_level_up(_new_level: int):
+	stamina.set_max(base_stamina + additional_stamina_per_level.sample_baked(level.get_ratio()))
+	life_points.set_max(base_life_points + additional_life_points_per_level.sample_baked(level.get_ratio()))
 
 # @signal
 # @impure

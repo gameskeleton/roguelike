@@ -1,13 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://mdihrm5s4ac7"]
 
-[ext_resource type="Script" path="res://src/gui/scripts/map_room.gd" id="1_ne471"]
+[ext_resource type="Script" path="res://src/gui/scripts/map_room.gd" id="1_ofomf"]
 
 [node name="MapRoom" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 128.0
 offset_bottom = 72.0
-script = ExtResource("1_ne471")
+script = ExtResource("1_ofomf")
 empty_color = Color(0.321569, 0.443137, 1, 1)
 border_color = Color(1, 1, 1, 1)
 one_way_color = Color(0.580392, 0.658824, 1, 1)
