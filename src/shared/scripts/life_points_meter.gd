@@ -49,7 +49,7 @@ func _process(delta):
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage: float, _life_points: float, _source: Object, _instigator: Object):
+func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node):
 	fade_in()
 	progress_bar.progress = life_points.get_ratio()
 

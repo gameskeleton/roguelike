@@ -14,7 +14,9 @@ enum DmgType {
 	lightning,
 }
 
-signal damage_taken(damage: float, life_points: float, source: Object, instigator: Object)
+signal damage_taken(damage: float, source: Node, instigator: Node)
+
+const NO_DAMAGE := -1.0
 
 @export var life_points := 10.0
 @export var max_life_points := 10.0
@@ -29,8 +31,10 @@ signal damage_taken(damage: float, life_points: float, source: Object, instigato
 @export var damage_multiplier_physical := 1.0
 @export var damage_multiplier_lightning := 1.0
 
-var last_damage_source: Object
-var last_damage_instigator: Object
+var last_damage := NO_DAMAGE
+var last_damage_type := DmgType.none
+var last_damage_source: Node
+var last_damage_instigator: Node
 
 # _process reduces the invincibility delay.
 # @impure
@@ -50,22 +54,24 @@ func get_ratio() -> float:
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
-func take_damage(damage: float, damage_type := DmgType.none, source: Object = null, instigator: Object = null) -> bool:
+func take_damage(damage: float, type := DmgType.none, source: Node = null, instigator: Node = null) -> float:
 	assert(damage >= 0.0, "damage must be positive")
 	if invincible > 0 or invincibility_delay > 0.0:
-		return false
+		return NO_DAMAGE
 	var damage_multiplier := 1.0
-	match damage_type:
+	match type:
 		DmgType.ice: damage_multiplier = damage_multiplier_ice
 		DmgType.fire: damage_multiplier = damage_multiplier_fire
 		DmgType.physical: damage_multiplier = damage_multiplier_physical
 		DmgType.lightning: damage_multiplier = damage_multiplier_lightning
-	var total_damage := damage * damage_multiplier
-	life_points -= total_damage
+	var scaled_damage := damage * damage_multiplier
+	life_points -= scaled_damage
+	last_damage = scaled_damage
+	last_damage_type = type
 	last_damage_source = source
 	last_damage_instigator = instigator
-	damage_taken.emit(total_damage, life_points, source, instigator)
-	return true
+	damage_taken.emit(scaled_damage, source, instigator)
+	return scaled_damage
 
 # has_lethal_damage returns true if our life points are lower or equal than zero.
 # @pure

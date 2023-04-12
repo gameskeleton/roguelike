@@ -370,5 +370,5 @@ func _on_level_level_up(_new_level: int):
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage_taken: float, _new_life_points: float, _source: Object, _instigator: Object):
+func _on_life_points_damage_taken(_damage_taken: float, _source: Node, _instigator: Node):
 	fsm.call_deferred("set_state_node", fsm.state_nodes.hit)
