@@ -37,8 +37,6 @@ func finish_state():
 	player_node.set_roll_detector_active(false)
 
 func _on_roll_detector_area_entered(area: Area2D):
-	var parent_node := area.get_parent()
-	if parent_node:
-		var life_points_node := RkLifePoints.find_life_points_in_node(parent_node)
-		if life_points_node is RkLifePoints:
-			life_points_node.call_deferred("take_damage", 1.0, RkLifePoints.DmgType.roll)
+	var target_node := RkLifePoints.find_life_points_in_node(area.get_parent())
+	if target_node is RkLifePoints:
+		player_node.attack.call_deferred("attack", target_node, player_node.ROLL_DAMAGE, RkLifePoints.DmgType.roll)

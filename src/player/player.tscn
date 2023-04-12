@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://diqapemb0iyy4"]
+[gd_scene load_steps=64 format=3 uid="uid://diqapemb0iyy4"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://5ing80amv0u5" path="res://src/player/textures/walk.png" id="3_acrg5"]
 [ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="3_h8vvb"]
 [ext_resource type="PackedScene" uid="uid://cnj7fnnbs25u7" path="res://src/shared/stamina.tscn" id="3_kren4"]
+[ext_resource type="PackedScene" uid="uid://bde15tke6qq6g" path="res://src/shared/attack.tscn" id="3_tf4v5"]
 [ext_resource type="Script" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
 [ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/roll.png" id="4_80fq1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
@@ -802,6 +803,10 @@ additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
 
 [node name="Level" parent="." instance=ExtResource("2_7w2hd")]
+
+[node name="Attack" parent="." node_paths=PackedStringArray("source", "instigator") instance=ExtResource("3_tf4v5")]
+source = NodePath("..")
+instigator = NodePath("..")
 
 [node name="Stamina" parent="." instance=ExtResource("3_kren4")]
 

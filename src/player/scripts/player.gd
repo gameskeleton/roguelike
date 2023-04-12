@@ -16,6 +16,7 @@ const RUN_ACCELERATION := 410.0
 const RUN_DECELERATION := 480.0
 const RUN_DECELERATION_BRAKE := 1.6
 
+const ROLL_DAMAGE := 1.0
 const ROLL_STRENGTH := 220.0
 const ROLL_STAMINA_COST := 2.0
 const ROLL_DECELERATION := 290.0
@@ -28,6 +29,7 @@ const WALL_SLIDE_GRAVITY_MAX_SPEED := GRAVITY_MAX_SPEED * 0.2
 const WALL_SLIDE_GRAVITY_ACCELERATION := GRAVITY_ACCELERATION * 0.1
 const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 
+const ATTACK_DAMAGE := 1.0
 const ATTACK_MAX_SPEED := 120.0
 const ATTACK_STAMINA_COST := 2.0
 const ATTACK_ACCELERATION := 310.0
@@ -62,6 +64,7 @@ const ATTACK_DECELERATION := 510.0
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var level: RkLevel = $Level
+@onready var attack: RkAttack = $Attack
 @onready var stamina: RkStamina = $Stamina
 @onready var life_points: RkLifePoints = $LifePoints
 

@@ -62,6 +62,6 @@ func _disable_hitbox():
 # @signal
 # @impure
 func _on_attack_detector_area_entered(area: Area2D):
-	var life_points_node := RkLifePoints.find_life_points_in_node(area.get_parent())
-	if life_points_node is RkLifePoints:
-		life_points_node.call_deferred("take_damage", 1.4 + 0.8 * player_node.level.level, RkLifePoints.DmgType.physical, player_node, player_node)
+	var target_node := RkLifePoints.find_life_points_in_node(area.get_parent())
+	if target_node is RkLifePoints:
+		player_node.attack.call_deferred("attack", target_node, player_node.ATTACK_DAMAGE, RkLifePoints.DmgType.physical)
