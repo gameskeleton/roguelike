@@ -182,6 +182,7 @@ texture_scale = 0.5
 metadata/_edit_lock_ = true
 
 [node name="LevelUpLabel" type="Label" parent="Game/Player"]
+process_mode = 2
 material = ExtResource("6_41hv6")
 offset_left = -32.0
 offset_top = -41.0
@@ -200,6 +201,8 @@ autoplay = "hide"
 libraries = {
 "": SubResource("AnimationLibrary_7n18l")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpLabel"]
 
 [node name="AllRooms" type="Node2D" parent="Game"]
 

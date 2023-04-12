@@ -1,6 +1,12 @@
 extends Control
 class_name RkMain
 
+enum State {
+	game,
+	pause,
+	level_up
+}
+
 const PLAYER_SIZE := Vector2(14.0, 28.0)
 const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 
@@ -22,10 +28,12 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var ui_experience_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceValueLabel
 
 @onready var ui_player_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
+@onready var ui_player_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
 
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
 
+var state := State.game
 var current_room_node: RkRoom # the room node the player is in.
 var previous_room_node: RkRoom # the previous room node the player was in.
 
@@ -35,12 +43,40 @@ var _generator := RkDungeonGenerator.new()
 func _ready():
 	_generate_dungeon()
 	_limit_camera_to_room()
-	player_node.level.level_up.connect(func(_level: int): ui_player_level_up_animation_player.play("level_up!"))
+	player_node.level.level_up.connect(func(_level: int):
+		get_tree().paused  = true
+		state = State.level_up
+		ui_pause_control.visible = false
+		ui_player_level_up_animation_player.play("level_up!")
+		ui_player_level_up_audio_stream_player.play()
+	)
 	player_camera_node.reset_smoothing()
 
 # @impure
 func _process(delta: float):
-	# debug
+	_process_debug()
+	match state:
+		State.game: _process_game(delta)
+		State.pause: _process_pause(delta)
+		State.level_up: _process_level_up()
+
+# @impure
+func _process_game(delta: float):
+	# gui update
+	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
+	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina.get_ratio(), delta)
+	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points.get_ratio(), delta)
+	# pause game
+	if Input.is_action_just_pressed("player_pause"):
+		get_tree().paused = true
+		state = State.pause
+		ui_pause_control.visible = true
+	# room and camera
+	_process_room()
+	_limit_camera_to_room()
+
+# @impure
+func _process_debug():
 	if Input.is_action_just_pressed("ui_home"):
 		_generate_dungeon()
 	if Input.is_action_just_pressed("ui_page_up"):
@@ -48,20 +84,36 @@ func _process(delta: float):
 	if Input.is_action_just_pressed("ui_page_down"):
 		player_node.life_points.invincibility_delay = 0.0
 		player_node.life_points.take_damage(ceil(player_node.life_points.max_life_points / 10.0))
-	# pause
-	if get_tree().paused:
-		_process_pause(delta)
+
+# @impure
+func _process_pause(_delta: float):
+	# resume game
 	if Input.is_action_just_pressed("player_pause"):
-		var new_paused := not get_tree().paused
-		get_tree().paused = new_paused
-		ui_pause_control.visible = new_paused
-	# gui update
-	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
-	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina.get_ratio(), delta)
-	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points.get_ratio(), delta)
-	# room and camera
-	_process_room()
-	_limit_camera_to_room()
+		get_tree().paused = false
+		state = State.game
+		ui_pause_control.visible = false
+	# cycle pause tabs
+	if Input.is_action_just_pressed("player_pause_next"):
+		$CanvasLayer/Pause/MapTab.visible = false
+		$CanvasLayer/Pause/StatsTab.visible = true
+	if Input.is_action_just_pressed("player_pause_previous"):
+		$CanvasLayer/Pause/MapTab.visible = true
+		$CanvasLayer/Pause/StatsTab.visible = false
+	# position player dot
+	ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
+	# update stats values
+	ui_level_value_label.text = "%d / %d" % [player_node.level.level + 1, player_node.level.max_level + 1]
+	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points.life_points), round(player_node.life_points.max_life_points)]
+	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina.stamina), round(player_node.stamina.max_stamina)]
+	ui_experience_value_label.text = "%d / %d" % [player_node.level.experience, player_node.level.experience_required_to_level_up]
+
+# @impure
+func _process_level_up():
+	current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, $Game/Player/LevelUpLabel.get_theme_color("font_color"))
+	if not ui_player_level_up_animation_player.is_playing():
+		get_tree().paused = false
+		state = State.game
+		current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))
 
 # @pure
 static func get_main_node(from_node: Node) -> RkMain:
@@ -142,25 +194,6 @@ func _get_map_room_control(grid_pos: Vector2i) -> RkMapRoom:
 # @pure
 func _get_map_room_control_name(grid_pos: Vector2i) -> StringName:
 	return "MapRoom_%s_%s" % [grid_pos.x, grid_pos.y]
-
-###
-# Pause
-###
-
-func _process_pause(_delta: float):
-	if Input.is_action_just_pressed("player_pause_next"):
-		$CanvasLayer/Pause/MapTab.visible = false
-		$CanvasLayer/Pause/StatsTab.visible = true
-	if Input.is_action_just_pressed("player_pause_previous"):
-		$CanvasLayer/Pause/MapTab.visible = true
-		$CanvasLayer/Pause/StatsTab.visible = false
-	# position player dot
-	ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
-	# update stats values
-	ui_level_value_label.text = "%d / %d" % [player_node.level.level + 1, player_node.level.max_level + 1]
-	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points.life_points), round(player_node.life_points.max_life_points)]
-	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina.stamina), round(player_node.stamina.max_stamina)]
-	ui_experience_value_label.text = "%d / %d" % [player_node.level.experience, player_node.level.experience_required_to_level_up]
 
 ###
 # Camera
