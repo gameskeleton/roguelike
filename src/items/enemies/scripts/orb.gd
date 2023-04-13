@@ -14,7 +14,6 @@ const EXPULSE_SPEED := 8.0
 const EXPULSE_STRENGTH := 10.0
 
 @export var projectile_scene := preload("res://src/items/projectiles/fire_ball.tscn")
-@export var pickup_experience_scene := preload("res://src/items/pickups/experience.tscn")
 
 @onready var life_points: RkLifePoints = $LifePoints
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -99,10 +98,8 @@ func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Nod
 	_expulse_alpha = 1.0
 	animation_player.play("hit")
 	if life_points.has_lethal_damage():
-		for i in 10:
-			var pickup_node: RkPickupExperience = pickup_experience_scene.instantiate()
-			get_parent().add_child(pickup_node)
-			pickup_node.global_position = global_position
+		RkPickupSpawner.try_spawn_coins(self, global_position, randi_range(0, 3))
+		RkPickupSpawner.try_spawn_experiences(self, global_position, randi_range(6, 7))
 		queue_free()
 
 # @signal

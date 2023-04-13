@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dv4faverjtc14"]
+[gd_scene load_steps=20 format=3 uid="uid://dv4faverjtc14"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://diqapemb0iyy4" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="6_i4jlm"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/sounds/musics/dungeons_and_tunnels.mp3" id="7_kroh0"]
 [ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="7_qcw21"]
+[ext_resource type="PackedScene" uid="uid://upohoh1hd25x" path="res://src/items/pickups/pickup_spawner.tscn" id="7_tmcqs"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
@@ -207,6 +208,9 @@ libraries = {
 [node name="AllRooms" type="Node2D" parent="Game"]
 
 [node name="Room" parent="Game/AllRooms" instance=ExtResource("4_poqhe")]
+
+[node name="PickupSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("7_tmcqs")]
+spawn_node = NodePath("../AllRooms")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

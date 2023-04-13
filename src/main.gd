@@ -17,6 +17,7 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var player_node: RkPlayer = $Game/Player
 @onready var all_rooms_node: Node2D = $Game/AllRooms
 @onready var player_camera_node: Camera2D = $Game/Player/Camera2D
+@onready var pickup_spawner_node: RkPickupSpawner = $Game/PickupSpawner
 
 @onready var ui_pause_control: Control = $CanvasLayer/Pause
 @onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/MapTab/Map/AllMapRooms
