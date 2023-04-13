@@ -1,9 +1,10 @@
 extends RigidBody2D
 class_name RkPickupExperience
 
-const IMPULSE_STRENGTH := 40.0
+const PICKUP_DELAY := 0.35
+const IMPULSE_STRENGTH := 30.0
 
-@export var experience := 1
+@export var value := 1
 
 @onready var line: Line2D = $Node/Line2D
 @onready var player_detector: Area2D = $PlayerDetector
@@ -13,7 +14,7 @@ func _ready():
 	# add random impulse
 	apply_central_impulse(IMPULSE_STRENGTH * Vector2(randf_range(-5.0, 5.0), randf_range(-4.0, -6.0)))
 	# enable pickup after a while
-	await get_tree().create_timer(1.0, false).timeout
+	await get_tree().create_timer(PICKUP_DELAY, false).timeout
 	player_detector.monitoring = true
 	player_detector.monitorable = true
 
@@ -29,5 +30,5 @@ func _process(_delta: float):
 # @impure
 func _on_player_detector_body_entered(body: Node2D):
 	if body is RkPlayer:
-		body.level.earn_experience(experience)
+		body.level.earn_experience(value)
 		queue_free()

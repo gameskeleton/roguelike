@@ -28,8 +28,8 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var ui_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaValueLabel
 @onready var ui_experience_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceValueLabel
 
-@onready var ui_player_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
-@onready var ui_player_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
+@onready var ui_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
+@onready var ui_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
 
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
@@ -48,8 +48,8 @@ func _ready():
 		get_tree().paused  = true
 		state = State.level_up
 		ui_pause_control.visible = false
-		ui_player_level_up_animation_player.play("level_up!")
-		ui_player_level_up_audio_stream_player.play()
+		ui_level_up_animation_player.play("level_up!")
+		ui_level_up_audio_stream_player.play()
 	)
 	player_camera_node.reset_smoothing()
 
@@ -111,7 +111,7 @@ func _process_pause(_delta: float):
 # @impure
 func _process_level_up():
 	current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, $Game/Player/LevelUpLabel.get_theme_color("font_color"))
-	if not ui_player_level_up_animation_player.is_playing():
+	if not ui_level_up_animation_player.is_playing():
 		get_tree().paused = false
 		state = State.game
 		current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))

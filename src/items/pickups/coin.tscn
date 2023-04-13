@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkr6cyegxrwnn"]
+[gd_scene load_steps=13 format=3 uid="uid://dkr6cyegxrwnn"]
 
 [ext_resource type="Script" path="res://src/items/pickups/scripts/coin.gd" id="1_ux385"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_753lv"]
@@ -9,21 +9,46 @@
 bounce = 0.2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctdi1"]
-radius = 3.0
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r7tw"]
+atlas = ExtResource("3_ei5bi")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxxsp"]
+atlas = ExtResource("3_ei5bi")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_333sm"]
+atlas = ExtResource("3_ei5bi")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on7j6"]
+atlas = ExtResource("3_ei5bi")
+region = Rect2(36, 0, 12, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m2mye"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_ei5bi")
+"texture": SubResource("AtlasTexture_1r7tw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxxsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_333sm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on7j6")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
-size = Vector2(8, 8)
+size = Vector2(12, 12)
 
 [node name="Coin" type="RigidBody2D"]
 collision_layer = 256
@@ -44,16 +69,17 @@ round_precision = 16
 antialiased = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_ctdi1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 3
 material = ExtResource("2_753lv")
 sprite_frames = SubResource("SpriteFrames_m2mye")
+autoplay = "default"
+frame_progress = 0.727865
 
 [node name="WhitePointLight2D" parent="." instance=ExtResource("4_2uo8c")]
 color = Color(0.984314, 1, 0.486275, 1)
+energy = 0.5
 texture_scale = 0.1
 
 [node name="PlayerDetector" type="Area2D" parent="."]
@@ -63,7 +89,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-visible = false
 shape = SubResource("RectangleShape2D_wogr8")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
