@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://diqapemb0iyy4"]
+[gd_scene load_steps=69 format=3 uid="uid://diqapemb0iyy4"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
 [ext_resource type="Texture2D" uid="uid://dd7or7xh8rhva" path="res://src/player/textures/hit.png" id="32_lv00v"]
+[ext_resource type="Texture2D" uid="uid://lmu66c30jhhc" path="res://src/player/textures/get_up.png" id="40_wryqc"]
 
 [sub_resource type="Curve" id="Curve_5ghgr"]
 max_value = 20.0
@@ -774,13 +775,136 @@ tracks/2/keys = {
 "values": [3]
 }
 
+[sub_resource type="Animation" id="Animation_fggvj"]
+resource_name = "get_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("40_wryqc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_bkav5"]
+resource_name = "bump_into_wall_fall"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_a75to")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_g0oe8"]
+resource_name = "bump_into_wall_hit_floor"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_a75to")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 "RESET": SubResource("Animation_11iq3"),
 "attack_01": SubResource("Animation_i0u8u"),
 "attack_02": SubResource("Animation_0dkd4"),
+"bump_into_wall_fall": SubResource("Animation_bkav5"),
+"bump_into_wall_hit_floor": SubResource("Animation_g0oe8"),
 "death": SubResource("Animation_jlirl"),
 "fall": SubResource("Animation_ginsg"),
+"get_up": SubResource("Animation_fggvj"),
 "hit": SubResource("Animation_2epva"),
 "jump": SubResource("Animation_roadd"),
 "jump_to_fall": SubResource("Animation_bqla8"),
@@ -895,6 +1019,7 @@ script = ExtResource("5_0i2rd")
 script = ExtResource("11_nnruh")
 
 [node name="RollDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 16
 monitoring = false
@@ -906,6 +1031,7 @@ shape = SubResource("RectangleShape2D_qf2lc")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="AttackDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 208
 monitoring = false
@@ -917,6 +1043,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
 [node name="OneWayDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 monitoring = false
@@ -928,6 +1055,7 @@ shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
 [node name="WallHangUpDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2(16, -24)
 collision_layer = 0
 monitoring = false
@@ -939,6 +1067,7 @@ debug_color = Color(1, 0, 0.0156863, 0.419608)
 metadata/_edit_lock_ = true
 
 [node name="WallHangDownDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2(16, -8)
 collision_layer = 0
 monitoring = false
@@ -951,22 +1080,26 @@ debug_color = Color(1, 0.823529, 0, 0.419608)
 metadata/_edit_lock_ = true
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 enabled = false
 target_position = Vector2(-12, 0)
 
 [node name="WallSlideDownRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, 16)
 enabled = false
 target_position = Vector2(0, 32)
 collision_mask = 3
 
 [node name="WallSlideDownSideRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, 12)
 enabled = false
 target_position = Vector2(-12, 0)
 
 [node name="WallHangDownSideRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, 12)
 enabled = false
 target_position = Vector2(0, 20)
