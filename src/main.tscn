@@ -319,7 +319,7 @@ layout_mode = 0
 offset_left = -5.0
 offset_top = -6.0
 offset_right = 222.0
-offset_bottom = 110.0
+offset_bottom = 134.0
 texture = ExtResource("6_i4jlm")
 region_rect = Rect2(2, 34, 20, 20)
 patch_margin_left = 14
@@ -334,7 +334,7 @@ modulate = Color(0.6, 0.6, 0.6, 1)
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_right = 216.0
-offset_bottom = 104.0
+offset_bottom = 128.0
 texture = ExtResource("6_i4jlm")
 region_rect = Rect2(96, 0, 24, 24)
 patch_margin_left = 21
@@ -344,13 +344,24 @@ patch_margin_bottom = 21
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="LevelLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="GoldLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 54.0
 offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "Gold:"
+vertical_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 54.0
+offset_bottom = 50.0
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Level:"
 vertical_alignment = 1
@@ -359,9 +370,9 @@ vertical_alignment = 1
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 8.0
-offset_top = 32.0
+offset_top = 56.0
 offset_right = 59.0
-offset_bottom = 50.0
+offset_bottom = 74.0
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Health:"
 vertical_alignment = 1
@@ -370,9 +381,9 @@ vertical_alignment = 1
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 8.0
-offset_top = 56.0
+offset_top = 80.0
 offset_right = 97.0
-offset_bottom = 74.0
+offset_bottom = 98.0
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Stamina:"
 vertical_alignment = 1
@@ -381,14 +392,14 @@ vertical_alignment = 1
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 8.0
-offset_top = 80.0
+offset_top = 104.0
 offset_right = 97.0
-offset_bottom = 98.0
+offset_bottom = 122.0
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Experience:"
 vertical_alignment = 1
 
-[node name="LevelValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="GoldValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 104.0
@@ -396,8 +407,19 @@ offset_top = 8.0
 offset_right = 208.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("7_qcw21")
-text = "1 / 10
-"
+text = "1337"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LevelValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+material = ExtResource("6_41hv6")
+layout_mode = 0
+offset_left = 104.0
+offset_top = 32.0
+offset_right = 208.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "1 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -405,9 +427,9 @@ vertical_alignment = 1
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 104.0
-offset_top = 32.0
+offset_top = 56.0
 offset_right = 208.0
-offset_bottom = 50.0
+offset_bottom = 74.0
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "10 / 10"
 horizontal_alignment = 2
@@ -417,12 +439,11 @@ vertical_alignment = 1
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 104.0
-offset_top = 56.0
+offset_top = 80.0
 offset_right = 208.0
-offset_bottom = 74.0
+offset_bottom = 98.0
 theme_override_fonts/font = ExtResource("7_qcw21")
-text = "10 / 10
-"
+text = "10 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -430,9 +451,9 @@ vertical_alignment = 1
 material = ExtResource("6_41hv6")
 layout_mode = 0
 offset_left = 104.0
-offset_top = 80.0
+offset_top = 104.0
 offset_right = 208.0
-offset_bottom = 98.0
+offset_bottom = 122.0
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "9999 / 9999"
 horizontal_alignment = 2

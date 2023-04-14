@@ -23,6 +23,7 @@ const PLAYER_DOT_SIZE := Vector2(4.0, 4.0)
 @onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/MapTab/Map/AllMapRooms
 @onready var ui_player_dot_color_rect: ColorRect = $CanvasLayer/Pause/MapTab/Map/PlayerDot
 
+@onready var ui_gold_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/GoldValueLabel
 @onready var ui_level_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LevelValueLabel
 @onready var ui_health_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/HealthValueLabel
 @onready var ui_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaValueLabel
@@ -103,6 +104,7 @@ func _process_pause(_delta: float):
 	# position player dot
 	ui_player_dot_color_rect.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (PLAYER_DOT_SIZE / 2)
 	# update stats values
+	ui_gold_value_label.text = str(player_node.gold.gold)
 	ui_level_value_label.text = "%d / %d" % [player_node.level.level + 1, player_node.level.max_level + 1]
 	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points.life_points), round(player_node.life_points.max_life_points)]
 	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina.stamina), round(player_node.stamina.max_stamina)]

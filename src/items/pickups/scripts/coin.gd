@@ -30,4 +30,5 @@ func _process(_delta: float):
 # @impure
 func _on_player_detector_body_entered(body: Node2D):
 	if body is RkPlayer:
+		body.gold.earn(value)
 		queue_free()

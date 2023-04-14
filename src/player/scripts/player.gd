@@ -63,6 +63,7 @@ const ATTACK_DECELERATION := 510.0
 @export var additional_life_points_per_level := Curve.new()
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
+@onready var gold: RkGold = $Gold
 @onready var level: RkLevel = $Level
 @onready var attack: RkAttack = $Attack
 @onready var stamina: RkStamina = $Stamina
