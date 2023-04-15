@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://djdjp5casrc6f"]
+[gd_scene load_steps=5 format=3 uid="uid://djdjp5casrc6f"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_404xn"]
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_k7vrd"]
+[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="3_fru3q"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="3_pkmee"]
 
 [node name="Room" instance=ExtResource("1_404xn")]
@@ -17,14 +18,17 @@ layer_3/tile_data = PackedInt32Array(1048593, 131073, 3, 720910, 1, 3)
 [node name="Barrel" parent="." index="1" instance=ExtResource("2_k7vrd")]
 position = Vector2(88, 104)
 
-[node name="Crate" parent="." index="2" instance=ExtResource("3_pkmee")]
+[node name="Chest" parent="." index="2" instance=ExtResource("3_fru3q")]
+position = Vector2(104, 112)
+
+[node name="Crate" parent="." index="3" instance=ExtResource("3_pkmee")]
 position = Vector2(104, 104)
 
-[node name="Barrel2" parent="." index="3" instance=ExtResource("2_k7vrd")]
+[node name="Barrel2" parent="." index="4" instance=ExtResource("2_k7vrd")]
 position = Vector2(96, 88)
 
-[node name="Crate2" parent="." index="4" instance=ExtResource("3_pkmee")]
+[node name="Crate2" parent="." index="5" instance=ExtResource("3_pkmee")]
 position = Vector2(120, 104)
 
-[node name="Crate3" parent="." index="5" instance=ExtResource("3_pkmee")]
+[node name="Crate3" parent="." index="6" instance=ExtResource("3_pkmee")]
 position = Vector2(112, 88)

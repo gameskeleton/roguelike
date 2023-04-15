@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://cknn8ovrrftyw"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_kymoh"]
 [ext_resource type="PackedScene" uid="uid://6ganfjfm5h0e" path="res://src/items/decors/candle.tscn" id="2_240x2"]
+[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="3_ailn6"]
 
 [node name="Room" instance=ExtResource("1_kymoh")]
 player_spawn = Vector2(48, 224)
@@ -13,3 +14,6 @@ layer_3/tile_data = PackedInt32Array(786453, 131073, 3, 655381, 131073, 3, 52430
 
 [node name="WallLamp" parent="." index="1" instance=ExtResource("2_240x2")]
 position = Vector2(376, 96)
+
+[node name="Chest" parent="." index="2" instance=ExtResource("3_ailn6")]
+position = Vector2(104, 256)

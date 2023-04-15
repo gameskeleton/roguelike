@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3fqntlinwyd"]
+[gd_scene load_steps=5 format=3 uid="uid://dc3fqntlinwyd"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_v4xse"]
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_76jj7"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="3_y3rhy"]
+[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="4_m55fa"]
 
 [node name="Room" instance=ExtResource("1_v4xse")]
 exit_down = true
@@ -25,3 +26,6 @@ position = Vector2(264, 88)
 
 [node name="Barrel2" parent="." index="4" instance=ExtResource("2_76jj7")]
 position = Vector2(264, 72)
+
+[node name="Chest" parent="." index="5" instance=ExtResource("4_m55fa")]
+position = Vector2(416, 224)

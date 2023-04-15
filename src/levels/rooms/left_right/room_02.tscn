@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0jkf11ucwsbt"]
+[gd_scene load_steps=7 format=3 uid="uid://d0jkf11ucwsbt"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_ey4pc"]
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_35w8l"]
 [ext_resource type="PackedScene" uid="uid://cc6modjmby7h7" path="res://src/items/enemies/orb.tscn" id="2_vdkpc"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="4_ykkgb"]
 [ext_resource type="PackedScene" uid="uid://6ganfjfm5h0e" path="res://src/items/decors/candle.tscn" id="5_o5g22"]
+[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="6_uacev"]
 
 [node name="Room" instance=ExtResource("1_ey4pc")]
 exit_left = true
@@ -54,3 +55,9 @@ position = Vector2(472, 168)
 
 [node name="Barrel3" parent="." index="13" instance=ExtResource("2_35w8l")]
 position = Vector2(472, 152)
+
+[node name="Chest" parent="." index="14" instance=ExtResource("6_uacev")]
+position = Vector2(424, 256)
+
+[node name="Chest2" parent="." index="15" instance=ExtResource("6_uacev")]
+position = Vector2(88, 256)
