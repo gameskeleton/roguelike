@@ -4,9 +4,10 @@ class_name RkMapRoom
 const MAP_TILE_SIZE := 2
 const MAP_ROOM_SIZE := Vector2((RkRoom.ROOM_SIZE.x / 16.0) * MAP_TILE_SIZE, (RkRoom.ROOM_SIZE.y / 16.0) * MAP_TILE_SIZE)
 
-@export var empty_color: Color
-@export var border_color: Color
-@export var one_way_color: Color
+@export var start_color := Color("#5271ff")
+@export var empty_color := Color("#5271ff")
+@export var border_color := Color("#ffffff")
+@export var one_way_color := Color("#94a8ff")
 
 var room_node: RkRoom
 var discovered := false
@@ -20,7 +21,7 @@ func _draw():
 	for y in RkRoom.ROOM_TILE_COUNT.y:
 		for x in RkRoom.ROOM_TILE_COUNT.x:
 			match tiles[y][x].z:
-				RkRoom.Tile.none: draw_rect(Rect2(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), empty_color)
+				RkRoom.Tile.none: draw_rect(Rect2(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), start_color if room_node.distance == 0 else empty_color)
 				RkRoom.Tile.border: draw_rect(Rect2(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE), border_color)
 	# draw one way tiles
 	for tile in room_node.get_one_way_tiles():

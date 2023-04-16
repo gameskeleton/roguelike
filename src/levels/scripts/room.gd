@@ -33,6 +33,8 @@ const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
 
 const PLAYER_SPAWN_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 
+@export var distance := 0 # distance from start room
+
 @export_category("Exits")
 @export var exit_up := false :
 	get:

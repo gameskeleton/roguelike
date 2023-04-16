@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dv4faverjtc14"]
+[gd_scene load_steps=18 format=3 uid="uid://dv4faverjtc14"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://diqapemb0iyy4" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/sounds/musics/dungeons_and_tunnels.mp3" id="7_kroh0"]
 [ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="7_qcw21"]
 [ext_resource type="PackedScene" uid="uid://upohoh1hd25x" path="res://src/items/pickups/pickup_spawner.tscn" id="7_tmcqs"]
+[ext_resource type="PackedScene" uid="uid://bv67dd1mhtbs6" path="res://src/gui/map_room_dot.tscn" id="8_4s74v"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 
@@ -89,43 +90,6 @@ _data = {
 "level_up!": SubResource("Animation_58koh")
 }
 
-[sub_resource type="Animation" id="Animation_oxdy1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 1, 0.403922, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7hmug"]
-resource_name = "pulse"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MapTab/Map/PlayerDot:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 1, 0.403922, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_trlk5"]
-_data = {
-"RESET": SubResource("Animation_oxdy1"),
-"pulse": SubResource("Animation_7hmug")
-}
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ucwvp"]
 light_mode = 1
 
@@ -151,7 +115,6 @@ position = Vector2(-16, -31)
 safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
-process_mode = 3
 process_callback = 0
 limit_left = 0
 limit_top = 0
@@ -285,13 +248,11 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="PlayerDot" type="ColorRect" parent="CanvasLayer/Pause/MapTab/Map"]
-layout_mode = 0
-offset_left = -256.0
-offset_top = -256.0
-offset_right = -252.0
-offset_bottom = -252.0
-color = Color(0, 1, 0.403922, 1)
+[node name="MapRoomDot" parent="CanvasLayer/Pause/MapTab/Map" instance=ExtResource("8_4s74v")]
+offset_left = -128.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = -128.0
 
 [node name="StatsTab" type="Control" parent="CanvasLayer/Pause"]
 visible = false
@@ -459,12 +420,6 @@ theme_override_fonts/font = ExtResource("7_qcw21")
 text = "9999 / 9999"
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Pause"]
-autoplay = "pulse"
-libraries = {
-"": SubResource("AnimationLibrary_trlk5")
-}
 
 [node name="State" type="Label" parent="CanvasLayer"]
 offset_left = 4.0

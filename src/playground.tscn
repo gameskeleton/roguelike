@@ -1,8 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://cknn8ovrrftyw"]
+[gd_scene load_steps=11 format=3 uid="uid://qlgccs3eonqm"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_kymoh"]
 [ext_resource type="PackedScene" uid="uid://6ganfjfm5h0e" path="res://src/items/decors/candle.tscn" id="2_240x2"]
-[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="3_ailn6"]
+[ext_resource type="PackedScene" uid="uid://dl4hk4fx8p1qx" path="res://src/levels/room_spawner.tscn" id="3_cuuc5"]
+[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="4_6lhf0"]
+[ext_resource type="Script" path="res://src/levels/scripts/room_spawner_res.gd" id="5_ydya5"]
+[ext_resource type="PackedScene" uid="uid://cc6modjmby7h7" path="res://src/items/enemies/orb.tscn" id="6_4vld8"]
+[ext_resource type="PackedScene" uid="uid://dkr6cyegxrwnn" path="res://src/items/pickups/coin.tscn" id="7_ypjln"]
+
+[sub_resource type="Resource" id="Resource_h2g65"]
+script = ExtResource("5_ydya5")
+scene = ExtResource("4_6lhf0")
+offset = Vector2(0, 0)
+probability = 0.5
+distance_probability_modifier = 1.0
+
+[sub_resource type="Resource" id="Resource_mtr1f"]
+script = ExtResource("5_ydya5")
+scene = ExtResource("6_4vld8")
+offset = Vector2(0, -48)
+probability = 0.5
+distance_probability_modifier = 1.0
+
+[sub_resource type="Resource" id="Resource_2m2fi"]
+script = ExtResource("5_ydya5")
+scene = ExtResource("7_ypjln")
+offset = Vector2(0, -6)
+probability = 0.5
+distance_probability_modifier = 1.0
 
 [node name="Room" instance=ExtResource("1_kymoh")]
 player_spawn = Vector2(48, 224)
@@ -15,5 +40,6 @@ layer_3/tile_data = PackedInt32Array(786453, 131073, 3, 655381, 131073, 3, 52430
 [node name="WallLamp" parent="." index="1" instance=ExtResource("2_240x2")]
 position = Vector2(376, 96)
 
-[node name="Chest" parent="." index="2" instance=ExtResource("3_ailn6")]
-position = Vector2(104, 256)
+[node name="RoomSpawner" parent="." index="2" instance=ExtResource("3_cuuc5")]
+position = Vector2(128, 256)
+items = Array[ExtResource("5_ydya5")]([SubResource("Resource_h2g65"), SubResource("Resource_mtr1f"), SubResource("Resource_2m2fi")])

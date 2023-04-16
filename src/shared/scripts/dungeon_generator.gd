@@ -16,6 +16,7 @@ var _cells_count := 0
 # note: the resulting dungeon is padded with an additional row/column for avoiding border checks.
 # @impure
 func next() -> Array[Array]:
+	_reset()
 	while true:
 		if _cell_queue.size() > 0:
 			var pos: Vector2i = _cell_queue.pop_back()
@@ -32,9 +33,7 @@ func next() -> Array[Array]:
 				end_rooms.push_back(pos)
 		else:
 			if _cells_count >= min_rooms:
-				var cells := _cells.duplicate(true)
-				_reset()
-				return cells
+				return _cells.duplicate(true)
 			_reset()
 	return []
 

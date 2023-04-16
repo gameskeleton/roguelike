@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://ces3sfg6ve7xa"]
+[gd_scene load_steps=8 format=3 uid="uid://ces3sfg6ve7xa"]
 
 [ext_resource type="PackedScene" uid="uid://dmqpqqy2pwril" path="res://src/levels/room.tscn" id="1_ekkbm"]
 [ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_yu6tn"]
 [ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="3_g1alf"]
+[ext_resource type="PackedScene" uid="uid://dl4hk4fx8p1qx" path="res://src/levels/room_spawner.tscn" id="4_7fed7"]
+[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="5_r0r8j"]
+[ext_resource type="Script" path="res://src/levels/scripts/room_spawner_res.gd" id="6_1xklw"]
+
+[sub_resource type="Resource" id="Resource_brkva"]
+script = ExtResource("6_1xklw")
+scene = ExtResource("5_r0r8j")
+offset = Vector2(0, 0)
+probability = 0.5
+distance_probability_modifier = 1.0
 
 [node name="Room" instance=ExtResource("1_ekkbm")]
 exit_up = true
@@ -42,3 +52,7 @@ position = Vector2(24, 168)
 
 [node name="Barrel6" parent="." index="9" instance=ExtResource("2_yu6tn")]
 position = Vector2(40, 168)
+
+[node name="RoomSpawner" parent="." index="10" instance=ExtResource("4_7fed7")]
+position = Vector2(344, 160)
+items = Array[ExtResource("6_1xklw")]([SubResource("Resource_brkva")])
