@@ -1,8 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cv24luk0sodu5"]
+[gd_scene load_steps=21 format=3 uid="uid://u6rk1enkxo0c"]
 
 [ext_resource type="Script" path="res://src/items/projectiles/scripts/projectile.gd" id="1_ia1t0"]
 [ext_resource type="Texture2D" uid="uid://bgmu0w67e3vbs" path="res://src/items/projectiles/textures/fire_ball.png" id="2_701lj"]
-[ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_lcedw"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_b6w0o"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_wpg84"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="4_srtqf"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="6_3stcl"]
@@ -156,7 +156,7 @@ radius = 6.0
 [node name="Projectile" type="Node2D"]
 script = ExtResource("1_ia1t0")
 
-[node name="LifePoints" parent="." instance=ExtResource("2_lcedw")]
+[node name="LifePoints" parent="." instance=ExtResource("2_b6w0o")]
 life_points = 1.0
 max_life_points = 1.0
 damage_multiplier_world = 1000.0

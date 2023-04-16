@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7skkcy0wlo2a"]
+[gd_scene load_steps=5 format=3 uid="uid://cf1gifdkc20ov"]
 
 [ext_resource type="Script" path="res://src/items/decors/scripts/decor.gd" id="1_2oh04"]
 [ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/items/decors/textures/decors.png" id="1_76ca1"]
-[ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_u66cj"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_u66cj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
 size = Vector2(16, 16)

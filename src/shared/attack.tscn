@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bde15tke6qq6g"]
-
-[ext_resource type="Script" path="res://src/shared/scripts/attack.gd" id="1_ms206"]
-
-[node name="Attack" type="Node"]
-script = ExtResource("1_ms206")

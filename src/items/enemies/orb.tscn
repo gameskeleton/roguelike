@@ -1,8 +1,8 @@
-[gd_scene load_steps=94 format=3 uid="uid://cc6modjmby7h7"]
+[gd_scene load_steps=94 format=3 uid="uid://bm4cnamfnmoo6"]
 
 [ext_resource type="Script" path="res://src/items/enemies/scripts/orb.gd" id="1_6h6eh"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_fgvy3"]
-[ext_resource type="PackedScene" uid="uid://cw7hi3bvxpur2" path="res://src/shared/life_points.tscn" id="2_qwrfn"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_qwrfn"]
 [ext_resource type="PackedScene" uid="uid://dnsftlwm0bb55" path="res://src/shared/life_points_meter.tscn" id="3_7vjfj"]
 [ext_resource type="Texture2D" uid="uid://di0jio3iymru5" path="res://src/items/enemies/textures/orb.png" id="3_c5am6"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="3_ylveh"]

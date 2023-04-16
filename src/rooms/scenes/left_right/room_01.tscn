@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://u0kmadqdiw2t"]
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_mlova"]
-[ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_ogtoj"]
+[ext_resource type="PackedScene" uid="uid://cf1gifdkc20ov" path="res://src/items/decors/barrel.tscn" id="2_ogtoj"]
 
 [node name="Room" instance=ExtResource("1_mlova")]
 exit_left = true

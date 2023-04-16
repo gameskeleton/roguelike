@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnj7fnnbs25u7"]
-
-[ext_resource type="Script" path="res://src/shared/scripts/stamina.gd" id="1_4m4co"]
-
-[node name="Stamina" type="Node"]
-script = ExtResource("1_4m4co")

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cd17eiunch3uo"
-path="res://.godot/imported/stand.wav-05dfd414b06706b773d4f236df0368a0.sample"
+path="res://.godot/imported/stand.wav-ec5b4f1cadd256151c22de40aba4f352.sample"
 
 [deps]
 
-source_file="res://src/sounds/effects/stand.wav"
-dest_files=["res://.godot/imported/stand.wav-05dfd414b06706b773d4f236df0368a0.sample"]
+source_file="res://src/player/sounds/stand.wav"
+dest_files=["res://.godot/imported/stand.wav-ec5b4f1cadd256151c22de40aba4f352.sample"]
 
 [params]
 

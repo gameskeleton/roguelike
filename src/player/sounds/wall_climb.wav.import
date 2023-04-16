@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bcvwnlep707ax"
-path="res://.godot/imported/wall_climb.wav-201d9712813278573a8a8cd2aaf6b460.sample"
+path="res://.godot/imported/wall_climb.wav-eb8aa080f1527cb7a2a1141097b8588d.sample"
 
 [deps]
 
-source_file="res://src/sounds/effects/wall_climb.wav"
-dest_files=["res://.godot/imported/wall_climb.wav-201d9712813278573a8a8cd2aaf6b460.sample"]
+source_file="res://src/player/sounds/wall_climb.wav"
+dest_files=["res://.godot/imported/wall_climb.wav-eb8aa080f1527cb7a2a1141097b8588d.sample"]
 
 [params]
 

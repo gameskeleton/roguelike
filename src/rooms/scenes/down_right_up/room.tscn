@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://det4if7l8edky"]
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_mkyw7"]
-[ext_resource type="PackedScene" uid="uid://c7skkcy0wlo2a" path="res://src/items/decors/barrel.tscn" id="2_3lofh"]
-[ext_resource type="PackedScene" uid="uid://cimrc6477daus" path="res://src/items/decors/crate.tscn" id="3_gdsjf"]
-[ext_resource type="PackedScene" uid="uid://cc6modjmby7h7" path="res://src/items/enemies/orb.tscn" id="4_p0om6"]
+[ext_resource type="PackedScene" uid="uid://cf1gifdkc20ov" path="res://src/items/decors/barrel.tscn" id="2_3lofh"]
+[ext_resource type="PackedScene" uid="uid://bvesf3gnoedis" path="res://src/items/decors/crate.tscn" id="3_gdsjf"]
+[ext_resource type="PackedScene" uid="uid://bm4cnamfnmoo6" path="res://src/items/enemies/orb.tscn" id="4_p0om6"]
 [ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="5_icjki"]
 
 [node name="Room" instance=ExtResource("1_mkyw7")]

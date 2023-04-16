@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ch787sxtr5k1l" path="res://src/rooms/room_spawner.tscn" id="2_1d5aa"]
 [ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="3_mbuig"]
 [ext_resource type="Script" path="res://src/rooms/scripts/room_spawner_res.gd" id="4_gw34i"]
-[ext_resource type="PackedScene" uid="uid://cc6modjmby7h7" path="res://src/items/enemies/orb.tscn" id="5_l3rmb"]
+[ext_resource type="PackedScene" uid="uid://bm4cnamfnmoo6" path="res://src/items/enemies/orb.tscn" id="5_l3rmb"]
 
 [sub_resource type="Resource" id="Resource_vml2k"]
 script = ExtResource("4_gw34i")

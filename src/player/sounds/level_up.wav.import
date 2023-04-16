@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cktylq1lnb64q"
-path="res://.godot/imported/roll.wav-dbd0b0788ccc5d36ac7c2d5af50b475d.sample"
+uid="uid://d37betoj5ty53"
+path="res://.godot/imported/level_up.wav-589c9293b45d7bd8e214c627930c8177.sample"
 
 [deps]
 
-source_file="res://src/sounds/effects/roll.wav"
-dest_files=["res://.godot/imported/roll.wav-dbd0b0788ccc5d36ac7c2d5af50b475d.sample"]
+source_file="res://src/player/sounds/level_up.wav"
+dest_files=["res://.godot/imported/level_up.wav-589c9293b45d7bd8e214c627930c8177.sample"]
 
 [params]
 
