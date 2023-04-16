@@ -13,6 +13,7 @@ scene = ExtResource("5_o40er")
 offset = Vector2(0, 0)
 probability = 0.75
 distance_probability_modifier = 1.0
+direction = 1
 
 [node name="Room" instance=ExtResource("1_kqa2n")]
 exit_up = true

@@ -38,3 +38,4 @@ position = Vector2(376, 128)
 
 [node name="Chest" parent="." index="7" instance=ExtResource("5_icjki")]
 position = Vector2(128, 112)
+direction = 1

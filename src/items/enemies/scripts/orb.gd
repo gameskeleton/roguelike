@@ -1,10 +1,6 @@
 extends Node2D
 
-enum State {
-	idle,
-	lock,
-	fire
-}
+enum State { idle, lock, fire }
 
 const LOCK_DELAY := 1.1
 const FIRE_DELAY := 0.6

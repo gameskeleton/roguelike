@@ -13,6 +13,7 @@ scene = ExtResource("5_r0r8j")
 offset = Vector2(0, 0)
 probability = 0.5
 distance_probability_modifier = 1.0
+direction = 1
 
 [node name="Room" instance=ExtResource("1_ekkbm")]
 exit_up = true
@@ -54,5 +55,5 @@ position = Vector2(24, 168)
 position = Vector2(40, 168)
 
 [node name="RoomSpawner" parent="." index="10" instance=ExtResource("4_7fed7")]
-position = Vector2(344, 160)
+position = Vector2(336, 160)
 items = Array[ExtResource("6_1xklw")]([SubResource("Resource_brkva")])

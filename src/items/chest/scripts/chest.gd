@@ -1,8 +1,15 @@
+@tool
 extends Node2D
 class_name RkChest
 
 @export var count := 10
 @export var delay := 0.05
+@export_range(-1, 1, 2) var direction := -1 :
+	get: return direction
+	set(value):
+		direction = value
+		$AnimatedSprite2D.flip_h = value == 1
+		$AnimatedSprite2D.offset.x = -14 if value == 1 else 0
 
 var _delay := delay
 var _count := 0

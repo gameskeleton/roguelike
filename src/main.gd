@@ -210,9 +210,6 @@ func _limit_camera_to_room():
 	player_camera_node.limit_left = int(current_room_grid_pos.x * RkRoom.ROOM_SIZE.x)
 	player_camera_node.limit_right = int((current_room_grid_pos.x + 1) * RkRoom.ROOM_SIZE.x)
 	player_camera_node.limit_bottom = int((current_room_grid_pos.y + 1) * RkRoom.ROOM_SIZE.y)
-	# small hack to make sure the camera is correctly positioned after a while
-	await get_tree().create_timer(1.0).timeout
-	player_camera_node.reset_smoothing()
 
 ###
 # Dungeon

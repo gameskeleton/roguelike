@@ -30,10 +30,10 @@ position = Vector2(184, 184)
 position = Vector2(184, 168)
 
 [node name="Barrel4" parent="." index="6" instance=ExtResource("3_er7pa")]
-position = Vector2(328, 84)
+position = Vector2(328, 88)
 
 [node name="Barrel5" parent="." index="7" instance=ExtResource("3_er7pa")]
-position = Vector2(344, 84)
+position = Vector2(344, 88)
 
 [node name="Barrel6" parent="." index="8" instance=ExtResource("3_er7pa")]
-position = Vector2(364, 84)
+position = Vector2(360, 88)
