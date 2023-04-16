@@ -1,0 +1,6 @@
+[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://bd2kdjl14v4cp"]
+
+[ext_resource type="Texture2D" uid="uid://qjn21m0d6awt" path="res://src/rooms/textures/tileset_wall.png" id="1_bfvlx"]
+
+[resource]
+diffuse_texture = ExtResource("1_bfvlx")
