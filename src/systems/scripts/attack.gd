@@ -6,9 +6,10 @@ signal attacked(target_life_points: RkLifePoints, damage: float, damage_type: Rk
 
 const NO_DAMAGE := -1.0
 
-@export var force := 1.0
 @export var source: Node
 @export var instigator: Node
+@export var force_base := 1.0
+@export var force_bonus := 0.0
 
 @export_group("Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_ice := 1.0
@@ -17,6 +18,8 @@ const NO_DAMAGE := -1.0
 @export var damage_multiplier_physical := 1.0
 @export var damage_multiplier_lightning := 1.0
 
+var force: float :
+	get: return (force_base + force_bonus)
 var last_target: RkLifePoints
 var last_damage := RkLifePoints.NO_DAMAGE
 var last_damage_type := RkLifePoints.DmgType.none

@@ -39,6 +39,7 @@ const ATTACK_DECELERATION := 510.0
 # Nodes
 ###
 
+@onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var sprite: Sprite2D = $Sprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -57,12 +58,13 @@ const ATTACK_DECELERATION := 510.0
 ###
 
 @export var direction := 1.0
+@export var base_force := 1.0
 @export var base_stamina := 10.0
 @export var base_life_points := 10.0
+@export var additional_force_per_level := Curve.new()
 @export var additional_stamina_per_level := Curve.new()
 @export var additional_life_points_per_level := Curve.new()
 
-@onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var gold: RkGold = $Gold
 @onready var level: RkLevel = $Level
 @onready var attack: RkAttack = $Attack
@@ -369,8 +371,9 @@ func set_wall_slide_raycast_active(active: bool):
 # @signal
 # @impure
 func _on_level_level_up(_new_level: int):
-	stamina.set_max(base_stamina + additional_stamina_per_level.sample_baked(level.get_ratio()))
-	life_points.set_max(base_life_points + additional_life_points_per_level.sample_baked(level.get_ratio()))
+	attack.force_base = base_force + additional_force_per_level.sample_baked(level.get_ratio())
+	stamina.max_stamina_base = base_stamina + additional_stamina_per_level.sample_baked(level.get_ratio())
+	life_points.max_life_points_base = base_life_points + additional_life_points_per_level.sample_baked(level.get_ratio())
 
 # @signal
 # @impure

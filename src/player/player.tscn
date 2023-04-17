@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://1pihj1hks78y"]
+[gd_scene load_steps=70 format=3 uid="uid://1pihj1hks78y"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -40,6 +40,12 @@
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
 [ext_resource type="Texture2D" uid="uid://dd7or7xh8rhva" path="res://src/player/textures/hit.png" id="32_lv00v"]
 [ext_resource type="Texture2D" uid="uid://lmu66c30jhhc" path="res://src/player/textures/get_up.png" id="40_wryqc"]
+
+[sub_resource type="Curve" id="Curve_egsaa"]
+max_value = 20.0
+bake_resolution = 10
+_data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vector2(0.2, 2), 10.0, 10.0, 1, 1, Vector2(0.3, 3), 10.0, 10.0, 1, 1, Vector2(0.4, 4), 10.0, 10.0, 1, 1, Vector2(0.5, 5), 10.0, 10.0, 1, 1, Vector2(0.6, 6), 10.0, 10.0, 1, 1, Vector2(0.7, 7), 10.0, 10.0, 1, 1, Vector2(0.8, 8), 10.0, 10.0, 1, 1, Vector2(0.9, 9), 10.0, 10.0, 1, 1, Vector2(1, 10), 10.0, 10.0, 1, 1]
+point_count = 11
 
 [sub_resource type="Curve" id="Curve_5ghgr"]
 max_value = 20.0
@@ -924,6 +930,7 @@ collision_mask = 3
 floor_constant_speed = true
 floor_snap_length = 5.0
 script = ExtResource("1_wluja")
+additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
 

@@ -639,7 +639,7 @@ script = ExtResource("1_6h6eh")
 
 [node name="LifePoints" parent="." instance=ExtResource("2_qwrfn")]
 life_points = 5.0
-max_life_points = 5.0
+max_life_points_base = 5.0
 
 [node name="AttackDetector" type="Area2D" parent="."]
 collision_layer = 64

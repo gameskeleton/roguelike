@@ -19,8 +19,10 @@ signal damage_taken(damage: float, source: Node, instigator: Node)
 const NO_DAMAGE := -1.0
 
 @export var life_points := 10.0
-@export var max_life_points := 10.0
+@export var max_life_points_base := 10.0
+@export var max_life_points_bonus := 0.0
 
+@export_group("Invincible")
 @export var invincible := 0
 @export var invincibility_delay := 0.0
 
@@ -31,6 +33,9 @@ const NO_DAMAGE := -1.0
 @export var damage_multiplier_physical := 1.0
 @export var damage_multiplier_lightning := 1.0
 
+var max_life_points: float :
+	get: return (max_life_points_base + max_life_points_bonus)
+
 var last_damage := NO_DAMAGE
 var last_damage_type := DmgType.none
 var last_damage_source: Node
@@ -40,12 +45,6 @@ var last_damage_instigator: Node
 # @impure
 func _process(delta: float):
 	invincibility_delay = max(0.0, invincibility_delay - delta)
-
-# set_max sets the maximum life points and resplenishes the life points.
-# @impure
-func set_max(amount: float):
-	life_points = amount
-	max_life_points = amount
 
 # get_ratio returns ratio [0; 1] between life_points and max_life_points.
 # @pure

@@ -32,6 +32,7 @@ func _ready():
 			life_points = RkLifePoints.find_life_points_in_node(parent_node)
 	assert(life_points, "LifePointsMeter must be a sibling of RkLifePoints")
 	life_points.damage_taken.connect(_on_life_points_damage_taken)
+	progress_bar.progress = life_points.get_ratio()
 
 # @impure
 func _process(delta):

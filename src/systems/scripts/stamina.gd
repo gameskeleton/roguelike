@@ -3,9 +3,15 @@ extends Node
 class_name RkStamina
 
 @export var stamina := 10.0
-@export var max_stamina := 10.0
+@export var max_stamina_base := 10.0
+@export var max_stamina_bonus := 0.0
+
+@export_group("Regen")
 @export var regen_speed := 10.0
-@export var regen_blocked_when_consumed_for := 1.5
+@export var regen_blocked_when_consumed_for := 1.15
+
+var max_stamina: float :
+	get: return (max_stamina_base + max_stamina_bonus)
 
 var _regen_blocked_for := 0.0
 
@@ -17,12 +23,6 @@ func _process(delta):
 		if _regen_blocked_for > 0.0:
 			return
 	stamina = clamp(stamina + delta * regen_speed, 0.0, max_stamina)
-
-# set_max sets the maximum stamina and resplenishes the stamina.
-# @impure
-func set_max(amount: float):
-	stamina = amount
-	max_stamina = amount
 
 # get_ratio returns the ratio [0; 1] between stamina and max_stamina.
 # @pure
