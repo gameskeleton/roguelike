@@ -3,15 +3,15 @@ extends Node
 class_name RkLifePoints
 
 enum DmgType {
-	none,
-	world,
+	none = 0,
+	world = 1,
 	#
-	roll,
-	physical,
+	roll = 2,
+	physical = 4,
 	#
-	ice,
-	fire,
-	lightning,
+	ice = 8,
+	fire = 16,
+	lightning = 32,
 }
 
 signal damage_taken(damage: float, source: Node, instigator: Node)
@@ -27,9 +27,10 @@ const NO_DAMAGE := -1.0
 @export var invincibility_delay := 0.0
 
 @export_group("Damage multipliers", "damage_multiplier")
-@export var damage_multiplier_world := 1.0
 @export var damage_multiplier_ice := 1.0
 @export var damage_multiplier_fire := 1.0
+@export var damage_multiplier_roll := 1.0
+@export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
 @export var damage_multiplier_lightning := 1.0
 
@@ -53,20 +54,21 @@ func get_ratio() -> float:
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
-func take_damage(damage: float, type := DmgType.none, source: Node = null, instigator: Node = null) -> float:
+func take_damage(damage: float, damage_type := DmgType.none, source: Node = null, instigator: Node = null) -> float:
 	assert(damage >= 0.0, "damage must be positive")
 	if invincible > 0 or invincibility_delay > 0.0:
 		return NO_DAMAGE
 	var damage_multiplier := 1.0
-	match type:
-		DmgType.ice: damage_multiplier = damage_multiplier_ice
-		DmgType.fire: damage_multiplier = damage_multiplier_fire
-		DmgType.physical: damage_multiplier = damage_multiplier_physical
-		DmgType.lightning: damage_multiplier = damage_multiplier_lightning
+	if RkLifePoints.is_damage_type(damage_type, RkLifePoints.DmgType.ice): damage_multiplier *= damage_multiplier_ice
+	if RkLifePoints.is_damage_type(damage_type, RkLifePoints.DmgType.fire): damage_multiplier *= damage_multiplier_fire
+	if RkLifePoints.is_damage_type(damage_type, RkLifePoints.DmgType.roll): damage_multiplier *= damage_multiplier_roll
+	if RkLifePoints.is_damage_type(damage_type, RkLifePoints.DmgType.world): damage_multiplier *= damage_multiplier_world
+	if RkLifePoints.is_damage_type(damage_type, RkLifePoints.DmgType.physical): damage_multiplier *= damage_multiplier_physical
+	if RkLifePoints.is_damage_type(damage_type, RkLifePoints.DmgType.lightning): damage_multiplier *= damage_multiplier_lightning
 	var scaled_damage := damage * damage_multiplier
 	life_points -= scaled_damage
 	last_damage = scaled_damage
-	last_damage_type = type
+	last_damage_type = damage_type
 	last_damage_source = source
 	last_damage_instigator = instigator
 	damage_taken.emit(scaled_damage, source, instigator)
@@ -81,6 +83,11 @@ func has_lethal_damage() -> bool:
 # @impure
 func set_invincibility_delay(delay: float):
 	invincibility_delay = max(delay, invincibility_delay)
+
+# is_damage_type returns true if the given individual_damage_type is included in the given damage_type.
+# @pure
+static func is_damage_type(damage_type: DmgType, individual_damage_type: DmgType):
+	return damage_type & individual_damage_type == individual_damage_type
 
 # find_life_points_in_node returns the first life points node in the given node.
 # @pure
