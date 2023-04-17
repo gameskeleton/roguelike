@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_ey4pc"]
 [ext_resource type="PackedScene" uid="uid://cf1gifdkc20ov" path="res://src/items/decors/barrel.tscn" id="2_35w8l"]
-[ext_resource type="PackedScene" uid="uid://bm4cnamfnmoo6" path="res://src/items/enemies/orb.tscn" id="2_vdkpc"]
+[ext_resource type="PackedScene" uid="uid://ddeypcn3koqa3" path="res://src/items/enemies/orb.tscn" id="2_vdkpc"]
 [ext_resource type="PackedScene" uid="uid://bvesf3gnoedis" path="res://src/items/decors/crate.tscn" id="4_ykkgb"]
 [ext_resource type="PackedScene" uid="uid://6ganfjfm5h0e" path="res://src/items/decors/candle.tscn" id="5_o5g22"]
 [ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="6_uacev"]

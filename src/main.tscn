@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="6_i4jlm"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
 [ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="7_qcw21"]
-[ext_resource type="PackedScene" uid="uid://upohoh1hd25x" path="res://src/items/pickups/pickup_spawner.tscn" id="7_tmcqs"]
+[ext_resource type="PackedScene" uid="uid://rb6toyc4p2yq" path="res://src/items/pickups/pickup_spawner.tscn" id="7_tmcqs"]
 [ext_resource type="PackedScene" uid="uid://bv67dd1mhtbs6" path="res://src/gui/map_room_dot.tscn" id="8_4s74v"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]

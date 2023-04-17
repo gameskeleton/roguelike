@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_6ttmn"]
 [ext_resource type="PackedScene" uid="uid://cf1gifdkc20ov" path="res://src/items/decors/barrel.tscn" id="2_ltsuq"]
 [ext_resource type="PackedScene" uid="uid://bvesf3gnoedis" path="res://src/items/decors/crate.tscn" id="3_f1wgf"]
-[ext_resource type="PackedScene" uid="uid://bm4cnamfnmoo6" path="res://src/items/enemies/orb.tscn" id="4_odw06"]
+[ext_resource type="PackedScene" uid="uid://ddeypcn3koqa3" path="res://src/items/enemies/orb.tscn" id="4_odw06"]
 [ext_resource type="PackedScene" uid="uid://ch787sxtr5k1l" path="res://src/rooms/room_spawner.tscn" id="5_16xxe"]
 [ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="6_py3s5"]
 [ext_resource type="Script" path="res://src/rooms/scripts/room_spawner_res.gd" id="7_tkyqg"]

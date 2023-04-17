@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnsftlwm0bb55"]
+[gd_scene load_steps=4 format=3 uid="uid://b56aihlp5saww"]
 
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="1_4ul0w"]
-[ext_resource type="Script" path="res://src/shared/scripts/life_points_meter.gd" id="1_8oacj"]
+[ext_resource type="Script" path="res://src/gui/scripts/life_points_meter.gd" id="1_8oacj"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="3_g6jw6"]
 
 [node name="LifePointsMeter" type="Control"]

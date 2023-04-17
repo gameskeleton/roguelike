@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ch787sxtr5k1l" path="res://src/rooms/room_spawner.tscn" id="3_cuuc5"]
 [ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="4_6lhf0"]
 [ext_resource type="Script" path="res://src/rooms/scripts/room_spawner_res.gd" id="5_ydya5"]
-[ext_resource type="PackedScene" uid="uid://bm4cnamfnmoo6" path="res://src/items/enemies/orb.tscn" id="6_4vld8"]
+[ext_resource type="PackedScene" uid="uid://ddeypcn3koqa3" path="res://src/items/enemies/orb.tscn" id="6_4vld8"]
 [ext_resource type="PackedScene" uid="uid://dkr6cyegxrwnn" path="res://src/items/pickups/coin.tscn" id="7_ypjln"]
 
 [sub_resource type="Resource" id="Resource_h2g65"]
