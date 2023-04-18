@@ -3,7 +3,7 @@ extends Control
 const FADE_SPEED := 2.0
 const VISIBLE_FOR := 2.5
 
-@export var life_points: RkLifePoints
+@export var life_points: RkLifePointsSystem
 
 @onready var progress_bar: RkGuiProgressBar = $ProgressBar
 
@@ -29,8 +29,8 @@ func _ready():
 	if not life_points:
 		var parent_node := get_parent()
 		if parent_node:
-			life_points = RkLifePoints.find_life_points_in_node(parent_node)
-	assert(life_points, "LifePointsMeter must be a sibling of RkLifePoints")
+			life_points = RkLifePointsSystem.find_system(parent_node)
+	assert(life_points, "LifePointsMeter must be a sibling of RkLifePointsSystem")
 	life_points.damage_taken.connect(_on_life_points_damage_taken)
 	progress_bar.progress = life_points.get_ratio()
 

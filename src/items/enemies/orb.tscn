@@ -637,7 +637,9 @@ _data = {
 [node name="Orb" type="Node2D"]
 script = ExtResource("1_6h6eh")
 
-[node name="LifePoints" parent="." instance=ExtResource("2_qwrfn")]
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("2_qwrfn")]
 life_points = 5.0
 max_life_points_base = 5.0
 
@@ -653,7 +655,7 @@ offset_left = -16.0
 offset_top = -19.0
 offset_right = 16.0
 offset_bottom = -16.0
-life_points = NodePath("../LifePoints")
+life_points = NodePath("../Systems/LifePoints")
 
 [node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
 listen_room_on = false
@@ -675,6 +677,6 @@ libraries = {
 "": SubResource("AnimationLibrary_pbo2r")
 }
 
-[connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]
 [connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]

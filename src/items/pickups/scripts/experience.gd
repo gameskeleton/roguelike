@@ -30,5 +30,5 @@ func _process(_delta: float):
 # @impure
 func _on_player_detector_body_entered(body: Node2D):
 	if body is RkPlayer:
-		body.level.earn_experience(value)
+		body.level_system.earn_experience(value)
 		queue_free()

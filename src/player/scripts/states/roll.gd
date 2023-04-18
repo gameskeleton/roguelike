@@ -14,9 +14,9 @@ func start_state():
 	player_node.play_animation("roll")
 	player_node.play_sound_effect(audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_detector_active(true)
-	player_node.stamina.consume(player_node.ROLL_STAMINA_COST)
-	player_node.life_points.invincible += 1
+	player_node.stamina_system.consume(player_node.ROLL_STAMINA_COST)
 	player_node.animation_player.speed_scale = 2.1
+	player_node.life_points_system.invincible += 1
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -31,12 +31,12 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.sprite.offset = _sprite_initial_offset
-	player_node.life_points.invincible -= 1
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.life_points_system.invincible -= 1
 	player_node.stop_sound_effect(audio_stream_player)
 	player_node.set_roll_detector_active(false)
 
 func _on_roll_detector_area_entered(area: Area2D):
-	var target_node := RkLifePoints.find_life_points_in_node(area.get_parent())
-	if target_node is RkLifePoints:
-		player_node.attack.call_deferred("attack", target_node, player_node.ROLL_DAMAGE, RkLifePoints.DmgType.roll)
+	var target_node := RkLifePointsSystem.find_system(area.get_parent())
+	if target_node is RkLifePointsSystem:
+		player_node.attack_system.call_deferred("attack", target_node, player_node.ROLL_DAMAGE, RkLifePointsSystem.DmgType.roll)

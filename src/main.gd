@@ -49,7 +49,7 @@ func _ready():
 	else:
 		_generate_dungeon()
 	_limit_camera_to_room()
-	player_node.level.level_up.connect(func(_level: int):
+	player_node.level_system.level_up.connect(func(_level: int):
 		get_tree().paused  = true
 		state = State.level_up
 		ui_pause_control.visible = false
@@ -70,8 +70,8 @@ func _process(delta: float):
 func _process_game(delta: float):
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
-	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina.get_ratio(), delta)
-	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points.get_ratio(), delta)
+	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina_system.get_ratio(), delta)
+	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points_system.get_ratio(), delta)
 	# pause game
 	if Input.is_action_just_pressed("player_pause"):
 		get_tree().paused = true
@@ -94,10 +94,10 @@ func _process_debug():
 	if Input.is_action_just_pressed("ui_home"):
 		_on_magic_slot_pressed()
 	if Input.is_action_just_pressed("ui_page_up"):
-		player_node.level.earn_experience(ceil(player_node.level.experience_required_to_level_up / 10.0))
+		player_node.level_system.earn_experience(ceil(player_node.level_system.experience_required_to_level_up / 10.0))
 	if Input.is_action_just_pressed("ui_page_down"):
-		player_node.life_points.invincibility_delay = 0.0
-		player_node.life_points.take_damage(ceil(player_node.life_points.max_life_points / 10.0))
+		player_node.life_points_system.invincibility_delay = 0.0
+		player_node.life_points_system.take_damage(ceil(player_node.life_points_system.max_life_points / 10.0))
 
 # @impure
 func _process_pause(_delta: float):
@@ -116,11 +116,11 @@ func _process_pause(_delta: float):
 	# position map dot
 	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (RkMapRoomDot.DOT_SIZE * 0.5)
 	# update stats values
-	ui_gold_value_label.text = str(player_node.gold.gold)
-	ui_level_value_label.text = "%d / %d" % [player_node.level.level + 1, player_node.level.max_level + 1]
-	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points.life_points), round(player_node.life_points.max_life_points)]
-	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina.stamina), round(player_node.stamina.max_stamina)]
-	ui_experience_value_label.text = "%d / %d" % [player_node.level.experience, player_node.level.experience_required_to_level_up]
+	ui_gold_value_label.text = str(player_node.gold_system.gold)
+	ui_level_value_label.text = "%d / %d" % [player_node.level_system.level + 1, player_node.level_system.max_level + 1]
+	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points_system.life_points), round(player_node.life_points_system.max_life_points)]
+	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina_system.stamina), round(player_node.stamina_system.max_stamina)]
+	ui_experience_value_label.text = "%d / %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]
 
 # @impure
 func _process_level_up():

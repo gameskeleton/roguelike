@@ -934,18 +934,6 @@ additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
 
-[node name="Gold" parent="." instance=ExtResource("2_18wbx")]
-
-[node name="Level" parent="." instance=ExtResource("2_7w2hd")]
-
-[node name="Attack" parent="." node_paths=PackedStringArray("source", "instigator") instance=ExtResource("3_tf4v5")]
-source = NodePath("..")
-instigator = NodePath("..")
-
-[node name="Stamina" parent="." instance=ExtResource("3_kren4")]
-
-[node name="LifePoints" parent="." instance=ExtResource("3_h8vvb")]
-
 [node name="Sprite" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
@@ -958,6 +946,20 @@ hframes = 10
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="Gold" parent="Systems" instance=ExtResource("2_18wbx")]
+
+[node name="Level" parent="Systems" instance=ExtResource("2_7w2hd")]
+
+[node name="Attack" parent="Systems" node_paths=PackedStringArray("source", "instigator") instance=ExtResource("3_tf4v5")]
+source = NodePath("../..")
+instigator = NodePath("../..")
+
+[node name="Stamina" parent="Systems" instance=ExtResource("3_kren4")]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("3_h8vvb")]
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -1117,7 +1119,7 @@ libraries = {
 "": SubResource("AnimationLibrary_w4g2l")
 }
 
-[connection signal="level_up" from="Level" to="." method="_on_level_level_up"]
-[connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="level_up" from="Systems/Level" to="." method="_on_level_level_up"]
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
 [connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]

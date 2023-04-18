@@ -1,6 +1,6 @@
 @icon("res://src/shared/icons/level.svg")
 extends Node
-class_name RkStamina
+class_name RkStaminaSystem
 
 @export var stamina := 10.0
 @export var max_stamina_base := 10.0

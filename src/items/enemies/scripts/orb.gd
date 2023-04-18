@@ -11,9 +11,9 @@ const EXPULSE_STRENGTH := 10.0
 
 @export var projectile_scene := preload("res://src/items/projectiles/fire_ball.tscn")
 
-@onready var life_points: RkLifePoints = $LifePoints
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 var _timer := 0.0
 var _state := State.idle
@@ -69,7 +69,7 @@ func _fire():
 	var projectile_node: RkProjectile = projectile_scene.instantiate()
 	projectile_node.position = Vector2(-5, -4) if animated_sprite.flip_h else Vector2(5, -4)
 	projectile_node.direction = (_player_node.global_position - global_position).normalized()
-	projectile_node.damage_type = RkLifePoints.DmgType.fire
+	projectile_node.damage_type = RkLifePointsSystem.DmgType.fire
 	add_child(projectile_node)
 	projectile_node.owner = self
 	animation_player.play("RESET")
@@ -93,7 +93,7 @@ func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Nod
 	_expulse = (global_position - source.global_position).normalized() * EXPULSE_STRENGTH
 	_expulse_alpha = 1.0
 	animation_player.play("hit")
-	if life_points.has_lethal_damage():
+	if life_points_system.has_lethal_damage():
 		RkPickupSpawner.try_spawn_coins(self, global_position, randi_range(0, 3))
 		RkPickupSpawner.try_spawn_experiences(self, global_position, randi_range(6, 7))
 		queue_free()

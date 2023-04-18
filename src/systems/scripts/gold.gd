@@ -1,6 +1,6 @@
 @icon("res://src/shared/icons/level.svg")
 extends Node
-class_name RkGold
+class_name RkGoldSystem
 
 signal earn_gold(amount: int)
 

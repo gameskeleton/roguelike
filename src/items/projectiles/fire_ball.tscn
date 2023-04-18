@@ -156,12 +156,13 @@ radius = 6.0
 [node name="Projectile" type="Node2D"]
 script = ExtResource("1_ia1t0")
 
-[node name="LifePoints" parent="." instance=ExtResource("2_b6w0o")]
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("2_b6w0o")]
 life_points = 1.0
-max_life_points = 1.0
-damage_multiplier_world = 1000.0
 damage_multiplier_ice = 1000.0
 damage_multiplier_fire = 1000.0
+damage_multiplier_world = 1000.0
 damage_multiplier_physical = 1000.0
 damage_multiplier_lightning = 1000.0
 
@@ -193,7 +194,7 @@ collision_mask = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_jmpmo")
 
-[connection signal="damage_taken" from="LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]
 [connection signal="room_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_room_leave"]
 [connection signal="body_entered" from="AttackDetector" to="." method="_on_attack_detector_body_entered"]

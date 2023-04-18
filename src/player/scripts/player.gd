@@ -65,11 +65,11 @@ const ATTACK_DECELERATION := 510.0
 @export var additional_stamina_per_level := Curve.new()
 @export var additional_life_points_per_level := Curve.new()
 
-@onready var gold: RkGold = $Gold
-@onready var level: RkLevel = $Level
-@onready var attack: RkAttack = $Attack
-@onready var stamina: RkStamina = $Stamina
-@onready var life_points: RkLifePoints = $LifePoints
+@onready var gold_system: RkGoldSystem = $Systems/Gold
+@onready var level_system: RkLevelSystem = $Systems/Level
+@onready var attack_system: RkAttackSystem = $Systems/Attack
+@onready var stamina_system: RkStaminaSystem = $Systems/Stamina
+@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 ###
 # Input
@@ -92,7 +92,7 @@ var input_velocity := Vector2.ZERO
 # @impure
 func _ready():
 	set_direction(direction)
-	_on_level_level_up(level.level)
+	_on_level_level_up(level_system.level)
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -252,12 +252,12 @@ func is_able_to_jump() -> bool:
 # is_able_to_roll returns true if the player is able to roll.
 # @pure
 func is_able_to_roll() -> bool:
-	return stamina.has_enough(ROLL_STAMINA_COST)
+	return stamina_system.has_enough(ROLL_STAMINA_COST)
 
 # is_able_to_attack returns true if the player is able to attack.
 # @pure
 func is_able_to_attack() -> bool:
-	return stamina.has_enough(ATTACK_STAMINA_COST)
+	return stamina_system.has_enough(ATTACK_STAMINA_COST)
 
 # is_able_to_wall_hang returns true if the player is near a corner wall.
 # @pure
@@ -371,9 +371,9 @@ func set_wall_slide_raycast_active(active: bool):
 # @signal
 # @impure
 func _on_level_level_up(_new_level: int):
-	attack.force_base = base_force + additional_force_per_level.sample_baked(level.get_ratio())
-	stamina.max_stamina_base = base_stamina + additional_stamina_per_level.sample_baked(level.get_ratio())
-	life_points.max_life_points_base = base_life_points + additional_life_points_per_level.sample_baked(level.get_ratio())
+	attack_system.force_base = base_force + additional_force_per_level.sample_baked(level_system.get_ratio())
+	stamina_system.max_stamina_base = base_stamina + additional_stamina_per_level.sample_baked(level_system.get_ratio())
+	life_points_system.max_life_points_base = base_life_points + additional_life_points_per_level.sample_baked(level_system.get_ratio())
 
 # @signal
 # @impure

@@ -17,10 +17,10 @@ func start_state():
 	_attack_combo = 0
 	_hitbox_enabled = false
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	player_node.stamina_system.consume(player_node.ATTACK_STAMINA_COST)
 	player_node.animation_player.speed_scale = 1.6
 	player_node.play_animation("attack_01")
 	player_node.play_sound_effect(audio_stream_player, SOUND_POSITION_01)
-	player_node.stamina.consume(player_node.ATTACK_STAMINA_COST)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -35,7 +35,7 @@ func process_state(delta: float):
 	if player_node.input_pressed(player_node.input_attack) and player_node.get_animation_played_ratio() >= 0.8:
 		_combo = true
 	if player_node.is_animation_finished():
-		if _combo and player_node.stamina.try_consume(player_node.ATTACK_STAMINA_COST):
+		if _combo and player_node.stamina_system.try_consume(player_node.ATTACK_STAMINA_COST):
 			_combo = false
 			_attack_combo += 1
 			player_node.animation_player.speed_scale = min(3.0, player_node.animation_player.speed_scale + 0.2)
@@ -62,6 +62,6 @@ func _disable_hitbox():
 # @signal
 # @impure
 func _on_attack_detector_area_entered(area: Area2D):
-	var target_node := RkLifePoints.find_life_points_in_node(area.get_parent())
-	if target_node is RkLifePoints:
-		player_node.attack.call_deferred("attack", target_node, player_node.ATTACK_DAMAGE, RkLifePoints.DmgType.physical)
+	var target_node := RkLifePointsSystem.find_system(area.get_parent())
+	if target_node is RkLifePointsSystem:
+		player_node.attack_system.call_deferred("attack", target_node, player_node.ATTACK_DAMAGE, RkLifePointsSystem.DmgType.physical)

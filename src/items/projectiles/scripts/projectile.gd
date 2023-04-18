@@ -4,7 +4,7 @@ class_name RkProjectile
 @export var speed := 160.0
 @export var damage := 1.0
 @export var direction := Vector2.LEFT
-@export var damage_type := RkLifePoints.DmgType.none
+@export var damage_type := RkLifePointsSystem.DmgType.none
 
 @onready var attack_detector: Area2D = $AttackDetector
 
@@ -35,7 +35,7 @@ func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: No
 # @impure
 func _on_attack_detector_body_entered(body: Node2D):
 	if body is RkPlayer:
-		body.life_points.take_damage(damage, damage_type, self, owner)
+		body.life_points_system.take_damage(damage, damage_type, self, owner)
 
 # @signal
 # @impure
