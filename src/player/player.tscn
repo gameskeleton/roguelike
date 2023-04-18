@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://1pihj1hks78y"]
+[gd_scene load_steps=71 format=3 uid="uid://d3rsao8ysa3px"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://clnc3derlho4i" path="res://src/player/textures/jump.png" id="6_ss6l5"]
 [ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/fall.png" id="7_2bcbe"]
 [ext_resource type="Script" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
+[ext_resource type="PackedScene" uid="uid://dn80e533lwh5d" path="res://src/systems/inventory.tscn" id="7_s3n7i"]
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
 [ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
 [ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/player/sounds/roll.wav" id="9_7l0y8"]
@@ -959,6 +960,12 @@ instigator = NodePath("../..")
 
 [node name="Stamina" parent="Systems" instance=ExtResource("3_kren4")]
 
+[node name="Inventory" parent="Systems" node_paths=PackedStringArray("gold_system", "attack_system", "stamina_system", "life_points_system") instance=ExtResource("7_s3n7i")]
+gold_system = NodePath("../Gold")
+attack_system = NodePath("../Attack")
+stamina_system = NodePath("../Stamina")
+life_points_system = NodePath("../LifePoints")
+
 [node name="LifePoints" parent="Systems" instance=ExtResource("3_h8vvb")]
 
 [node name="StateMachine" type="Node" parent="."]
@@ -1120,6 +1127,7 @@ libraries = {
 }
 
 [connection signal="level_up" from="Systems/Level" to="." method="_on_level_level_up"]
+[connection signal="added" from="Systems/Inventory" to="." method="_on_inventory_added"]
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
 [connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]

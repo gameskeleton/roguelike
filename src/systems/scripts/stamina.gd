@@ -17,12 +17,12 @@ var _regen_blocked_for := 0.0
 
 # _process regenerates the stamina if the regen is not blocked.
 # @impure
-func _process(delta):
+func _process(delta: float):
 	if _regen_blocked_for > 0.0:
-		_regen_blocked_for = max(0.0, _regen_blocked_for - delta)
+		_regen_blocked_for = maxf(0.0, _regen_blocked_for - delta)
 		if _regen_blocked_for > 0.0:
 			return
-	stamina = clamp(stamina + delta * regen_speed, 0.0, max_stamina)
+	stamina = clampf(stamina + delta * regen_speed, 0.0, max_stamina)
 
 # get_ratio returns the ratio [0; 1] between stamina and max_stamina.
 # @pure
@@ -38,7 +38,7 @@ func has_enough(amount: float) -> bool:
 # the optional parameter block_regen_for takes a number of seconds during which the stamina won't be regenerated.
 # @impure
 func consume(amount: float, block_regen_for := regen_blocked_when_consumed_for):
-	stamina = clamp(stamina - amount, 0.0, max_stamina)
+	stamina = clampf(stamina - amount, 0.0, max_stamina)
 	_regen_blocked_for = block_regen_for
 
 # try_consume returns true if the object has enough stamina left and will consume that amount if it does.
@@ -49,3 +49,11 @@ func try_consume(amount: float, block_regen_for := regen_blocked_when_consumed_f
 		consume(amount, block_regen_for)
 		return true
 	return false
+
+# find_system_node returns the stamina system in the given node, or null if not found.
+# @pure
+static func find_system_node(node: Node) -> RkStaminaSystem:
+	var system := node.get_node_or_null("Systems/Stamina")
+	if system is RkStaminaSystem:
+		return system
+	return null

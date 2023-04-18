@@ -69,6 +69,7 @@ const ATTACK_DECELERATION := 510.0
 @onready var level_system: RkLevelSystem = $Systems/Level
 @onready var attack_system: RkAttackSystem = $Systems/Attack
 @onready var stamina_system: RkStaminaSystem = $Systems/Stamina
+@onready var inventory_system: RkInventorySystem = $Systems/Inventory
 @onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 ###
@@ -324,7 +325,7 @@ func is_animation_finished() -> bool:
 # get_animation_played_ratio returns the ratio of the animation played by its length.
 # @impure
 func get_animation_played_ratio() -> float:
-	return clamp(animation_player.current_animation_position / (animation_player.current_animation_length - 0.05), 0.0, 1.0)
+	return clampf(animation_player.current_animation_position / (animation_player.current_animation_length - 0.05), 0.0, 1.0)
 
 ###
 # Raycasts and detectors
@@ -374,6 +375,12 @@ func _on_level_level_up(_new_level: int):
 	attack_system.force_base = base_force + additional_force_per_level.sample_baked(level_system.get_ratio())
 	stamina_system.max_stamina_base = base_stamina + additional_stamina_per_level.sample_baked(level_system.get_ratio())
 	life_points_system.max_life_points_base = base_life_points + additional_life_points_per_level.sample_baked(level_system.get_ratio())
+
+# @signal
+# @impure
+func _on_inventory_added(item: RkInventoryRes):
+	await get_tree().process_frame
+	inventory_system.equip(item)
 
 # @signal
 # @impure

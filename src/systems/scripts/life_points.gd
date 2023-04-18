@@ -4,14 +4,11 @@ class_name RkLifePointsSystem
 
 enum DmgType {
 	none = 0,
-	world = 1,
 	#
+	fire = 1,
 	roll = 2,
-	physical = 4,
-	#
-	ice = 8,
-	fire = 16,
-	lightning = 32,
+	world = 4,
+	physical = 8,
 }
 
 signal damage_taken(damage: float, source: Node, instigator: Node)
@@ -27,12 +24,10 @@ const NO_DAMAGE := -1.0
 @export var invincibility_delay := 0.0
 
 @export_group("Damage multipliers", "damage_multiplier")
-@export var damage_multiplier_ice := 1.0
 @export var damage_multiplier_fire := 1.0
 @export var damage_multiplier_roll := 1.0
 @export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
-@export var damage_multiplier_lightning := 1.0
 
 var max_life_points: float :
 	get: return (max_life_points_base + max_life_points_bonus)
@@ -59,12 +54,10 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Node = null
 	if invincible > 0 or invincibility_delay > 0.0:
 		return NO_DAMAGE
 	var damage_multiplier := 1.0
-	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.ice): damage_multiplier *= damage_multiplier_ice
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.fire): damage_multiplier *= damage_multiplier_fire
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.roll): damage_multiplier *= damage_multiplier_roll
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
-	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.lightning): damage_multiplier *= damage_multiplier_lightning
 	var scaled_damage := damage * damage_multiplier
 	life_points -= scaled_damage
 	last_damage = scaled_damage
@@ -84,16 +77,15 @@ func has_lethal_damage() -> bool:
 func set_invincibility_delay(delay: float):
 	invincibility_delay = max(delay, invincibility_delay)
 
-# find_system returns the life points system in the given node, or null if not found.
-# @pure
-static func find_system(node: Node) -> RkLifePointsSystem:
-	var life_points_system := node.get_node_or_null("Systems/LifePoints")
-	if life_points_system is RkLifePointsSystem:
-		return life_points_system
-	return null
-
-
 # is_damage_type returns true if the given individual_damage_type is included in the given damage_type.
 # @pure
 static func is_damage_type(damage_type: DmgType, individual_damage_type: DmgType):
 	return damage_type & individual_damage_type == individual_damage_type
+
+# find_system_node returns the life points system in the given node, or null if not found.
+# @pure
+static func find_system_node(node: Node) -> RkLifePointsSystem:
+	var system := node.get_node_or_null("Systems/LifePoints")
+	if system is RkLifePointsSystem:
+		return system
+	return null

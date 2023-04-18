@@ -121,6 +121,11 @@ func _process_pause(_delta: float):
 	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points_system.life_points), round(player_node.life_points_system.max_life_points)]
 	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina_system.stamina), round(player_node.stamina_system.max_stamina)]
 	ui_experience_value_label.text = "%d / %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]
+	# ui_gold_value_label.text = str(int(player_node.gold_system.gold))
+	# ui_level_value_label.text = "%d / %d" % [player_node.level_system.level + 1, player_node.level_system.max_level + 1]
+	# ui_health_value_label.text = "%d / %d + %d" % [round(player_node.life_points_system.life_points), round(player_node.life_points_system.max_life_points_base), round(player_node.life_points_system.max_life_points_bonus)]
+	# ui_stamina_value_label.text = "%d / %d + %d" % [round(player_node.stamina_system.stamina), round(player_node.stamina_system.max_stamina_base), round(player_node.life_points_system.max_stamina_bonus)]
+	# ui_experience_value_label.text = "%d / %d + %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]
 
 # @impure
 func _process_level_up():

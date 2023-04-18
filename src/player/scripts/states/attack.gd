@@ -38,7 +38,7 @@ func process_state(delta: float):
 		if _combo and player_node.stamina_system.try_consume(player_node.ATTACK_STAMINA_COST):
 			_combo = false
 			_attack_combo += 1
-			player_node.animation_player.speed_scale = min(3.0, player_node.animation_player.speed_scale + 0.2)
+			player_node.animation_player.speed_scale = minf(3.0, player_node.animation_player.speed_scale + 0.2)
 			player_node.play_animation("attack_01" if _attack_combo % 2 == 0 else "attack_02")
 			player_node.play_sound_effect(audio_stream_player, SOUND_POSITION_02)
 		else:
@@ -62,6 +62,6 @@ func _disable_hitbox():
 # @signal
 # @impure
 func _on_attack_detector_area_entered(area: Area2D):
-	var target_node := RkLifePointsSystem.find_system(area.get_parent())
+	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
 		player_node.attack_system.call_deferred("attack", target_node, player_node.ATTACK_DAMAGE, RkLifePointsSystem.DmgType.physical)
