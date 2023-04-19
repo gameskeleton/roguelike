@@ -1,11 +1,8 @@
 extends Resource
-class_name RkInventoryRes
-
-enum Slot { none, ring, armor, weapon }
+class_name RkInventoryItemRes
 
 @export var icon: Texture2D
 @export var name := "Item"
-@export var slot := Slot.none
 @export_multiline var description := ""
 
 @export_group("Statistics")

@@ -4,13 +4,13 @@ class_name RkInventorySystem
 
 enum ItemType { slot = 0, item = 1 }
 
-signal item_added(item: RkInventoryRes, index: int)
-signal slot_added(slot: RkInventoryRes, index: int)
-signal item_removed(item: RkInventoryRes, index: int)
-signal slot_removed(slot: RkInventoryRes, index: int)
+signal item_added(item: RkInventoryItemRes, index: int)
+signal slot_added(slot: RkInventoryItemRes, index: int)
+signal item_removed(item: RkInventoryItemRes, index: int)
+signal slot_removed(slot: RkInventoryItemRes, index: int)
 
-@export var default_items: Array[RkInventoryRes] = []
-@export var default_slots: Array[RkInventoryRes] = []
+@export var default_items: Array[RkInventoryItemRes] = []
+@export var default_slots: Array[RkInventoryItemRes] = []
 @export var items_capacity := 20
 @export var slots_capacity := 5
 
@@ -19,8 +19,8 @@ signal slot_removed(slot: RkInventoryRes, index: int)
 @export var stamina_system: RkStaminaSystem
 @export var life_points_system: RkLifePointsSystem
 
-var items: Array[RkInventoryRes] = []
-var slots: Array[RkInventoryRes] = []
+var items: Array[RkInventoryItemRes] = []
+var slots: Array[RkInventoryItemRes] = []
 
 # @impure
 func _ready():
@@ -32,7 +32,7 @@ func _ready():
 		add_slot(slot)
 
 # @impure
-func add_item(item: RkInventoryRes, index := -1):
+func add_item(item: RkInventoryItemRes, index := -1):
 	if index == -1:
 		for i in items.size():
 			if items[i] == null:
@@ -47,7 +47,7 @@ func add_item(item: RkInventoryRes, index := -1):
 	return false
 
 # @impure
-func add_slot(slot: RkInventoryRes, index := -1):
+func add_slot(slot: RkInventoryItemRes, index := -1):
 	if index == -1:
 		for i in slots.size():
 			if slots[i] == null:
@@ -75,8 +75,8 @@ func remove_slot(index: int):
 
 # @impure
 func move_item_or_slot(from_type: ItemType, from_index: int, to_type: ItemType, to_index: int):
-	var to_item: RkInventoryRes
-	var from_item: RkInventoryRes
+	var to_item: RkInventoryItemRes
+	var from_item: RkInventoryItemRes
 	match to_type:
 		ItemType.slot: to_item = slots[to_index]
 		ItemType.item: to_item = items[to_index]
@@ -108,20 +108,20 @@ func move_item_or_slot(from_type: ItemType, from_index: int, to_type: ItemType, 
 					_slot_added(from_item, to_index, true)
 
 # @impure
-func _item_added(item: RkInventoryRes, index: int, _swapped := false):
+func _item_added(item: RkInventoryItemRes, index: int, _swapped := false):
 	item_added.emit(item, index)
 
 # @impure
-func _item_removed(item: RkInventoryRes, index: int, _swapped := false):
+func _item_removed(item: RkInventoryItemRes, index: int, _swapped := false):
 	item_removed.emit(item, index)
 
 # @impure
-func _slot_added(slot: RkInventoryRes, index: int, _swapped := false):
+func _slot_added(slot: RkInventoryItemRes, index: int, _swapped := false):
 	slot_added.emit(slot, index)
 	_apply_slots_to_systems()
 
 # @impure
-func _slot_removed(slot: RkInventoryRes, index: int, _swapped := false):
+func _slot_removed(slot: RkInventoryItemRes, index: int, _swapped := false):
 	slot_removed.emit(slot, index)
 	_apply_slots_to_systems()
 

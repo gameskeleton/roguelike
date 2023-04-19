@@ -12,10 +12,10 @@ var _inventory_system: RkInventorySystem
 # @impure
 func _ready():
 	_inventory_system = RkInventorySystem.find_system_node(node)
-	_inventory_system.item_added.connect(func(_item: RkInventoryRes, _index: int): _update_cells())
-	_inventory_system.slot_added.connect(func(_slot: RkInventoryRes, _index: int): _update_cells())
-	_inventory_system.item_removed.connect(func(_item: RkInventoryRes, _index: int): _update_cells())
-	_inventory_system.slot_removed.connect(func(_slot: RkInventoryRes, _index: int): _update_cells())
+	_inventory_system.item_added.connect(func(_item: RkInventoryItemRes, _index: int): _update_cells())
+	_inventory_system.slot_added.connect(func(_slot: RkInventoryItemRes, _index: int): _update_cells())
+	_inventory_system.item_removed.connect(func(_item: RkInventoryItemRes, _index: int): _update_cells())
+	_inventory_system.slot_removed.connect(func(_slot: RkInventoryItemRes, _index: int): _update_cells())
 	_update_cells()
 
 # @impure

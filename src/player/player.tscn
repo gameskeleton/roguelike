@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://d3rsao8ysa3px"]
+[gd_scene load_steps=76 format=3 uid="uid://3jose028jvlc"]
 
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/idle.png" id="1_6pmwu"]
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
@@ -22,13 +22,16 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
 [ext_resource type="PackedScene" uid="uid://dn80e533lwh5d" path="res://src/systems/inventory.tscn" id="7_s3n7i"]
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
-[ext_resource type="Resource" path="res://src/items/wearables/ring_fap.tres" id="8_mmm5s"]
-[ext_resource type="Resource" path="res://src/items/wearables/sword_of_famine.tres" id="8_wohm8"]
+[ext_resource type="Resource" uid="uid://dngf1iwggf010" path="res://src/items/wearables/ring_of_curse.tres" id="8_rujlh"]
+[ext_resource type="Resource" uid="uid://dtuomgwv8q3oa" path="res://src/items/wearables/sword_of_famine.tres" id="8_wohm8"]
 [ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
 [ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/player/sounds/roll.wav" id="9_7l0y8"]
 [ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/death.png" id="9_a75to"]
 [ext_resource type="Script" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
+[ext_resource type="Resource" uid="uid://cjfhfkmyb5r71" path="res://src/items/wearables/sword_of_killing.tres" id="10_tgvwt"]
+[ext_resource type="Resource" uid="uid://b54j67wbnycix" path="res://src/items/wearables/sword_of_blood.tres" id="11_b0drb"]
+[ext_resource type="Resource" uid="uid://c4h5mgge7c63o" path="res://src/items/wearables/ring_of_fap.tres" id="11_eebtd"]
 [ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
 [ext_resource type="AudioStream" uid="uid://cd17eiunch3uo" path="res://src/player/sounds/stand.wav" id="12_nfhlm"]
@@ -962,12 +965,11 @@ instigator = NodePath("../..")
 
 [node name="Stamina" parent="Systems" instance=ExtResource("3_kren4")]
 
-[node name="Inventory" parent="Systems" node_paths=PackedStringArray("gold_system", "attack_system", "stamina_system", "life_points_system") instance=ExtResource("7_s3n7i")]
-default_items = Array[Resource("res://src/systems/data/inventory_res.gd")]([ExtResource("8_mmm5s"), ExtResource("8_wohm8")])
-gold_system = NodePath("../Gold")
-attack_system = NodePath("../Attack")
-stamina_system = NodePath("../Stamina")
-life_points_system = NodePath("../LifePoints")
+[node name="Inventory" parent="Systems" instance=ExtResource("7_s3n7i")]
+default_items = Array[Resource("res://src/systems/data/inventory_item_res.gd")]([ExtResource("8_rujlh"), ExtResource("11_b0drb"), ExtResource("8_wohm8")])
+default_slots = Array[Resource("res://src/systems/data/inventory_item_res.gd")]([ExtResource("11_eebtd"), ExtResource("10_tgvwt")])
+items_capacity = null
+slots_capacity = null
 
 [node name="LifePoints" parent="Systems" instance=ExtResource("3_h8vvb")]
 

@@ -1,7 +1,7 @@
 extends Control
 class_name RkGuiInventoryCell
 
-@export var item: RkInventoryRes :
+@export var item: RkInventoryItemRes :
 	get: return item
 	set(value):
 		item = value
