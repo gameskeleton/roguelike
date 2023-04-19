@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://fx07x2r3wif8"]
+
+[ext_resource type="Script" path="res://src/gui/scripts/inventory_cell.gd" id="1_ndc1x"]
+[ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="2_5ukdb"]
+
+[node name="InventoryItem" type="ColorRect"]
+custom_minimum_size = Vector2(28, 28)
+offset_right = 28.0
+offset_bottom = 28.0
+color = Color(0.266667, 0.270588, 1, 1)
+script = ExtResource("1_ndc1x")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 31.0
+offset_bottom = 31.0
+texture = ExtResource("2_5ukdb")
+region_rect = Rect2(128, 48, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3

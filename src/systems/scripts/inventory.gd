@@ -2,124 +2,79 @@
 extends Node
 class_name RkInventorySystem
 
-signal added(item: RkInventoryRes)
-signal removed(item: RkInventoryRes)
-signal equipped(item: RkInventoryRes, slot: int)
-signal unequipped(item: RkInventoryRes, slot: int)
+enum ItemType { slot = 0, item = 1 }
+
+signal item_added(item: RkInventoryRes, index: int)
+signal slot_added(slot: RkInventoryRes, index: int)
 
 @export var default_items: Array[RkInventoryRes] = []
-@export var default_equip_items: Array[RkInventoryRes] = []
+@export var default_slots: Array[RkInventoryRes] = []
+@export var items_capacity := 20
+@export var slots_capacity := 5
 
-@export_group("Capacity")
-@export var capacity := 20
-@export var equip_capacity := 5
-
-@export_group("System nodes")
-@export var gold_system: RkGoldSystem
-@export var attack_system: RkAttackSystem
-@export var stamina_system: RkStaminaSystem
-@export var life_points_system: RkLifePointsSystem
-
-var items: Array[RkInventoryRes] = [] # dense array
-var equipped_items: Array[RkInventoryRes] = [] # sparse array
+var items: Array[RkInventoryRes] = []
+var slots: Array[RkInventoryRes] = []
 
 # @impure
 func _ready():
-	equipped_items.resize(equip_capacity)
-	# start by adding default_equip_items
-	for item in default_equip_items:
-		if not add(item):
-			break
-		if not equip_slot(item, default_equip_items.find(item)):
-			break
-	# add default items
+	items.resize(items_capacity)
+	slots.resize(slots_capacity)
 	for item in default_items:
-		if not add(item):
-			break
+		add_item(item)
+	for slot in default_slots:
+		add_slot(slot)
 
 # @impure
-func add(item: RkInventoryRes) -> bool:
-	if items.size() >= capacity:
-		return false
-	items.append(item)
-	added.emit(item)
-	return true
-
-# @impure
-func remove(item: RkInventoryRes) -> bool:
-	if items.has(item):
-		items.erase(item)
-		removed.emit(item)
-		return true
+func add_item(item: RkInventoryRes, index := -1):
+	if index == -1:
+		for i in items.size():
+			if items[i] == null:
+				items[i] = item
+				item_added.emit(item, i)
+				return true
+	else:
+		if items[index] == null:
+				items[index] = item
+				item_added.emit(item, index)
+				return true
 	return false
 
 # @impure
-func equip_slot(item: RkInventoryRes, slot: int) -> bool:
-	assert(slot >= 0, "slot must be positive")
-	assert(slot < equip_capacity - 1, "slot must be less than equip_capacity")
-	if items.has(item):
-		if equipped_items[slot]:
-			return false
-		_unapply_equipped_items_to_systems()
-		equipped_items[slot] = item
-		_apply_equipped_items_to_systems()
-		equipped.emit(item, slot)
-		return true
+func add_slot(slot: RkInventoryRes, index := -1):
+	if index == -1:
+		for i in slots.size():
+			if slots[i] == null:
+				slots[i] = slot
+				slot_added.emit(slot, i)
+				return true
+	else:
+		if slots[index] == null:
+				slots[index] = slot
+				slot_added.emit(slot, index)
+				return true
 	return false
 
 # @impure
-func unequip_slot(item: RkInventoryRes, slot: int) -> bool:
-	assert(slot >= 0, "slot must be positive")
-	assert(slot < equip_capacity - 1, "slot must be less than equip_capacity")
-	if items.has(item):
-		if equipped_items[slot]:
-			_unapply_equipped_items_to_systems()
-			equipped_items[slot] = null
-			_apply_equipped_items_to_systems()
-			unequipped.emit(item, slot)
-			return true
-	return false
+func move_item_or_slot(from_type: ItemType, from_index: int, to_type: ItemType, to_index: int):
+	var to_item: RkInventoryRes
+	var from_item: RkInventoryRes
+	match to_type:
+		ItemType.slot: to_item = slots[to_index]
+		ItemType.item: to_item = items[to_index]
+	match from_type:
+		ItemType.slot: from_item = slots[from_index]
+		ItemType.item: from_item = items[from_index]
+	match to_type:
+		ItemType.slot: slots[to_index] = from_item
+		ItemType.item: items[to_index] = from_item
+	match from_type:
+		ItemType.slot: slots[from_index] = to_item
+		ItemType.item: items[from_index] = to_item
 
-# @impure
-func _apply_equipped_items_to_systems():
-	for item in equipped_items:
-		if not item:
-			continue
-		if gold_system:
-			gold_system.earn_multiplier *= item.gold_earn_multiplier_bonus
-		if attack_system:
-			attack_system.force_bonus += item.force_bonus
-			attack_system.damage_multiplier_fire *= item.attack_multiplier_fire
-			attack_system.damage_multiplier_roll *= item.attack_multiplier_roll
-			attack_system.damage_multiplier_world *= item.attack_multiplier_world
-			attack_system.damage_multiplier_physical *= item.attack_multiplier_physical
-		if stamina_system:
-			stamina_system.max_stamina_bonus += item.stamina_bonus
-		if life_points_system:
-			life_points_system.max_life_points_bonus += item.life_points_bonus
-			life_points_system.damage_multiplier_fire *= item.defence_multiplier_fire
-			life_points_system.damage_multiplier_roll *= item.defence_multiplier_roll
-			life_points_system.damage_multiplier_world *= item.defence_multiplier_world
-			life_points_system.damage_multiplier_physical *= item.defence_multiplier_physical
-
-# @impure
-func _unapply_equipped_items_to_systems():
-	for item in equipped_items:
-		if not item:
-			continue
-		if gold_system:
-			gold_system.earn_multiplier /= item.gold_earn_multiplier_bonus
-		if attack_system:
-			attack_system.force_bonus -= item.force_bonus
-			attack_system.damage_multiplier_fire /= item.attack_multiplier_fire
-			attack_system.damage_multiplier_roll /= item.attack_multiplier_roll
-			attack_system.damage_multiplier_world /= item.attack_multiplier_world
-			attack_system.damage_multiplier_physical /= item.attack_multiplier_physical
-		if stamina_system:
-			stamina_system.max_stamina_bonus -= item.stamina_bonus
-		if life_points_system:
-			life_points_system.max_life_points_bonus -= item.life_points_bonus
-			life_points_system.damage_multiplier_fire /= item.defence_multiplier_fire
-			life_points_system.damage_multiplier_roll /= item.defence_multiplier_roll
-			life_points_system.damage_multiplier_world /= item.defence_multiplier_world
-			life_points_system.damage_multiplier_physical /= item.defence_multiplier_physical
+# find_system_node returns the inventory system in the given node, or null if not found.
+# @pure
+static func find_system_node(node: Node) -> RkInventorySystem:
+	var system := node.get_node_or_null("Systems/Inventory")
+	if system is RkInventorySystem:
+		return system
+	return null
