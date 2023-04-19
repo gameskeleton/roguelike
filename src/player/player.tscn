@@ -1127,7 +1127,6 @@ libraries = {
 }
 
 [connection signal="level_up" from="Systems/Level" to="." method="_on_level_level_up"]
-[connection signal="added" from="Systems/Inventory" to="." method="_on_inventory_added"]
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
 [connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]

@@ -2,70 +2,40 @@
 extends Node
 class_name RkInventorySystem
 
-class RkInventorySlots:
-	@export var armor: RkInventoryRes
-	@export var weapon: RkInventoryRes
-	@export var ring_01: RkInventoryRes
-	@export var ring_02: RkInventoryRes
-	
-	# @impure
-	func slot(item: RkInventoryRes) -> bool:
-		match item.slot:
-			RkInventoryRes.Slot.ring:
-				if not ring_01:
-					ring_01 = item
-					return true
-				if not ring_02:
-					ring_02 = item
-					return true
-			RkInventoryRes.Slot.armor:
-				if not armor:
-					armor = item
-					return true
-			RkInventoryRes.Slot.weapon:
-				if not weapon:
-					weapon = item
-					return true
-		return false
-
-	# @impure
-	func unslot(item: RkInventoryRes) -> bool:
-		match item.slot:
-			RkInventoryRes.Slot.ring:
-				if ring_01 == item:
-					ring_01 = null
-					return true
-				if ring_02 == item:
-					ring_02 = null
-					return true
-			RkInventoryRes.Slot.armor:
-				if armor == item:
-					armor = null
-					return true
-			RkInventoryRes.Slot.weapon:
-				if weapon == item:
-					weapon = null
-					return true
-		return false
-
 signal added(item: RkInventoryRes)
 signal removed(item: RkInventoryRes)
-signal equipped(item: RkInventoryRes)
-signal unequipped(item: RkInventoryRes)
+signal equipped(item: RkInventoryRes, slot: int)
+signal unequipped(item: RkInventoryRes, slot: int)
 
-@export var items: Array[RkInventoryRes] = []
-@export var capacity := 10
+@export var default_items: Array[RkInventoryRes] = []
+@export var default_equip_items: Array[RkInventoryRes] = []
+
+@export_group("Capacity")
+@export var capacity := 20
+@export var equip_capacity := 5
+
+@export_group("System nodes")
 @export var gold_system: RkGoldSystem
 @export var attack_system: RkAttackSystem
 @export var stamina_system: RkStaminaSystem
 @export var life_points_system: RkLifePointsSystem
 
-var slots := RkInventorySlots.new()
+var items: Array[RkInventoryRes] = [] # dense array
+var equipped_items: Array[RkInventoryRes] = [] # sparse array
 
 # @impure
 func _ready():
-	for item in items:
-		added.emit(item)
+	equipped_items.resize(equip_capacity)
+	# start by adding default_equip_items
+	for item in default_equip_items:
+		if not add(item):
+			break
+		if not equip_slot(item, default_equip_items.find(item)):
+			break
+	# add default items
+	for item in default_items:
+		if not add(item):
+			break
 
 # @impure
 func add(item: RkInventoryRes) -> bool:
@@ -84,57 +54,72 @@ func remove(item: RkInventoryRes) -> bool:
 	return false
 
 # @impure
-func equip(item: RkInventoryRes) -> bool:
+func equip_slot(item: RkInventoryRes, slot: int) -> bool:
+	assert(slot >= 0, "slot must be positive")
+	assert(slot < equip_capacity - 1, "slot must be less than equip_capacity")
 	if items.has(item):
-		if slots.slot(item):
-			_apply_item_to_systems(item)
-			equipped.emit(item)
+		if equipped_items[slot]:
+			return false
+		_unapply_equipped_items_to_systems()
+		equipped_items[slot] = item
+		_apply_equipped_items_to_systems()
+		equipped.emit(item, slot)
+		return true
+	return false
+
+# @impure
+func unequip_slot(item: RkInventoryRes, slot: int) -> bool:
+	assert(slot >= 0, "slot must be positive")
+	assert(slot < equip_capacity - 1, "slot must be less than equip_capacity")
+	if items.has(item):
+		if equipped_items[slot]:
+			_unapply_equipped_items_to_systems()
+			equipped_items[slot] = null
+			_apply_equipped_items_to_systems()
+			unequipped.emit(item, slot)
 			return true
 	return false
 
 # @impure
-func unequip(item: RkInventoryRes) -> bool:
-	if items.has(item):
-		if slots.unslot(item):
-			_unapply_item_to_systems(item)
-			unequipped.emit(item)
-			return true
-	return false
+func _apply_equipped_items_to_systems():
+	for item in equipped_items:
+		if not item:
+			continue
+		if gold_system:
+			gold_system.earn_multiplier *= item.gold_earn_multiplier_bonus
+		if attack_system:
+			attack_system.force_bonus += item.force_bonus
+			attack_system.damage_multiplier_fire *= item.attack_multiplier_fire
+			attack_system.damage_multiplier_roll *= item.attack_multiplier_roll
+			attack_system.damage_multiplier_world *= item.attack_multiplier_world
+			attack_system.damage_multiplier_physical *= item.attack_multiplier_physical
+		if stamina_system:
+			stamina_system.max_stamina_bonus += item.stamina_bonus
+		if life_points_system:
+			life_points_system.max_life_points_bonus += item.life_points_bonus
+			life_points_system.damage_multiplier_fire *= item.defence_multiplier_fire
+			life_points_system.damage_multiplier_roll *= item.defence_multiplier_roll
+			life_points_system.damage_multiplier_world *= item.defence_multiplier_world
+			life_points_system.damage_multiplier_physical *= item.defence_multiplier_physical
 
 # @impure
-func _apply_item_to_systems(item: RkInventoryRes):
-	if gold_system:
-		gold_system.earn_multiplier *= item.gold_earn_multiplier_bonus
-	if attack_system:
-		attack_system.force_bonus += item.force_bonus
-		attack_system.damage_multiplier_fire *= item.attack_multiplier_fire
-		attack_system.damage_multiplier_roll *= item.attack_multiplier_roll
-		attack_system.damage_multiplier_world *= item.attack_multiplier_world
-		attack_system.damage_multiplier_physical *= item.attack_multiplier_physical
-	if stamina_system:
-		stamina_system.max_stamina_bonus += item.stamina_bonus
-	if life_points_system:
-		life_points_system.max_life_points_bonus += item.life_points_bonus
-		life_points_system.damage_multiplier_fire *= item.defence_multiplier_fire
-		life_points_system.damage_multiplier_roll *= item.defence_multiplier_roll
-		life_points_system.damage_multiplier_world *= item.defence_multiplier_world
-		life_points_system.damage_multiplier_physical *= item.defence_multiplier_physical
-
-# @impure
-func _unapply_item_to_systems(item: RkInventoryRes):
-	if gold_system:
-		gold_system.earn_multiplier /= item.gold_earn_multiplier_bonus
-	if attack_system:
-		attack_system.force_bonus -= item.force_bonus
-		attack_system.damage_multiplier_fire /= item.attack_multiplier_fire
-		attack_system.damage_multiplier_roll /= item.attack_multiplier_roll
-		attack_system.damage_multiplier_world /= item.attack_multiplier_world
-		attack_system.damage_multiplier_physical /= item.attack_multiplier_physical
-	if stamina_system:
-		stamina_system.max_stamina_bonus -= item.stamina_bonus
-	if life_points_system:
-		life_points_system.max_life_points_bonus -= item.life_points_bonus
-		life_points_system.damage_multiplier_fire /= item.defence_multiplier_fire
-		life_points_system.damage_multiplier_roll /= item.defence_multiplier_roll
-		life_points_system.damage_multiplier_world /= item.defence_multiplier_world
-		life_points_system.damage_multiplier_physical /= item.defence_multiplier_physical
+func _unapply_equipped_items_to_systems():
+	for item in equipped_items:
+		if not item:
+			continue
+		if gold_system:
+			gold_system.earn_multiplier /= item.gold_earn_multiplier_bonus
+		if attack_system:
+			attack_system.force_bonus -= item.force_bonus
+			attack_system.damage_multiplier_fire /= item.attack_multiplier_fire
+			attack_system.damage_multiplier_roll /= item.attack_multiplier_roll
+			attack_system.damage_multiplier_world /= item.attack_multiplier_world
+			attack_system.damage_multiplier_physical /= item.attack_multiplier_physical
+		if stamina_system:
+			stamina_system.max_stamina_bonus -= item.stamina_bonus
+		if life_points_system:
+			life_points_system.max_life_points_bonus -= item.life_points_bonus
+			life_points_system.damage_multiplier_fire /= item.defence_multiplier_fire
+			life_points_system.damage_multiplier_roll /= item.defence_multiplier_roll
+			life_points_system.damage_multiplier_world /= item.defence_multiplier_world
+			life_points_system.damage_multiplier_physical /= item.defence_multiplier_physical

@@ -378,11 +378,5 @@ func _on_level_level_up(_new_level: int):
 
 # @signal
 # @impure
-func _on_inventory_added(item: RkInventoryRes):
-	await get_tree().process_frame
-	inventory_system.equip(item)
-
-# @signal
-# @impure
 func _on_life_points_damage_taken(_damage_taken: float, _source: Node, _instigator: Node):
 	fsm.call_deferred("set_state_node", fsm.state_nodes.hit)
