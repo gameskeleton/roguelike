@@ -4,9 +4,9 @@ class_name RkMain
 enum State { game, pause, level_up }
 
 const PLAYER_SIZE := Vector2(14.0, 28.0)
+const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 
 @export var map_revealed := false
-@export var map_room_scene: PackedScene = preload("res://src/gui/map_room.tscn")
 @export var start_room_scene: PackedScene
 
 @onready var player_node: RkPlayer = $Game/Player
@@ -179,7 +179,7 @@ func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distanc
 		room_grid_pos.x * RkMapRoom.MAP_ROOM_SIZE.x,
 		room_grid_pos.y * RkMapRoom.MAP_ROOM_SIZE.y
 	)
-	var map_room_control: RkMapRoom = map_room_scene.instantiate()
+	var map_room_control: RkMapRoom = MAP_ROOM_SCENE.instantiate()
 	map_room_control.name = _get_map_room_control_name(room_grid_pos)
 	map_room_control.room_node = room_node
 	map_room_control.discovered = map_revealed

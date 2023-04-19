@@ -2,14 +2,14 @@ extends Node2D
 
 enum State { idle, lock, fire }
 
+const PROJECTILE_SCENE := preload("res://src/items/projectiles/fire_ball.tscn")
+
 const LOCK_DELAY := 1.1
 const FIRE_DELAY := 0.6
 const FIRE_COOLDOWN := 0.1
 
 const EXPULSE_SPEED := 8.0
 const EXPULSE_STRENGTH := 10.0
-
-@export var projectile_scene := preload("res://src/items/projectiles/fire_ball.tscn")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -66,7 +66,7 @@ func _lock():
 
 # @impure
 func _fire():
-	var projectile_node: RkProjectile = projectile_scene.instantiate()
+	var projectile_node: RkProjectile = PROJECTILE_SCENE.instantiate()
 	projectile_node.position = Vector2(-5, -4) if animated_sprite.flip_h else Vector2(5, -4)
 	projectile_node.direction = (_player_node.global_position - global_position).normalized()
 	projectile_node.damage_type = RkLifePointsSystem.DmgType.fire

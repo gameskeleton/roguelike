@@ -1,22 +1,22 @@
 extends Node
 class_name RkPickupSpawner
 
-@export var spawn_node: Node
+const COIN_PICKUP_SCENE: PackedScene = preload("res://src/items/pickups/coin.tscn")
+const EXPERIENCE_PICKUP_SCENE: PackedScene = preload("res://src/items/pickups/experience.tscn")
 
-@onready var coin_pickup_scene: PackedScene = preload("res://src/items/pickups/coin.tscn")
-@onready var experience_pickup_scene: PackedScene = preload("res://src/items/pickups/experience.tscn")
+@export var spawn_node: Node
 
 # @impure
 func spawn_coins(position: Vector2, count := 1):
 	for i in count:
-		var coin_pickup_node: RkPickupCoin = coin_pickup_scene.instantiate()
+		var coin_pickup_node: RkPickupCoin = COIN_PICKUP_SCENE.instantiate()
 		spawn_node.add_child(coin_pickup_node)
 		coin_pickup_node.global_position = position
 
 # @impure
 func spawn_experiences(position: Vector2, count := 1):
 	for i in count:
-		var experience_pickup_node: RkPickupExperience = experience_pickup_scene.instantiate()
+		var experience_pickup_node: RkPickupExperience = EXPERIENCE_PICKUP_SCENE.instantiate()
 		spawn_node.add_child(experience_pickup_node)
 		experience_pickup_node.global_position = position
 
