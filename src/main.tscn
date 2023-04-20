@@ -185,7 +185,6 @@ spawn_node = NodePath("../AllRooms")
 
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -260,7 +259,6 @@ offset_right = -40.0
 offset_bottom = -79.0
 
 [node name="StatsTab" type="Control" parent="CanvasLayer/Pause"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -313,7 +311,7 @@ mouse_filter = 2
 layout_mode = 0
 offset_left = 216.0
 offset_top = 48.0
-offset_right = 448.0
+offset_right = 488.0
 offset_bottom = 240.0
 size_flags_stretch_ratio = 0.0
 texture = ExtResource("6_i4jlm")
@@ -339,9 +337,9 @@ vertical_alignment = 1
 [node name="LevelLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 232.0
-offset_top = 112.0
+offset_top = 88.0
 offset_right = 278.0
-offset_bottom = 130.0
+offset_bottom = 106.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Level:"
@@ -350,9 +348,9 @@ vertical_alignment = 1
 [node name="ForceLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 232.0
-offset_top = 88.0
+offset_top = 112.0
 offset_right = 278.0
-offset_bottom = 106.0
+offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Force:"
@@ -403,19 +401,20 @@ text = "1337"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LevelValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="GoldBonusLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+visible = false
 layout_mode = 0
-offset_left = 328.0
-offset_top = 112.0
-offset_right = 432.0
-offset_bottom = 130.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+offset_left = 440.0
+offset_top = 64.0
+offset_right = 472.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
-text = "1 / 10"
+text = "+99"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ForceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="LevelValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
 offset_top = 88.0
@@ -423,7 +422,44 @@ offset_right = 432.0
 offset_bottom = 106.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
+text = "1 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LevelBonusLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+visible = false
+layout_mode = 0
+offset_left = 440.0
+offset_top = 112.0
+offset_right = 472.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ForceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 112.0
+offset_right = 432.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
 text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ForceBonusLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 112.0
+offset_right = 472.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "+99"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -439,6 +475,18 @@ text = "10 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="StaminaBonusLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 136.0
+offset_right = 472.0
+offset_bottom = 154.0
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="LifePointsValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
@@ -451,6 +499,18 @@ text = "10 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="LifePointsBonusLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 160.0
+offset_right = 472.0
+offset_bottom = 178.0
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="ExperienceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
@@ -460,6 +520,19 @@ offset_bottom = 202.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "9999 / 9999"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ExperienceBonusLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+visible = false
+layout_mode = 0
+offset_left = 440.0
+offset_top = 184.0
+offset_right = 472.0
+offset_bottom = 202.0
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "+99"
 horizontal_alignment = 2
 vertical_alignment = 1
 

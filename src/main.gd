@@ -19,11 +19,17 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @onready var ui_map_room_dot_control: Control = $CanvasLayer/Pause/MapTab/Map/MapRoomDot
 
 @onready var ui_gold_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/GoldValueLabel
+@onready var ui_gold_bonus_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/GoldBonusLabel
 @onready var ui_force_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ForceValueLabel
+@onready var ui_force_bonus_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ForceBonusLabel
 @onready var ui_level_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LevelValueLabel
+@onready var ui_level_bonus_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LevelBonusLabel
 @onready var ui_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaValueLabel
+@onready var ui_stamina_bonus_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaBonusLabel
 @onready var ui_experience_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceValueLabel
+@onready var ui_experience_bonus_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceBonusLabel
 @onready var ui_life_points_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LifePointsValueLabel
+@onready var ui_life_points_bonus_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LifePointsBonusLabel
 
 @onready var ui_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
 @onready var ui_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
@@ -56,7 +62,7 @@ func _ready():
 			state = State.level_up
 			ui_pause_control.visible = false
 			ui_level_up_animation_player.play("level_up!")
-			ui_level_up_audio_stream_player.play()
+		ui_level_up_audio_stream_player.play()
 	)
 	player_camera_node.reset_smoothing()
 
@@ -118,12 +124,16 @@ func _process_pause(_delta: float):
 	# position map dot
 	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (RkMapRoomDot.DOT_SIZE * 0.5)
 	# update stats values
-	ui_gold_value_label.text = str(player_node.gold_system.gold.current_value)
-	ui_force_value_label.text = "%d" % [player_node.attack_system.force.current_value]
-	ui_level_value_label.text = "%d / %d" % [player_node.level_system.level + 1, player_node.level_system.max_level + 1]
-	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina_system.stamina.current_value), round(player_node.stamina_system.stamina.max_value)]
-	ui_experience_value_label.text = "%d / %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]
-	ui_life_points_value_label.text = "%d / %d" % [round(player_node.life_points_system.life_points.current_value), round(player_node.life_points_system.life_points.max_value)]
+	_format_stat(ui_gold_value_label, player_node.gold_system.gold.current_value)
+	_format_stat(ui_force_value_label, player_node.attack_system.force.max_value)
+	_format_stat(ui_level_value_label, player_node.level_system.level + 1, player_node.level_system.max_level + 1)
+	_format_stat(ui_stamina_value_label, player_node.stamina_system.stamina.current_value, player_node.stamina_system.stamina.max_value)
+	_format_stat(ui_experience_value_label, player_node.level_system.experience, player_node.level_system.experience_required_to_level_up)
+	_format_stat(ui_life_points_value_label, player_node.life_points_system.life_points.current_value, player_node.life_points_system.life_points.max_value)
+	_format_stat_bonus(ui_gold_bonus_label, player_node.gold_system.gold.max_value_bonus)
+	_format_stat_bonus(ui_force_bonus_label, player_node.attack_system.force.max_value_bonus)
+	_format_stat_bonus(ui_stamina_bonus_label, player_node.stamina_system.stamina.max_value_bonus)
+	_format_stat_bonus(ui_life_points_bonus_label, player_node.life_points_system.life_points.max_value_bonus)
 
 # @impure
 func _process_level_up():
@@ -275,6 +285,22 @@ func _generate_dungeon():
 ###
 # User interface
 ###
+
+# @impure
+func _format_stat(value_label: Label, value: float, max_value := -1.0):
+	if max_value > 0.0:
+		value_label.text = "%d / %d" % [value, max_value]
+	else:
+		value_label.text = "%d" % [value]
+
+# @impure
+func _format_stat_bonus(bonus_label: Label, bonus: float):
+	if bonus >= 0.0:
+		bonus_label.text = "(+%d)" % [bonus]
+		bonus_label.add_theme_color_override("font_color", RkColorTheme.DARK_GREEN)
+	else:
+		bonus_label.text = "(-%d)" % [absf(bonus)]
+		bonus_label.add_theme_color_override("font_color", RkColorTheme.DARK_RED)
 
 # @signal
 # @impure
