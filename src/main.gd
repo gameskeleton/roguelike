@@ -20,9 +20,9 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 
 @onready var ui_gold_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/GoldValueLabel
 @onready var ui_level_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LevelValueLabel
-@onready var ui_health_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/HealthValueLabel
 @onready var ui_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaValueLabel
 @onready var ui_experience_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceValueLabel
+@onready var ui_life_points_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LifePointsValueLabel
 
 @onready var ui_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
 @onready var ui_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
@@ -40,7 +40,7 @@ var _generator := RkDungeonGenerator.new()
 # @impure
 func _ready():
 	# load start room scene or generate new dungeon
-	if start_room_scene != null:
+	if start_room_scene:
 		_clear_rooms()
 		var start_room_node := _instantiate_room(start_room_scene, Vector2i.ZERO, 0)
 		var start_room_grid_pos := start_room_node.get_grid_pos()
@@ -116,16 +116,11 @@ func _process_pause(_delta: float):
 	# position map dot
 	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (RkMapRoomDot.DOT_SIZE * 0.5)
 	# update stats values
-	ui_gold_value_label.text = str(player_node.gold_system.gold)
+	ui_gold_value_label.text = str(player_node.gold_system.gold.current_value)
 	ui_level_value_label.text = "%d / %d" % [player_node.level_system.level + 1, player_node.level_system.max_level + 1]
-	ui_health_value_label.text = "%d / %d" % [round(player_node.life_points_system.life_points), round(player_node.life_points_system.max_life_points)]
-	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina_system.stamina), round(player_node.stamina_system.max_stamina)]
+	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina_system.stamina.current_value), round(player_node.stamina_system.stamina.max_value)]
 	ui_experience_value_label.text = "%d / %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]
-	# ui_gold_value_label.text = str(int(player_node.gold_system.gold))
-	# ui_level_value_label.text = "%d / %d" % [player_node.level_system.level + 1, player_node.level_system.max_level + 1]
-	# ui_health_value_label.text = "%d / %d + %d" % [round(player_node.life_points_system.life_points), round(player_node.life_points_system.max_life_points_base), round(player_node.life_points_system.max_life_points_bonus)]
-	# ui_stamina_value_label.text = "%d / %d + %d" % [round(player_node.stamina_system.stamina), round(player_node.stamina_system.max_stamina_base), round(player_node.life_points_system.max_stamina_bonus)]
-	# ui_experience_value_label.text = "%d / %d + %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]
+	ui_life_points_value_label.text = "%d / %d" % [round(player_node.life_points_system.life_points.current_value), round(player_node.life_points_system.life_points.max_value)]
 
 # @impure
 func _process_level_up():

@@ -966,10 +966,7 @@ instigator = NodePath("../..")
 [node name="Stamina" parent="Systems" instance=ExtResource("3_kren4")]
 
 [node name="Inventory" parent="Systems" node_paths=PackedStringArray("gold_system", "attack_system", "stamina_system", "life_points_system") instance=ExtResource("7_s3n7i")]
-default_items = Array[Resource("res://src/systems/data/inventory_item_res.gd")]([ExtResource("8_rujlh"), ExtResource("11_b0drb"), ExtResource("8_wohm8")])
-default_slots = Array[Resource("res://src/systems/data/inventory_item_res.gd")]([ExtResource("11_eebtd"), ExtResource("10_tgvwt")])
-items_capacity = null
-slots_capacity = null
+default_items = Array[Resource("res://src/systems/data/inventory_item_res.gd")]([ExtResource("8_rujlh"), ExtResource("11_eebtd"), ExtResource("11_b0drb"), ExtResource("8_wohm8"), ExtResource("10_tgvwt")])
 gold_system = NodePath("../Gold")
 attack_system = NodePath("../Attack")
 stamina_system = NodePath("../Stamina")

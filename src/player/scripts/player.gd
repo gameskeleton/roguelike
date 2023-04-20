@@ -94,6 +94,10 @@ var input_velocity := Vector2.ZERO
 func _ready():
 	set_direction(direction)
 	_on_level_level_up(level_system.level)
+	# resplenish system values to account for inventory modifiers
+	attack_system.force.resplenish()
+	stamina_system.stamina.resplenish()
+	life_points_system.life_points.resplenish()
 
 # _physics_process is called every physics tick and updates player state.
 # @impure
@@ -372,9 +376,9 @@ func set_wall_slide_raycast_active(active: bool):
 # @signal
 # @impure
 func _on_level_level_up(_new_level: int):
-	attack_system.force_base = base_force + additional_force_per_level.sample_baked(level_system.get_ratio())
-	stamina_system.max_stamina_base = base_stamina + additional_stamina_per_level.sample_baked(level_system.get_ratio())
-	life_points_system.max_life_points_base = base_life_points + additional_life_points_per_level.sample_baked(level_system.get_ratio())
+	attack_system.force.max_value_base = base_force + additional_force_per_level.sample_baked(level_system.get_ratio())
+	stamina_system.stamina.max_value_base = base_stamina + additional_stamina_per_level.sample_baked(level_system.get_ratio())
+	life_points_system.life_points.max_value_bonus = base_life_points + additional_life_points_per_level.sample_baked(level_system.get_ratio())
 
 # @signal
 # @impure

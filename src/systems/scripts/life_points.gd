@@ -15,9 +15,7 @@ signal damage_taken(damage: float, source: Node, instigator: Node)
 
 const NO_DAMAGE := -1.0
 
-@export var life_points := 10.0
-@export var max_life_points_base := 10.0
-@export var max_life_points_bonus := 0.0
+var life_points := RkAdvFloat.new(10.0)
 
 @export_group("Invincible")
 @export var invincible := 0
@@ -28,9 +26,6 @@ const NO_DAMAGE := -1.0
 @export var damage_multiplier_roll := 1.0
 @export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
-
-var max_life_points: float :
-	get: return (max_life_points_base + max_life_points_bonus)
 
 var last_damage := NO_DAMAGE
 var last_damage_type := DmgType.none
@@ -45,7 +40,7 @@ func _process(delta: float):
 # get_ratio returns ratio [0; 1] between life_points and max_life_points.
 # @pure
 func get_ratio() -> float:
-	return life_points / max_life_points
+	return life_points.get_ratio()
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
@@ -59,18 +54,17 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Node = null
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
 	var scaled_damage := damage * damage_multiplier
-	life_points -= scaled_damage
 	last_damage = scaled_damage
 	last_damage_type = damage_type
 	last_damage_source = source
 	last_damage_instigator = instigator
-	damage_taken.emit(scaled_damage, source, instigator)
+	damage_taken.emit(life_points.sub(scaled_damage), source, instigator)
 	return scaled_damage
 
 # has_lethal_damage returns true if our life points are lower or equal than zero.
 # @pure
 func has_lethal_damage() -> bool:
-	return life_points <= 0.0
+	return life_points.current_value <= 0.0
 
 # set_invincibility_delay refills the invincibility delay towards the given value.
 # @impure

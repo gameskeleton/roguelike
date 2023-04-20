@@ -6,10 +6,9 @@ signal attacked(target_life_points: RkLifePointsSystem, damage: float, damage_ty
 
 const NO_DAMAGE := -1.0
 
+var force := RkAdvFloat.new(1.0, +INF)
 @export var source: Node
 @export var instigator: Node
-@export var force_base := 1.0
-@export var force_bonus := 0.0
 
 @export_group("Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_fire := 1.0
@@ -17,9 +16,6 @@ const NO_DAMAGE := -1.0
 @export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
 
-
-var force: float :
-	get: return (force_base + force_bonus)
 var last_target: RkLifePointsSystem
 var last_damage := RkLifePointsSystem.NO_DAMAGE
 var last_damage_type := RkLifePointsSystem.DmgType.none
@@ -32,13 +28,14 @@ func attack(target: RkLifePointsSystem, damage: float, damage_type: RkLifePoints
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.roll): damage_multiplier *= damage_multiplier_roll
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
-	var scaled_damage := force * damage * damage_multiplier
-	if target.take_damage(scaled_damage, damage_type, source, instigator) != RkLifePointsSystem.NO_DAMAGE:
+	var scaled_damage := force.current_value * damage * damage_multiplier
+	var target_scaled_damage := target.take_damage(scaled_damage, damage_type, source, instigator)
+	if target_scaled_damage != RkLifePointsSystem.NO_DAMAGE:
 		last_target = target
-		last_damage = scaled_damage
+		last_damage = target_scaled_damage
 		last_damage_type = damage_type
-		attacked.emit(target, scaled_damage, damage_type)
-		return scaled_damage
+		attacked.emit(target, target_scaled_damage, damage_type)
+		return target_scaled_damage
 	return NO_DAMAGE
 
 # find_system_node returns the attack system in the given node, or null if not found.

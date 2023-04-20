@@ -4,25 +4,20 @@ class_name RkGoldSystem
 
 signal earned(amount: float)
 
-@export var gold := 0.0
-@export var max_gold := 9999.0
-@export var earn_multiplier := 1.0
+var gold := RkAdvFloat.new(0.0, 9999.0)
 
 # @impure
 func earn(amount: float):
 	assert(amount > 0, "amount of gold to earn must be strictly positive")
-	assert(earn_multiplier > 0, "earn multiplier must be strictly positive")
-	var total_amount := amount * earn_multiplier
-	gold = minf(gold + total_amount, max_gold)
-	earned.emit(total_amount)
+	earned.emit(gold.add(amount))
 
 # @pure
 func has_enough(amount: float) -> bool:
-	return gold >= amount
+	return gold.current_value >= amount
 
 # @impure
 func consume(amount: float):
-	gold = maxf(0, gold - amount)
+	gold.sub(amount)
 
 # @impure
 func try_consume(amount: float) -> bool:
