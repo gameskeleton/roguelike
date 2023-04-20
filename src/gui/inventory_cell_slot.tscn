@@ -7,7 +7,7 @@
 custom_minimum_size = Vector2(28, 28)
 offset_right = 28.0
 offset_bottom = 28.0
-color = Color(0.223529, 0.466667, 0.262745, 1)
+color = Color(0.0705882, 0.427451, 0.188235, 1)
 script = ExtResource("1_urxgf")
 type = 1
 

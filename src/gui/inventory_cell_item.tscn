@@ -7,7 +7,7 @@
 custom_minimum_size = Vector2(28, 28)
 offset_right = 28.0
 offset_bottom = 28.0
-color = Color(0.266667, 0.270588, 1, 1)
+color = Color(0.0941176, 0.403922, 0.627451, 1)
 script = ExtResource("1_ndc1x")
 
 [node name="TextureRect" type="TextureRect" parent="."]

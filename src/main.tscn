@@ -185,6 +185,7 @@ spawn_node = NodePath("../AllRooms")
 
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -205,6 +206,7 @@ color = Color(0, 0, 0, 0.784314)
 anchors_preset = 0
 offset_right = 256.0
 offset_bottom = 64.0
+metadata/_edit_lock_ = true
 
 [node name="MapLabel" type="Label" parent="CanvasLayer/Pause/Tabs"]
 layout_mode = 0
@@ -231,6 +233,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Map" type="Control" parent="CanvasLayer/Pause/MapTab"]
 layout_mode = 1
@@ -242,6 +245,7 @@ offset_top = 48.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause/MapTab/Map"]
 layout_mode = 1
@@ -259,6 +263,7 @@ offset_right = -40.0
 offset_bottom = -79.0
 
 [node name="StatsTab" type="Control" parent="CanvasLayer/Pause"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -274,6 +279,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Bg" type="NinePatchRect" parent="CanvasLayer/Pause/StatsTab/Inventory"]
 layout_mode = 0
@@ -295,7 +301,7 @@ axis_stretch_vertical = 1
 offset_left = 32.0
 offset_top = 56.0
 offset_right = 200.0
-offset_bottom = 227.0
+offset_bottom = 232.0
 node = NodePath("../../../../../Game/Player")
 
 [node name="PlayerStats" type="Control" parent="CanvasLayer/Pause/StatsTab"]
@@ -306,6 +312,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Bg" type="NinePatchRect" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
@@ -329,7 +336,7 @@ offset_left = 232.0
 offset_top = 64.0
 offset_right = 278.0
 offset_bottom = 82.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Gold:"
 vertical_alignment = 1
@@ -340,7 +347,7 @@ offset_left = 232.0
 offset_top = 88.0
 offset_right = 278.0
 offset_bottom = 106.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Level:"
 vertical_alignment = 1
@@ -351,7 +358,7 @@ offset_left = 232.0
 offset_top = 112.0
 offset_right = 278.0
 offset_bottom = 130.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Force:"
 vertical_alignment = 1
@@ -362,7 +369,7 @@ offset_left = 232.0
 offset_top = 136.0
 offset_right = 321.0
 offset_bottom = 154.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Stamina:"
 vertical_alignment = 1
@@ -373,7 +380,7 @@ offset_left = 232.0
 offset_top = 160.0
 offset_right = 315.0
 offset_bottom = 178.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Life points:"
 vertical_alignment = 1
@@ -384,7 +391,7 @@ offset_left = 232.0
 offset_top = 184.0
 offset_right = 321.0
 offset_bottom = 202.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Experience:"
 vertical_alignment = 1
@@ -395,7 +402,7 @@ offset_left = 328.0
 offset_top = 64.0
 offset_right = 432.0
 offset_bottom = 82.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "1337"
 horizontal_alignment = 2
@@ -420,7 +427,7 @@ offset_left = 328.0
 offset_top = 88.0
 offset_right = 432.0
 offset_bottom = 106.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "1 / 10"
 horizontal_alignment = 2
@@ -445,7 +452,7 @@ offset_left = 328.0
 offset_top = 112.0
 offset_right = 432.0
 offset_bottom = 130.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "1"
 horizontal_alignment = 2
@@ -469,7 +476,7 @@ offset_left = 328.0
 offset_top = 136.0
 offset_right = 432.0
 offset_bottom = 154.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "10 / 10"
 horizontal_alignment = 2
@@ -493,7 +500,7 @@ offset_left = 328.0
 offset_top = 160.0
 offset_right = 432.0
 offset_bottom = 178.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "10 / 10"
 horizontal_alignment = 2
@@ -517,7 +524,7 @@ offset_left = 328.0
 offset_top = 184.0
 offset_right = 432.0
 offset_bottom = 202.0
-theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "9999 / 9999"
 horizontal_alignment = 2
@@ -571,8 +578,8 @@ offset_left = 20.0
 offset_top = 272.0
 offset_right = -428.0
 offset_bottom = -12.0
-color = Color(1, 0, 0, 1)
-lag_color = Color(1, 0, 0, 0.392157)
+color = Color(0.847059, 0.137255, 0.137255, 1)
+lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.8, 0.8, 0.8, 1)

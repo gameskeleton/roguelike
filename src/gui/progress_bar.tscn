@@ -31,12 +31,12 @@ color = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
-color = Color(0, 1, 0, 0.392157)
+color = Color(0.121569, 0.796078, 0.137255, 0.392157)
 
 [node name="ProgressBarCurrent" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
-color = Color(0, 1, 0, 1)
+color = Color(0.121569, 0.796078, 0.137255, 1)
 
 [connection signal="resized" from="." to="." method="_on_resized"]
