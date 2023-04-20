@@ -30,6 +30,7 @@ func _ready():
 	_player_node = RkMain.get_main_node(self).player_node
 	_reset()
 	_on_room_notifier_2d_player_leave()
+	life_points_system.life_points.max_value_base = 5.0
 
 # @impure
 func _process(delta: float):

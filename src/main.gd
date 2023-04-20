@@ -19,6 +19,7 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @onready var ui_map_room_dot_control: Control = $CanvasLayer/Pause/MapTab/Map/MapRoomDot
 
 @onready var ui_gold_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/GoldValueLabel
+@onready var ui_force_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ForceValueLabel
 @onready var ui_level_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/LevelValueLabel
 @onready var ui_stamina_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/StaminaValueLabel
 @onready var ui_experience_value_label: Label = $CanvasLayer/Pause/StatsTab/PlayerStats/ExperienceValueLabel
@@ -50,11 +51,12 @@ func _ready():
 		_generate_dungeon()
 	_limit_camera_to_room()
 	player_node.level_system.level_up.connect(func(_level: int):
-		get_tree().paused  = true
-		state = State.level_up
-		ui_pause_control.visible = false
-		ui_level_up_animation_player.play("level_up!")
-		ui_level_up_audio_stream_player.play()
+		if state == State.game:
+			get_tree().paused  = true
+			state = State.level_up
+			ui_pause_control.visible = false
+			ui_level_up_animation_player.play("level_up!")
+			ui_level_up_audio_stream_player.play()
 	)
 	player_camera_node.reset_smoothing()
 
@@ -117,6 +119,7 @@ func _process_pause(_delta: float):
 	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (RkMapRoomDot.DOT_SIZE * 0.5)
 	# update stats values
 	ui_gold_value_label.text = str(player_node.gold_system.gold.current_value)
+	ui_force_value_label.text = "%d" % [player_node.attack_system.force.current_value]
 	ui_level_value_label.text = "%d / %d" % [player_node.level_system.level + 1, player_node.level_system.max_level + 1]
 	ui_stamina_value_label.text = "%d / %d" % [round(player_node.stamina_system.stamina.current_value), round(player_node.stamina_system.stamina.max_value)]
 	ui_experience_value_label.text = "%d / %d" % [player_node.level_system.experience, player_node.level_system.experience_required_to_level_up]

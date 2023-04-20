@@ -118,15 +118,15 @@ func _item_removed(item: RkInventoryItemRes, index: int, _swapped := false):
 # @impure
 func _slot_added(slot: RkInventoryItemRes, index: int, _swapped := false):
 	slot_added.emit(slot, index)
-	_apply_slots_to_systems()
+	_apply_slots_modifiers()
 
 # @impure
 func _slot_removed(slot: RkInventoryItemRes, index: int, _swapped := false):
 	slot_removed.emit(slot, index)
-	_apply_slots_to_systems()
+	_apply_slots_modifiers()
 
 # @impure
-func _apply_slots_to_systems():
+func _apply_slots_modifiers():
 	# reset systems
 	if gold_system:
 		gold_system.gold.reset_bonus()

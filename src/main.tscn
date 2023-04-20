@@ -339,20 +339,31 @@ vertical_alignment = 1
 [node name="LevelLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 232.0
-offset_top = 88.0
+offset_top = 112.0
 offset_right = 278.0
-offset_bottom = 106.0
+offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Level:"
 vertical_alignment = 1
 
+[node name="ForceLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 88.0
+offset_right = 278.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "Force:"
+vertical_alignment = 1
+
 [node name="StaminaLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 232.0
-offset_top = 112.0
+offset_top = 136.0
 offset_right = 321.0
-offset_bottom = 130.0
+offset_bottom = 154.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Stamina:"
@@ -361,9 +372,9 @@ vertical_alignment = 1
 [node name="LifePointsLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 232.0
-offset_top = 136.0
+offset_top = 160.0
 offset_right = 315.0
-offset_bottom = 154.0
+offset_bottom = 178.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Life points:"
@@ -372,9 +383,9 @@ vertical_alignment = 1
 [node name="ExperienceLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 232.0
-offset_top = 160.0
+offset_top = 184.0
 offset_right = 321.0
-offset_bottom = 178.0
+offset_bottom = 202.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "Experience:"
@@ -395,28 +406,28 @@ vertical_alignment = 1
 [node name="LevelValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
-offset_top = 88.0
+offset_top = 112.0
 offset_right = 432.0
-offset_bottom = 106.0
+offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "1 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="StaminaValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="ForceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
-offset_top = 112.0
+offset_top = 88.0
 offset_right = 432.0
-offset_bottom = 130.0
+offset_bottom = 106.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
-text = "10 / 10"
+text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LifePointsValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="StaminaValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
 offset_top = 136.0
@@ -428,12 +439,24 @@ text = "10 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ExperienceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+[node name="LifePointsValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
 layout_mode = 0
 offset_left = 328.0
 offset_top = 160.0
 offset_right = 432.0
 offset_bottom = 178.0
+theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
+theme_override_fonts/font = ExtResource("7_qcw21")
+text = "10 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ExperienceValueLabel" type="Label" parent="CanvasLayer/Pause/StatsTab/PlayerStats"]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 184.0
+offset_right = 432.0
+offset_bottom = 202.0
 theme_override_colors/font_color = Color(0.576471, 0.34902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("7_qcw21")
 text = "9999 / 9999"
