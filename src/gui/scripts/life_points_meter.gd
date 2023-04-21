@@ -3,7 +3,7 @@ extends Control
 const FADE_SPEED := 2.0
 const VISIBLE_FOR := 2.5
 
-@export var life_points: RkLifePointsSystem
+@export var life_points_system: RkLifePointsSystem
 
 @onready var progress_bar: RkGuiProgressBar = $ProgressBar
 
@@ -26,16 +26,16 @@ func fade_out():
 # @impure
 func _ready():
 	set_process(false)
-	if not life_points:
+	if not life_points_system:
 		var parent_node := get_parent()
 		if parent_node:
-			life_points = RkLifePointsSystem.find_system_node(parent_node)
-	assert(life_points, "LifePointsMeter must be a sibling of RkLifePointsSystem")
-	life_points.damage_taken.connect(_on_life_points_damage_taken)
-	progress_bar.progress = life_points.get_ratio()
+			life_points_system = RkLifePointsSystem.find_system_node(parent_node)
+	assert(life_points_system, "LifePointsMeter must be a sibling of RkLifePointsSystem")
+	life_points_system.damage_taken.connect(_on_life_points_damage_taken)
+	progress_bar.progress = life_points_system.life_points.ratio
 
 # @impure
-func _process(delta):
+func _process(delta: float):
 	if _visible:
 		if _fade_in < 1.0:
 			_fade_in += delta * FADE_SPEED
@@ -52,7 +52,7 @@ func _process(delta):
 # @impure
 func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node):
 	fade_in()
-	progress_bar.progress = life_points.get_ratio()
+	progress_bar.progress = life_points_system.life_points.ratio
 
 # @signal
 # @impure

@@ -78,8 +78,8 @@ func _process(delta: float):
 func _process_game(delta: float):
 	# gui update
 	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
-	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina_system.get_ratio(), delta)
-	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points_system.get_ratio(), delta)
+	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina_system.stamina.ratio, delta)
+	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points_system.life_points.ratio, delta)
 	# pause game
 	if Input.is_action_just_pressed("player_pause"):
 		get_tree().paused = true
@@ -102,10 +102,10 @@ func _process_debug():
 	if Input.is_action_just_pressed("ui_home"):
 		_on_magic_slot_pressed()
 	if Input.is_action_just_pressed("ui_page_up"):
-		player_node.level_system.earn_experience(ceil(player_node.level_system.experience_required_to_level_up / 10.0))
+		player_node.level_system.earn_experience(ceili(player_node.level_system.experience_required_to_level_up / 10.0))
 	if Input.is_action_just_pressed("ui_page_down"):
 		player_node.life_points_system.invincibility_delay = 0.0
-		player_node.life_points_system.take_damage(ceil(player_node.life_points_system.max_life_points / 10.0))
+		player_node.life_points_system.take_damage(ceilf(player_node.life_points_system.life_points.max_value / 10.0))
 
 # @impure
 func _process_pause(_delta: float):
@@ -145,7 +145,7 @@ func _process_level_up():
 
 # @pure
 static func get_main_node(from_node: Node) -> RkMain:
-	return from_node.get_tree().root.get_node("/root/Main")
+	return from_node.get_tree().root.get_node("/root/Main") as RkMain
 
 ###
 # Room
@@ -176,7 +176,7 @@ func _clear_rooms():
 
 # @impure
 func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distance: int) -> RkRoom:
-	var room_node: Node2D = room_scene.instantiate()
+	var room_node: RkRoom = room_scene.instantiate()
 	room_node.name = _get_room_node_name(room_grid_pos)
 	room_node.distance = distance
 	room_node.position = room_grid_pos * RkRoom.ROOM_SIZE

@@ -1,39 +1,48 @@
 class_name RkAdvFloat
 
-var current_value := 0.0 :
-	get:
-		if sync_max_to_current:
-			return max_value
-		return current_value
-	set(value):
-		current_value = clampf(value, 0.0, max_value)
-var sync_max_to_current := false
-var current_value_earn_multiplier := 1.0
+var ratio: float :
+	get: return current_value / max_value
 
 var max_value: float :
 	get: return (max_value_base + max_value_bonus) * max_value_multiplier
 var max_value_base := +INF :
 	get: return max_value_base
 	set(value):
+		var prev_max_value := max_value
 		max_value_base = value
-		current_value = clampf(current_value, 0.0, max_value)
+		var next_max_value := max_value
+		current_value = clampf(current_value * (next_max_value / prev_max_value), 0.0, max_value)
 var max_value_bonus := 0.0 :
 	get: return max_value_bonus
 	set(value):
+		var prev_max_value := max_value
 		max_value_bonus = value
-		current_value = clampf(current_value, 0.0, max_value)
+		var next_max_value := max_value
+		current_value = clampf(current_value * (next_max_value / prev_max_value), 0.0, max_value)
 var max_value_multiplier := 1.0 :
 	get: return max_value_multiplier
 	set(value):
+		var prev_max_value := max_value
 		max_value_multiplier = value
-		current_value = clampf(current_value, 0.0, max_value)
+		var next_max_value := max_value
+		current_value = clampf(current_value * (next_max_value / prev_max_value), 0.0, max_value)
+
+var single_value := false
+var current_value := 0.0 :
+	get:
+		if single_value:
+			return max_value
+		return current_value
+	set(value):
+		current_value = clampf(value, 0.0, max_value)
+var current_value_earn_multiplier := 1.0
 
 # @impure
-func _init(default_value: float, default_max_value := default_value, max_to_current := false):
-	assert(default_value <= default_max_value, "default_value must be less than or equal to default_max_value")
-	self.max_value_base = default_max_value
-	self.current_value = default_value
-	self.sync_max_to_current = max_to_current
+func _init(in_current_value: float, in_max_value_base := in_current_value, in_single_value := false):
+	assert(in_current_value <= in_max_value_base, "current_value must be less than or equal to max_value_base")
+	max_value_base = in_max_value_base
+	current_value = in_current_value
+	single_value = in_single_value
 
 # @impure
 func add(amount: float) -> float:
@@ -56,8 +65,3 @@ func reset_bonus():
 	max_value_bonus = 0.0
 	max_value_multiplier = 1.0
 	current_value_earn_multiplier = 1.0
-
-# get_ratio returns the ratio [0; 1] between current_value and max_value.
-# @pure
-func get_ratio() -> float:
-	return current_value / max_value

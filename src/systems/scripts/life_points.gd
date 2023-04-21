@@ -37,11 +37,6 @@ var last_damage_instigator: Node
 func _process(delta: float):
 	invincibility_delay = max(0.0, invincibility_delay - delta)
 
-# get_ratio returns ratio [0; 1] between life_points and max_life_points.
-# @pure
-func get_ratio() -> float:
-	return life_points.get_ratio()
-
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
 func take_damage(damage: float, damage_type := DmgType.none, source: Node = null, instigator: Node = null) -> float:

@@ -19,11 +19,6 @@ func _process(delta: float):
 			return
 	stamina.add(delta * regen_speed)
 
-# get_ratio returns the ratio [0; 1] between stamina and max_stamina.
-# @pure
-func get_ratio() -> float:
-	return stamina.get_ratio()
-
 # has_enough returns true if the object has enough stamina left.
 # @pure
 func has_enough(amount: float) -> bool:

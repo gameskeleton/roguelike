@@ -4,6 +4,8 @@ class_name RkLevelSystem
 
 signal level_up(level: int) # emitted when levelling up, can be emitted multiple times in a frame.
 
+var ratio: float :
+	get: return float(level) / float(max_level)
 @export var level := 0 # +1 for humans
 @export var max_level := 9 # +1 for humans
 @export var experience := 0
@@ -16,11 +18,6 @@ var experience_required_to_level_up: int :
 func _init(start_level := 0, start_experience := 0):
 	level = start_level
 	earn_experience(start_experience)
-
-# get_ratio returns the ratio [0; 1] between level and max level.
-# @pure
-func get_ratio() -> float:
-	return float(level) / float(max_level)
 
 # get_xp_ratio returns the ratio [0; 1] between experience and the experience required to level up.
 # @pure
