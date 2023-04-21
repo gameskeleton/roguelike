@@ -41,3 +41,11 @@ func earn_experience(amount_exp: int):
 		level += 1
 		experience -= experience_required
 		level_up.emit(level)
+
+# find_system_node returns the level system in the given node, or null if not found.
+# @pure
+static func find_system_node(node: Node) -> RkLevelSystem:
+	var system := node.get_node_or_null("Systems/Level")
+	if system is RkLevelSystem:
+		return system
+	return null

@@ -1,159 +1,385 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfafs7jw2i84p"]
+[gd_scene load_steps=6 format=3 uid="uid://dfafs7jw2i84p"]
 
 [ext_resource type="PackedScene" uid="uid://b1i0r4g7sn8p4" path="res://src/gui/inventory_cell_slot.tscn" id="1_81lqt"]
 [ext_resource type="Script" path="res://src/gui/scripts/inventory.gd" id="1_igqyd"]
+[ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="4_c3tot"]
 [ext_resource type="PackedScene" uid="uid://fx07x2r3wif8" path="res://src/gui/inventory_cell_item.tscn" id="4_yjwnd"]
+[ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="5_xscv2"]
 
 [node name="Inventory" type="Control"]
 custom_minimum_size = Vector2(168, 171)
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_igqyd")
 
-[node name="HBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 168.0
-offset_bottom = 171.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Inventory" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+metadata/_edit_lock_ = true
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/HBoxContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("4_c3tot")
+region_rect = Rect2(96, 0, 24, 24)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
-[node name="SlotContainer" type="GridContainer" parent="HBoxContainer"]
+[node name="SlotContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 2
 columns = 5
 
-[node name="InventorySlot1" parent="HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
+[node name="InventorySlot1" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
 type = 0
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventorySlot2" parent="HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
+[node name="InventorySlot2" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
 type = 0
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventorySlot3" parent="HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
+[node name="InventorySlot3" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
 type = 0
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventorySlot4" parent="HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
+[node name="InventorySlot4" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
 type = 0
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventorySlot5" parent="HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
+[node name="InventorySlot5" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
 type = 0
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="ItemContainer" type="GridContainer" parent="HBoxContainer"]
+[node name="ItemContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 7
 columns = 5
 
-[node name="InventoryItem1" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem1" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem2" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem2" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem3" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem3" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem4" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem4" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem5" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem5" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem6" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem6" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem7" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem7" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem8" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem8" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem9" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem9" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem10" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem10" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem11" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem11" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem12" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem12" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem13" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem13" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem14" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem14" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem15" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem15" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem16" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem16" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem17" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem17" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem18" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem18" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem19" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem19" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
 
-[node name="InventoryItem20" parent="HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
+[node name="InventoryItem20" parent="MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
 type = 1
-inventory = NodePath("../../..")
+inventory = NodePath("../../../../../../..")
+
+[node name="Statistics" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/HBoxContainer/Statistics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("4_c3tot")
+region_rect = Rect2(96, 0, 24, 24)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Statistics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer"]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 2
+columns = 3
+
+[node name="GoldLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "Gold:"
+vertical_alignment = 1
+
+[node name="GoldValueLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "1337"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GoldBonusLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "Level:"
+vertical_alignment = 1
+
+[node name="LevelValueLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "1 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LevelBonusLabel" type="Control" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="ForceLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "Force:"
+vertical_alignment = 1
+
+[node name="ForceValueLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ForceBonusLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "Stamina:"
+vertical_alignment = 1
+
+[node name="StaminaValueLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "10 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaBonusLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LifePointsLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "Life points:"
+vertical_alignment = 1
+
+[node name="LifePointsValueLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "10 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LifePointsBonusLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ExperienceLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "Experience:"
+vertical_alignment = 1
+
+[node name="ExperienceValueLabel" type="Label" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+theme_override_fonts/font = ExtResource("5_xscv2")
+text = "100/100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ExperienceBonusLabel" type="Control" parent="MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer"]
+layout_mode = 2
