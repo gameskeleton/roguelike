@@ -1,4 +1,4 @@
-@icon("res://src/shared/icons/level.svg")
+@icon("res://src/shared/icons/system.svg")
 extends Node
 class_name RkStaminaSystem
 

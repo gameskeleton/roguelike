@@ -1,4 +1,4 @@
-@icon("res://src/shared/icons/level.svg")
+@icon("res://src/shared/icons/system.svg")
 extends Node
 class_name RkAttackSystem
 
@@ -7,6 +7,7 @@ signal attacked(target_life_points: RkLifePointsSystem, damage: float, damage_ty
 const NO_DAMAGE := -1.0
 
 var force := RkAdvFloat.new(1.0, +INF, true)
+
 @export var source: Node
 @export var instigator: Node
 
