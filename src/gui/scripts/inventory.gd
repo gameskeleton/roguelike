@@ -49,10 +49,10 @@ func _process(_delta: float):
 	_update_stats_label(stats_stamina_value_label, _stamina_system.stamina.current_value, _stamina_system.stamina.max_value)
 	_update_stats_label(stats_experience_value_label, _level_system.experience, _level_system.experience_required_to_level_up)
 	_update_stats_label(stats_life_points_value_label, _life_points_system.life_points.current_value, _life_points_system.life_points.max_value)
-	_update_stats_label_bonus(stats_gold_bonus_label, _gold_system.gold.max_value_bonus)
-	_update_stats_label_bonus(stats_force_bonus_label, _attack_system.force.max_value_bonus)
-	_update_stats_label_bonus(stats_stamina_bonus_label, _stamina_system.stamina.max_value_bonus)
-	_update_stats_label_bonus(stats_life_points_bonus_label, _life_points_system.life_points.max_value_bonus)
+	_update_stats_label_bonus(stats_gold_bonus_label, _gold_system.gold)
+	_update_stats_label_bonus(stats_force_bonus_label, _attack_system.force)
+	_update_stats_label_bonus(stats_stamina_bonus_label, _stamina_system.stamina)
+	_update_stats_label_bonus(stats_life_points_bonus_label, _life_points_system.life_points)
 
 # @impure
 func _notification(what: int):
@@ -78,7 +78,8 @@ func _update_stats_label(value_label: Label, value: float, max_value := -1.0):
 		value_label.text = "%d" % [value]
 
 # @impure
-func _update_stats_label_bonus(bonus_label: Label, bonus: float):
+func _update_stats_label_bonus(bonus_label: Label, value: RkAdvFloat):
+	var bonus := value.max_value - value.max_value_base
 	if bonus >= 0.0:
 		bonus_label.text = "(+%d)" % [bonus]
 		bonus_label.add_theme_color_override("font_color", RkColorTheme.DARK_GREEN)
