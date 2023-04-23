@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ch1lf8a0p2cmm"]
+
+[ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/gui/fonts/alagard.ttf" id="1_vpdfh"]
+
+[resource]
+Button/fonts/font = ExtResource("1_vpdfh")
+Label/fonts/font = ExtResource("1_vpdfh")
+LineEdit/fonts/font = ExtResource("1_vpdfh")
+RichTextLabel/fonts/bold_font = ExtResource("1_vpdfh")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_vpdfh")
+RichTextLabel/fonts/italics_font = ExtResource("1_vpdfh")
+RichTextLabel/fonts/mono_font = ExtResource("1_vpdfh")
+RichTextLabel/fonts/normal_font = ExtResource("1_vpdfh")
+TabBar/fonts/font = ExtResource("1_vpdfh")
+TabContainer/fonts/font = ExtResource("1_vpdfh")
+TabContainer/styles/panel = null
+TextEdit/fonts/font = ExtResource("1_vpdfh")

@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="2_rvt1d"]
 
 [node name="InventorySlot" type="ColorRect"]
-custom_minimum_size = Vector2(28, 28)
-offset_right = 28.0
-offset_bottom = 28.0
+custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
 color = Color(0.0705882, 0.427451, 0.188235, 1)
 script = ExtResource("1_urxgf")
 type = 1
@@ -24,8 +24,8 @@ stretch_mode = 3
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
-offset_right = 31.0
-offset_bottom = 31.0
+offset_right = 23.0
+offset_bottom = 23.0
 texture = ExtResource("2_rvt1d")
 region_rect = Rect2(128, 48, 16, 16)
 patch_margin_left = 3

@@ -3,19 +3,19 @@ class_name RkGuiInventory
 
 @export var node: Node
 
-@onready var stats_gold_value_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/GoldValueLabel
-@onready var stats_gold_bonus_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/GoldBonusLabel
-@onready var stats_force_value_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/ForceValueLabel
-@onready var stats_force_bonus_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/ForceBonusLabel
-@onready var stats_level_value_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/LevelValueLabel
-@onready var stats_stamina_value_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/StaminaValueLabel
-@onready var stats_stamina_bonus_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/StaminaBonusLabel
-@onready var stats_experience_value_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/ExperienceValueLabel
-@onready var stats_life_points_value_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/LifePointsValueLabel
-@onready var stats_life_points_bonus_label: Label = $MarginContainer/HBoxContainer/Statistics/MarginContainer/GridContainer/LifePointsBonusLabel
+@onready var stats_gold_value_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/GoldValueLabel
+@onready var stats_gold_bonus_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/GoldBonusLabel
+@onready var stats_force_value_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/ForceValueLabel
+@onready var stats_force_bonus_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/ForceBonusLabel
+@onready var stats_level_value_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/LevelValueLabel
+@onready var stats_stamina_value_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/StaminaValueLabel
+@onready var stats_stamina_bonus_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/StaminaBonusLabel
+@onready var stats_experience_value_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/ExperienceValueLabel
+@onready var stats_life_points_value_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/LifePointsValueLabel
+@onready var stats_life_points_bonus_label: Label = $HBoxContainer/Statistics/Stats/GridContainer/LifePointsBonusLabel
 
-@onready var inventory_item_container: GridContainer= $MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/ItemContainer
-@onready var inventory_slot_container: GridContainer= $MarginContainer/HBoxContainer/Inventory/MarginContainer/HBoxContainer/SlotContainer
+@onready var inventory_item_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer
+@onready var inventory_slot_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer
 
 var _should_update := true
 var _gold_system: RkGoldSystem

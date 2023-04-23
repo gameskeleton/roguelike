@@ -15,8 +15,9 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @onready var pickup_spawner_node: RkPickupSpawner = $Game/PickupSpawner
 
 @onready var ui_pause_control: Control = $CanvasLayer/Pause
-@onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/MapTab/Map/AllMapRooms
-@onready var ui_map_room_dot_control: Control = $CanvasLayer/Pause/MapTab/Map/MapRoomDot
+@onready var ui_tab_container: TabContainer = $CanvasLayer/Pause/MarginContainer/TabContainer
+@onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms
+@onready var ui_map_room_dot_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot
 
 @onready var ui_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
 @onready var ui_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
@@ -33,6 +34,11 @@ var _generator := RkDungeonGenerator.new()
 
 # @impure
 func _ready():
+	# start in pause if visible
+	if ui_pause_control.visible:
+		state = State.pause
+		get_tree().paused  = true
+		push_warning("Pause control is visible, game will start paused")
 	# load start room scene or generate new dungeon
 	if start_room_scene:
 		_clear_rooms()
@@ -42,7 +48,7 @@ func _ready():
 		player_node.position = Vector2(start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
 	else:
 		_generate_dungeon()
-	_limit_camera_to_room()
+	# setup level up animation
 	player_node.level_system.level_up.connect(func(_level: int):
 		if state == State.game:
 			get_tree().paused  = true
@@ -51,6 +57,8 @@ func _ready():
 			ui_level_up_animation_player.play("level_up!")
 		ui_level_up_audio_stream_player.play()
 	)
+	# limit camera
+	_limit_camera_to_room()
 	player_camera_node.reset_smoothing()
 
 # @impure
@@ -102,13 +110,10 @@ func _process_pause(_delta: float):
 		state = State.game
 		ui_pause_control.visible = false
 	# cycle pause tabs
-	if Input.is_action_just_pressed("player_pause_next"):
-		$CanvasLayer/Pause/MapTab.visible = false
-		$CanvasLayer/Pause/StatsTab.visible = true
-	if Input.is_action_just_pressed("player_pause_previous"):
-		$CanvasLayer/Pause/MapTab.visible = true
-		$CanvasLayer/Pause/StatsTab.visible = false
+	if Input.is_action_just_pressed("player_pause_next") or Input.is_action_just_pressed("player_pause_previous"):
+		ui_tab_container.current_tab = (ui_tab_container.current_tab + 1) % ui_tab_container.get_child_count()
 	# position map dot
+	ui_map_room_dot_control.visible = true
 	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (RkMapRoomDot.DOT_SIZE * 0.5)
 
 # @impure

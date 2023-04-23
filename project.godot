@@ -27,6 +27,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Roguelike"
 
+[gui]
+
+theme/custom="res://src/gui/default_theme.tres"
+
 [input]
 
 player_up={

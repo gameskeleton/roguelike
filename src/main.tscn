@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://hxjd287kb3b8"]
+[gd_scene load_steps=17 format=3 uid="uid://hxjd287kb3b8"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://3jose028jvlc" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
-[ext_resource type="FontFile" uid="uid://dgdwrgj7jxoqb" path="res://src/shared/fonts/alagard.ttf" id="7_qcw21"]
 [ext_resource type="PackedScene" uid="uid://rb6toyc4p2yq" path="res://src/items/pickups/pickup_spawner.tscn" id="7_tmcqs"]
 [ext_resource type="PackedScene" uid="uid://bv67dd1mhtbs6" path="res://src/gui/map_room_dot.tscn" id="8_4s74v"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
@@ -155,7 +154,6 @@ offset_right = 32.0
 offset_bottom = -21.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_qcw21")
 theme_override_font_sizes/font_size = 14
 text = "Level up!"
 horizontal_alignment = 1
@@ -184,7 +182,6 @@ spawn_node = NodePath("../AllRooms")
 
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -201,78 +198,53 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="Tabs" type="Control" parent="CanvasLayer/Pause"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 40
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Pause/MarginContainer"]
+layout_mode = 2
+
+[node name="Map" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Map"]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 256.0
-offset_bottom = 64.0
 metadata/_edit_lock_ = true
 
-[node name="MapLabel" type="Label" parent="CanvasLayer/Pause/Tabs"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 91.0
-offset_bottom = 39.0
-theme_override_fonts/font = ExtResource("7_qcw21")
-text = "(LB) Map"
-
-[node name="StatsLabel" type="Label" parent="CanvasLayer/Pause/Tabs"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 16.0
-offset_right = 221.0
-offset_bottom = 42.0
-theme_override_fonts/font = ExtResource("7_qcw21")
-text = "(RB) Stats"
-
-[node name="MapTab" type="Control" parent="CanvasLayer/Pause"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="Map" type="Control" parent="CanvasLayer/Pause/MapTab"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 48.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause/MapTab/Map"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="MapRoomDot" parent="CanvasLayer/Pause/MapTab/Map" instance=ExtResource("8_4s74v")]
-offset_left = -40.0
-offset_top = -79.0
-offset_right = -40.0
-offset_bottom = -79.0
-
-[node name="StatsTab" type="Control" parent="CanvasLayer/Pause"]
+[node name="MapRoomDot" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Map" instance=ExtResource("8_4s74v")]
 visible = false
+layout_mode = 0
+
+[node name="Inventory" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Inventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="Inventory" parent="CanvasLayer/Pause/StatsTab" node_paths=PackedStringArray("node") instance=ExtResource("11_ptukl")]
-layout_mode = 1
-node = NodePath("../../../../Game/Player")
+[node name="Inventory" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Inventory/MarginContainer" node_paths=PackedStringArray("node") instance=ExtResource("11_ptukl")]
+layout_mode = 2
+node = NodePath("../../../../../../../Game/Player")
 
 [node name="State" type="Label" parent="CanvasLayer"]
 offset_left = 4.0
