@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfafs7jw2i84p"]
+[gd_scene load_steps=5 format=3 uid="uid://dfafs7jw2i84p"]
 
 [ext_resource type="PackedScene" uid="uid://b1i0r4g7sn8p4" path="res://src/gui/inventory_cell_slot.tscn" id="1_81lqt"]
 [ext_resource type="Script" path="res://src/gui/scripts/inventory.gd" id="1_igqyd"]
+[ext_resource type="PackedScene" uid="uid://cwbp0bcapp4o6" path="res://src/gui/inventory_cell_drop.tscn" id="4_k8q82"]
 [ext_resource type="PackedScene" uid="uid://fx07x2r3wif8" path="res://src/gui/inventory_cell_item.tscn" id="4_yjwnd"]
 
 [node name="Inventory" type="Control"]
@@ -51,27 +52,22 @@ columns = 5
 
 [node name="InventorySlot1" parent="HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
-type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventorySlot2" parent="HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
-type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventorySlot3" parent="HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
-type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventorySlot4" parent="HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
-type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventorySlot5" parent="HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("1_81lqt")]
 layout_mode = 2
-type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="ItemContainer" type="GridContainer" parent="HBoxContainer/Inventory/Equip/VBoxContainer"]
@@ -84,102 +80,109 @@ columns = 5
 
 [node name="InventoryItem1" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem2" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem3" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem4" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem5" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem6" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem7" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem8" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem9" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem10" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem11" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem12" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem13" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem14" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem15" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem16" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem17" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem18" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem19" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
 inventory = NodePath("../../../../../..")
 
 [node name="InventoryItem20" parent="HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_yjwnd")]
 layout_mode = 2
-type = 1
+type = 0
+inventory = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/Inventory/Equip/VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryDrop" parent="HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_k8q82")]
+layout_mode = 2
 inventory = NodePath("../../../../../..")
 
 [node name="Statistics" type="TabContainer" parent="HBoxContainer"]
@@ -190,7 +193,6 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="Stats" type="MarginContainer" parent="HBoxContainer/Statistics"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
@@ -321,6 +323,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Description" type="MarginContainer" parent="HBoxContainer/Statistics"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16

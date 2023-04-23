@@ -182,6 +182,7 @@ spawn_node = NodePath("../AllRooms")
 
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -215,12 +216,10 @@ layout_mode = 2
 
 [node name="Map" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer"]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Map"]
 layout_mode = 1
 anchors_preset = 0
-metadata/_edit_lock_ = true
 
 [node name="MapRoomDot" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Map" instance=ExtResource("8_4s74v")]
 visible = false

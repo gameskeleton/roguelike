@@ -88,7 +88,14 @@ func _update_stats_label_bonus(bonus_label: Label, bonus: float):
 
 # @impure
 # @callback
+func drop_item_or_slot(from_type: RkInventorySystem.ItemType, from_index: int):
+	_should_update = false
+	_inventory_system.drop_item_or_slot(from_type, from_index)
+	_should_update = true
+	
+# @impure
+# @callback
 func move_item_or_slot(from_type: RkInventorySystem.ItemType, from_index: int, to_type: RkInventorySystem.ItemType, to_index: int):
 	_should_update = false
-	_inventory_system.move_item_or_slot(from_type, from_index , to_type, to_index)
+	_inventory_system.move_item_or_slot(from_type, from_index, to_type, to_index)
 	_should_update = true

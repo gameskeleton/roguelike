@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwbp0bcapp4o6"]
+
+[ext_resource type="Script" path="res://src/gui/scripts/inventory_cell_drop.gd" id="1_8lft2"]
+[ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="2_08loe"]
+
+[node name="InventoryItem" type="ColorRect"]
+custom_minimum_size = Vector2(72, 20)
+offset_right = 72.0
+offset_bottom = 20.0
+color = Color(0.847059, 0.137255, 0.137255, 1)
+script = ExtResource("1_8lft2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 75.0
+offset_bottom = 23.0
+texture = ExtResource("2_08loe")
+region_rect = Rect2(128, 48, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 72.0
+offset_bottom = 20.0
+text = "Drop"
+horizontal_alignment = 1
+vertical_alignment = 1
