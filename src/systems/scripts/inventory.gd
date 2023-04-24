@@ -142,43 +142,13 @@ func _slot_removed(slot: RkInventoryItemRes, index: int, _swapped := false):
 
 # @impure
 func _apply_slots_modifiers():
-	# reset systems
-	if gold_system:
-		gold_system.gold.reset_bonus()
-	if attack_system:
-		attack_system.force.reset_bonus()
-		attack_system.damage_multiplier_fire = 1.0
-		attack_system.damage_multiplier_roll = 1.0
-		attack_system.damage_multiplier_world = 1.0
-		attack_system.damage_multiplier_physical = 1.0
-	if stamina_system:
-		stamina_system.stamina.reset_bonus()
-	if life_points_system:
-		life_points_system.life_points.reset_bonus()
-		life_points_system.damage_multiplier_fire = 1.0
-		life_points_system.damage_multiplier_roll = 1.0
-		life_points_system.damage_multiplier_world = 1.0
-		life_points_system.damage_multiplier_physical = 1.0
-	# modify systems
+	# reset bonuses
+	RkInventoryItemRes.reset_inventory_modifiers(self)
+	# apply bonuses in order
 	for slot in slots:
 		if not slot:
 			continue
-		if gold_system:
-			gold_system.gold.current_value_earn_multiplier *= slot.gold_earn_multiplier_bonus
-		if attack_system:
-			attack_system.force.max_value_bonus += slot.force_bonus
-			attack_system.damage_multiplier_fire *= slot.attack_multiplier_fire
-			attack_system.damage_multiplier_roll *= slot.attack_multiplier_roll
-			attack_system.damage_multiplier_world *= slot.attack_multiplier_world
-			attack_system.damage_multiplier_physical *= slot.attack_multiplier_physical
-		if stamina_system:
-			stamina_system.stamina.max_value_bonus += slot.stamina_bonus
-		if life_points_system:
-			life_points_system.life_points.max_value_bonus += slot.life_points_bonus
-			life_points_system.damage_multiplier_fire *= slot.defence_multiplier_fire
-			life_points_system.damage_multiplier_roll *= slot.defence_multiplier_roll
-			life_points_system.damage_multiplier_world *= slot.defence_multiplier_world
-			life_points_system.damage_multiplier_physical *= slot.defence_multiplier_physical
+		slot.apply_inventory_modifier(self)
 
 # find_system_node returns the inventory system in the given node, or null if not found.
 # @pure

@@ -6,7 +6,8 @@ signal attacked(target_life_points: RkLifePointsSystem, damage: float, damage_ty
 
 const NO_DAMAGE := -1.0
 
-var force := RkAdvFloat.new(1.0, +INF, true)
+var force := RkAdvFloat.new(1.0, 1.0, true)
+var defence := RkAdvFloat.new(1.0, 1.0, true)
 
 @export var source: Node
 @export var instigator: Node

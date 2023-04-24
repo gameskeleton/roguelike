@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="RkInventoryItemRes" load_steps=4 format=3 uid="uid://c4h5mgge7c63o"]
+
+[ext_resource type="Texture2D" uid="uid://dpmv8ns77wlgr" path="res://src/gui/textures/inventory_items.png" id="1_t6mfl"]
+[ext_resource type="Script" path="res://src/systems/data/inventory_item_res.gd" id="2_4okrw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4coe"]
+atlas = ExtResource("1_t6mfl")
+region = Rect2(0, 256, 16, 16)
+
+[resource]
+script = ExtResource("2_4okrw")
+icon = SubResource("AtlasTexture_l4coe")
+name = "Ring of favor and protection"
+description = ""
+gold_earn_multiplier = 1.0
+attack_force_bonus = 1.0
+attack_force_multiplier = 1.0
+attack_defence_bonus = 1.0
+attack_defence_multiplier = 1.0
+stamina_bonus = 1.0
+stamina_multiplier = 1.0
+stamina_regeneration_bonus = 1.0
+stamina_regeneration_multiplier = 1.0
+stamina_regeneration_delay_bonus = 1.0
+stamina_regeneration_delay_multiplier = 1.0
+life_points_bonus = 1.0
+life_points_multiplier = 1.0
+attack_multiplier_roll = 1.0
+attack_multiplier_fire = 1.0
+attack_multiplier_world = 1.0
+attack_multiplier_physical = 1.0
+defence_multiplier_roll = 1.0
+defence_multiplier_fire = 1.0
+defence_multiplier_world = 1.0
+defence_multiplier_physical = 1.0

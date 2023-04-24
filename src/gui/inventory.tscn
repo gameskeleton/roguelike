@@ -1,9 +1,63 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfafs7jw2i84p"]
+[gd_scene load_steps=9 format=3 uid="uid://dfafs7jw2i84p"]
 
 [ext_resource type="PackedScene" uid="uid://b1i0r4g7sn8p4" path="res://src/gui/inventory_cell_slot.tscn" id="1_81lqt"]
 [ext_resource type="Script" path="res://src/gui/scripts/inventory.gd" id="1_igqyd"]
 [ext_resource type="PackedScene" uid="uid://cwbp0bcapp4o6" path="res://src/gui/inventory_cell_drop.tscn" id="4_k8q82"]
 [ext_resource type="PackedScene" uid="uid://fx07x2r3wif8" path="res://src/gui/inventory_cell_item.tscn" id="4_yjwnd"]
+
+[sub_resource type="Animation" id="Animation_blr23"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ac3v1"]
+resource_name = "appear"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_um1w5"]
+resource_name = "disappear"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r2ei3"]
+_data = {
+"RESET": SubResource("Animation_blr23"),
+"appear": SubResource("Animation_ac3v1"),
+"disappear": SubResource("Animation_um1w5")
+}
 
 [node name="Inventory" type="Control"]
 custom_minimum_size = Vector2(168, 171)
@@ -182,8 +236,15 @@ inventory = NodePath("../../../../../..")
 layout_mode = 2
 
 [node name="InventoryDrop" parent="HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("4_k8q82")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 inventory = NodePath("../../../../../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_r2ei3")
+}
 
 [node name="Statistics" type="TabContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -199,128 +260,187 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Statistics/Stats"]
-custom_minimum_size = Vector2(224, 0)
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Statistics/Stats"]
 layout_mode = 2
-columns = 3
 
-[node name="GoldLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Statistics/Stats/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "Gold:"
-vertical_alignment = 1
+size_flags_vertical = 3
 
-[node name="GoldValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "1337"
-horizontal_alignment = 2
-vertical_alignment = 1
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="GoldBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
-text = "+99"
-horizontal_alignment = 2
-vertical_alignment = 1
+size_flags_vertical = 3
+columns = 3
 
-[node name="LevelLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="LevelLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 text = "Level:"
 vertical_alignment = 1
 
-[node name="LevelValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="LevelValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 text = "1 / 10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LevelBonusLabel" type="Control" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="LevelBonusLabel" type="Control" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 
-[node name="ForceLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "Force:"
-vertical_alignment = 1
-
-[node name="ForceValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "1"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="ForceBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
-text = "+99"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="StaminaLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "Stamina:"
-vertical_alignment = 1
-
-[node name="StaminaValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "10 / 10"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="StaminaBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
-text = "+99"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="LifePointsLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "Life points:"
-vertical_alignment = 1
-
-[node name="LifePointsValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
-text = "10 / 10"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="LifePointsBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
-text = "+99"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="ExperienceLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="ExperienceLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 text = "Experience:"
 vertical_alignment = 1
 
-[node name="ExperienceValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="ExperienceValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
 text = "100/100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ExperienceBonusLabel" type="Control" parent="HBoxContainer/Statistics/Stats/GridContainer"]
+[node name="ExperienceBonusLabel" type="Control" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
+
+[node name="LifePointsLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "Life points:"
+vertical_alignment = 1
+
+[node name="LifePointsValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "10 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LifePointsBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "Gold:"
+vertical_alignment = 1
+
+[node name="GoldValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "1337"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GoldBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ForceLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "Force:"
+vertical_alignment = 1
+
+[node name="ForceValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ForceBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DefenceLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "Defence:"
+vertical_alignment = 1
+
+[node name="DefenceValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DefenceBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "Stamina:"
+vertical_alignment = 1
+
+[node name="StaminaValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "10 / 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaRegenLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "Stamina regen:"
+vertical_alignment = 1
+
+[node name="StaminaRegenValueLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.576471, 0.258824, 0.14902, 1)
+text = "1.25 / s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaRegenBonusLabel" type="Label" parent="HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0705882, 0.427451, 0.188235, 1)
+text = "+99"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Description" type="MarginContainer" parent="HBoxContainer/Statistics"]
 visible = false

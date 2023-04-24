@@ -13,6 +13,14 @@ class_name RkGuiInventoryCell
 @onready var texture_rect: TextureRect = $TextureRect
 
 # @impure
+func _drop_data(_at_position: Vector2, data: Variant):
+	inventory.move_item_or_slot(data.from_type, data.from_index, type, get_index())
+
+# @pure
+func _can_drop_data(_at_position: Vector2, data: Variant):
+	return data is Dictionary and data.has("item") and data.has("from_type") and data.has("from_index")
+
+# @impure
 func _get_drag_data(_at_position: Vector2):
 	var texture := texture_rect.texture
 	var drag_item := item
@@ -26,11 +34,3 @@ func _get_drag_data(_at_position: Vector2):
 		from_type = type,
 		from_index = get_index(),
 	}
-
-# @pure
-func _can_drop_data(_at_position: Vector2, data: Variant):
-	return data is Dictionary and data.has("item") and data.has("from_type") and data.has("from_index")
-
-# @impure
-func _drop_data(_at_position: Vector2, data: Variant):
-	inventory.move_item_or_slot(data.from_type, data.from_index, type, get_index())

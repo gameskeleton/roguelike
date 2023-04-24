@@ -19,5 +19,5 @@ func _add_files(dir: String):
 	for child_file in DirAccess.get_files_at(dir):
 		if RESOURCE_EXTENSIONS.has(child_file.get_extension()):
 			_files.append(dir.path_join(child_file))
-	for child_dir in DirAccess.get_directories_at(dir):
-		_add_files(dir.path_join(child_dir))
+	for child_directory in DirAccess.get_directories_at(dir):
+		_add_files(dir.path_join(child_directory))

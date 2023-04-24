@@ -3,21 +3,19 @@ extends Node
 class_name RkStaminaSystem
 
 var stamina := RkAdvFloat.new(10.0)
+var regeneration := RkAdvFloat.new(5.0, 5.0, true)
+var regeneration_delay := RkAdvFloat.new(1.25, 1.25, true)
 
-@export_group("Regen")
-@export var regen_speed := 10.0
-@export var regen_blocked_when_consumed_for := 1.15
-
-var _regen_blocked_for := 0.0
+var _regeneration_delay := 0.0
 
 # _process regenerates the stamina if the regen is not blocked.
 # @impure
 func _process(delta: float):
-	if _regen_blocked_for > 0.0:
-		_regen_blocked_for = maxf(0.0, _regen_blocked_for - delta)
-		if _regen_blocked_for > 0.0:
+	if _regeneration_delay > 0.0:
+		_regeneration_delay = maxf(0.0, _regeneration_delay - delta)
+		if _regeneration_delay > 0.0:
 			return
-	stamina.add(delta * regen_speed)
+	stamina.add(delta * regeneration.current_value)
 
 # has_enough returns true if the object has enough stamina left.
 # @pure
@@ -25,18 +23,16 @@ func has_enough(amount: float) -> bool:
 	return stamina.current_value >= amount
 
 # consume reduces the stamina by the specified amount, if there is not enough the stamina will be zeroed.
-# the optional parameter block_regen_for takes a number of seconds during which the stamina won't be regenerated.
 # @impure
-func consume(amount: float, block_regen_for := regen_blocked_when_consumed_for):
+func consume(amount: float):
 	stamina.sub(amount)
-	_regen_blocked_for = block_regen_for
+	_regeneration_delay = regeneration_delay.current_value
 
 # try_consume returns true if the object has enough stamina left and will consume that amount if it does.
-# the optional parameter block_regen_for takes a number of seconds during which the stamina won't be regenerated.
 # @impure
-func try_consume(amount: float, block_regen_for := regen_blocked_when_consumed_for) -> bool:
+func try_consume(amount: float) -> bool:
 	if has_enough(amount):
-		consume(amount, block_regen_for)
+		consume(amount)
 		return true
 	return false
 
