@@ -249,7 +249,7 @@ libraries = {
 [node name="Statistics" type="TabContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.0
+size_flags_stretch_ratio = 6.0
 mouse_filter = 2
 metadata/_edit_lock_ = true
 

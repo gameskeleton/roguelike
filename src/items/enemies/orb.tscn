@@ -648,12 +648,12 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
 shape = SubResource("CircleShape2D_7opvg")
 
-[node name="LifePointsMeter" parent="." node_paths=PackedStringArray("life_points") instance=ExtResource("3_71tvl")]
+[node name="LifePointsMeter" parent="." node_paths=PackedStringArray("life_points_system") instance=ExtResource("3_71tvl")]
 offset_left = -16.0
 offset_top = -19.0
 offset_right = 16.0
 offset_bottom = -16.0
-life_points = NodePath("../Systems/LifePoints")
+life_points_system = NodePath("../Systems/LifePoints")
 
 [node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
 listen_room_on = false

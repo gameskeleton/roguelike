@@ -15,8 +15,6 @@ signal damage_taken(damage: float, source: Node, instigator: Node)
 
 const NO_DAMAGE := -1.0
 
-var life_points := RkAdvFloat.new(10.0)
-
 @export_group("Invincible")
 @export var invincible := 0
 @export var invincibility_delay := 0.0
@@ -27,6 +25,7 @@ var life_points := RkAdvFloat.new(10.0)
 @export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
 
+var life_points := RkRpgFloat.create_with_min(10.0, 0.0)
 var last_damage := NO_DAMAGE
 var last_damage_type := DmgType.none
 var last_damage_source: Node
@@ -59,12 +58,12 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Node = null
 # has_lethal_damage returns true if our life points are lower or equal than zero.
 # @pure
 func has_lethal_damage() -> bool:
-	return life_points.current_value <= 0.0
+	return life_points.value <= 0.0
 
 # set_invincibility_delay refills the invincibility delay towards the given value.
 # @impure
 func set_invincibility_delay(delay: float):
-	invincibility_delay = max(delay, invincibility_delay)
+	invincibility_delay = maxf(delay, invincibility_delay)
 
 # is_damage_type returns true if the given individual_damage_type is included in the given damage_type.
 # @pure

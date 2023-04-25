@@ -31,8 +31,9 @@ func _ready():
 		if parent_node:
 			life_points_system = RkLifePointsSystem.find_system_node(parent_node)
 	assert(life_points_system, "LifePointsMeter must be a sibling of RkLifePointsSystem")
-	life_points_system.damage_taken.connect(_on_life_points_damage_taken)
+	await get_tree().process_frame # wait for life_points_system to be ready
 	progress_bar.progress = life_points_system.life_points.ratio
+	life_points_system.damage_taken.connect(_on_life_points_damage_taken)
 
 # @impure
 func _process(delta: float):

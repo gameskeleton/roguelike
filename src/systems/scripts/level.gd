@@ -4,19 +4,16 @@ class_name RkLevelSystem
 
 signal level_up(level: int) # emitted when levelling up, can be emitted multiple times in a frame.
 
-var ratio: float :
-	get: return float(level) / float(max_level)
-@export var level := 0 # +1 for humans
-@export var max_level := 9 # +1 for humans
-@export var experience := 0
+var level := RkRpgInteger.create(0, 0, 9)
+var experience := 0
 
 var experience_required_to_level_up: int :
 	get:
-		return int(round(pow((level + 1), 1.8) + (level + 1) * 4.0))
+		return int(round(pow((level.value + 1), 1.8) + (level.value + 1) * 4.0))
 
 # @impure
 func _init(start_level := 0, start_experience := 0):
-	level = start_level
+	level.value = start_level
 	earn_experience(start_experience)
 
 # get_xp_ratio returns the ratio [0; 1] between experience and the experience required to level up.
@@ -27,7 +24,7 @@ func get_xp_ratio() -> float:
 # can_level_up returns true if the player has not reached max level.
 # @pure
 func can_level_up():
-	return level < max_level
+	return level.value < level.max_value
 
 # earn_experience adds the given amount of experience and level up accordingly.
 # @impure
@@ -38,9 +35,9 @@ func earn_experience(amount_exp: int):
 		if not can_level_up():
 			experience = experience_required
 			return
-		level += 1
+		level.add(1)
 		experience -= experience_required
-		level_up.emit(level)
+		level_up.emit(level.value)
 
 # find_system_node returns the level system in the given node, or null if not found.
 # @pure

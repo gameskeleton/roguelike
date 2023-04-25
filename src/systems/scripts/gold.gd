@@ -4,7 +4,7 @@ class_name RkGoldSystem
 
 signal earned(amount: float)
 
-var gold := RkAdvFloat.new(0.0, 9999.0)
+var gold := RkRpgFloat.create(0.0, 0.0, 9999.0)
 
 # @impure
 func earn(amount: float):
@@ -13,7 +13,7 @@ func earn(amount: float):
 
 # @pure
 func has_enough(amount: float) -> bool:
-	return gold.current_value >= amount
+	return gold.value >= amount
 
 # @impure
 func consume(amount: float):

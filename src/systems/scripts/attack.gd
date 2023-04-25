@@ -6,8 +6,8 @@ signal attacked(target_life_points: RkLifePointsSystem, damage: float, damage_ty
 
 const NO_DAMAGE := -1.0
 
-var force := RkAdvFloat.new(1.0, 1.0, true)
-var defence := RkAdvFloat.new(1.0, 1.0, true)
+var force := RkRpgSimpleFloat.create(1.0)
+var defence := RkRpgSimpleFloat.create(1.0)
 
 @export var source: Node
 @export var instigator: Node
@@ -30,7 +30,7 @@ func attack(target: RkLifePointsSystem, damage: float, damage_type: RkLifePoints
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.roll): damage_multiplier *= damage_multiplier_roll
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
-	var scaled_damage := force.current_value * damage * damage_multiplier
+	var scaled_damage := force.value * damage * damage_multiplier
 	var target_scaled_damage := target.take_damage(scaled_damage, damage_type, source, instigator)
 	if target_scaled_damage != RkLifePointsSystem.NO_DAMAGE:
 		last_target = target

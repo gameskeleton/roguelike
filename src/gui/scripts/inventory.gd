@@ -49,20 +49,22 @@ func _ready():
 
 # @impure
 func _process(_delta: float):
-	_update_stats_label(stats_gold_value_label, _gold_system.gold.current_value)
-	_update_stats_label(stats_force_value_label, _attack_system.force.max_value)
-	_update_stats_label(stats_defence_value_label, _attack_system.defence.max_value)
-	_update_stats_label(stats_level_value_label, _level_system.level + 1, _level_system.max_level + 1)
-	_update_stats_label(stats_stamina_value_label, _stamina_system.stamina.current_value, _stamina_system.stamina.max_value)
-	_update_stats_label(stats_experience_value_label, _level_system.experience, _level_system.experience_required_to_level_up)
-	_update_stats_label(stats_life_points_value_label, _life_points_system.life_points.current_value, _life_points_system.life_points.max_value)
-	_update_stats_label(stats_stamina_regen_value_label, _stamina_system.regeneration.current_value, -1.0, " / s")
-	_update_stats_label_bonus(stats_force_bonus_label, _attack_system.force)
-	_update_stats_label_bonus(stats_defence_bonus_label, _attack_system.defence)
-	_update_stats_label_bonus(stats_stamina_bonus_label, _stamina_system.stamina)
-	_update_stats_label_bonus(stats_life_points_bonus_label, _life_points_system.life_points)
-	_update_stats_label_bonus(stats_stamina_regen_bonus_label, _stamina_system.regeneration)
-	_update_stats_label_earn_multiplier(stats_gold_bonus_label, _gold_system.gold)
+	# update base stats
+	_update_stats_int(stats_gold_value_label, _gold_system.gold)
+	_update_stats_int(stats_force_value_label, _attack_system.force)
+	_update_stats_int(stats_defence_value_label, _attack_system.defence)
+	_update_stats_int_range(stats_experience_value_label, _level_system.experience, _level_system.experience_required_to_level_up)
+	_update_stats_rpg_int_range(stats_level_value_label, _level_system.level, 1)
+	_update_stats_rpg_float_range(stats_stamina_value_label, _stamina_system.stamina)
+	_update_stats_rpg_float_range(stats_life_points_value_label, _life_points_system.life_points)
+	_update_stats_simple_float_unit(stats_stamina_regen_value_label, _stamina_system.regeneration, " /s")
+	# update bonus stats
+	_update_stats_earn_rpg_float(stats_gold_bonus_label, _gold_system.gold)
+	_update_stats_bonus_rpg_float(stats_stamina_bonus_label, _stamina_system.stamina)
+	_update_stats_bonus_rpg_float(stats_life_points_bonus_label, _life_points_system.life_points)
+	_update_stats_bonus_simple_float(stats_force_bonus_label, _attack_system.force)
+	_update_stats_bonus_simple_float(stats_defence_bonus_label, _attack_system.defence)
+	_update_stats_bonus_simple_float(stats_stamina_regen_bonus_label, _stamina_system.regeneration)
 
 # @impure
 func _notification(what: int):
@@ -85,35 +87,54 @@ func _update_cells(force := false):
 		slot_cell.item = _inventory_system.slots[slot_index]
 
 # @impure
-func _update_stats_label(value_label: Label, value: float, max_value := -1.0, suffix := ""):
-	if max_value > 0.0:
-		value_label.text = "%d / %d" % [value, max_value]
-	elif not suffix.is_empty():
-		value_label.text = "%d%s" % [value, suffix]
-	else:
-		value_label.text = "%d" % [value]
+func _update_stats_int(value_label: Label, stats: Object):
+	if stats is RkRpgFloat:
+		value_label.text = "%d" % [(stats as RkRpgFloat).value]
+	elif stats is RkRpgSimpleFloat:
+		value_label.text = "%d" % [(stats as RkRpgSimpleFloat).value]
 
 # @impure
-func _update_stats_label_bonus(bonus_label: Label, value: RkAdvFloat):
-	var bonus := value.max_value - value.max_value_base
-	bonus_label.modulate.a = 0.0 if is_equal_approx(bonus, 0.0) else 1.0
-	if bonus >= 0.0:
-		bonus_label.text = "(+%d)" % [bonus]
-		bonus_label.add_theme_color_override("font_color", RkColorTheme.DARK_GREEN)
-	else:
-		bonus_label.text = "(-%d)" % [absf(bonus)]
-		bonus_label.add_theme_color_override("font_color", RkColorTheme.DARK_RED)
+func _update_stats_int_range(value_label: Label, value: int, max_value: int, increment := 0):
+	value_label.text = "%d / %d" % [value + increment, max_value + increment]
 
 # @impure
-func _update_stats_label_earn_multiplier(earn_label: Label, value: RkAdvFloat):
-	var earn_multiplier := value.current_value_earn_multiplier
-	earn_label.modulate.a = 0.0 if is_equal_approx(earn_multiplier, 1.0) else 1.0
-	if earn_multiplier > 1.0:
-		earn_label.text = "(+%d%%)" % [ceilf((earn_multiplier - 1.0) * 100.0)]
-		earn_label.add_theme_color_override("font_color", RkColorTheme.DARK_GREEN)
-	elif earn_multiplier < 1.0:
-		earn_label.text = "(-%d%%)" % [absf(floorf((earn_multiplier - 1.0) * 100.0))]
-		earn_label.add_theme_color_override("font_color", RkColorTheme.DARK_RED)
+func _update_stats_rpg_int_range(value_label: Label, stats: RkRpgInteger, increment := 0):
+	value_label.text = "%d / %d" % [stats.value + increment, stats.max_value + increment]
+
+# @impure
+func _update_stats_simple_float_unit(value_label: Label, stats: RkRpgSimpleFloat, unit: String):
+	value_label.text = "%.1f%s" % [stats.value, unit]
+
+# @impure
+func _update_stats_rpg_float_range(value_label: Label, stats: RkRpgFloat):
+	value_label.text = "%.1f / %.1f" % [stats.value, stats.max_value]
+
+# @impure
+func _update_stats_earn_rpg_float(earn_label: Label, stats: RkRpgFloat):
+	var zero := is_equal_approx(stats.value_earn_multiplier, 1.0)
+	var positive := stats.value_earn_multiplier >= 1.0 and not stats.lower_is_better
+	var font_color := RkColorTheme.DARK_GREEN if positive else RkColorTheme.DARK_RED
+	var multiplier_percentage := (stats.value_earn_multiplier - 1.0) * 100.0
+	earn_label.text = ("+%.0f%%" % [ceilf(multiplier_percentage)]) if positive else ("-%.0f%%" % [absf(floorf(multiplier_percentage))])
+	earn_label.modulate.a = 0.0 if zero else 1.0
+	earn_label.add_theme_color_override("font_color", font_color)
+
+# @impure
+func _update_stats_bonus_float(bonus_label: Label, bonus: float, lower_is_better: bool):
+	var zero := absf(bonus) < 0.5
+	var positive := bonus >= 0.0 and not lower_is_better
+	var font_color := RkColorTheme.DARK_GREEN if positive else RkColorTheme.DARK_RED
+	bonus_label.text = ("+%d" % [bonus]) if positive else ("-%d" % [absf(bonus)])
+	bonus_label.modulate.a = 0.0 if zero else 1.0
+	bonus_label.add_theme_color_override("font_color", font_color)
+
+# @impure
+func _update_stats_bonus_rpg_float(bonus_label: Label, stats: RkRpgFloat):
+	_update_stats_bonus_float(bonus_label, stats.max_value - stats.max_value_base, stats.lower_is_better)
+
+# @impure
+func _update_stats_bonus_simple_float(bonus_label: Label, stats: RkRpgSimpleFloat):
+	_update_stats_bonus_float(bonus_label, stats.value - stats.value_base, stats.lower_is_better)
 
 # @impure
 # @callback
