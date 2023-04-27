@@ -23,7 +23,12 @@ class_name RkGuiInventory
 @onready var inventory_slot_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer
 @onready var inventory_drop_animation_player: AnimationPlayer = $HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop/AnimationPlayer
 
+@onready var description_item_name: Label = $HBoxContainer/Statistics/Description/VBoxContainer/ItemName
+@onready var description_item_description: RichTextLabel = $HBoxContainer/Statistics/Description/VBoxContainer/ItemDescription
+
 var _should_update := true
+var _selected_cell: RkGuiInventoryCell
+
 var _gold_system: RkGoldSystem
 var _level_system: RkLevelSystem
 var _attack_system: RkAttackSystem
@@ -85,6 +90,7 @@ func _update_cells(force := false):
 	for slot_index in _inventory_system.slots.size():
 		var slot_cell: RkGuiInventoryCell = inventory_slot_container.get_child(slot_index)
 		slot_cell.item = _inventory_system.slots[slot_index]
+	_update_item_name_and_description(_selected_cell.item if _selected_cell else null)
 
 # @impure
 func _update_stats_int(value_label: Label, stats: Object):
@@ -137,12 +143,62 @@ func _update_stats_bonus_simple_float(bonus_label: Label, stats: RkRpgSimpleFloa
 	_update_stats_bonus_float(bonus_label, stats.value - stats.value_base, stats.lower_is_better)
 
 # @impure
+func _format_item_bonus(value: float):
+	return "[color=#%s]%s%.0f[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 0.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 0.0 else "", value]
+
+# @impure
+func _format_item_bonus_percentage(value: float):
+	return "[color=#%s]%s%.0f%%[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 1.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 1.0 else "", ceilf((value - 1.0) * 100.0)]
+
+# @impure
+func _update_item_name_and_description(item: RkInventoryItemRes):
+	if item:
+		description_item_name.text = item.name
+		description_item_description.text = ""
+		if item.life_points_bonus != 0.0:
+			description_item_description.text += "Life points: %s\n" % [_format_item_bonus(item.life_points_bonus)]
+		if item.life_points_multiplier != 1.0:
+			description_item_description.text += "Life points: %s\n" % [_format_item_bonus_percentage(item.life_points_multiplier)]
+		if item.gold_earn_multiplier != 1.0:
+			description_item_description.text += "Gold pickup: %s\n" % [_format_item_bonus_percentage(item.gold_earn_multiplier)]
+		if item.attack_force_bonus != 0.0:
+			description_item_description.text += "Force: %s\n" % [_format_item_bonus(item.attack_force_bonus)]
+		if item.attack_force_multiplier != 1.0:
+			description_item_description.text += "Force: %s\n" % [_format_item_bonus_percentage(item.attack_force_multiplier)]
+		if item.attack_defence_bonus != 0.0:
+			description_item_description.text += "Defence: %s\n" % [_format_item_bonus(item.attack_defence_bonus)]
+		if item.attack_defence_multiplier != 1.0:
+			description_item_description.text += "Defence: %s\n" % [_format_item_bonus_percentage(item.attack_defence_multiplier)]
+		if item.stamina_bonus != 0.0:
+			description_item_description.text += "Stamina: %s\n" % [_format_item_bonus(item.stamina_bonus)]
+		if item.stamina_multiplier != 1.0:
+			description_item_description.text += "Stamina: %s\n" % [_format_item_bonus_percentage(item.stamina_multiplier)]
+		if item.stamina_regeneration_bonus != 0.0:
+			description_item_description.text += "Stamina regeneration: %s\n" % [_format_item_bonus(item.stamina_regeneration_bonus)]
+		if item.stamina_regeneration_multiplier != 1.0:
+			description_item_description.text += "Stamina regeneration: %s\n" % [_format_item_bonus(item.stamina_regeneration_multiplier)]
+		if item.description != "":
+			description_item_description.text += "%s[i][color=#%s]%s[/color][/i]" % ["" if description_item_description.text == "" else "\n", RkColorTheme.GRAY.to_html(), item.description]
+	else:
+		description_item_name.text = "No item selected"
+		description_item_description.text = ""
+
+# @impure
+# @callback
+func select_cell(cell: RkGuiInventoryCell):
+	if _selected_cell:
+		_selected_cell.selected = false
+	cell.selected = true
+	_selected_cell = cell
+	_update_item_name_and_description(cell.item)
+
+# @impure
 # @callback
 func drop_item_or_slot(from_type: RkInventorySystem.ItemType, from_index: int):
 	_should_update = false
 	_inventory_system.drop_item_or_slot(from_type, from_index)
 	_should_update = true
-	
+
 # @impure
 # @callback
 func move_item_or_slot(from_type: RkInventorySystem.ItemType, from_index: int, to_type: RkInventorySystem.ItemType, to_index: int):

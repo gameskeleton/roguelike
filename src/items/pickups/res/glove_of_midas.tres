@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="RkInventoryItemRes" load_steps=4 format=3 uid="uid://bcl4oao257klm"]
+
+[ext_resource type="Texture2D" uid="uid://dpmv8ns77wlgr" path="res://src/gui/textures/inventory_items.png" id="1_risgt"]
+[ext_resource type="Script" path="res://src/systems/data/inventory_item_res.gd" id="2_sxiqb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4coe"]
+atlas = ExtResource("1_risgt")
+region = Rect2(224, 160, 16, 16)
+
+[resource]
+script = ExtResource("2_sxiqb")
+icon = SubResource("AtlasTexture_l4coe")
+name = "Glove of Midas"
+description = ""
+gold_earn_multiplier = 1.5
+attack_force_bonus = 0.0
+attack_force_multiplier = 1.0
+attack_defence_bonus = 0.0
+attack_defence_multiplier = 1.0
+stamina_bonus = 0.0
+stamina_multiplier = 1.0
+stamina_regeneration_bonus = 0.0
+stamina_regeneration_multiplier = 1.0
+stamina_regeneration_delay_bonus = 0.0
+stamina_regeneration_delay_multiplier = 1.0
+life_points_bonus = 0.0
+life_points_multiplier = 1.0
