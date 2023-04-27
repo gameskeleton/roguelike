@@ -148,7 +148,7 @@ func _format_item_bonus(value: float):
 
 # @impure
 func _format_item_bonus_percentage(value: float):
-	return "[color=#%s]%s%.0f%%[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 1.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 1.0 else "", ceilf((value - 1.0) * 100.0)]
+	return "[color=#%s]%s%.0f%%[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 0.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 0.0 else "", ceilf(value * 100.0)]
 
 # @impure
 func _update_item_name_and_description(item: RkInventoryItemRes):
@@ -157,26 +157,26 @@ func _update_item_name_and_description(item: RkInventoryItemRes):
 		description_item_description.text = ""
 		if item.life_points_bonus != 0.0:
 			description_item_description.text += "Life points: %s\n" % [_format_item_bonus(item.life_points_bonus)]
-		if item.life_points_multiplier != 1.0:
+		if item.life_points_multiplier != 0.0:
 			description_item_description.text += "Life points: %s\n" % [_format_item_bonus_percentage(item.life_points_multiplier)]
-		if item.gold_earn_multiplier != 1.0:
+		if item.gold_earn_multiplier != 0.0:
 			description_item_description.text += "Gold pickup: %s\n" % [_format_item_bonus_percentage(item.gold_earn_multiplier)]
 		if item.attack_force_bonus != 0.0:
 			description_item_description.text += "Force: %s\n" % [_format_item_bonus(item.attack_force_bonus)]
-		if item.attack_force_multiplier != 1.0:
+		if item.attack_force_multiplier != 0.0:
 			description_item_description.text += "Force: %s\n" % [_format_item_bonus_percentage(item.attack_force_multiplier)]
 		if item.attack_defence_bonus != 0.0:
 			description_item_description.text += "Defence: %s\n" % [_format_item_bonus(item.attack_defence_bonus)]
-		if item.attack_defence_multiplier != 1.0:
+		if item.attack_defence_multiplier != 0.0:
 			description_item_description.text += "Defence: %s\n" % [_format_item_bonus_percentage(item.attack_defence_multiplier)]
 		if item.stamina_bonus != 0.0:
 			description_item_description.text += "Stamina: %s\n" % [_format_item_bonus(item.stamina_bonus)]
-		if item.stamina_multiplier != 1.0:
+		if item.stamina_multiplier != 0.0:
 			description_item_description.text += "Stamina: %s\n" % [_format_item_bonus_percentage(item.stamina_multiplier)]
 		if item.stamina_regeneration_bonus != 0.0:
 			description_item_description.text += "Stamina regeneration: %s\n" % [_format_item_bonus(item.stamina_regeneration_bonus)]
-		if item.stamina_regeneration_multiplier != 1.0:
-			description_item_description.text += "Stamina regeneration: %s\n" % [_format_item_bonus(item.stamina_regeneration_multiplier)]
+		if item.stamina_regeneration_multiplier != 0.0:
+			description_item_description.text += "Stamina regeneration: %s\n" % [_format_item_bonus_percentage(item.stamina_regeneration_multiplier)]
 		if item.description != "":
 			description_item_description.text += "%s[i][color=#%s]%s[/color][/i]" % ["" if description_item_description.text == "" else "\n", RkColorTheme.GRAY.to_html(), item.description]
 	else:
