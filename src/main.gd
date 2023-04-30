@@ -212,26 +212,6 @@ func _limit_camera_to_room():
 # @impure
 func _generate_dungeon():
 	_clear_rooms()
-	# load room scenes
-	var dir := DirAccess.open(RkRoom.ROOMS_DIRECTORY)
-	var room_scenes := {}
-	for room_scenes_dir in dir.get_directories():
-		dir.change_dir(RkRoom.ROOMS_DIRECTORY + "/" + room_scenes_dir)
-		for room_scene_filename in dir.get_files():
-			var room_scene: PackedScene = load(RkRoom.ROOMS_DIRECTORY + "/" + room_scenes_dir + "/" + room_scene_filename)
-			var room_exits := 0
-			var room_scene_state := room_scene.get_state()
-			for property_index in room_scene_state.get_node_property_count(0):
-				match room_scene_state.get_node_property_name(0, property_index):
-					"exit_up": room_exits |= RkRoom.Exit.up
-					"exit_down": room_exits |= RkRoom.Exit.down
-					"exit_left": room_exits |= RkRoom.Exit.left
-					"exit_right": room_exits |= RkRoom.Exit.right
-			if room_scenes.has(room_exits):
-				room_scenes[room_exits].append(room_scene)
-			else:
-				room_scenes[room_exits] = [room_scene]
-	# generate dungeon
 	_generator.rng = rng
 	_generator.start = Vector2i(1, 1)
 	_generator.min_rooms = 12
@@ -250,9 +230,9 @@ func _generate_dungeon():
 				if dungeon[pos.y][pos.x + 1]: cell_exits |= RkRoom.Exit.right
 				if dungeon[pos.y - 1][pos.x]: cell_exits |= RkRoom.Exit.up
 				if dungeon[pos.y + 1][pos.x]: cell_exits |= RkRoom.Exit.down
-				if room_scenes.has(cell_exits):
+				if RkRoomList.ROOM_SCENES.has(cell_exits):
 					# create dungeon room node
-					var room_node := _instantiate_room(RkUtils.pick_random(room_scenes[cell_exits], rng), Vector2i(x, y), distance)
+					var room_node := _instantiate_room(RkUtils.pick_random(RkRoomList.ROOM_SCENES[cell_exits], rng), Vector2i(x, y), distance)
 					room_nodes.push_back(room_node)
 				else:
 					push_error("room %s does not exist..." % [RkRoom.generate_room_exits_name(cell_exits)])

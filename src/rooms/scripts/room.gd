@@ -25,7 +25,6 @@ enum Layer {
 
 const ROOM_SIZE := Vector2i(512, 288)
 const ROOM_TILE_COUNT := Vector2i(32, 18)
-const ROOMS_DIRECTORY := "res://src/rooms/scenes"
 
 const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
 const ROOM_EXIT_VERTICAL_SIZE := Vector2(64.0, 64.0)
