@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b56aihlp5saww" path="res://src/gui/life_points_meter.tscn" id="3_71tvl"]
 [ext_resource type="Texture2D" uid="uid://di0jio3iymru5" path="res://src/items/enemies/textures/orb.png" id="3_c5am6"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="3_ylveh"]
-[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_m51gx"]
+[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_r03ju"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7opvg"]
 
@@ -655,7 +655,7 @@ offset_right = 16.0
 offset_bottom = -16.0
 life_points_system = NodePath("../Systems/LifePoints")
 
-[node name="RoomNotifier2D" parent="." instance=ExtResource("4_m51gx")]
+[node name="RoomNotifier2D" parent="." instance=ExtResource("4_r03ju")]
 listen_room_on = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

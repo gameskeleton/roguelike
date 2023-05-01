@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="1_4ul0w"]
 [ext_resource type="Script" path="res://src/gui/scripts/life_points_meter.gd" id="1_8oacj"]
-[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="3_g6jw6"]
+[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="3_rxq5u"]
 
 [node name="LifePointsMeter" type="Control"]
 layout_mode = 3
@@ -18,7 +18,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 margin_color = Color(1, 0.827451, 0, 0.392157)
 
-[node name="RoomNotifier2D" parent="." instance=ExtResource("3_g6jw6")]
+[node name="RoomNotifier2D" parent="." instance=ExtResource("3_rxq5u")]
 
 [connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]
 [connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]
