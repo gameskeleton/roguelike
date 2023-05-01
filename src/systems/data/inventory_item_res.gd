@@ -3,6 +3,7 @@ class_name RkInventoryItemRes
 
 @export var icon: Texture2D
 @export var name := "Item"
+@export var color := RkColorTheme.DARK_RED
 @export_multiline var description := ""
 
 @export_group("Statistics")

@@ -11,6 +11,7 @@ region = Rect2(192, 288, 16, 16)
 script = ExtResource("2_626mh")
 icon = SubResource("AtlasTexture_l4coe")
 name = "Shield of Pain"
+color = Color(0.847059, 0.137255, 0.137255, 1)
 description = "Could it be useless?"
 gold_earn_multiplier = 0.0
 attack_force_bonus = 0.0

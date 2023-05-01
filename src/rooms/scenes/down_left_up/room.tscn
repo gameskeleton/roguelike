@@ -10,6 +10,7 @@
 [sub_resource type="Resource" id="Resource_km2b0"]
 script = ExtResource("6_3qj8u")
 scene = ExtResource("4_uk0eh")
+params = {}
 offset = Vector2(0, -48)
 probability = 0.75
 distance_probability_modifier = 1.0

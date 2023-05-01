@@ -19,6 +19,8 @@ func _ready():
 	for item in items:
 		if main_node.rng.randf() <= item.probability:
 			var item_node := item.scene.instantiate()
+			for param_key in item.params.keys():
+				item_node.set(param_key, item.params[param_key])
 			add_child(item_node)
 			item_node.owner = self
 			_spawn_count += 1
@@ -48,6 +50,8 @@ func _exit_tree():
 func _spawn_next_preview():
 	if not Engine.is_editor_hint():
 		return
+	if items.is_empty():
+		return
 	if _preview_item_node:
 		remove_child(_preview_item_node)
 		_preview_item_node.queue_free()
@@ -55,6 +59,8 @@ func _spawn_next_preview():
 	var item := items[_preview_item_index]
 	if item.scene:
 		_preview_item_node = item.scene.instantiate()
+		for param_key in item.params.keys():
+			_preview_item_node.set(param_key, item.params[param_key])
 		add_child(_preview_item_node)
 		if _preview_item_node is Node2D:
 			(_preview_item_node as Node2D).position = item.offset

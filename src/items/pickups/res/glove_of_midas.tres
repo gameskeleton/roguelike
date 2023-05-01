@@ -11,6 +11,7 @@ region = Rect2(224, 160, 16, 16)
 script = ExtResource("2_sxiqb")
 icon = SubResource("AtlasTexture_l4coe")
 name = "Glove of Midas"
+color = Color(1, 0.819608, 0.270588, 1)
 description = "A goldfinger"
 gold_earn_multiplier = 0.5
 attack_force_bonus = 0.0

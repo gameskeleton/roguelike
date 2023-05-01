@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://chy3rg8ymj8hp"]
+
+[sub_resource type="Shader" id="Shader_af77y"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 tint: source_color = vec4(1.0, 1.0, 0.0, 1.0);
+uniform float span: hint_range(0.1, 1.0) = 0.3;
+uniform float speed = 0.4;
+
+float luminance(vec4 color) {
+	return 1.0 - sqrt(0.299 * color.r * color.r + 0.587 * color.g * color.g + 0.114 * color.b * color.b);
+}
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	float target = abs(sin(TIME * PI * speed) * (1.0 + span));
+	if (color.a > 0.0) {
+		float lum = luminance(color);
+		float diff = abs(lum - target);
+		float mx = clamp(1. - diff / span, 0.0, 1.0);
+		color = mix(color, tint, mx);
+	}
+	COLOR = color;
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource("Shader_af77y")
+shader_parameter/tint = Color(1, 1, 0, 1)
+shader_parameter/span = 0.3
+shader_parameter/speed = 0.4

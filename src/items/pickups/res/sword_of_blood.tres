@@ -11,6 +11,7 @@ region = Rect2(112, 336, 16, 16)
 script = ExtResource("2_36oq4")
 icon = SubResource("AtlasTexture_l4coe")
 name = "Sword of Blood"
+color = Color(0.847059, 0.137255, 0.137255, 1)
 description = "A sword imbued with the blood of a vampire"
 gold_earn_multiplier = 0.0
 attack_force_bonus = 3.0

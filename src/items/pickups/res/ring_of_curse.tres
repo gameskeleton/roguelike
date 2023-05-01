@@ -11,6 +11,7 @@ region = Rect2(16, 256, 16, 16)
 script = ExtResource("2_go0ik")
 icon = SubResource("AtlasTexture_l4coe")
 name = "Ring of Curse"
+color = Color(0.847059, 0.137255, 0.137255, 1)
 description = "A special price for a special reward"
 gold_earn_multiplier = 0.1
 attack_force_bonus = 0.0

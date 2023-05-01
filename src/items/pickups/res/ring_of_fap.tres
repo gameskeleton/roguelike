@@ -11,6 +11,7 @@ region = Rect2(0, 256, 16, 16)
 script = ExtResource("2_4okrw")
 icon = SubResource("AtlasTexture_l4coe")
 name = "Ring of Favor and Protection"
+color = Color(0.796078, 0.560784, 0.0941176, 1)
 description = "A ring symbolizing the favor and protection of the goddess Fina, known in legend to possess 'fateful beauty."
 gold_earn_multiplier = 0.0
 attack_force_bonus = 0.0
