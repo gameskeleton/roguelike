@@ -40,3 +40,9 @@ layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = -1
 layer_4/tile_data = PackedInt32Array()
+
+[node name="Background" type="ColorRect" parent="Tilemap"]
+z_index = -4
+offset_right = 512.0
+offset_bottom = 288.0
+color = Color(0.141176, 0.133333, 0.203922, 1)
