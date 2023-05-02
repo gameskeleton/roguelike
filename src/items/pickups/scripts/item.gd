@@ -1,7 +1,7 @@
 @tool
 extends RigidBody2D
 
-@export var item: RkInventoryItemRes :
+@export var item: RkItemRes :
 	get: return item
 	set(new_item):
 		item = new_item

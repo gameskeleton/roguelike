@@ -1,7 +1,7 @@
 extends ColorRect
 class_name RkGuiInventoryCell
 
-@export var item: RkInventoryItemRes :
+@export var item: RkItemRes :
 	get: return item
 	set(value):
 		item = value

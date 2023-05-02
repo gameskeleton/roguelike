@@ -1,5 +1,5 @@
 extends Resource
-class_name RkInventoryItemRes
+class_name RkItemRes
 
 @export var icon: Texture2D
 @export var name := "Item"

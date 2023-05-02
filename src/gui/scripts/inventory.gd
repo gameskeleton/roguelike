@@ -46,10 +46,10 @@ func _ready():
 	_inventory_system = RkInventorySystem.find_system_node(node)
 	_life_points_system = RkLifePointsSystem.find_system_node(node)
 	# connect signals
-	_inventory_system.item_added.connect(func(_item: RkInventoryItemRes, _index: int): _update_cells())
-	_inventory_system.slot_added.connect(func(_slot: RkInventoryItemRes, _index: int): _update_cells())
-	_inventory_system.item_removed.connect(func(_item: RkInventoryItemRes, _index: int): _update_cells())
-	_inventory_system.slot_removed.connect(func(_slot: RkInventoryItemRes, _index: int): _update_cells())
+	_inventory_system.item_added.connect(func(_item: RkItemRes, _index: int): _update_cells())
+	_inventory_system.slot_added.connect(func(_slot: RkItemRes, _index: int): _update_cells())
+	_inventory_system.item_removed.connect(func(_item: RkItemRes, _index: int): _update_cells())
+	_inventory_system.slot_removed.connect(func(_slot: RkItemRes, _index: int): _update_cells())
 	_update_cells()
 
 # @impure
@@ -151,7 +151,7 @@ func _format_item_bonus_percentage(value: float):
 	return "[color=#%s]%s%.0f%%[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 0.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 0.0 else "", ceilf(value * 100.0)]
 
 # @impure
-func _update_item_name_and_description(item: RkInventoryItemRes):
+func _update_item_name_and_description(item: RkItemRes):
 	if item:
 		description_item_name.text = item.name
 		description_item_description.text = ""

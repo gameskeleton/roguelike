@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="RkInventoryItemRes" load_steps=4 format=3 uid="uid://dngf1iwggf010"]
+[gd_resource type="Resource" script_class="RkItemRes" load_steps=4 format=3 uid="uid://burl7fwlaggi3"]
 
 [ext_resource type="Texture2D" uid="uid://dpmv8ns77wlgr" path="res://src/gui/textures/inventory_items.png" id="1_tne3n"]
-[ext_resource type="Script" path="res://src/systems/data/inventory_item_res.gd" id="2_go0ik"]
+[ext_resource type="Script" path="res://src/shared/data/item_res.gd" id="2_go0ik"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l4coe"]
 atlas = ExtResource("1_tne3n")
