@@ -1,5 +1,6 @@
 @tool
 extends RigidBody2D
+class_name RkPickupItem
 
 @export var item: RkItemRes :
 	get: return item

@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="RkItemRes" load_steps=4 format=3 uid="uid://dj7qdgvwdkdrx"]
+[gd_resource type="Resource" script_class="RkItemRes" load_steps=4 format=3 uid="uid://dcttd82yum4tb"]
 
 [ext_resource type="Texture2D" uid="uid://dpmv8ns77wlgr" path="res://src/gui/textures/inventory_items.png" id="1_20ocm"]
-[ext_resource type="Script" path="res://src/shared/data/item_res.gd" id="2_626mh"]
+[ext_resource type="Script" path="res://src/shared/data/item.gd" id="2_626mh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l4coe"]
 atlas = ExtResource("1_20ocm")
@@ -12,7 +12,7 @@ script = ExtResource("2_626mh")
 icon = SubResource("AtlasTexture_l4coe")
 name = "Shield of Pain"
 color = Color(0.847059, 0.137255, 0.137255, 1)
-description = "Could it be useless?"
+description = "Legends speak of an ancient shield, imbued with dark magic that draws upon its wielder's life force. Its power comes at a great cost, leaving some to question whether it is a cursed artifact or a tool of immense strength. Whispers of the shield persist, but its true nature remains shrouded in mystery."
 gold_earn_multiplier = 0.0
 attack_force_bonus = 0.0
 attack_force_multiplier = 0.0

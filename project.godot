@@ -27,6 +27,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Roguelike"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [gui]
 
 theme/custom="res://src/gui/default_theme.tres"

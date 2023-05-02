@@ -2,7 +2,6 @@ extends RigidBody2D
 class_name RkPickupCoin
 
 const PICKUP_DELAY := 0.35
-const IMPULSE_STRENGTH := 30.0
 
 @export var value := 1
 
@@ -11,8 +10,6 @@ const IMPULSE_STRENGTH := 30.0
 
 # @impure
 func _ready():
-	# add random impulse
-	apply_central_impulse(IMPULSE_STRENGTH * Vector2(randf_range(-5.0, 5.0), randf_range(-4.0, -6.0)))
 	# enable pickup after a while
 	await get_tree().create_timer(PICKUP_DELAY, false).timeout
 	player_detector.monitoring = true

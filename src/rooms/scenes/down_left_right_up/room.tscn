@@ -1,33 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://oa2ec261w2h3"]
+[gd_scene load_steps=4 format=3 uid="uid://oa2ec261w2h3"]
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_ekkbm"]
 [ext_resource type="PackedScene" uid="uid://cf1gifdkc20ov" path="res://src/items/decors/barrel.tscn" id="2_yu6tn"]
 [ext_resource type="PackedScene" uid="uid://bvesf3gnoedis" path="res://src/items/decors/crate.tscn" id="3_g1alf"]
-[ext_resource type="PackedScene" uid="uid://ch787sxtr5k1l" path="res://src/rooms/room_spawner.tscn" id="4_7fed7"]
-[ext_resource type="PackedScene" uid="uid://cy2rr0sj45mbb" path="res://src/items/chest/chest.tscn" id="5_r0r8j"]
-[ext_resource type="Script" path="res://src/rooms/scripts/room_spawner_res.gd" id="6_1xklw"]
-[ext_resource type="Resource" uid="uid://64m4kyrakc8c" path="res://src/items/pickups/items/glove_of_midas.tres" id="7_4nlsy"]
-[ext_resource type="PackedScene" uid="uid://r7km4ore3ogt" path="res://src/items/pickups/item.tscn" id="8_54yg7"]
-
-[sub_resource type="Resource" id="Resource_brkva"]
-script = ExtResource("6_1xklw")
-scene = ExtResource("5_r0r8j")
-params = {}
-offset = Vector2(0, 0)
-probability = 0.5
-distance_probability_modifier = 1.0
-direction = 1
-
-[sub_resource type="Resource" id="Resource_1a0x3"]
-script = ExtResource("6_1xklw")
-scene = ExtResource("8_54yg7")
-params = {
-"item": ExtResource("7_4nlsy")
-}
-offset = Vector2(0, 0)
-probability = 0.5
-distance_probability_modifier = 1.0
-direction = -1
 
 [node name="Room" instance=ExtResource("1_ekkbm")]
 exit_up = true
@@ -67,7 +42,3 @@ position = Vector2(24, 168)
 
 [node name="Barrel6" parent="." index="9" instance=ExtResource("2_yu6tn")]
 position = Vector2(40, 168)
-
-[node name="RoomSpawner" parent="." index="10" instance=ExtResource("4_7fed7")]
-position = Vector2(336, 160)
-items = Array[ExtResource("6_1xklw")]([SubResource("Resource_brkva"), SubResource("Resource_1a0x3")])

@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://hxjd287kb3b8"]
+[gd_scene load_steps=18 format=3 uid="uid://hxjd287kb3b8"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
+[ext_resource type="PackedScene" uid="uid://ds1yjiv8yvxgi" path="res://src/playground.tscn" id="2_7eefl"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="4_poqhe"]
@@ -101,6 +102,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
+start_room_scene = ExtResource("2_7eefl")
 metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
