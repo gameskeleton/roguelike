@@ -2,7 +2,7 @@
 extends RkSpawnRes
 class_name RkSpawnChestRes
 
-const CHEST_SCENE: PackedScene = preload("res://src/items/chest/chest.tscn")
+const CHEST_SCENE: PackedScene = preload("res://src/objects/pickups/chest.tscn")
 
 @export var content: RkSpawnRes
 

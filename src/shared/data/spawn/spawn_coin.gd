@@ -2,7 +2,7 @@
 extends RkSpawnRes
 class_name RkSpawnCoinRes
 
-const PICKUP_COIN_SCENE: PackedScene = preload("res://src/items/pickups/coin.tscn")
+const PICKUP_COIN_SCENE: PackedScene = preload("res://src/objects/pickups/coin.tscn")
 
 @export var min_count := 1
 @export var max_count := 1

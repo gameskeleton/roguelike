@@ -2,7 +2,7 @@
 extends RkSpawnRes
 class_name RkSpawnItemRes
 
-const PICKUP_ITEM_SCENE: PackedScene = preload("res://src/items/pickups/item.tscn")
+const PICKUP_ITEM_SCENE: PackedScene = preload("res://src/objects/pickups/item.tscn")
 
 @export var item: RkItemRes
 @export var expulse_strength := 200.0

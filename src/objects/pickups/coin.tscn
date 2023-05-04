@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://dnrxtsteyox5f"]
+
+[ext_resource type="Script" path="res://src/objects/pickups/scripts/coin.gd" id="1_rcdwb"]
+[ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_71mxx"]
+[ext_resource type="Texture2D" uid="uid://d27wac7748750" path="res://src/objects/pickups/textures/coin.png" id="3_qji7c"]
+[ext_resource type="PackedScene" uid="uid://qt3kps4yxxl" path="res://src/shared/white_point_light.tscn" id="4_ghc68"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i2lns"]
+bounce = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctdi1"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r7tw"]
+atlas = ExtResource("3_qji7c")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxxsp"]
+atlas = ExtResource("3_qji7c")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_333sm"]
+atlas = ExtResource("3_qji7c")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on7j6"]
+atlas = ExtResource("3_qji7c")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m2mye"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1r7tw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxxsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_333sm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on7j6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
+size = Vector2(12, 12)
+
+[node name="Coin" type="RigidBody2D"]
+collision_layer = 256
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_i2lns")
+lock_rotation = true
+angular_damp = 10.0
+script = ExtResource("1_rcdwb")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Line2D" type="Line2D" parent="Node"]
+z_index = -1
+width = 2.0
+default_color = Color(0.8, 0.752941, 0.329412, 0.784314)
+joint_mode = 2
+round_precision = 16
+antialiased = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ctdi1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_71mxx")
+sprite_frames = SubResource("SpriteFrames_m2mye")
+autoplay = "default"
+frame_progress = 0.727865
+
+[node name="WhitePointLight2D" parent="." instance=ExtResource("4_ghc68")]
+color = Color(0.984314, 1, 0.486275, 1)
+energy = 0.5
+texture_scale = 0.1
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("RectangleShape2D_wogr8")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

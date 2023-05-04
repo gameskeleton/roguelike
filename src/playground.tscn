@@ -1,12 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://ds1yjiv8yvxgi"]
+[gd_scene load_steps=15 format=3 uid="uid://cvi7pukwtusxy"]
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_kymoh"]
-[ext_resource type="PackedScene" uid="uid://6ganfjfm5h0e" path="res://src/items/decors/candle.tscn" id="2_240x2"]
+[ext_resource type="PackedScene" path="res://src/objects/decors/candle.tscn" id="2_240x2"]
 [ext_resource type="PackedScene" uid="uid://g2jxcdos7fa4" path="res://src/shared/random_spawner.tscn" id="3_1t2sj"]
 [ext_resource type="Script" path="res://src/shared/data/random_spawn.gd" id="4_l2cgx"]
 [ext_resource type="Script" path="res://src/shared/data/item.gd" id="5_k7tfq"]
 [ext_resource type="Script" path="res://src/shared/data/spawn/spawn_item.gd" id="6_cjhuc"]
-[ext_resource type="Resource" uid="uid://dgm5e713lx73u" path="res://src/items/pickups/items/glove_of_midas.tres" id="7_17tcy"]
+[ext_resource type="Resource" uid="uid://dgm5e713lx73u" path="res://src/items/glove_of_midas.tres" id="7_17tcy"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lmbva"]
 load_path = "res://.godot/imported/inventory_items.png-be97e79b3c292827aeb92e230faa2414.ctex"
