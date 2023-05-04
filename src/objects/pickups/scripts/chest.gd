@@ -24,7 +24,7 @@ func _process(_delta: float):
 		_opened = true
 		$AnimatedSprite2D.play("open")
 	if _opened and $AnimatedSprite2D.frame > 5:
-		content.spawn(get_parent())
+		content.spawn(self)
 		set_process(false)
 
 # @signal

@@ -1,61 +1,45 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvi7pukwtusxy"]
+[gd_scene load_steps=14 format=3 uid="uid://cvi7pukwtusxy"]
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_kymoh"]
-[ext_resource type="PackedScene" path="res://src/objects/decors/candle.tscn" id="2_240x2"]
-[ext_resource type="PackedScene" uid="uid://g2jxcdos7fa4" path="res://src/shared/random_spawner.tscn" id="3_1t2sj"]
-[ext_resource type="Script" path="res://src/shared/data/random_spawn.gd" id="4_l2cgx"]
-[ext_resource type="Script" path="res://src/shared/data/item.gd" id="5_k7tfq"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_item.gd" id="6_cjhuc"]
-[ext_resource type="Resource" uid="uid://dgm5e713lx73u" path="res://src/items/glove_of_midas.tres" id="7_17tcy"]
+[ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="2_240x2"]
+[ext_resource type="PackedScene" uid="uid://c4gs7w2r4g4as" path="res://src/shared/random_spawner.tscn" id="3_ronfl"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_random.gd" id="4_2frvr"]
+[ext_resource type="Resource" uid="uid://dgm5e713lx73u" path="res://src/items/glove_of_midas.tres" id="4_d1vc8"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_item.gd" id="5_vvx78"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_random_item.gd" id="6_n28af"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_coin.gd" id="7_sptcr"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lmbva"]
-load_path = "res://.godot/imported/inventory_items.png-be97e79b3c292827aeb92e230faa2414.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y77tc"]
-atlas = SubResource("CompressedTexture2D_lmbva")
-region = Rect2(192, 288, 16, 16)
-
-[sub_resource type="Resource" id="Resource_hyb5f"]
-script = ExtResource("5_k7tfq")
-icon = SubResource("AtlasTexture_y77tc")
-name = "Shield of Pain"
-color = Color(0.847059, 0.137255, 0.137255, 1)
-description = "Legends speak of an ancient shield, imbued with dark magic that draws upon its wielder's life force. Its power comes at a great cost, leaving some to question whether it is a cursed artifact or a tool of immense strength. Whispers of the shield persist, but its true nature remains shrouded in mystery."
-gold_earn_multiplier = 0.0
-attack_force_bonus = 0.0
-attack_force_multiplier = 0.0
-attack_defence_bonus = 5.0
-attack_defence_multiplier = 0.0
-stamina_bonus = 0.0
-stamina_multiplier = 0.0
-stamina_regeneration_bonus = 0.0
-stamina_regeneration_multiplier = 0.0
-stamina_regeneration_delay_bonus = 0.0
-stamina_regeneration_delay_multiplier = 0.0
-life_points_bonus = 1.0
-life_points_multiplier = -0.1
-
-[sub_resource type="Resource" id="Resource_ekckf"]
-script = ExtResource("6_cjhuc")
-item = SubResource("Resource_hyb5f")
+[sub_resource type="Resource" id="Resource_r7snj"]
+script = ExtResource("5_vvx78")
+item = ExtResource("4_d1vc8")
 expulse_strength = 200.0
 expulse_direction = Vector2(0, -1)
 
-[sub_resource type="Resource" id="Resource_jd6iv"]
-script = ExtResource("4_l2cgx")
-spawn = SubResource("Resource_ekckf")
+[sub_resource type="Resource" id="Resource_ecapi"]
+script = ExtResource("6_n28af")
+content = SubResource("Resource_r7snj")
 probability = 0.5
 
-[sub_resource type="Resource" id="Resource_722mu"]
-script = ExtResource("6_cjhuc")
-item = ExtResource("7_17tcy")
-expulse_strength = 200.0
+[sub_resource type="Resource" id="Resource_rv0wl"]
+script = ExtResource("7_sptcr")
+min_count = 1
+max_count = 1
 expulse_direction = Vector2(0, -1)
+expulse_strength_min = 180.0
+expulse_strength_max = 200.0
+expulse_direction_cone = 35.0
+delay_in_secs_between_spawns = 0.05
 
-[sub_resource type="Resource" id="Resource_lowqb"]
-script = ExtResource("4_l2cgx")
-spawn = SubResource("Resource_722mu")
+[sub_resource type="Resource" id="Resource_oyhdt"]
+script = ExtResource("6_n28af")
+content = SubResource("Resource_rv0wl")
 probability = 0.5
+
+[sub_resource type="Resource" id="Resource_67sst"]
+script = ExtResource("4_2frvr")
+random_spawns = Array[ExtResource("6_n28af")]([SubResource("Resource_ecapi"), SubResource("Resource_oyhdt")])
+max_spawn_count = 1
+preview_spawn_index = 0
 
 [node name="Room" instance=ExtResource("1_kymoh")]
 
@@ -67,10 +51,6 @@ layer_3/tile_data = PackedInt32Array(786453, 131073, 3, 655381, 131073, 3, 52430
 [node name="WallLamp" parent="." index="1" instance=ExtResource("2_240x2")]
 position = Vector2(376, 96)
 
-[node name="RandomSpawner" parent="." index="2" instance=ExtResource("3_1t2sj")]
-position = Vector2(144, 256)
-random_spawns = Array[ExtResource("4_l2cgx")]([SubResource("Resource_jd6iv")])
-
-[node name="RandomSpawner2" parent="." index="3" instance=ExtResource("3_1t2sj")]
-position = Vector2(168, 256)
-random_spawns = Array[ExtResource("4_l2cgx")]([SubResource("Resource_lowqb")])
+[node name="RandomSpawner" parent="." index="2" instance=ExtResource("3_ronfl")]
+position = Vector2(272, 256)
+random_spawn = SubResource("Resource_67sst")
