@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://x856nndosugl"]
+
+[ext_resource type="Script" path="res://src/objects/decors/scripts/decor.gd" id="1_1nc1r"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="1_4ih4r"]
+[ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/objects/decors/textures/decors2.png" id="1_58nt0"]
+[ext_resource type="PackedScene" uid="uid://ci3vkgv8vp8qn" path="res://src/objects/decors/candelabra_debris.tscn" id="2_rwr4d"]
+[ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_tlyxk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imyae"]
+atlas = ExtResource("1_58nt0")
+region = Rect2(128, 16, 16, 48)
+
+[sub_resource type="Animation" id="Animation_fo7qc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.25]
+}
+
+[sub_resource type="Animation" id="Animation_gvcwi"]
+resource_name = "light_pulse"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.25, 0.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g2w2u"]
+_data = {
+"RESET": SubResource("Animation_fo7qc"),
+"light_pulse": SubResource("Animation_gvcwi")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqnap"]
+size = Vector2(16, 48)
+
+[node name="Candelabra" type="Node2D"]
+script = ExtResource("1_1nc1r")
+debris_scene = ExtResource("2_rwr4d")
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("1_4ih4r")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -24)
+texture = SubResource("AtlasTexture_imyae")
+
+[node name="WarmPointLight2D" parent="." instance=ExtResource("2_tlyxk")]
+position = Vector2(0, -45)
+scale = Vector2(0.75, 0.75)
+texture_scale = 0.25
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../WarmPointLight2D")
+autoplay = "light_pulse"
+libraries = {
+"": SubResource("AnimationLibrary_g2w2u")
+}
+
+[node name="AttackDetector" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 136
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_pqnap")
+
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]

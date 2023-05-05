@@ -46,3 +46,4 @@ z_index = -4
 offset_right = 512.0
 offset_bottom = 288.0
 color = Color(0.141176, 0.133333, 0.203922, 1)
+metadata/_edit_lock_ = true

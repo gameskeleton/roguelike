@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://ci3vkgv8vp8qn"]
+
+[ext_resource type="Script" path="res://src/objects/decors/scripts/debris.gd" id="1_cp7py"]
+[ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/objects/decors/textures/decors2.png" id="2_67s2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_neskb"]
+size = Vector2(13.375, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goyvl"]
+size = Vector2(14, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl1ix"]
+size = Vector2(2, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwnqq"]
+atlas = ExtResource("2_67s2m")
+region = Rect2(128, 16, 16, 48)
+
+[node name="Debris" type="Node2D"]
+script = ExtResource("1_cp7py")
+pieces = Array[NodePath]([NodePath("CandelabraFoot"), NodePath("CandelabraCandleHolder"), NodePath("CandelabraMiddleTop"), NodePath("CandelabraMiddleBottom")])
+
+[node name="CandelabraFoot" type="RigidBody2D" parent="."]
+position = Vector2(0, -2)
+collision_layer = 32
+collision_mask = 19
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CandelabraFoot"]
+z_index = -3
+texture = ExtResource("2_67s2m")
+region_enabled = true
+region_rect = Rect2(128, 60, 16, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CandelabraFoot"]
+shape = SubResource("RectangleShape2D_neskb")
+
+[node name="CandelabraCandleHolder" type="RigidBody2D" parent="."]
+position = Vector2(0, -37)
+collision_layer = 32
+collision_mask = 19
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CandelabraCandleHolder"]
+z_index = -3
+texture = ExtResource("2_67s2m")
+region_enabled = true
+region_rect = Rect2(129, 24, 14, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CandelabraCandleHolder"]
+shape = SubResource("RectangleShape2D_goyvl")
+
+[node name="CandelabraMiddleTop" type="RigidBody2D" parent="."]
+position = Vector2(0, -26)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CandelabraMiddleTop"]
+z_index = -3
+texture = ExtResource("2_67s2m")
+region_enabled = true
+region_rect = Rect2(135, 30, 2, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CandelabraMiddleTop"]
+shape = SubResource("RectangleShape2D_pl1ix")
+
+[node name="CandelabraMiddleBottom" type="RigidBody2D" parent="."]
+position = Vector2(0, -10)
+collision_layer = 32
+collision_mask = 27
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CandelabraMiddleBottom"]
+z_index = -3
+texture = ExtResource("2_67s2m")
+region_enabled = true
+region_rect = Rect2(135, 44, 2, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CandelabraMiddleBottom"]
+shape = SubResource("RectangleShape2D_pl1ix")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(24, -24)
+texture = SubResource("AtlasTexture_gwnqq")

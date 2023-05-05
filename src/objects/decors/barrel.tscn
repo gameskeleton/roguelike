@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwl1pfuh23nfm"]
+[gd_scene load_steps=6 format=3 uid="uid://bwl1pfuh23nfm"]
 
-[ext_resource type="Script" path="res://src/objects/decors/scripts/decor.gd" id="1_2hu5h"]
+[ext_resource type="Script" path="res://src/objects/decors/scripts/decor.gd" id="1_odu7o"]
+[ext_resource type="PackedScene" uid="uid://dyphp0w0smot3" path="res://src/objects/decors/barrel_debris.tscn" id="2_f4dmf"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_r1rjk"]
 [ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/objects/decors/textures/decors.png" id="3_sdt1s"]
 
@@ -11,7 +12,8 @@ size = Vector2(16, 16)
 collision_layer = 16
 collision_mask = 19
 can_sleep = false
-script = ExtResource("1_2hu5h")
+script = ExtResource("1_odu7o")
+debris_scene = ExtResource("2_f4dmf")
 
 [node name="Systems" type="Node" parent="."]
 
@@ -22,14 +24,17 @@ damage_multiplier_physical = 1000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
+position = Vector2(0, -8)
 texture = ExtResource("3_sdt1s")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_1quh3")
 
 [node name="AttackDetector" type="Area2D" parent="."]
+position = Vector2(0, -8)
 collision_layer = 16
 collision_mask = 136
 

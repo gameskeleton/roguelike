@@ -15,16 +15,16 @@ layer_2/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 1, 131072, 65536
 layer_3/tile_data = PackedInt32Array(1048593, 131073, 3, 720910, 1, 3)
 
 [node name="Barrel" parent="." index="1" instance=ExtResource("2_v375b")]
-position = Vector2(88, 104)
+position = Vector2(96, 112)
 
 [node name="Crate" parent="." index="2" instance=ExtResource("4_kkfe7")]
-position = Vector2(104, 104)
+position = Vector2(112, 112)
 
 [node name="Barrel2" parent="." index="3" instance=ExtResource("2_v375b")]
-position = Vector2(96, 88)
+position = Vector2(104, 96)
 
 [node name="Crate2" parent="." index="4" instance=ExtResource("4_kkfe7")]
-position = Vector2(120, 104)
+position = Vector2(128, 112)
 
 [node name="Crate3" parent="." index="5" instance=ExtResource("4_kkfe7")]
-position = Vector2(112, 88)
+position = Vector2(120, 96)

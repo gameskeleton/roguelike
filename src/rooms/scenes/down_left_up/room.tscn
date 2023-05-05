@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt5n3dq6ee1pf"]
+[gd_scene load_steps=5 format=3 uid="uid://dt5n3dq6ee1pf"]
 
 [ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_akl23"]
 [ext_resource type="PackedScene" uid="uid://bwl1pfuh23nfm" path="res://src/objects/decors/barrel.tscn" id="2_eed1x"]
 [ext_resource type="PackedScene" uid="uid://c60amkkqjnidf" path="res://src/objects/decors/crate.tscn" id="3_2ilk8"]
+[ext_resource type="PackedScene" uid="uid://x856nndosugl" path="res://src/objects/decors/candelabra.tscn" id="4_2f8qk"]
 
 [node name="Room" instance=ExtResource("1_akl23")]
 exit_up = true
@@ -16,28 +17,31 @@ layer_2/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 1, 131072, 65536
 layer_3/tile_data = PackedInt32Array(786457, 131073, 3, 131089, 131073, 3, 17, 131073, 3, 393230, 1, 3, 262158, 1, 3, 1048593, 131073, 3, 786446, 1, 3)
 
 [node name="Barrel" parent="." index="1" instance=ExtResource("2_eed1x")]
-position = Vector2(72, 168)
+position = Vector2(72, 176)
 
 [node name="Crate" parent="." index="2" instance=ExtResource("3_2ilk8")]
-position = Vector2(88, 168)
+position = Vector2(88, 176)
 
 [node name="Crate2" parent="." index="3" instance=ExtResource("3_2ilk8")]
-position = Vector2(104, 168)
+position = Vector2(104, 176)
 
 [node name="Barrel2" parent="." index="4" instance=ExtResource("2_eed1x")]
-position = Vector2(80, 152)
+position = Vector2(80, 160)
 
 [node name="Barrel3" parent="." index="5" instance=ExtResource("2_eed1x")]
-position = Vector2(96, 152)
+position = Vector2(96, 160)
 
 [node name="Barrel4" parent="." index="6" instance=ExtResource("2_eed1x")]
-position = Vector2(168, 184)
+position = Vector2(168, 192)
 
 [node name="Crate3" parent="." index="7" instance=ExtResource("3_2ilk8")]
-position = Vector2(184, 184)
+position = Vector2(184, 192)
 
 [node name="Crate4" parent="." index="8" instance=ExtResource("3_2ilk8")]
-position = Vector2(360, 216)
+position = Vector2(360, 224)
 
 [node name="Crate5" parent="." index="9" instance=ExtResource("3_2ilk8")]
-position = Vector2(344, 216)
+position = Vector2(344, 224)
+
+[node name="Candle" parent="." index="10" instance=ExtResource("4_2f8qk")]
+position = Vector2(368, 128)
