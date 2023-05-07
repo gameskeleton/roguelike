@@ -114,6 +114,7 @@ safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
 process_mode = 3
+position = Vector2(0, -16)
 process_callback = 0
 limit_left = 0
 limit_top = 0
@@ -125,33 +126,32 @@ position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_screen = false
-metadata/_edit_lock_ = true
 
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
+position = Vector2(0, -16)
 color = Color(1, 0.27451, 0, 1)
 shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
-metadata/_edit_lock_ = true
 
 [node name="PlayerLight2D" type="PointLight2D" parent="Game/Player"]
+position = Vector2(0, -16)
 energy = 0.5
 range_item_cull_mask = 2
 shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
-metadata/_edit_lock_ = true
 
 [node name="LevelUpLabel" type="Label" parent="Game/Player"]
 process_mode = 2
 z_index = 1
 material = ExtResource("6_41hv6")
 offset_left = -32.0
-offset_top = -41.0
+offset_top = -63.0
 offset_right = 32.0
-offset_bottom = -21.0
+offset_bottom = -43.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 14

@@ -242,7 +242,7 @@ func apply_deceleration(delta: float, value: float, deceleration: float) -> floa
 func get_corner_position() -> Vector2:
 	return Vector2(
 		floor(floor(position.x / 16.0) * 16.0) + (16.0 if direction > 0 else 0.0),
-		floor(floor(position.y / 16.0) * 16.0)
+		floor(floor(position.y / 16.0) * 16.0) - 10.0
 	)
 
 ###
