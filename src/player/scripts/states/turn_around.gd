@@ -31,6 +31,8 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.walk
 	if player_node.is_animation_finished():
 		player_node.set_direction(-player_node.direction)
+		if player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and not player_node.is_on_wall_passive():
+			return player_node.fsm.state_nodes.walk
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():
