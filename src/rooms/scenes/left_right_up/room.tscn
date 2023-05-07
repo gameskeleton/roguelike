@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bglhpa7iuf0xm"]
 
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_kqa2n"]
-[ext_resource type="PackedScene" uid="uid://bwl1pfuh23nfm" path="res://src/objects/decors/barrel.tscn" id="2_kgyvm"]
-[ext_resource type="PackedScene" uid="uid://c60amkkqjnidf" path="res://src/objects/decors/crate.tscn" id="3_adjmn"]
-[ext_resource type="PackedScene" uid="uid://x856nndosugl" path="res://src/objects/decors/candelabra.tscn" id="4_hcpot"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_kqa2n"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_kgyvm"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_adjmn"]
+[ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="4_hcpot"]
 
 [node name="Room" instance=ExtResource("1_kqa2n")]
 exit_up = true

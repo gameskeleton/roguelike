@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://mn1n6n61cfkm"]
 
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_hkpj2"]
-[ext_resource type="PackedScene" uid="uid://bwl1pfuh23nfm" path="res://src/objects/decors/barrel.tscn" id="2_xq5nu"]
-[ext_resource type="PackedScene" uid="uid://c60amkkqjnidf" path="res://src/objects/decors/crate.tscn" id="3_l4o4i"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_hkpj2"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_xq5nu"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_l4o4i"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="4_o7tk1"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="5_i3gdg"]
 [ext_resource type="Script" path="res://src/shared/data/spawn/spawn_coin.gd" id="6_khphc"]
-[ext_resource type="PackedScene" uid="uid://x856nndosugl" path="res://src/objects/decors/candelabra.tscn" id="7_46277"]
+[ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="7_46277"]
 
 [sub_resource type="Resource" id="Resource_jqvgb"]
 script = ExtResource("6_khphc")

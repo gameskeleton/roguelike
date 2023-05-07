@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://b8i4d1yhle7lq"]
 
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_ey4pc"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_ey4pc"]
 [ext_resource type="PackedScene" uid="uid://baeqgyv8h7is3" path="res://src/objects/enemies/orb.tscn" id="2_cdqep"]
-[ext_resource type="PackedScene" uid="uid://bwl1pfuh23nfm" path="res://src/objects/decors/barrel.tscn" id="3_tinc4"]
-[ext_resource type="PackedScene" uid="uid://c60amkkqjnidf" path="res://src/objects/decors/crate.tscn" id="4_ud6bx"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="3_tinc4"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="4_ud6bx"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="5_w3o7e"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="6_rcxv3"]
 [ext_resource type="Script" path="res://src/shared/data/spawn/spawn_coin.gd" id="7_r6bpy"]

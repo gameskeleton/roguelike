@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6h6pabxh0m3b"]
 
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_05htf"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_05htf"]
 
 [node name="Room" instance=ExtResource("1_05htf")]
 exit_right = true

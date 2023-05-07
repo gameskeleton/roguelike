@@ -1,31 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://kojbpi6e5oji"]
+[gd_scene load_steps=11 format=3 uid="uid://kojbpi6e5oji"]
 
 [ext_resource type="Texture2D" uid="uid://djwyov40iqpnu" path="res://src/objects/decors/textures/candle.png" id="1_o3hiu"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_l0ky8"]
+[ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/objects/decors/flame.tscn" id="3_rauy0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jl5wk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw0wv"]
 atlas = ExtResource("1_o3hiu")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 16, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6a1y7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdxs0"]
 atlas = ExtResource("1_o3hiu")
-region = Rect2(16, 0, 16, 16)
+region = Rect2(16, 0, 16, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ud0na"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wffun"]
 atlas = ExtResource("1_o3hiu")
-region = Rect2(32, 0, 16, 16)
+region = Rect2(32, 0, 16, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1jb1l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jl5wk")
+"texture": SubResource("AtlasTexture_pw0wv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6a1y7")
+"texture": SubResource("AtlasTexture_kdxs0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ud0na")
+"texture": SubResource("AtlasTexture_wffun")
 }],
 "loop": true,
 "name": &"default",
@@ -72,21 +73,24 @@ _data = {
 
 [node name="Candle" type="Node2D"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 z_index = -1
-position = Vector2(-8, -16)
+position = Vector2(-8, -8)
 sprite_frames = SubResource("SpriteFrames_1jb1l")
 autoplay = "default"
 frame_progress = 0.855633
 centered = false
 
-[node name="WarmPointLight2D" parent="." instance=ExtResource("2_l0ky8")]
-position = Vector2(1.90735e-06, -11)
+[node name="Light" parent="Sprite" instance=ExtResource("2_l0ky8")]
+position = Vector2(8, -3)
 scale = Vector2(0.75, 0.75)
 texture_scale = 0.25
 
+[node name="Flame" parent="Sprite" instance=ExtResource("3_rauy0")]
+position = Vector2(8, 0)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../WarmPointLight2D")
+root_node = NodePath("../Sprite/Light")
 autoplay = "light_pulse"
 libraries = {
 "": SubResource("AnimationLibrary_g2w2u")

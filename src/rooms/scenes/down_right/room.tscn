@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://tu35an5wmodq"]
 
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_404xn"]
-[ext_resource type="PackedScene" uid="uid://bwl1pfuh23nfm" path="res://src/objects/decors/barrel.tscn" id="2_v375b"]
-[ext_resource type="PackedScene" uid="uid://c60amkkqjnidf" path="res://src/objects/decors/crate.tscn" id="4_kkfe7"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_404xn"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_v375b"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="4_kkfe7"]
 
 [node name="Room" instance=ExtResource("1_404xn")]
 exit_down = true

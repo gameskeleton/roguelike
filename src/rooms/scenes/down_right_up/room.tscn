@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://0t0f7kkcjdv"]
 
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="1_mkyw7"]
-[ext_resource type="PackedScene" uid="uid://bwl1pfuh23nfm" path="res://src/objects/decors/barrel.tscn" id="2_o0rrn"]
-[ext_resource type="PackedScene" uid="uid://c60amkkqjnidf" path="res://src/objects/decors/crate.tscn" id="3_iguiq"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_mkyw7"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_o0rrn"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_iguiq"]
 [ext_resource type="PackedScene" uid="uid://baeqgyv8h7is3" path="res://src/objects/enemies/orb.tscn" id="4_udh3g"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="5_1outa"]
 [ext_resource type="Resource" uid="uid://dgm5e713lx73u" path="res://src/items/glove_of_midas.tres" id="6_6yl7u"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
-[ext_resource type="PackedScene" uid="uid://doe07adv2ccoq" path="res://src/rooms/room.tscn" id="4_poqhe"]
+[ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
 [ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/objects/pickups/pickup_spawner.tscn" id="7_tmcqs"]

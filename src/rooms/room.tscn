@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://doe07adv2ccoq"]
+[gd_scene load_steps=3 format=3 uid="uid://dhxqyuajsocl7"]
 
 [ext_resource type="Script" path="res://src/rooms/scripts/room.gd" id="1_jqc4w"]
-[ext_resource type="TileSet" uid="uid://dfkk7hovcpdvi" path="res://src/rooms/tilemap_tileset/tileset.tres" id="2_skhgt"]
+[ext_resource type="TileSet" path="res://src/rooms/tileset.tres" id="2_7o6dw"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_jqc4w")
 
 [node name="Tilemap" type="TileMap" parent="."]
-tile_set = ExtResource("2_skhgt")
+tile_set = ExtResource("2_7o6dw")
 format = 2
 layer_0/name = "Bg"
 layer_0/z_index = -4

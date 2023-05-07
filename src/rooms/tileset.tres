@@ -1,7 +1,7 @@
-[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://dfkk7hovcpdvi"]
+[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://lth6na7avtvk"]
 
-[ext_resource type="Texture2D" uid="uid://bd2kdjl14v4cp" path="res://src/rooms/tilemap_tileset/tileset_wall.tres" id="1_r6bj0"]
-[ext_resource type="Texture2D" uid="uid://bl6yx6jgr3ns7" path="res://src/rooms/tilemap_tileset/tileset_decors.tres" id="2_eyk7y"]
+[ext_resource type="Texture2D" uid="uid://doel3pdojspko" path="res://src/rooms/textures/tileset_wall.tres" id="1_02kaa"]
+[ext_resource type="Texture2D" uid="uid://cfgnanap5s1bl" path="res://src/rooms/textures/tileset_decors.tres" id="2_xpos3"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5ry5j"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -64,7 +64,7 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3mjrc"]
-texture = ExtResource("1_r6bj0")
+texture = ExtResource("1_02kaa")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -323,7 +323,7 @@ texture = ExtResource("1_r6bj0")
 3:3/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qgeoy"]
-texture = ExtResource("2_eyk7y")
+texture = ExtResource("2_xpos3")
 use_texture_padding = false
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
