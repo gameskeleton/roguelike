@@ -1217,28 +1217,25 @@ debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
 [node name="WallHangUpDetector" type="Area2D" parent="."]
 visible = false
-position = Vector2(16, -24)
 collision_layer = 0
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangUpDetector"]
+position = Vector2(16, -24)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
-metadata/_edit_lock_ = true
 
 [node name="WallHangDownDetector" type="Area2D" parent="."]
 visible = false
-position = Vector2(16, -8)
 collision_layer = 0
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangDownDetector"]
-position = Vector2(0, -2)
+position = Vector2(16, -10)
 shape = SubResource("RectangleShape2D_sk3wo")
 debug_color = Color(1, 0.823529, 0, 0.419608)
-metadata/_edit_lock_ = true
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 visible = false

@@ -169,8 +169,8 @@ func set_direction(new_direction: float):
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -8 if new_direction < 0.0 else 1
 	attack_detector.scale.x = new_direction
-	wall_hang_up_detector.position.x = abs(wall_hang_up_detector.position.x) * new_direction
-	wall_hang_down_detector.position.x = abs(wall_hang_down_detector.position.x) * new_direction
+	wall_hang_up_detector.scale.x = new_direction
+	wall_hang_down_detector.scale.x = new_direction
 	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
 	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
 
