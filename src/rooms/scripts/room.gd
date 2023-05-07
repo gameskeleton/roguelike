@@ -78,7 +78,7 @@ const PLAYER_SPAWN_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 func _draw():
 	if not Engine.is_editor_hint():
 		return
-	draw_rect(Rect2(player_spawn.x - RkMain.PLAYER_SIZE.x / 2.0, player_spawn.y - RkMain.PLAYER_SIZE.x / 2.0, RkMain.PLAYER_SIZE.x, RkMain.PLAYER_SIZE.y), PLAYER_SPAWN_COLOR)
+	draw_rect(Rect2(player_spawn.x - RkPlayer.SIZE.x / 2.0, player_spawn.y - RkPlayer.SIZE.x / 2.0, RkPlayer.SIZE.x, RkPlayer.SIZE.y), PLAYER_SPAWN_COLOR)
 	if exit_up:
 		draw_rect(Rect2(ROOM_SIZE.x / 2.0 - ROOM_EXIT_VERTICAL_SIZE.x / 2.0, 0.0, ROOM_EXIT_VERTICAL_SIZE.x, ROOM_EXIT_VERTICAL_SIZE.y), ROOM_EXIT_COLOR)
 	if exit_down:

@@ -3,7 +3,6 @@ class_name RkMain
 
 enum State { game, pause, level_up }
 
-const PLAYER_SIZE := Vector2(14.0, 28.0)
 const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 
 @export var map_revealed := false

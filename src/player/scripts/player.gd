@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name RkPlayer
 
+const SIZE := Vector2(14.0, 28.0)
 const ONE_WAY_MARGIN := 2
 
 const JUMP_STRENGTH := -260.0
