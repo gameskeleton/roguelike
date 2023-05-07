@@ -10,7 +10,7 @@ var _animation_initial_speed_scale := 1.0
 func start_state():
 	_sprite_initial_offset = player_node.sprite.offset
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
-	player_node.handle_roll(player_node.direction * player_node.ROLL_STRENGTH)
+	player_node.roll(player_node.direction * player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
 	player_node.play_sound_effect(audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_detector_active(true)

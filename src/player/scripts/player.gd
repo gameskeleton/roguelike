@@ -152,6 +152,16 @@ func input_just_pressed(input: float, buffer := 2.0 / 60.0) -> bool:
 # Movement
 ###
 
+# jump applies an impulse to y-velocity.
+# @impure
+func jump(strength: float):
+	velocity.y = strength
+
+# roll applies an impulse to x-velocity.
+# @impure
+func roll(strength: float):
+	velocity.x = strength
+
 # set_direction changes the player direction and flips the sprite accordingly.
 # @impure
 func set_direction(new_direction: float):
@@ -163,16 +173,6 @@ func set_direction(new_direction: float):
 	wall_hang_down_detector.position.x = abs(wall_hang_down_detector.position.x) * new_direction
 	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
 	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
-
-# handle_jump applies sudden strength to y-velocity.
-# @impure
-func handle_jump(strength: float):
-	velocity.y = strength
-
-# handle_roll applies sudden strength to x-velocity.
-# @impure
-func handle_roll(strength: float):
-	velocity.x = strength
 
 # handle_gravity applies gravity to the velocity.
 # @impure

@@ -4,7 +4,7 @@ var _was_wall_sliding := false
 
 func start_state():
 	_was_wall_sliding = player_node.fsm.prev_state_node == player_node.fsm.state_nodes.wall_slide
-	player_node.handle_jump(player_node.JUMP_STRENGTH if not _was_wall_sliding else player_node.WALL_JUMP_STRENGTH)
+	player_node.jump(player_node.JUMP_STRENGTH if not _was_wall_sliding else player_node.WALL_JUMP_STRENGTH)
 	player_node.play_animation("jump")
 	if not _was_wall_sliding and player_node.input_velocity.x != 0.0:
 		player_node.set_direction(int(sign(player_node.input_velocity.x)))
