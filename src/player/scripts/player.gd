@@ -16,6 +16,11 @@ const RUN_ACCELERATION := 410.0
 const RUN_DECELERATION := 480.0
 const RUN_DECELERATION_BRAKE := 1.6
 
+const CROUCH_MAX_SPEED := 66.0
+const CROUCH_ACCELERATION := 280.0
+const CROUCH_DECELERATION := 260.0
+const CROUCH_DECELERATION_BRAKE := 1.6
+
 const ROLL_DAMAGE := 1.0
 const ROLL_STRENGTH := 220.0
 const ROLL_STAMINA_COST := 2.0
@@ -257,6 +262,16 @@ func is_able_to_jump() -> bool:
 # @pure
 func is_able_to_roll() -> bool:
 	return stamina_system.has_enough(ROLL_STAMINA_COST)
+
+# is_able_to_crouch returns true if the player is able to crouch.
+# @pure
+func is_able_to_crouch() -> bool:
+	return true
+
+# is_able_to_uncrouch returns true if the player is able to crouch.
+# @pure
+func is_able_to_uncrouch() -> bool:
+	return true
 
 # is_able_to_attack returns true if the player is able to attack.
 # @pure
