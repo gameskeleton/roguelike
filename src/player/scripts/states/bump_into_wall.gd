@@ -2,6 +2,8 @@ extends RkStateMachineState
 
 enum State { fall, hit_floor, get_up }
 
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 var _state := State.fall
 var _animation_initial_speed_scale := 1.0
 
@@ -10,6 +12,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.roll(player_node.direction * player_node.ROLL_BUMP_STRENGTH)
 	player_node.play_animation("bump_into_wall_fall")
+	player_node.play_sound_effect(audio_stream_player, 0.07)
 	player_node.animation_player.speed_scale = 1.8
 
 func process_state(delta: float):

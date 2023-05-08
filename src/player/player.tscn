@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=82 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -41,6 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
 [ext_resource type="Script" path="res://src/player/scripts/states/crouch_walk.gd" id="26_0ur0y"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
+[ext_resource type="AudioStream" uid="uid://2jyymk422ofv" path="res://src/player/sounds/bump_into_wall.wav" id="29_g2dly"]
 [ext_resource type="Script" path="res://src/player/scripts/states/crouch_to_stand.gd" id="29_rp25n"]
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
 [ext_resource type="Texture2D" uid="uid://dd7or7xh8rhva" path="res://src/player/textures/hit.png" id="32_lv00v"]
@@ -1210,6 +1211,11 @@ script = ExtResource("5_0i2rd")
 
 [node name="bump_into_wall" type="Node" parent="StateMachine"]
 script = ExtResource("11_nnruh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/bump_into_wall"]
+stream = ExtResource("29_g2dly")
+volume_db = 11.0
+bus = &"SFX"
 
 [node name="crouch_to_stand" type="Node" parent="StateMachine"]
 script = ExtResource("29_rp25n")
