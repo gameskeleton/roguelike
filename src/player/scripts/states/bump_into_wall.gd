@@ -13,6 +13,7 @@ func start_state():
 	player_node.roll(player_node.direction * player_node.ROLL_BUMP_STRENGTH)
 	player_node.play_animation("bump_into_wall_fall")
 	player_node.play_sound_effect(audio_stream_player, 0.07)
+	player_node.set_crouch_detector_active(true)
 	player_node.animation_player.speed_scale = 1.8
 
 func process_state(delta: float):
@@ -26,11 +27,17 @@ func process_state(delta: float):
 		State.hit_floor:
 			if player_node.is_stopped() and player_node.is_animation_finished():
 				_state = State.get_up
-				player_node.play_animation("get_up")
-				player_node.animation_player.speed_scale = 1.2
+				if player_node.is_able_to_uncrouch():
+					player_node.play_animation("get_up")
+					player_node.animation_player.speed_scale = 1.2
 		State.get_up:
 			if player_node.is_stopped() and player_node.is_animation_finished():
-				return player_node.fsm.state_nodes.stand
+				if player_node.is_able_to_uncrouch():
+					return player_node.fsm.state_nodes.stand
+				return player_node.fsm.state_nodes.crouch
 
 func finish_state():
+	if player_node.fsm.next_state_node != player_node.fsm.state_nodes.crouch:
+		player_node.uncrouch()
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.set_crouch_detector_active(false)

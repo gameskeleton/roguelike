@@ -1118,6 +1118,7 @@ offset = Vector2(1, -20)
 hframes = 10
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
@@ -1250,6 +1251,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
 [node name="CrouchDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 monitoring = false
 monitorable = false
