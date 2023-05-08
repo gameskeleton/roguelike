@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv67dd1mhtbs6"]
-
-[ext_resource type="Script" path="res://src/gui/scripts/map_room_dot.gd" id="1_dwqiq"]
+[gd_scene load_steps=4 format=3 uid="uid://bv67dd1mhtbs6"]
 
 [sub_resource type="Animation" id="Animation_76rhi"]
 length = 0.001
@@ -44,13 +42,12 @@ layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_dwqiq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = -1.0
+offset_top = -5.0
 offset_right = 1.0
-offset_bottom = 5.0
 pivot_offset = Vector2(2, 2)
 color = Color(1, 0, 0, 1)
 

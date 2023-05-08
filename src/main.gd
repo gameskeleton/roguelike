@@ -28,6 +28,8 @@ var rng := RandomNumberGenerator.new()
 var state := State.game
 var current_room_node: RkRoom # the room node the player is in.
 var previous_room_node: RkRoom # the previous room node the player was in.
+var player_node_position: Vector2 :
+	get: return player_node.position + Vector2(0.0, -RkPlayer.SIZE.y * 0.5)
 
 var _generator := RkDungeonGenerator.new()
 
@@ -81,8 +83,8 @@ func _process_game(delta: float):
 		ui_pause_control.visible = true
 	# room and camera
 	var player_grid_pos := Vector2i(
-		floor(player_node.position.x / RkRoom.ROOM_SIZE.x),
-		floor(player_node.position.y / RkRoom.ROOM_SIZE.y)
+		floor(player_node_position.x / RkRoom.ROOM_SIZE.x),
+		floor(player_node_position.y / RkRoom.ROOM_SIZE.y)
 	)
 	if player_grid_pos != current_room_node.get_grid_pos():
 		var room_node_at_player_grid_pos := _get_room_node(player_grid_pos)
@@ -113,7 +115,7 @@ func _process_pause(_delta: float):
 		ui_tab_container.current_tab = (ui_tab_container.current_tab + 1) % ui_tab_container.get_child_count()
 	# position map dot
 	ui_map_room_dot_control.visible = true
-	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE))) - (RkMapRoomDot.DOT_SIZE * 0.5)
+	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE)))
 
 # @impure
 func _process_level_up():
