@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=81 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -84,9 +84,6 @@ size = Vector2(28, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
 size = Vector2(14, 2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sk3wo"]
-size = Vector2(14, 6)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -1267,19 +1264,11 @@ position = Vector2(16, -49)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
-[node name="WallHangDownDetector" type="Area2D" parent="."]
+[node name="WallHangDownDetector" type="Node2D" parent="."]
 visible = false
-collision_layer = 0
-monitoring = false
-monitorable = false
 
 [node name="Hand" type="Node2D" parent="WallHangDownDetector"]
 position = Vector2(10, -32)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangDownDetector"]
-position = Vector2(16, -35)
-shape = SubResource("RectangleShape2D_sk3wo")
-debug_color = Color(1, 0.823529, 0, 0.419608)
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 visible = false

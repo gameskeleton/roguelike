@@ -30,7 +30,7 @@ const ROLL_STAMINA_COST := 2.0
 const ROLL_DECELERATION := 290.0
 const ROLL_BUMP_STRENGTH := -70.0
 
-const WALL_HANG_DROP_TIMEOUT := 1.0
+const WALL_HANG_DROP_TIMEOUT := 0.2
 
 const WALL_JUMP_STRENGTH := -230.0
 const WALL_JUMP_EXPULSE_STRENGTH := -160.0
@@ -60,7 +60,7 @@ const ATTACK_DECELERATION := 510.0
 @onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
 @onready var wall_hang_up_detector: Area2D = $WallHangUpDetector
 @onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
-@onready var wall_hang_down_detector: Area2D = $WallHangDownDetector
+@onready var wall_hang_down_detector: Node2D = $WallHangDownDetector
 @onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
 @onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
 @onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
@@ -307,7 +307,20 @@ func is_able_to_attack() -> bool:
 # note: is_able_to_wall_hang will only work if the wall slide detector was activated with set_wall_hang_detector_active(true).
 # @pure
 func is_able_to_wall_hang() -> bool:
-	return disable_wall_hang_timeout == 0.0 and main_node.current_room_node.has_corner_tile(wall_hang_hand.global_position - main_node.current_room_node.global_position) and not wall_hang_down_raycast.is_colliding()
+	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
+		return false
+	var hand_pos := wall_hang_hand.global_position - main_node.current_room_node.global_position
+	if main_node.current_room_node.has_corner_tile(hand_pos):
+		var corner_pos := main_node.current_room_node.get_corner_tile_pos(hand_pos)
+		var distance_to_corner := (global_position - main_node.current_room_node.global_position).distance_to(corner_pos)
+		return distance_to_corner < 31.0
+	return false
+
+# is_able_to_wall_climb returns true if the player can climb up a corner wall.
+# note: is_able_to_wall_climb will only work if the wall hang detector was activated with set_wall_hang_detector_active(true).
+# @pure
+func is_able_to_wall_climb() -> bool:
+	return not wall_hang_up_detector.has_overlapping_bodies()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
 # note: is_able_to_wall_slide will only work if the wall slide detector was activated with set_wall_slide_raycast_active(true).
@@ -400,8 +413,6 @@ func set_wall_hang_detector_active(active: bool):
 	wall_hang_up_detector.monitoring = active
 	wall_hang_up_detector.monitorable = active
 	wall_hang_down_raycast.enabled = active
-	wall_hang_down_detector.monitoring = active
-	wall_hang_down_detector.monitorable = active
 
 # set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
 # @impure
