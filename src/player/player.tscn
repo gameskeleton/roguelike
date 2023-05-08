@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=83 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -69,7 +69,7 @@ _data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vec
 point_count = 11
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wnfa"]
-size = Vector2(14, 28)
+size = Vector2(14, 34)
 
 [sub_resource type="Curve" id="Curve_8k3oh"]
 min_value = -10.0
@@ -78,13 +78,16 @@ _data = [Vector2(0, -2), 0.0, -15.0, 0, 0, Vector2(0.35, -7.5), -8.0, -8.5, 0, 0
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
-size = Vector2(14, 8)
+size = Vector2(14, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1fp4"]
 size = Vector2(28, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
 size = Vector2(14, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjgue"]
+size = Vector2(14, 34)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -1115,8 +1118,7 @@ offset = Vector2(1, -20)
 hframes = 10
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -15)
+position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
@@ -1247,6 +1249,16 @@ position = Vector2(25, -19)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
+[node name="CrouchDetector" type="Area2D" parent="."]
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchDetector"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_qf2lc")
+debug_color = Color(0.129412, 0, 0.701961, 0.419608)
+
 [node name="OneWayDetector" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
@@ -1266,8 +1278,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangUpDetector"]
-position = Vector2(16, -49)
-shape = SubResource("RectangleShape2D_1wnfa")
+position = Vector2(16, -53)
+shape = SubResource("RectangleShape2D_xjgue")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="WallHangDownDetector" type="Node2D" parent="."]

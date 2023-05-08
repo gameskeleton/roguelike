@@ -7,6 +7,7 @@ func start_state():
 	if player_node.fsm.prev_state_node == player_node.fsm.state_nodes.stand_to_crouch:
 		player_node.crouch()
 	player_node.play_animation("crouch")
+	player_node.set_crouch_detector_active(true)
 	player_node.set_one_way_detector_active(true)
 
 func process_state(delta: float):
@@ -29,4 +30,5 @@ func process_state(delta: float):
 func finish_state():
 	if player_node.fsm.next_state_node != player_node.fsm.state_nodes.crouch_walk:
 		player_node.uncrouch()
+	player_node.set_crouch_detector_active(false)
 	player_node.set_one_way_detector_active(false)

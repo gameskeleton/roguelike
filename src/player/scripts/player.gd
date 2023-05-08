@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name RkPlayer
 
-const SIZE := Vector2(14.0, 28.0)
+const SIZE := Vector2(14.0, 34.0)
 const CROUCH_SIZE := Vector2(14.0, 24.0)
 const ONE_WAY_MARGIN := 2
 
@@ -51,11 +51,13 @@ const ATTACK_DECELERATION := 510.0
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var sprite: Sprite2D = $Sprite
+@onready var collider: CollisionShape2D = $Collider
 @onready var main_node := RkMain.get_main_node(self)
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var roll_detector: Area2D = $RollDetector
 @onready var attack_detector: Area2D = $AttackDetector
+@onready var crouch_detector: Area2D = $CrouchDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
 @onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
 @onready var wall_hang_up_detector: Area2D = $WallHangUpDetector
@@ -181,13 +183,19 @@ func roll(strength: float):
 # @impure
 func crouch():
 	assert(not crouched)
+	var rect_shape := collider.shape as RectangleShape2D
 	crouched = true
+	collider.position.y += (SIZE.y - CROUCH_SIZE.y) * 0.5
+	rect_shape.size = CROUCH_SIZE
 
 # uncrouch increases the collider height to standing size and makes the player un-crouch.
 # @impure
 func uncrouch():
 	assert(crouched)
+	var rect_shape := collider.shape as RectangleShape2D
 	crouched = false
+	collider.position.y -= (SIZE.y - CROUCH_SIZE.y) * 0.5
+	rect_shape.size = SIZE
 
 # set_direction changes the player direction and flips the sprite accordingly.
 # @impure
@@ -296,7 +304,7 @@ func is_able_to_crouch() -> bool:
 # is_able_to_uncrouch returns true if the player is able to un-crouch.
 # @pure
 func is_able_to_uncrouch() -> bool:
-	return true
+	return not crouch_detector.has_overlapping_bodies()
 
 # is_able_to_attack returns true if the player is able to attack.
 # @pure
@@ -400,6 +408,12 @@ func set_roll_detector_active(active: bool):
 func set_attack_detector_active(active: bool):
 	attack_detector.monitoring = active
 	attack_detector.monitorable = active
+
+# set_crouch_detector_active activates or deactivates the monitoring for crouch colliders.
+# @impure
+func set_crouch_detector_active(active: bool):
+	crouch_detector.monitoring = active
+	crouch_detector.monitorable = active
 
 # set_one_way_detector_active activates or deactivates the monitoring for one way colliders.
 # @impure
