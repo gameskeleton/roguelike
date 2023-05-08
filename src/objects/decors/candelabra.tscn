@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/objects/decors/scripts/decor.gd" id="1_1nc1r"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="1_4ih4r"]
-[ext_resource type="PackedScene" path="res://src/objects/decors/candelabra_debris.tscn" id="2_rwr4d"]
+[ext_resource type="PackedScene" uid="uid://bany582navmts" path="res://src/objects/decors/candelabra_debris.tscn" id="2_rwr4d"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_tlyxk"]
 [ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/objects/decors/textures/decors_02.png" id="4_ihv35"]
 [ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/objects/decors/flame.tscn" id="6_35btn"]

@@ -32,6 +32,8 @@ const ROOM_EXIT_HORIZONTAL_SIZE := Vector2(64.0, 64.0)
 
 const PLAYER_SPAWN_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 
+const WALL_CORNER_COORDS := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(0, 3), Vector2i(2, 3)]
+
 @export var distance := 0 # distance from start room
 
 @export_category("Exits")
@@ -93,6 +95,18 @@ func _draw():
 func _ready():
 	if Engine.is_editor_hint():
 		queue_redraw()
+
+# has_corner_tile returns true if there is a corner tile at the given position.
+# @pure
+func has_corner_tile(pos: Vector2) -> bool:
+	var coords := tile_map.get_cell_atlas_coords(Layer.wall, tile_map.local_to_map(pos))
+	return WALL_CORNER_COORDS.has(coords)
+
+# get_corner_tile_pos returns the top-center position of the corner tile.
+# note: calling this when has_corner_tile of the given position is false will yield incorrect results.
+# @pure
+func get_corner_tile_pos(pos: Vector2):
+	return tile_map.map_to_local(tile_map.local_to_map(pos))
 
 # get_grid_pos returns the position in the grid of this room.
 # @pure

@@ -12,7 +12,7 @@ func start_state():
 
 func process_state(_delta: float):
 	if player_node.is_animation_finished():
-		player_node.position = player_node.get_corner_position() + Vector2(player_node.direction * 8.0, -20.0)
+		player_node.position = player_node.fsm.state_nodes.wall_hang.corner_pos
 		player_node.velocity.y = -1
 		player_node.move_and_slide()
 		return player_node.fsm.state_nodes.stand

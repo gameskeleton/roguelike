@@ -30,6 +30,8 @@ const ROLL_STAMINA_COST := 2.0
 const ROLL_DECELERATION := 290.0
 const ROLL_BUMP_STRENGTH := -70.0
 
+const WALL_HANG_DROP_TIMEOUT := 1.0
+
 const WALL_JUMP_STRENGTH := -230.0
 const WALL_JUMP_EXPULSE_STRENGTH := -160.0
 
@@ -49,11 +51,13 @@ const ATTACK_DECELERATION := 510.0
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var sprite: Sprite2D = $Sprite
+@onready var main_node := RkMain.get_main_node(self)
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var roll_detector: Area2D = $RollDetector
 @onready var attack_detector: Area2D = $AttackDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
+@onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
 @onready var wall_hang_up_detector: Area2D = $WallHangUpDetector
 @onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
 @onready var wall_hang_down_detector: Area2D = $WallHangDownDetector
@@ -80,6 +84,8 @@ const ATTACK_DECELERATION := 510.0
 @onready var stamina_system: RkStaminaSystem = $Systems/Stamina
 @onready var inventory_system: RkInventorySystem = $Systems/Inventory
 @onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
+
+var disable_wall_hang_timeout := 0.0
 
 ###
 # Input
@@ -112,6 +118,7 @@ func _ready():
 func _physics_process(delta: float):
 	process_input(delta)
 	process_velocity(delta)
+	process_timeouts(delta)
 	fsm.process_state_machine(delta)
 
 # process_input updates player inputs.
@@ -136,6 +143,11 @@ func process_input(delta: float):
 # @impure
 func process_velocity(_delta: float):
 	move_and_slide()
+
+# process_timeouts decreases timeouts.
+# @impure
+func process_timeouts(delta: float):
+	disable_wall_hang_timeout = max(disable_wall_hang_timeout - delta, 0.0)
 
 ###
 # Input
@@ -182,7 +194,7 @@ func uncrouch():
 func set_direction(new_direction: float):
 	direction = new_direction
 	sprite.flip_h = new_direction < 0.0
-	sprite.offset.x = -8 if new_direction < 0.0 else 1
+	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
 	attack_detector.scale.x = new_direction
 	wall_hang_up_detector.scale.x = new_direction
 	wall_hang_down_detector.scale.x = new_direction
@@ -255,10 +267,7 @@ func apply_deceleration(delta: float, value: float, deceleration: float) -> floa
 # get_corner_position returns the snapped position to the nearest corner wall.
 # @pure
 func get_corner_position() -> Vector2:
-	return Vector2(
-		floor(floor(position.x / 16.0) * 16.0) + (16.0 if direction > 0 else 0.0),
-		floor(floor(position.y / 16.0) * 16.0) - 10.0
-	)
+	return main_node.current_room_node.get_corner_tile_pos(wall_hang_hand.global_position)
 
 ###
 # Checks
@@ -298,7 +307,7 @@ func is_able_to_attack() -> bool:
 # note: is_able_to_wall_hang will only work if the wall slide detector was activated with set_wall_hang_detector_active(true).
 # @pure
 func is_able_to_wall_hang() -> bool:
-	return is_on_wall() and not wall_hang_down_raycast.is_colliding() and wall_hang_down_detector.has_overlapping_bodies() and not wall_hang_up_detector.has_overlapping_bodies()
+	return disable_wall_hang_timeout == 0.0 and main_node.current_room_node.has_corner_tile(wall_hang_hand.global_position - main_node.current_room_node.global_position) and not wall_hang_down_raycast.is_colliding()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
 # note: is_able_to_wall_slide will only work if the wall slide detector was activated with set_wall_slide_raycast_active(true).

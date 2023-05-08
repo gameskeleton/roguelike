@@ -1117,6 +1117,7 @@ offset = Vector2(1, -20)
 hframes = 10
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
@@ -1220,6 +1221,7 @@ script = ExtResource("29_rp25n")
 script = ExtResource("21_ymkf1")
 
 [node name="RollDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 16
 monitoring = false
@@ -1231,6 +1233,7 @@ shape = SubResource("RectangleShape2D_qf2lc")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="AttackDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 208
 monitoring = false
@@ -1242,6 +1245,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
 [node name="OneWayDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 monitoring = false
@@ -1253,6 +1257,7 @@ shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
 [node name="WallHangUpDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 monitoring = false
 monitorable = false
@@ -1263,9 +1268,13 @@ shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="WallHangDownDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 monitoring = false
 monitorable = false
+
+[node name="Hand" type="Node2D" parent="WallHangDownDetector"]
+position = Vector2(10, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangDownDetector"]
 position = Vector2(16, -35)
@@ -1273,22 +1282,26 @@ shape = SubResource("RectangleShape2D_sk3wo")
 debug_color = Color(1, 0.823529, 0, 0.419608)
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -29)
 enabled = false
 target_position = Vector2(-12, 0)
 
 [node name="WallSlideDownRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -9)
 enabled = false
 target_position = Vector2(0, 32)
 collision_mask = 3
 
 [node name="WallSlideDownSideRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -13)
 enabled = false
 target_position = Vector2(-12, 0)
 
 [node name="WallHangDownSideRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -13)
 enabled = false
 target_position = Vector2(0, 20)
