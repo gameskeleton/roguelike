@@ -9,6 +9,7 @@ func start_state():
 	player_node.animation_player.speed_scale = 1.4
 	player_node.play_animation("wall_climb")
 	player_node.play_sound_effect(audio_stream_player)
+	player_node.set_wall_climb_detector_active(true)
 
 func process_state(_delta: float):
 	if player_node.is_animation_finished():
@@ -19,3 +20,4 @@ func process_state(_delta: float):
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.set_wall_climb_detector_active(false)

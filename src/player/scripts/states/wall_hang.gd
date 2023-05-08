@@ -11,6 +11,7 @@ func start_state():
 		- Vector2(player_node.direction * player_node.wall_hang_hand.position.x, player_node.wall_hang_hand.position.y)
 	player_node.play_animation("wall_hang")
 	player_node.set_wall_hang_detector_active(true)
+	player_node.set_wall_climb_detector_active(true)
 
 func process_state(_delta: float):
 	if player_node.input_just_pressed(player_node.input_up) and player_node.is_able_to_wall_climb():
@@ -22,3 +23,4 @@ func process_state(_delta: float):
 
 func finish_state():
 	player_node.set_wall_hang_detector_active(false)
+	player_node.set_wall_climb_detector_active(false)

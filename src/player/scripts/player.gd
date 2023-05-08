@@ -60,9 +60,9 @@ const ATTACK_DECELERATION := 510.0
 @onready var crouch_detector: Area2D = $CrouchDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
 @onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
-@onready var wall_hang_up_detector: Area2D = $WallHangUpDetector
 @onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
 @onready var wall_hang_down_detector: Node2D = $WallHangDownDetector
+@onready var wall_climb_stand_detector: Area2D = $WallClimbStandDetector
 @onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
 @onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
 @onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
@@ -204,8 +204,8 @@ func set_direction(new_direction: float):
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
 	attack_detector.scale.x = new_direction
-	wall_hang_up_detector.scale.x = new_direction
 	wall_hang_down_detector.scale.x = new_direction
+	wall_climb_stand_detector.scale.x = new_direction
 	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
 	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
 
@@ -325,10 +325,10 @@ func is_able_to_wall_hang() -> bool:
 	return false
 
 # is_able_to_wall_climb returns true if the player can climb up a corner wall.
-# note: is_able_to_wall_climb will only work if the wall hang detector was activated with set_wall_hang_detector_active(true).
+# note: is_able_to_wall_climb will only work if the wall climb detector was activated with set_wall_climb_detector_active(true).
 # @pure
 func is_able_to_wall_climb() -> bool:
-	return not wall_hang_up_detector.has_overlapping_bodies()
+	return not wall_climb_stand_detector.has_overlapping_bodies()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
 # note: is_able_to_wall_slide will only work if the wall slide detector was activated with set_wall_slide_raycast_active(true).
@@ -421,12 +421,16 @@ func set_one_way_detector_active(active: bool):
 	one_way_detector.monitoring = active
 	one_way_detector.monitorable = active
 
-# set_wall_hang_detector_active activates or deactivates the monitoring for hanging/climbing to a wall.
+# set_wall_hang_detector_active activates or deactivates the monitoring for hanging to a wall.
 # @impure
 func set_wall_hang_detector_active(active: bool):
-	wall_hang_up_detector.monitoring = active
-	wall_hang_up_detector.monitorable = active
 	wall_hang_down_raycast.enabled = active
+
+# set_wall_climb_detector_active activates or deactivates the monitoring for climbing to a wall.
+# @impure
+func set_wall_climb_detector_active(active: bool):
+	wall_climb_stand_detector.monitoring = active
+	wall_climb_stand_detector.monitorable = active
 
 # set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
 # @impure

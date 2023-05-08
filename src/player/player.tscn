@@ -1273,22 +1273,22 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
-[node name="WallHangUpDetector" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHangUpDetector"]
-position = Vector2(16, -53)
-shape = SubResource("RectangleShape2D_xjgue")
-debug_color = Color(1, 0, 0.0156863, 0.419608)
-
 [node name="WallHangDownDetector" type="Node2D" parent="."]
 visible = false
 
 [node name="Hand" type="Node2D" parent="WallHangDownDetector"]
 position = Vector2(10, -32)
+
+[node name="WallClimbStandDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbStandDetector"]
+position = Vector2(16, -53)
+shape = SubResource("RectangleShape2D_xjgue")
+debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 visible = false
