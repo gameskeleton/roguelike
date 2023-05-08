@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name RkPlayer
 
 const SIZE := Vector2(14.0, 28.0)
+const CROUCH_SIZE := Vector2(14.0, 24.0)
 const ONE_WAY_MARGIN := 2
 
 const JUMP_STRENGTH := -260.0
@@ -18,8 +19,9 @@ const RUN_DECELERATION := 480.0
 const RUN_DECELERATION_BRAKE := 1.6
 
 const CROUCH_MAX_SPEED := 66.0
+const CROUCH_LOCK_DELAY := 0.1
 const CROUCH_ACCELERATION := 280.0
-const CROUCH_DECELERATION := 260.0
+const CROUCH_DECELERATION := 460.0
 const CROUCH_DECELERATION_BRAKE := 1.6
 
 const ROLL_DAMAGE := 1.0
@@ -63,6 +65,7 @@ const ATTACK_DECELERATION := 510.0
 # State
 ###
 
+@export var crouched := false
 @export var direction := 1.0
 @export var base_force := 1.0
 @export var base_stamina := 10.0
@@ -161,6 +164,18 @@ func jump(strength: float):
 # @impure
 func roll(strength: float):
 	velocity.x = strength
+
+# crouch reduces the collider height to crouch size and makes the player crouch.
+# @impure
+func crouch():
+	assert(not crouched)
+	crouched = true
+
+# uncrouch increases the collider height to standing size and makes the player un-crouch.
+# @impure
+func uncrouch():
+	assert(crouched)
+	crouched = false
 
 # set_direction changes the player direction and flips the sprite accordingly.
 # @impure
@@ -269,7 +284,7 @@ func is_able_to_roll() -> bool:
 func is_able_to_crouch() -> bool:
 	return true
 
-# is_able_to_uncrouch returns true if the player is able to crouch.
+# is_able_to_uncrouch returns true if the player is able to un-crouch.
 # @pure
 func is_able_to_uncrouch() -> bool:
 	return true
@@ -280,11 +295,13 @@ func is_able_to_attack() -> bool:
 	return stamina_system.has_enough(ATTACK_STAMINA_COST)
 
 # is_able_to_wall_hang returns true if the player is near a corner wall.
+# note: is_able_to_wall_hang will only work if the wall slide detector was activated with set_wall_hang_detector_active(true).
 # @pure
 func is_able_to_wall_hang() -> bool:
 	return is_on_wall() and not wall_hang_down_raycast.is_colliding() and wall_hang_down_detector.has_overlapping_bodies() and not wall_hang_up_detector.has_overlapping_bodies()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
+# note: is_able_to_wall_slide will only work if the wall slide detector was activated with set_wall_slide_raycast_active(true).
 # @pure
 func is_able_to_wall_slide() -> bool:
 	return is_on_wall() and wall_slide_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()

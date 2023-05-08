@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=82 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -83,7 +83,7 @@ size = Vector2(14, 8)
 size = Vector2(28, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
-size = Vector2(14, 4)
+size = Vector2(14, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sk3wo"]
 size = Vector2(14, 6)
@@ -360,6 +360,46 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("44_b78r0")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_b77xs"]
+resource_name = "crouch_to_stand"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("43_isit8")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1039,6 +1079,7 @@ _data = {
 "bump_into_wall_fall": SubResource("Animation_bkav5"),
 "bump_into_wall_hit_floor": SubResource("Animation_g0oe8"),
 "crouch": SubResource("Animation_fcv8u"),
+"crouch_to_stand": SubResource("Animation_b77xs"),
 "crouch_walk": SubResource("Animation_ygk1w"),
 "death": SubResource("Animation_jlirl"),
 "fall": SubResource("Animation_ginsg"),
@@ -1102,8 +1143,20 @@ life_points_system = NodePath("../LifePoints")
 
 [node name="StateMachine" type="Node" parent="."]
 
+[node name="hit" type="Node" parent="StateMachine"]
+script = ExtResource("6_ei416")
+
 [node name="fall" type="Node" parent="StateMachine"]
 script = ExtResource("3_73fy0")
+
+[node name="roll" type="Node" parent="StateMachine"]
+script = ExtResource("4_giqnr")
+offset_curve = SubResource("Curve_8k3oh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/roll"]
+stream = ExtResource("9_7l0y8")
+volume_db = -1.0
+bus = &"SFX - Roll"
 
 [node name="skid" type="Node" parent="StateMachine"]
 script = ExtResource("7_3fko7")
@@ -1125,29 +1178,21 @@ script = ExtResource("3_8ll75")
 stream = ExtResource("12_nfhlm")
 bus = &"SFX - Touch Ground"
 
-[node name="stand_to_crouch" type="Node" parent="StateMachine"]
-script = ExtResource("21_ymkf1")
+[node name="attack" type="Node" parent="StateMachine"]
+script = ExtResource("9_fb2tt")
 
-[node name="turn_around" type="Node" parent="StateMachine"]
-script = ExtResource("5_0i2rd")
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/attack"]
+stream = ExtResource("15_8gyqs")
+bus = &"SFX"
 
 [node name="crouch" type="Node" parent="StateMachine"]
 script = ExtResource("20_8363j")
 
-[node name="crouch_walk" type="Node" parent="StateMachine"]
-script = ExtResource("26_0ur0y")
-
-[node name="crouch_to_stand" type="Node" parent="StateMachine"]
-script = ExtResource("29_rp25n")
+[node name="wall_slide" type="Node" parent="StateMachine"]
+script = ExtResource("13_ma8tw")
 
 [node name="push_wall" type="Node" parent="StateMachine"]
 script = ExtResource("9_3cgs6")
-
-[node name="bump_into_wall" type="Node" parent="StateMachine"]
-script = ExtResource("11_nnruh")
-
-[node name="wall_slide" type="Node" parent="StateMachine"]
-script = ExtResource("13_ma8tw")
 
 [node name="wall_hang" type="Node" parent="StateMachine"]
 script = ExtResource("10_ml0y4")
@@ -1159,24 +1204,20 @@ script = ExtResource("16_gdcg3")
 stream = ExtResource("20_onny2")
 bus = &"SFX - Wall Climb"
 
-[node name="hit" type="Node" parent="StateMachine"]
-script = ExtResource("6_ei416")
+[node name="crouch_walk" type="Node" parent="StateMachine"]
+script = ExtResource("26_0ur0y")
 
-[node name="roll" type="Node" parent="StateMachine"]
-script = ExtResource("4_giqnr")
-offset_curve = SubResource("Curve_8k3oh")
+[node name="turn_around" type="Node" parent="StateMachine"]
+script = ExtResource("5_0i2rd")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/roll"]
-stream = ExtResource("9_7l0y8")
-volume_db = -1.0
-bus = &"SFX - Roll"
+[node name="bump_into_wall" type="Node" parent="StateMachine"]
+script = ExtResource("11_nnruh")
 
-[node name="attack" type="Node" parent="StateMachine"]
-script = ExtResource("9_fb2tt")
+[node name="crouch_to_stand" type="Node" parent="StateMachine"]
+script = ExtResource("29_rp25n")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/attack"]
-stream = ExtResource("15_8gyqs")
-bus = &"SFX"
+[node name="stand_to_crouch" type="Node" parent="StateMachine"]
+script = ExtResource("21_ymkf1")
 
 [node name="RollDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -1207,7 +1248,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
-position = Vector2(0, -3)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
