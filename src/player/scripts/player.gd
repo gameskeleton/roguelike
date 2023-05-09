@@ -51,9 +51,11 @@ const ATTACK_DECELERATION := 510.0
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var sprite: Sprite2D = $Sprite
-@onready var collider: CollisionShape2D = $Collider
 @onready var main_node := RkMain.get_main_node(self)
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var collider_stand: CollisionShape2D = $ColliderStand
+@onready var collider_crouch: CollisionShape2D = $ColliderCrouch
 
 @onready var roll_detector: Area2D = $RollDetector
 @onready var attack_detector: Area2D = $AttackDetector
@@ -63,6 +65,7 @@ const ATTACK_DECELERATION := 510.0
 @onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
 @onready var wall_hang_down_detector: Node2D = $WallHangDownDetector
 @onready var wall_climb_stand_detector: Area2D = $WallClimbStandDetector
+@onready var wall_climb_crouch_detector: Area2D = $WallClimbCrouchDetector
 @onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
 @onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
 @onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
@@ -183,19 +186,17 @@ func roll(strength: float):
 # @impure
 func crouch():
 	assert(not crouched)
-	var rect_shape := collider.shape as RectangleShape2D
 	crouched = true
-	collider.position.y += (SIZE.y - CROUCH_SIZE.y) * 0.5
-	rect_shape.size = CROUCH_SIZE
+	collider_stand.disabled = true
+	collider_crouch.disabled = false
 
 # uncrouch increases the collider height to standing size and makes the player un-crouch.
 # @impure
 func uncrouch():
 	assert(crouched)
-	var rect_shape := collider.shape as RectangleShape2D
 	crouched = false
-	collider.position.y -= (SIZE.y - CROUCH_SIZE.y) * 0.5
-	rect_shape.size = SIZE
+	collider_stand.disabled = false
+	collider_crouch.disabled = true
 
 # set_direction changes the player direction and flips the sprite accordingly.
 # @impure
@@ -206,6 +207,7 @@ func set_direction(new_direction: float):
 	attack_detector.scale.x = new_direction
 	wall_hang_down_detector.scale.x = new_direction
 	wall_climb_stand_detector.scale.x = new_direction
+	wall_climb_crouch_detector.scale.x = new_direction
 	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
 	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
 
@@ -328,7 +330,7 @@ func is_able_to_wall_hang() -> bool:
 # note: is_able_to_wall_climb will only work if the wall climb detector was activated with set_wall_climb_detector_active(true).
 # @pure
 func is_able_to_wall_climb() -> bool:
-	return not wall_climb_stand_detector.has_overlapping_bodies()
+	return not wall_climb_stand_detector.has_overlapping_bodies() or not wall_climb_crouch_detector.has_overlapping_bodies()
 
 # is_able_to_wall_slide returns true if the player is able to slide on a wall.
 # note: is_able_to_wall_slide will only work if the wall slide detector was activated with set_wall_slide_raycast_active(true).
@@ -431,6 +433,8 @@ func set_wall_hang_detector_active(active: bool):
 func set_wall_climb_detector_active(active: bool):
 	wall_climb_stand_detector.monitoring = active
 	wall_climb_stand_detector.monitorable = active
+	wall_climb_crouch_detector.monitoring = active
+	wall_climb_crouch_detector.monitorable = active
 
 # set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
 # @impure

@@ -13,10 +13,19 @@ func start_state():
 
 func process_state(_delta: float):
 	if player_node.is_animation_finished():
+		var can_climb_stand := not player_node.wall_climb_stand_detector.has_overlapping_bodies()
+		var can_climb_crouch := not player_node.wall_climb_crouch_detector.has_overlapping_bodies()
 		player_node.position = player_node.fsm.state_nodes.wall_hang.corner_pos
 		player_node.velocity.y = -1
 		player_node.move_and_slide()
-		return player_node.fsm.state_nodes.stand
+		if can_climb_stand:
+			return player_node.fsm.state_nodes.stand
+		elif can_climb_crouch:
+			player_node.crouch()
+			return player_node.fsm.state_nodes.crouch
+		else:
+			push_error("cannot climb up safely")
+			return player_node.fsm.state_nodes.stand
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale

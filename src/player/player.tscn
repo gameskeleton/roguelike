@@ -71,6 +71,9 @@ point_count = 11
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wnfa"]
 size = Vector2(14, 34)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ttjyw"]
+size = Vector2(14, 24)
+
 [sub_resource type="Curve" id="Curve_8k3oh"]
 min_value = -10.0
 max_value = 0.0
@@ -85,9 +88,6 @@ size = Vector2(28, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
 size = Vector2(14, 2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjgue"]
-size = Vector2(14, 34)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -1117,11 +1117,18 @@ texture = ExtResource("2_a0emx")
 offset = Vector2(1, -20)
 hframes = 10
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="ColliderStand" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
+
+[node name="ColliderCrouch" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_ttjyw")
+disabled = true
+debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="Systems" type="Node" parent="."]
 
@@ -1287,8 +1294,19 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbStandDetector"]
 position = Vector2(16, -53)
-shape = SubResource("RectangleShape2D_xjgue")
+shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
+
+[node name="WallClimbCrouchDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbCrouchDetector"]
+position = Vector2(16, -48)
+shape = SubResource("RectangleShape2D_ttjyw")
+debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 visible = false
