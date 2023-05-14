@@ -1118,11 +1118,13 @@ offset = Vector2(1, -20)
 hframes = 10
 
 [node name="ColliderStand" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="ColliderCrouch" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_ttjyw")
 disabled = true
