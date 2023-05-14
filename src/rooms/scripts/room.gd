@@ -24,6 +24,7 @@ enum Layer {
 }
 
 const ROOM_SIZE := Vector2i(512, 288)
+const ROOM_TILE_SIZE := Vector2i(16, 16)
 const ROOM_TILE_COUNT := Vector2i(32, 18)
 
 const ROOM_EXIT_COLOR := Color(0.0, 1.0, 0.0, 0.2)
@@ -149,6 +150,17 @@ func get_wall_tiles_with_border() -> Array[Array]:
 				if tile.x < ROOM_TILE_COUNT.x - 1 and tile.y > 0 and tiles_grid[tile.y - 1][tile.x + 1].z == Tile.wall: tiles_grid[tile.y - 1][tile.x + 1].z = Tile.border
 				if tile.x < ROOM_TILE_COUNT.x - 1 and tile.y < ROOM_TILE_COUNT.y - 1 and tiles_grid[tile.y + 1][tile.x + 1].z == Tile.wall: tiles_grid[tile.y + 1][tile.x + 1].z = Tile.border
 	return tiles_grid
+
+# get_random_free_cell_global_position returns a random position where there is no wall tile.
+# @pure
+func get_random_free_cell_global_position(_width := 1, _height := 1) -> Vector2:
+	# TODO: handle width and height and return the center position of the first free cell found
+	var used_cells := tile_map.get_used_cells(Layer.wall)
+	for i in 100:
+		var coords := Vector2i(randi_range(0, ROOM_TILE_COUNT.x - 1), randi_range(0, ROOM_TILE_COUNT.y - 1))
+		if not used_cells.has(coords):
+			return global_position + (tile_map.map_to_local(coords) + ROOM_TILE_SIZE * 0.5)
+	return Vector2.ZERO
 
 # generate_room_exits_name returns a list of human readable exits.
 # @pure

@@ -1,0 +1,261 @@
+[gd_scene load_steps=15 format=3 uid="uid://bjnfguqboytcr"]
+
+[ext_resource type="Script" path="res://src/objects/enemies/scripts/ghost.gd" id="1_eewrg"]
+[ext_resource type="Texture2D" uid="uid://pucl0x5jqyi7" path="res://src/objects/enemies/textures/ghost_idle.png" id="1_yxvag"]
+[ext_resource type="Texture2D" uid="uid://63wxtca0tdn4" path="res://src/objects/enemies/textures/ghost_appears.png" id="2_y6nrm"]
+[ext_resource type="Texture2D" uid="uid://dhnsi47c2vmm8" path="res://src/objects/enemies/textures/ghost_shriek.png" id="4_juqg0"]
+[ext_resource type="Texture2D" uid="uid://cwxv0vtw4xoc7" path="res://src/objects/enemies/textures/ghost_vanish.png" id="5_a3dpc"]
+[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="6_coxhh"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="7_agja5"]
+[ext_resource type="PackedScene" uid="uid://b56aihlp5saww" path="res://src/gui/life_points_meter.tscn" id="8_h4oqv"]
+
+[sub_resource type="Animation" id="Animation_6dnyg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_yxvag")]
+}
+
+[sub_resource type="Animation" id="Animation_t0lg3"]
+resource_name = "appear"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_y6nrm")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_lsdum"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_yxvag")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_clarj"]
+resource_name = "shriek"
+length = 0.4
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_juqg0")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_7wu0x"]
+resource_name = "vanish"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_a3dpc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6l6k7"]
+_data = {
+"RESET": SubResource("Animation_6dnyg"),
+"appear": SubResource("Animation_t0lg3"),
+"idle": SubResource("Animation_lsdum"),
+"shriek": SubResource("Animation_clarj"),
+"vanish": SubResource("Animation_7wu0x")
+}
+
+[node name="Ghost" type="Node2D"]
+script = ExtResource("1_eewrg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-32, -48)
+texture = ExtResource("1_yxvag")
+centered = false
+hframes = 7
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("7_agja5")]
+
+[node name="AttackDetector" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackDetector"]
+polygon = PackedVector2Array(0, -8, -8, -12, -12, -24, -8, -36, 0, -44, 8, -36, 12, -24, 8, -12)
+
+[node name="LifePointsMeter" parent="." node_paths=PackedStringArray("life_points_system") instance=ExtResource("8_h4oqv")]
+offset_left = -16.0
+offset_top = -51.0
+offset_right = 16.0
+offset_bottom = -48.0
+life_points_system = NodePath("../Systems/LifePoints")
+metadata/_edit_use_anchors_ = true
+
+[node name="RoomNotifier2D" parent="." instance=ExtResource("6_coxhh")]
+listen_room_on = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "appear"
+libraries = {
+"": SubResource("AnimationLibrary_6l6k7")
+}
+
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]
+[connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]

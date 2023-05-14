@@ -7,9 +7,11 @@ class_name RkProjectile
 @export var damage_type := RkLifePointsSystem.DmgType.none
 
 @onready var attack_detector: Area2D = $AttackDetector
+@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 # @impure
 func _ready():
+	life_points_system.life_points.max_value_base = 1.0
 	await get_tree().create_timer(4.0, false).timeout
 	destroy_projectile(false)
 
@@ -41,7 +43,6 @@ func _on_attack_detector_body_entered(body: Node2D):
 # @impure
 func _on_room_notifier_2d_room_leave():
 	destroy_projectile(true)
-
 
 # @signal
 # @impure

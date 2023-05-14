@@ -159,12 +159,9 @@ script = ExtResource("1_sf1mm")
 [node name="Systems" type="Node" parent="."]
 
 [node name="LifePoints" parent="Systems" instance=ExtResource("2_0miaw")]
-life_points = 1.0
-damage_multiplier_ice = 1000.0
 damage_multiplier_fire = 1000.0
 damage_multiplier_world = 1000.0
 damage_multiplier_physical = 1000.0
-damage_multiplier_lightning = 1000.0
 
 [node name="RoomNotifier2D" parent="." node_paths=PackedStringArray("listen_room_node") instance=ExtResource("3_xwhox")]
 listen_room_node = NodePath("..")
