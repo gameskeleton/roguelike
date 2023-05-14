@@ -4,6 +4,8 @@ Roguelike is a small roguelike side-scroller game made with Godot 4.
 
 # credits
 
+ghost sprite: ansimuz (https://www.patreon.com/ansimuz)
+
 knight sprite: aamatniekss (https://aamatniekss.itch.io/)
 
 dungeon tileset: genewheel (https://genewheel.itch.io/)

@@ -15,6 +15,7 @@ var _hits := 0
 var _shot := false
 var _timer := 0.0
 var _state := State.appear
+var _idle_delay := 0.0
 var _teleport_position: Vector2
 
 func _ready():
@@ -42,11 +43,12 @@ func set_state(new_state: State):
 
 func start_idle():
 	_timer = 0.0
+	_idle_delay = randf_range(1.2, 3.2)
 	animation_player.play("idle")
 
 func process_idle():
 	position = Vector2(_teleport_position.x, _teleport_position.y + AMPLITUDE * sin(SPEED * _timer))
-	if _timer > 1.5:
+	if _timer > _idle_delay:
 		set_state(State.shriek)
 
 func start_appear():
