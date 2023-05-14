@@ -61,11 +61,13 @@ const ATTACK_DECELERATION := 510.0
 @onready var attack_detector: Area2D = $AttackDetector
 @onready var crouch_detector: Area2D = $CrouchDetector
 @onready var one_way_detector: Area2D = $OneWayDetector
-@onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
-@onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
+@onready var push_wall_roll_detector: Area2D = $PushWallRollDetector
 @onready var wall_hang_down_detector: Node2D = $WallHangDownDetector
 @onready var wall_climb_stand_detector: Area2D = $WallClimbStandDetector
 @onready var wall_climb_crouch_detector: Area2D = $WallClimbCrouchDetector
+
+@onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
+@onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
 @onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
 @onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
 @onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
@@ -205,6 +207,7 @@ func set_direction(new_direction: float):
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
 	attack_detector.scale.x = new_direction
+	push_wall_roll_detector.scale.x = new_direction
 	wall_hang_down_detector.scale.x = new_direction
 	wall_climb_stand_detector.scale.x = new_direction
 	wall_climb_crouch_detector.scale.x = new_direction
@@ -338,6 +341,12 @@ func is_able_to_wall_climb() -> bool:
 func is_able_to_wall_slide() -> bool:
 	return is_on_wall() and wall_slide_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()
 
+# is_able_to_roll_when_pushing_wall returns true if the player is able to roll under a crouchable section if touching a wall.
+# note: use is_able_to_roll_when_pushing_wall instead of is_able_to_roll to prevent the player from bumping directly into a wall
+# @pure
+func is_able_to_roll_when_pushing_wall() -> bool:
+	return is_able_to_roll() and not push_wall_roll_detector.has_overlapping_bodies()
+
 # is_on_wall_passive returns true if there is a wall in the player's direction.
 # note: this is useful if the player is not moving horizontally, whereas is_on_wall only work with a velocity going into a wall.
 func is_on_wall_passive() -> bool:
@@ -399,7 +408,7 @@ func get_animation_played_ratio() -> float:
 # Raycasts and detectors
 ###
 
-# set_roll_detector_active activates or deactivates the monitoring for decors colliders.
+# set_roll_detector_active activates or deactivates the monitoring for destroying decors when rolling.
 # @impure
 func set_roll_detector_active(active: bool):
 	roll_detector.monitoring = active
@@ -442,6 +451,12 @@ func set_wall_slide_raycast_active(active: bool):
 	wall_slide_down_raycast.enabled = active
 	wall_slide_side_raycast.enabled = active
 	wall_slide_down_side_raycast.enabled = active
+
+# set_push_wall_roll_detector_active activates or deactivates the monitoring for safely rolling under a crouchable section.
+# @impure
+func set_push_wall_roll_detector_active(active: bool):
+	push_wall_roll_detector.monitoring = active
+	push_wall_roll_detector.monitorable = active
 
 ###
 # Signals

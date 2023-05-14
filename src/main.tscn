@@ -136,6 +136,7 @@ shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
+metadata/_edit_lock_ = true
 
 [node name="PlayerLight2D" type="PointLight2D" parent="Game/Player"]
 position = Vector2(0, -16)
@@ -145,6 +146,7 @@ shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("4_me4t0")
 texture_scale = 0.5
+metadata/_edit_lock_ = true
 
 [node name="LevelUpLabel" type="Label" parent="Game/Player"]
 process_mode = 2

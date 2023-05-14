@@ -3,6 +3,7 @@ extends RkStateMachineState
 func start_state():
 	player_node.play_animation("push_wall")
 	player_node.set_one_way_detector_active(true)
+	player_node.set_push_wall_roll_detector_active(true)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -16,8 +17,11 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_able_to_jump():
 		return player_node.fsm.state_nodes.jump
+	if player_node.input_just_pressed(player_node.input_roll) and player_node.is_able_to_roll_when_pushing_wall():
+		return player_node.fsm.state_nodes.roll
 	if player_node.input_velocity.x == 0.0 or not player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():
 	player_node.set_one_way_detector_active(false)
+	player_node.set_push_wall_roll_detector_active(true)

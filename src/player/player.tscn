@@ -80,11 +80,11 @@ max_value = 0.0
 _data = [Vector2(0, -2), 0.0, -15.0, 0, 0, Vector2(0.35, -7.5), -8.0, -8.5, 0, 0, Vector2(1, -9), -2.5, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
-size = Vector2(14, 34)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1fp4"]
 size = Vector2(28, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
+size = Vector2(14, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
 size = Vector2(14, 2)
@@ -1118,13 +1118,11 @@ offset = Vector2(1, -20)
 hframes = 10
 
 [node name="ColliderStand" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="ColliderCrouch" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_ttjyw")
 disabled = true
@@ -1241,8 +1239,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RollDetector"]
-position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_qf2lc")
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="AttackDetector" type="Area2D" parent="."]
@@ -1279,6 +1277,17 @@ monitorable = false
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
+
+[node name="PushWallRollDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushWallRollDetector"]
+position = Vector2(14, -13)
+shape = SubResource("RectangleShape2D_ttjyw")
+debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="WallHangDownDetector" type="Node2D" parent="."]
 visible = false
