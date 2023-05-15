@@ -82,7 +82,7 @@ func start_vanish():
 
 func process_vanish():
 	if _timer > 0.8:
-		_teleport_position = room_notifier.room_node.get_random_free_cell_global_position()
+		_teleport_position = room_notifier.room_node.get_random_free_cell_global_position(3, 3)
 		position = _teleport_position
 		set_state(State.appear)
 

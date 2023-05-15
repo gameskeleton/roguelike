@@ -153,14 +153,25 @@ func get_wall_tiles_with_border() -> Array[Array]:
 
 # get_random_free_cell_global_position returns a random position where there is no wall tile.
 # @pure
-func get_random_free_cell_global_position(_width := 1, _height := 1) -> Vector2:
-	# TODO: handle width and height and return the center position of the first free cell found
-	var used_cells := tile_map.get_used_cells(Layer.wall)
-	for i in 100:
-		var coords := Vector2i(randi_range(0, ROOM_TILE_COUNT.x - 1), randi_range(0, ROOM_TILE_COUNT.y - 1))
-		if not used_cells.has(coords):
-			return tile_map.map_to_local(coords) + ROOM_TILE_SIZE * 0.5
-	return Vector2.ZERO
+func get_random_free_cell_global_position(width := 1, height := 1, fallback_pos := Vector2.ZERO) -> Vector2:
+	var used_cells = tile_map.get_used_cells(Layer.wall)
+	var max_iterations := 100
+	var room_tile_count := ROOM_TILE_COUNT - Vector2i(width, height) + Vector2i(1, 1)
+	for i in range(max_iterations):
+		var start_x := randi_range(0, room_tile_count.x - 1)
+		var start_y := randi_range(0, room_tile_count.y - 1)
+		var found_free_cell := true
+		for x in range(start_x, start_x + width):
+			for y in range(start_y, start_y + height):
+				var coords := Vector2i(x, y)
+				if used_cells.has(coords):
+					found_free_cell = false
+					break
+			if not found_free_cell:
+				break
+		if found_free_cell:
+			return tile_map.map_to_local(Vector2i(start_x, start_y)) + Vector2(ROOM_TILE_SIZE) * Vector2(width * 0.5, height * 0.5)
+	return fallback_pos
 
 # generate_room_exits_name returns a list of human readable exits.
 # @pure
