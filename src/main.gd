@@ -6,7 +6,8 @@ enum State { game, pause, level_up }
 const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 
 @export var map_revealed := false
-@export var start_room_scene: PackedScene
+@export var debug_start_room_scene: PackedScene
+@export var debug_start_room_grid_pos := Vector2i(1, 1)
 
 @onready var player_node: RkPlayer = $Game/Player
 @onready var all_rooms_node: Node2D = $Game/AllRooms
@@ -40,13 +41,12 @@ func _ready():
 		state = State.pause
 		get_tree().paused  = true
 		push_warning("Pause control is visible, game will start paused")
-	# load start room scene or generate new dungeon
-	if start_room_scene:
+	# load debug start room scene or generate a new dungeon
+	if debug_start_room_scene:
 		_clear_rooms()
-		var start_room_node := _instantiate_room(start_room_scene, Vector2i.ZERO, 0)
-		var start_room_grid_pos := start_room_node.get_grid_pos()
+		var start_room_node := _instantiate_room(debug_start_room_scene, debug_start_room_grid_pos, 0)
 		_enter_room(start_room_node)
-		player_node.position = Vector2(start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
+		player_node.position = Vector2(debug_start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, debug_start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
 	else:
 		_generate_dungeon()
 	# setup level up animation

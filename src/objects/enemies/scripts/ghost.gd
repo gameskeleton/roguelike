@@ -67,7 +67,7 @@ func process_shriek():
 	if _timer > 0.4 and not _shot:
 		var projectile_node: RkProjectile = PROJECTILE_SCENE.instantiate()
 		_shot = true
-		projectile_node.position = global_position + Vector2(0.0, -24.0)
+		projectile_node.position = position + Vector2(0.0, -24.0)
 		projectile_node.direction = (RkMain.get_main_node(self).player_node.global_position - global_position).normalized()
 		projectile_node.damage_type = RkLifePointsSystem.DmgType.fire
 		get_parent().add_child(projectile_node)

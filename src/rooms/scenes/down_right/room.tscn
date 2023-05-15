@@ -1,8 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://tu35an5wmodq"]
+[gd_scene load_steps=12 format=3 uid="uid://tu35an5wmodq"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_404xn"]
 [ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_v375b"]
+[ext_resource type="PackedScene" uid="uid://c4gs7w2r4g4as" path="res://src/shared/random_spawner.tscn" id="4_1n6ak"]
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="4_kkfe7"]
+[ext_resource type="PackedScene" uid="uid://bjnfguqboytcr" path="res://src/objects/enemies/ghost.tscn" id="5_cgm7g"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_scene.gd" id="6_jasky"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_random_item.gd" id="7_d1oi8"]
+[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_random.gd" id="8_wl0dt"]
+
+[sub_resource type="Resource" id="Resource_baq8p"]
+script = ExtResource("6_jasky")
+scene = ExtResource("5_cgm7g")
+params = {}
+
+[sub_resource type="Resource" id="Resource_rh4ou"]
+script = ExtResource("7_d1oi8")
+content = SubResource("Resource_baq8p")
+probability = 0.5
+
+[sub_resource type="Resource" id="Resource_558j0"]
+script = ExtResource("8_wl0dt")
+random_spawns = Array[ExtResource("7_d1oi8")]([SubResource("Resource_rh4ou")])
+max_spawn_count = 1
+preview_spawn_index = 0
 
 [node name="Room" instance=ExtResource("1_404xn")]
 exit_down = true
@@ -28,3 +49,7 @@ position = Vector2(128, 112)
 
 [node name="Crate3" parent="." index="5" instance=ExtResource("4_kkfe7")]
 position = Vector2(120, 96)
+
+[node name="RandomSpawner" parent="." index="6" instance=ExtResource("4_1n6ak")]
+position = Vector2(376, 116)
+random_spawn = SubResource("Resource_558j0")

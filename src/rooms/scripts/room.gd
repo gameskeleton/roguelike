@@ -159,7 +159,7 @@ func get_random_free_cell_global_position(_width := 1, _height := 1) -> Vector2:
 	for i in 100:
 		var coords := Vector2i(randi_range(0, ROOM_TILE_COUNT.x - 1), randi_range(0, ROOM_TILE_COUNT.y - 1))
 		if not used_cells.has(coords):
-			return global_position + (tile_map.map_to_local(coords) + ROOM_TILE_SIZE * 0.5)
+			return tile_map.map_to_local(coords) + ROOM_TILE_SIZE * 0.5
 	return Vector2.ZERO
 
 # generate_room_exits_name returns a list of human readable exits.
