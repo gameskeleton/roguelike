@@ -4,12 +4,13 @@ const SPEED := 2.0
 const AMPLITUDE := 8.0
 const PROJECTILE_SCENE := preload("res://src/objects/projectiles/fire_ball.tscn")
 
-enum State { appear, idle, shriek, vanish }
+enum State { appear, idle, shriek, vanish, dying }
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var room_notifier: RkRoomNotifier2D = $RoomNotifier2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
+@onready var sprite_initial_position := sprite.position
 
 var _hits := 0
 var _shot := false
@@ -27,6 +28,7 @@ func _process(delta: float):
 	sprite.flip_h = global_position.x < RkMain.get_main_node(self).player_node.global_position.x
 	match _state:
 		State.idle: process_idle()
+		State.dying: process_dying()
 		State.appear: process_appear()
 		State.shriek: process_shriek()
 		State.vanish: process_vanish()
@@ -37,6 +39,7 @@ func set_state(new_state: State):
 	_state = new_state
 	match new_state:
 		State.idle: start_idle()
+		State.dying: start_dying()
 		State.appear: start_appear()
 		State.shriek: start_shriek()
 		State.vanish: start_vanish()
@@ -48,7 +51,7 @@ func start_idle():
 
 func process_idle():
 	position = Vector2(_teleport_position.x, _teleport_position.y + AMPLITUDE * sin(SPEED * _timer))
-	if _timer > _idle_delay:
+	if _timer > _idle_delay + 10:
 		set_state(State.shriek)
 
 func start_appear():
@@ -89,13 +92,27 @@ func process_vanish():
 func finish_vanish():
 	life_points_system.invincible = false
 
+func start_dying():
+	animation_player.play("dying")
+
+func process_dying():
+	if animation_player.current_animation == "":
+		RkPickupSpawner.try_spawn_coins(self, global_position - Vector2(0, 24), randi_range(1, 5))
+		RkPickupSpawner.try_spawn_experiences(self, global_position - Vector2(0, 24), randi_range(8, 10))
+		queue_free()
+
 # @signal
-func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node):
+func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Node):
 	_hits += 1
 	if life_points_system.has_lethal_damage():
-		RkPickupSpawner.try_spawn_coins(self, global_position, randi_range(1, 5))
-		RkPickupSpawner.try_spawn_experiences(self, global_position, randi_range(8, 10))
-		queue_free()
+		set_state(State.dying)
+	sprite.position = sprite_initial_position
+	sprite.material.set_shader_parameter("progress", 0.75)
+	var tween_hit := get_tree().create_tween().bind_node(self)
+	var tween_position := get_tree().create_tween().bind_node(self)
+	tween_hit.tween_property(sprite.material, "shader_parameter/progress", 2.0, 0.5).set_trans(Tween.TRANS_SINE)
+	tween_position.tween_property(sprite, "position", (global_position - source.global_position as Vector2).normalized() * 10.0, 0.1).as_relative().set_trans(Tween.TRANS_LINEAR)
+	tween_position.tween_property(sprite, "position", sprite_initial_position, 0.1).set_trans(Tween.TRANS_LINEAR)
 
 # @signal
 func _on_room_notifier_2d_player_enter():

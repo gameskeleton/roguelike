@@ -1,13 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjnfguqboytcr"]
+[gd_scene load_steps=18 format=3 uid="uid://bjnfguqboytcr"]
 
 [ext_resource type="Script" path="res://src/objects/enemies/scripts/ghost.gd" id="1_eewrg"]
 [ext_resource type="Texture2D" uid="uid://pucl0x5jqyi7" path="res://src/objects/enemies/textures/ghost_idle.png" id="1_yxvag"]
+[ext_resource type="Material" uid="uid://chy3rg8ymj8hp" path="res://src/shared/shaders/shining.tres" id="2_fuqh1"]
 [ext_resource type="Texture2D" uid="uid://63wxtca0tdn4" path="res://src/objects/enemies/textures/ghost_appears.png" id="2_y6nrm"]
 [ext_resource type="Texture2D" uid="uid://dhnsi47c2vmm8" path="res://src/objects/enemies/textures/ghost_shriek.png" id="4_juqg0"]
 [ext_resource type="Texture2D" uid="uid://cwxv0vtw4xoc7" path="res://src/objects/enemies/textures/ghost_vanish.png" id="5_a3dpc"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="6_coxhh"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="7_agja5"]
 [ext_resource type="PackedScene" uid="uid://b56aihlp5saww" path="res://src/gui/life_points_meter.tscn" id="8_h4oqv"]
+[ext_resource type="Texture2D" uid="uid://dsyfkwvq23w04" path="res://src/objects/enemies/textures/ghost_dying.png" id="10_jc27i"]
 
 [sub_resource type="Animation" id="Animation_6dnyg"]
 length = 0.001
@@ -209,10 +211,51 @@ tracks/2/keys = {
 "values": [7]
 }
 
+[sub_resource type="Animation" id="Animation_sie33"]
+resource_name = "dying"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_jc27i")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6l6k7"]
 _data = {
 "RESET": SubResource("Animation_6dnyg"),
 "appear": SubResource("Animation_t0lg3"),
+"dying": SubResource("Animation_sie33"),
 "idle": SubResource("Animation_lsdum"),
 "shriek": SubResource("Animation_clarj"),
 "vanish": SubResource("Animation_7wu0x")
@@ -222,6 +265,7 @@ _data = {
 script = ExtResource("1_eewrg")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = ExtResource("2_fuqh1")
 position = Vector2(-32, -48)
 texture = ExtResource("1_yxvag")
 centered = false
@@ -236,6 +280,7 @@ collision_layer = 64
 collision_mask = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackDetector"]
+visible = false
 polygon = PackedVector2Array(0, -8, -8, -12, -12, -24, -8, -36, 0, -44, 8, -36, 12, -24, 8, -12)
 
 [node name="LifePointsMeter" parent="." node_paths=PackedStringArray("life_points_system") instance=ExtResource("8_h4oqv")]
