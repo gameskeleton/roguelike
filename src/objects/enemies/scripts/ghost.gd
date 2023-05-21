@@ -103,14 +103,13 @@ func process_dying():
 
 # @signal
 func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Node):
-	_hits += 1
 	if life_points_system.has_lethal_damage():
 		set_state(State.dying)
-	sprite.position = sprite_initial_position
-	sprite.material.set_shader_parameter("progress", 0.75)
 	var tween_hit := get_tree().create_tween().bind_node(self)
 	var tween_position := get_tree().create_tween().bind_node(self)
-	tween_hit.tween_property(sprite.material, "shader_parameter/progress", 2.0, 0.5).set_trans(Tween.TRANS_SINE)
+	_hits += 1
+	sprite.position = sprite_initial_position
+	tween_hit.tween_property(sprite.material, "shader_parameter/progress", 2.0, 0.5).from(0.75).set_trans(Tween.TRANS_SINE)
 	tween_position.tween_property(sprite, "position", (global_position - source.global_position as Vector2).normalized() * 10.0, 0.1).as_relative().set_trans(Tween.TRANS_LINEAR)
 	tween_position.tween_property(sprite, "position", sprite_initial_position, 0.1).set_trans(Tween.TRANS_LINEAR)
 

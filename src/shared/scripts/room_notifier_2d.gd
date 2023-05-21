@@ -24,7 +24,7 @@ var room_inside := false : # whether this notifier is inside this room's collisi
 		if not listen_room_on:
 			push_error("room_inside cannot be accessed if listen_room_on is set to false")
 		return room_inside
-var player_inside := false : # whether the player inside the same room. WILL NOT BE UPDATED if listen_player_on is set to false.
+var player_inside := false : # whether the player is inside the same room. WILL NOT BE UPDATED if listen_player_on is set to false.
 	get:
 		if not listen_player_on:
 			push_error("player_inside cannot be accessed if listen_room_on is set to false")
