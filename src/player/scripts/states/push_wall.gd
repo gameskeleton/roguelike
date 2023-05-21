@@ -7,7 +7,7 @@ func start_state():
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_floor_move(delta, player_node.RUN_MAX_SPEED, player_node.RUN_ACCELERATION, player_node.RUN_DECELERATION * player_node.RUN_DECELERATION_BRAKE)
+	player_node.handle_floor_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
 	if not player_node.is_on_floor():
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_pressed(player_node.input_down) and player_node.is_able_to_crouch():

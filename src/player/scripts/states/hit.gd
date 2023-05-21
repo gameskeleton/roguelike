@@ -10,7 +10,7 @@ func start_state():
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_deceleration_move(delta, player_node.RUN_DECELERATION)
+	player_node.handle_deceleration_move(delta, player_node.WALK_DECELERATION)
 	if player_node.is_animation_finished():
 		return player_node.fsm.state_nodes.stand
 

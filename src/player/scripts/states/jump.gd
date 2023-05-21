@@ -23,7 +23,7 @@ func start_state():
 func process_state(delta: float):
 	_handle_direction()
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_airborne_move(delta, player_node.RUN_MAX_SPEED, player_node.RUN_ACCELERATION, player_node.RUN_DECELERATION)
+	player_node.handle_airborne_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION)
 	if player_node.is_on_floor():
 		return player_node.fsm.state_nodes.stand
 	if player_node.is_on_ceiling():
