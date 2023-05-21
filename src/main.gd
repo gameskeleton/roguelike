@@ -52,7 +52,6 @@ func _ready():
 	# setup level up animation
 	player_node.level_system.level_up.connect(func(_level: int):
 		if state == State.game:
-			get_tree().paused  = true
 			state = State.level_up
 			ui_pause_control.visible = false
 			ui_level_up_animation_player.play("level_up!")

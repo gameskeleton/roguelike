@@ -17,6 +17,7 @@ func start_state():
 	player_node.play_sound_effect(audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_detector_active(true)
 	player_node.set_crouch_detector_active(true)
+	player_node.set_one_way_detector_active(true)
 	player_node.stamina_system.consume(player_node.ROLL_STAMINA_COST)
 	player_node.animation_player.speed_scale = 2.1
 	player_node.life_points_system.invincible += 1
@@ -27,8 +28,12 @@ func process_state(delta: float):
 	player_node.sprite.offset.x = _sprite_initial_offset.x + player_node.direction * offset_curve.sample_baked(player_node.get_animation_played_ratio())
 	if player_node.is_on_wall() and player_node.get_animation_played_ratio() < 0.5:
 		return player_node.fsm.state_nodes.bump_into_wall
-	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_on_floor() and player_node.is_able_to_jump() and player_node.get_animation_played_ratio() > 0.8:
-		return player_node.fsm.state_nodes.jump
+	if player_node.get_animation_played_ratio() > 0.8:
+		if player_node.input_pressed(player_node.input_down) and player_node.input_just_pressed(player_node.input_jump) and player_node.is_on_floor_one_way():
+			player_node.handle_drop_through_one_way()
+			return player_node.fsm.state_nodes.fall
+		if player_node.input_just_pressed(player_node.input_jump) and player_node.is_on_floor() and player_node.is_able_to_jump():
+			return player_node.fsm.state_nodes.jump
 	if player_node.is_animation_finished():
 		if player_node.is_able_to_uncrouch():
 			return player_node.fsm.state_nodes.stand
@@ -43,6 +48,7 @@ func finish_state():
 	player_node.stop_sound_effect(audio_stream_player)
 	player_node.set_roll_detector_active(false)
 	player_node.set_crouch_detector_active(false)
+	player_node.set_one_way_detector_active(false)
 
 func _on_roll_detector_area_entered(area: Area2D):
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())

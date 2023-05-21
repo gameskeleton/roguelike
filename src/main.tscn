@@ -149,7 +149,6 @@ texture_scale = 0.5
 metadata/_edit_lock_ = true
 
 [node name="LevelUpLabel" type="Label" parent="Game/Player"]
-process_mode = 2
 z_index = 1
 material = ExtResource("6_41hv6")
 offset_left = -32.0
