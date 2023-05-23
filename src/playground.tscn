@@ -3,11 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_kymoh"]
 [ext_resource type="PackedScene" uid="uid://bjnfguqboytcr" path="res://src/objects/enemies/ghost.tscn" id="2_s3rkg"]
 [ext_resource type="PackedScene" uid="uid://baeqgyv8h7is3" path="res://src/objects/enemies/orb.tscn" id="3_n2b87"]
-[ext_resource type="PackedScene" uid="uid://c4gs7w2r4g4as" path="res://src/shared/random_spawner.tscn" id="4_jtf3l"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_coin.gd" id="5_mth1m"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_random_item.gd" id="6_v5v7w"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_chest.gd" id="7_qi2l5"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_random.gd" id="7_va3m7"]
+[ext_resource type="PackedScene" uid="uid://c4gs7w2r4g4as" path="res://src/spawner/random_spawner.tscn" id="4_jtf3l"]
+[ext_resource type="Script" path="res://src/spawner/res/spawn_coin.gd" id="5_mth1m"]
+[ext_resource type="Script" path="res://src/spawner/res/spawn_random_item.gd" id="6_v5v7w"]
+[ext_resource type="Script" path="res://src/spawner/res/spawn_chest.gd" id="7_qi2l5"]
+[ext_resource type="Script" path="res://src/spawner/res/spawn_random.gd" id="7_va3m7"]
 
 [sub_resource type="Resource" id="Resource_ks5fv"]
 script = ExtResource("5_mth1m")

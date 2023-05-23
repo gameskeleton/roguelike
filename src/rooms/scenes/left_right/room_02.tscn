@@ -6,26 +6,24 @@
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="4_ud6bx"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="5_w3o7e"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="6_rcxv3"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_coin.gd" id="7_r6bpy"]
+[ext_resource type="Script" path="res://src/spawner/res/spawn_coin.gd" id="7_r6bpy"]
 
 [sub_resource type="Resource" id="Resource_gawa3"]
 script = ExtResource("7_r6bpy")
 min_count = 2
 max_count = 4
+expulse_cone = 35.0
+expulse_strength = Vector2(180, 200)
 expulse_direction = Vector2(0, -1)
-expulse_strength_min = 180.0
-expulse_strength_max = 200.0
-expulse_direction_cone = 35.0
 delay_in_secs_between_spawns = 0.05
 
 [sub_resource type="Resource" id="Resource_ucmd8"]
 script = ExtResource("7_r6bpy")
 min_count = 10
 max_count = 15
+expulse_cone = 35.0
+expulse_strength = Vector2(180, 200)
 expulse_direction = Vector2(0, -1)
-expulse_strength_min = 180.0
-expulse_strength_max = 200.0
-expulse_direction_cone = 35.0
 delay_in_secs_between_spawns = 0.05
 
 [node name="Room" instance=ExtResource("1_ey4pc")]

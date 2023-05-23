@@ -8,7 +8,7 @@
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
 [ext_resource type="PackedScene" uid="uid://bv67dd1mhtbs6" path="res://src/gui/map_room_dot.tscn" id="8_4s74v"]
-[ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/shared/object_spawner.tscn" id="8_o2dbi"]
+[ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/spawner/object_spawner.tscn" id="8_o2dbi"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 [ext_resource type="PackedScene" uid="uid://dfafs7jw2i84p" path="res://src/gui/inventory.tscn" id="11_ptukl"]

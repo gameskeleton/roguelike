@@ -5,17 +5,16 @@
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_l4o4i"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="4_o7tk1"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="5_i3gdg"]
-[ext_resource type="Script" path="res://src/shared/data/spawn/spawn_coin.gd" id="6_khphc"]
+[ext_resource type="Script" path="res://src/spawner/res/spawn_coin.gd" id="6_khphc"]
 [ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="7_46277"]
 
 [sub_resource type="Resource" id="Resource_jqvgb"]
 script = ExtResource("6_khphc")
 min_count = 5
 max_count = 10
+expulse_cone = 35.0
+expulse_strength = Vector2(180, 200)
 expulse_direction = Vector2(0, -1)
-expulse_strength_min = 180.0
-expulse_strength_max = 200.0
-expulse_direction_cone = 35.0
 delay_in_secs_between_spawns = 0.05
 
 [node name="Room" instance=ExtResource("1_hkpj2")]
