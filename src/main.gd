@@ -12,7 +12,7 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @onready var player_node: RkPlayer = $Game/Player
 @onready var all_rooms_node: Node2D = $Game/AllRooms
 @onready var player_camera_node: Camera2D = $Game/Player/Camera2D
-@onready var pickup_spawner_node: RkPickupSpawner = $Game/PickupSpawner
+@onready var object_spawner_node: RkObjectSpawner = $Game/ObjectSpawner
 
 @onready var ui_pause_control: Control = $CanvasLayer/Pause
 @onready var ui_tab_container: TabContainer = $CanvasLayer/Pause/MarginContainer/TabContainer
@@ -127,6 +127,12 @@ func _process_level_up():
 # @pure
 static func get_main_node(from_node: Node) -> RkMain:
 	return from_node.get_tree().root.get_node("/root/Main") as RkMain
+
+# @pure
+static func try_get_main_node(from_node: Node) -> RkMain:
+	if from_node.is_inside_tree():
+		return from_node.get_tree().root.get_node_or_null("/root/Main") as RkMain
+	return null
 
 ###
 # Room

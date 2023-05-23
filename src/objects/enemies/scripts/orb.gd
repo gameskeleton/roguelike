@@ -95,8 +95,10 @@ func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Nod
 	_expulse_alpha = 1.0
 	animation_player.play("hit")
 	if life_points_system.has_lethal_damage():
-		RkPickupSpawner.try_spawn_coins(self, global_position, randi_range(0, 3))
-		RkPickupSpawner.try_spawn_experiences(self, global_position, randi_range(6, 7))
+		for i in randi_range(0, 3):
+			RkObjectSpawner.spawn_coin(self, global_position).fly()
+		for i in randi_range(6, 7):
+			RkObjectSpawner.spawn_experience(self, global_position).fly()
 		queue_free()
 
 # @signal

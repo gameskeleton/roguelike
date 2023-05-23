@@ -5,7 +5,7 @@ extends Node2D
 # @signal
 # @impure
 func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node):
-	RkPickupSpawner.try_spawn_coins(self, global_position, 1)
+	RkObjectSpawner.spawn_coin(self, global_position).fly()
 	if debris_scene:
 		var debris: Node2D = debris_scene.instantiate()
 		debris.position = position

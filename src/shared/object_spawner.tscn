@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btx7apvwpa523"]
+
+[ext_resource type="Script" path="res://src/shared/scripts/object_spawner.gd" id="1_yiubm"]
+
+[node name="ObjectSpawner" type="Node"]
+script = ExtResource("1_yiubm")

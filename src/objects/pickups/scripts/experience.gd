@@ -2,7 +2,6 @@ extends RigidBody2D
 class_name RkPickupExperience
 
 const PICKUP_DELAY := 0.35
-const IMPULSE_STRENGTH := 30.0
 
 @export var value := 1
 
@@ -10,9 +9,12 @@ const IMPULSE_STRENGTH := 30.0
 @onready var player_detector: Area2D = $PlayerDetector
 
 # @impure
+func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(180.0, 200.0)):
+	var half_cone := cone * 0.5
+	apply_central_impulse(randf_range(strength.x, strength.y) * direction.rotated(deg_to_rad(randf_range(-half_cone, +half_cone))))
+
+# @impure
 func _ready():
-	# add random impulse
-	apply_central_impulse(IMPULSE_STRENGTH * Vector2(randf_range(-5.0, 5.0), randf_range(-4.0, -6.0)))
 	# enable pickup after a while
 	await get_tree().create_timer(PICKUP_DELAY, false).timeout
 	player_detector.monitoring = true
@@ -27,6 +29,7 @@ func _process(_delta: float):
 	else:
 		line.clear_points()
 
+# @signal
 # @impure
 func _on_player_detector_body_entered(body: Node2D):
 	if body is RkPlayer:

@@ -14,7 +14,7 @@ func spawn(parent_node: Node):
 	var main_node := RkMain.get_main_node(parent_node)
 	var spawn_count := 0
 	for random_spawn in random_spawns:
-		if random_spawn.probability > (main_node.rng.randf() if main_node else randf()):
+		if random_spawn.probability > main_node.rng.randf():
 			spawn_count += 1
 			random_spawn.content.spawn(parent_node)
 		if spawn_count >= max_spawn_count:

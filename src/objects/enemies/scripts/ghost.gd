@@ -97,8 +97,10 @@ func start_dying():
 
 func process_dying():
 	if animation_player.current_animation == "":
-		RkPickupSpawner.try_spawn_coins(self, global_position - Vector2(0, 24), randi_range(1, 5))
-		RkPickupSpawner.try_spawn_experiences(self, global_position - Vector2(0, 24), randi_range(8, 10))
+		for i in randi_range(1, 5):
+			RkObjectSpawner.spawn_coin(self, global_position - Vector2(0, 24)).fly()
+		for i in randi_range(8, 10):
+			RkObjectSpawner.spawn_experience(self, global_position - Vector2(0, 24)).fly()
 		queue_free()
 
 # @signal
