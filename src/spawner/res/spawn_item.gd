@@ -2,10 +2,9 @@
 extends RkSpawnRes
 class_name RkSpawnItemRes
 
-const PICKUP_ITEM_SCENE: PackedScene = preload("res://src/objects/pickups/item.tscn")
-
 @export var item: RkItemRes
-@export var expulse_strength := 200.0
+@export var expulse_cone := 35.0
+@export var expulse_strength := Vector2(180.0, 200.0)
 @export var expulse_direction := Vector2.UP
 
 # @override
@@ -13,8 +12,6 @@ const PICKUP_ITEM_SCENE: PackedScene = preload("res://src/objects/pickups/item.t
 func spawn(parent_node: Node) -> Node:
 	if not item:
 		return null
-	var pickup_item_node: RkPickupItem = PICKUP_ITEM_SCENE.instantiate()
-	pickup_item_node.item = item
-	pickup_item_node.apply_central_impulse(expulse_direction * expulse_strength)
-	parent_node.add_child(pickup_item_node)
+	var pickup_item_node := RkObjectSpawner.spawn_item(parent_node, RkUtils.node_global_position(parent_node))
+	pickup_item_node.fly(expulse_direction, expulse_cone, expulse_strength)
 	return pickup_item_node

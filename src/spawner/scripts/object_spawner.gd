@@ -3,6 +3,7 @@ class_name RkObjectSpawner
 
 const CHEST_SCENE: PackedScene = preload("res://src/objects/pickups/chest.tscn")
 const COIN_PICKUP_SCENE: PackedScene = preload("res://src/objects/pickups/coin.tscn")
+const ITEM_PICKUP_SCENE: PackedScene = preload("res://src/objects/pickups/item.tscn")
 const EXPERIENCE_PICKUP_SCENE: PackedScene = preload("res://src/objects/pickups/experience.tscn")
 
 @export var spawn_node: Node
@@ -14,6 +15,14 @@ static func spawn_coin(from_node: Node, position: Vector2) -> RkPickupCoin:
 	(main_node.object_spawner_node.spawn_node if main_node else from_node).add_child(coin_pickup_node)
 	coin_pickup_node.global_position = position
 	return coin_pickup_node
+
+# @impure
+static func spawn_item(from_node: Node, position: Vector2) -> RkPickupItem:
+	var main_node := RkMain.try_get_main_node(from_node)
+	var item_pickup_node := ITEM_PICKUP_SCENE.instantiate() as RkPickupItem
+	(main_node.object_spawner_node.spawn_node if main_node else from_node).add_child(item_pickup_node)
+	item_pickup_node.global_position = position
+	return item_pickup_node
 
 # @impure
 static func spawn_chest(from_node: Node, position: Vector2) -> RkChest:

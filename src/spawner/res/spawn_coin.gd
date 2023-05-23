@@ -12,13 +12,10 @@ class_name RkSpawnCoinRes
 # @override
 # @impure
 func spawn(parent_node: Node) -> Node:
-	var count := randi_range(min_count, max_count)
-	var coin_pickup_node: RkPickupCoin
-	for i in count:
-		coin_pickup_node = RkObjectSpawner.spawn_coin(parent_node, RkUtils.node_global_position(parent_node) + Vector2(0, -8.0))
-		coin_pickup_node.fly(expulse_direction, expulse_cone, expulse_strength)
+	for i in randi_range(min_count, max_count):
+		RkObjectSpawner.spawn_coin(parent_node, RkUtils.node_global_position(parent_node) + Vector2(0, -8.0)).fly(expulse_direction, expulse_cone, expulse_strength)
 		await parent_node.get_tree().create_timer(delay_in_secs_between_spawns, false).timeout
-	return coin_pickup_node
+	return null
 
 # @override
 # @impure

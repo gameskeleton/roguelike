@@ -10,6 +10,11 @@ class_name RkPickupItem
 		$Sprite2D.texture = new_item.icon
 		($Sprite2D.material as ShaderMaterial).set_shader_parameter("tint", item.color)
 
+# @impure
+func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(180.0, 200.0)):
+	var half_cone := cone * 0.5
+	apply_central_impulse(randf_range(strength.x, strength.y) * direction.rotated(deg_to_rad(randf_range(-half_cone, +half_cone))))
+
 # @signal
 # @impure
 func _on_player_detector_body_entered(body: Node2D):
