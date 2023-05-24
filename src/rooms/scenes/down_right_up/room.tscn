@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://baeqgyv8h7is3" path="res://src/objects/enemies/orb.tscn" id="4_udh3g"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="5_1outa"]
 [ext_resource type="Resource" uid="uid://dgm5e713lx73u" path="res://src/items/glove_of_midas.tres" id="6_6yl7u"]
-[ext_resource type="Script" path="res://src/spawner/res/spawn_item.gd" id="7_uajsm"]
+[ext_resource type="Script" path="res://src/spawner/res/one/spawn_item.gd" id="7_uajsm"]
 
 [sub_resource type="Resource" id="Resource_vwlse"]
 script = ExtResource("7_uajsm")
 item = ExtResource("6_6yl7u")
-expulse_strength = 200.0
+expulse_cone = 35.0
+expulse_strength = Vector2(180, 200)
 expulse_direction = Vector2(0, -1)
 
 [node name="Room" instance=ExtResource("1_mkyw7")]

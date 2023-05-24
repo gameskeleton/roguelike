@@ -1,12 +1,34 @@
-[gd_scene load_steps=94 format=3 uid="uid://baeqgyv8h7is3"]
+[gd_scene load_steps=101 format=3 uid="uid://baeqgyv8h7is3"]
 
 [ext_resource type="Script" path="res://src/objects/enemies/scripts/orb.gd" id="1_ds1gk"]
+[ext_resource type="PackedScene" uid="uid://bxfcvgarebsre" path="res://src/systems/drop.tscn" id="2_cvu4v"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_s51k7"]
 [ext_resource type="PackedScene" uid="uid://b56aihlp5saww" path="res://src/gui/life_points_meter.tscn" id="3_n0vry"]
+[ext_resource type="Script" path="res://src/spawner/res/one/spawn_coin.gd" id="3_p6o5l"]
+[ext_resource type="Script" path="res://src/spawner/res/one/spawn_experience.gd" id="4_fjytn"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="4_iathy"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="5_0vdxi"]
+[ext_resource type="Script" path="res://src/spawner/res/several/spawn_each.gd" id="5_7ghgr"]
 [ext_resource type="Texture2D" uid="uid://di0jio3iymru5" path="res://src/objects/enemies/textures/orb.png" id="6_dpl3o"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="7_enyt3"]
+
+[sub_resource type="Resource" id="Resource_ruien"]
+script = ExtResource("3_p6o5l")
+expulse_cone = 35.0
+expulse_strength = Vector2(180, 200)
+expulse_direction = Vector2(0, -1)
+
+[sub_resource type="Resource" id="Resource_k5eb5"]
+script = ExtResource("4_fjytn")
+expulse_cone = 35.0
+expulse_strength = Vector2(180, 200)
+expulse_direction = Vector2(0, -1)
+
+[sub_resource type="Resource" id="Resource_gn74h"]
+script = ExtResource("5_7ghgr")
+each_spawns = Array[Resource("res://src/spawner/res/spawn.gd")]([SubResource("Resource_ruien"), SubResource("Resource_k5eb5")])
+each_preview_index = 0
+delay_between_spawn = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7opvg"]
 
@@ -638,6 +660,9 @@ _data = {
 script = ExtResource("1_ds1gk")
 
 [node name="Systems" type="Node" parent="."]
+
+[node name="Drop" parent="Systems" instance=ExtResource("2_cvu4v")]
+drop_content = SubResource("Resource_gn74h")
 
 [node name="LifePoints" parent="Systems" instance=ExtResource("2_s51k7")]
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-enum State { idle, lock, fire }
+enum State { idle, lock, fire, dead }
 
 const PROJECTILE_SCENE := preload("res://src/objects/projectiles/fire_ball.tscn")
 
@@ -13,6 +13,8 @@ const EXPULSE_STRENGTH := 10.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var drop_system: RkDropSystem = $Systems/Drop
 @onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 var _timer := 0.0
@@ -95,10 +97,8 @@ func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Nod
 	_expulse_alpha = 1.0
 	animation_player.play("hit")
 	if life_points_system.has_lethal_damage():
-		for i in randi_range(0, 3):
-			RkObjectSpawner.spawn_coin(self, global_position).fly()
-		for i in randi_range(6, 7):
-			RkObjectSpawner.spawn_experience(self, global_position).fly()
+		_state = State.dead
+		await drop_system.drop(global_position)
 		queue_free()
 
 # @signal

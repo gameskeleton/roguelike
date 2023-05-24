@@ -9,9 +9,10 @@ const PICKUP_DELAY := 0.35
 @onready var player_detector: Area2D = $PlayerDetector
 
 # @impure
-func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(180.0, 200.0)):
+func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(180.0, 200.0)) -> RkPickupExperience:
 	var half_cone := cone * 0.5
 	apply_central_impulse(randf_range(strength.x, strength.y) * direction.rotated(deg_to_rad(randf_range(-half_cone, +half_cone))))
+	return self
 
 # @impure
 func _ready():

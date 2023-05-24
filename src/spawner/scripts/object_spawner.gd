@@ -17,10 +17,11 @@ static func spawn_coin(from_node: Node, position: Vector2) -> RkPickupCoin:
 	return coin_pickup_node
 
 # @impure
-static func spawn_item(from_node: Node, position: Vector2) -> RkPickupItem:
+static func spawn_item(from_node: Node, position: Vector2, item: RkItemRes) -> RkPickupItem:
 	var main_node := RkMain.try_get_main_node(from_node)
 	var item_pickup_node := ITEM_PICKUP_SCENE.instantiate() as RkPickupItem
 	(main_node.object_spawner_node.spawn_node if main_node else from_node).add_child(item_pickup_node)
+	item_pickup_node.item = item
 	item_pickup_node.global_position = position
 	return item_pickup_node
 

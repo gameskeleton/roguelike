@@ -4,13 +4,15 @@ const SPEED := 2.0
 const AMPLITUDE := 8.0
 const PROJECTILE_SCENE := preload("res://src/objects/projectiles/fire_ball.tscn")
 
-enum State { appear, idle, shriek, vanish, dying }
+enum State { appear, idle, shriek, vanish, dying, dead }
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var room_notifier: RkRoomNotifier2D = $RoomNotifier2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 @onready var sprite_initial_position := sprite.position
+
+@onready var drop_system: RkDropSystem = $Systems/Drop
+@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 var _hits := 0
 var _shot := false
@@ -39,6 +41,7 @@ func set_state(new_state: State):
 	_state = new_state
 	match new_state:
 		State.idle: start_idle()
+		State.dead: start_dead()
 		State.dying: start_dying()
 		State.appear: start_appear()
 		State.shriek: start_shriek()
@@ -97,11 +100,12 @@ func start_dying():
 
 func process_dying():
 	if animation_player.current_animation == "":
-		for i in randi_range(1, 5):
-			RkObjectSpawner.spawn_coin(self, global_position - Vector2(0, 24)).fly()
-		for i in randi_range(8, 10):
-			RkObjectSpawner.spawn_experience(self, global_position - Vector2(0, 24)).fly()
-		queue_free()
+		set_state(State.dead)
+
+func start_dead():
+	visible = false
+	await drop_system.drop(global_position)
+	queue_free()
 
 # @signal
 func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Node):
