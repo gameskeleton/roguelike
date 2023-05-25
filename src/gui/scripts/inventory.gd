@@ -3,26 +3,12 @@ class_name RkGuiInventory
 
 @export var node: Node
 
-@onready var stats_gold_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/GoldValueLabel
-@onready var stats_gold_bonus_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/GoldBonusLabel
-@onready var stats_level_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/LevelValueLabel
-@onready var stats_force_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/ForceValueLabel
-@onready var stats_force_bonus_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/ForceBonusLabel
-@onready var stats_defence_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/DefenceValueLabel
-@onready var stats_defence_bonus_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/DefenceBonusLabel
-@onready var stats_stamina_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/StaminaValueLabel
-@onready var stats_stamina_bonus_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/StaminaBonusLabel
-@onready var stats_stamina_regen_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/StaminaRegenValueLabel
-@onready var stats_stamina_regen_bonus_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/StaminaRegenBonusLabel
-@onready var stats_experience_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/ExperienceValueLabel
-@onready var stats_life_points_value_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/LifePointsValueLabel
-@onready var stats_life_points_bonus_label: Label = $HBoxContainer/Statistics/Stats/ScrollContainer/VBoxContainer/MarginContainer/GridContainer/LifePointsBonusLabel
-
 @onready var inventory_drop: Control = $HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop
 @onready var inventory_item_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer
 @onready var inventory_slot_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer
 @onready var inventory_drop_animation_player: AnimationPlayer = $HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop/AnimationPlayer
 
+@onready var stats_description: RichTextLabel = $HBoxContainer/Statistics/Stats/VBoxContainer/StatsDescription
 @onready var description_item_name: Label = $HBoxContainer/Statistics/Description/VBoxContainer/ItemName
 @onready var description_item_description: RichTextLabel = $HBoxContainer/Statistics/Description/VBoxContainer/ItemDescription
 
@@ -54,22 +40,7 @@ func _ready():
 
 # @impure
 func _process(_delta: float):
-	# update base stats
-	_update_stats_int(stats_gold_value_label, _gold_system.gold)
-	_update_stats_int(stats_force_value_label, _attack_system.force)
-	_update_stats_int(stats_defence_value_label, _attack_system.defence)
-	_update_stats_int_range(stats_experience_value_label, _level_system.experience, _level_system.experience_required_to_level_up)
-	_update_stats_rpg_int_range(stats_level_value_label, _level_system.level, 1)
-	_update_stats_rpg_float_range(stats_stamina_value_label, _stamina_system.stamina)
-	_update_stats_rpg_float_range(stats_life_points_value_label, _life_points_system.life_points)
-	_update_stats_simple_float_unit(stats_stamina_regen_value_label, _stamina_system.regeneration, " /s")
-	# update bonus stats
-	_update_stats_earn_rpg_float(stats_gold_bonus_label, _gold_system.gold)
-	_update_stats_bonus_rpg_float(stats_stamina_bonus_label, _stamina_system.stamina)
-	_update_stats_bonus_rpg_float(stats_life_points_bonus_label, _life_points_system.life_points)
-	_update_stats_bonus_simple_float(stats_force_bonus_label, _attack_system.force)
-	_update_stats_bonus_simple_float(stats_defence_bonus_label, _attack_system.defence)
-	_update_stats_bonus_simple_float(stats_stamina_regen_bonus_label, _stamina_system.regeneration)
+	_update_stats_description()
 
 # @impure
 func _notification(what: int):
@@ -92,63 +63,33 @@ func _update_cells(force := false):
 		slot_cell.item = _inventory_system.slots[slot_index]
 	_update_item_name_and_description(_selected_cell.item if _selected_cell else null)
 
-# @impure
-func _update_stats_int(value_label: Label, stats: Object):
-	if stats is RkRpgFloat:
-		value_label.text = "%d" % [(stats as RkRpgFloat).value]
-	elif stats is RkRpgSimpleFloat:
-		value_label.text = "%d" % [(stats as RkRpgSimpleFloat).value]
+# @pure
+func _format_text(value: String):
+	return "%s: " % [value]
 
-# @impure
-func _update_stats_int_range(value_label: Label, value: int, max_value: int, increment := 0):
-	value_label.text = "%d / %d" % [value + increment, max_value + increment]
+# @pure
+func _format_float(value: float):
+	return "[color=#%s]%.0f[/color]" % [RkColorTheme.ORANGE.to_html(), value]
 
-# @impure
-func _update_stats_rpg_int_range(value_label: Label, stats: RkRpgInteger, increment := 0):
-	value_label.text = "%d / %d" % [stats.value + increment, stats.max_value + increment]
-
-# @impure
-func _update_stats_simple_float_unit(value_label: Label, stats: RkRpgSimpleFloat, unit: String):
-	value_label.text = "%.1f%s" % [stats.value, unit]
-
-# @impure
-func _update_stats_rpg_float_range(value_label: Label, stats: RkRpgFloat):
-	value_label.text = "%.1f / %.1f" % [stats.value, stats.max_value]
-
-# @impure
-func _update_stats_earn_rpg_float(earn_label: Label, stats: RkRpgFloat):
-	var zero := is_equal_approx(stats.value_earn_multiplier, 1.0)
-	var positive := stats.value_earn_multiplier >= 1.0 and not stats.lower_is_better
-	var font_color := RkColorTheme.DARK_GREEN if positive else RkColorTheme.DARK_RED
-	var multiplier_percentage := (stats.value_earn_multiplier - 1.0) * 100.0
-	earn_label.text = ("+%.0f%%" % [ceilf(multiplier_percentage)]) if positive else ("-%.0f%%" % [absf(floorf(multiplier_percentage))])
-	earn_label.modulate.a = 0.0 if zero else 1.0
-	earn_label.add_theme_color_override("font_color", font_color)
-
-# @impure
-func _update_stats_bonus_float(bonus_label: Label, bonus: float, lower_is_better: bool):
-	var zero := absf(bonus) < 0.5
-	var positive := bonus >= 0.0 and not lower_is_better
-	var font_color := RkColorTheme.DARK_GREEN if positive else RkColorTheme.DARK_RED
-	bonus_label.text = ("+%d" % [bonus]) if positive else ("-%d" % [absf(bonus)])
-	bonus_label.modulate.a = 0.0 if zero else 1.0
-	bonus_label.add_theme_color_override("font_color", font_color)
-
-# @impure
-func _update_stats_bonus_rpg_float(bonus_label: Label, stats: RkRpgFloat):
-	_update_stats_bonus_float(bonus_label, stats.max_value - stats.max_value_base, stats.lower_is_better)
-
-# @impure
-func _update_stats_bonus_simple_float(bonus_label: Label, stats: RkRpgSimpleFloat):
-	_update_stats_bonus_float(bonus_label, stats.value - stats.value_base, stats.lower_is_better)
-
-# @impure
+# @pure
 func _format_item_bonus(value: float):
 	return "[color=#%s]%s%.0f[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 0.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 0.0 else "", value]
 
-# @impure
+# @pure
 func _format_item_bonus_percentage(value: float):
 	return "[color=#%s]%s%.0f%%[/color]" % [RkColorTheme.DARK_RED.to_html() if value < 0.0 else RkColorTheme.DARK_GREEN.to_html(), "+" if value >= 0.0 else "", ceilf(value * 100.0)]
+
+# @impure
+func _update_stats_description():
+	stats_description.text = ""
+	stats_description.text += "%s%s/%s\n" % [_format_text("Lvl"), _format_float(_level_system.level.value + 1), _format_float(_level_system.level.max_value + 1)]
+	stats_description.text += "%s%s\n" % [_format_text("Gold"), _format_float(_gold_system.gold.value)]
+	stats_description.text += "%s%s\n" % [_format_text("Force"), _format_float(_attack_system.force.value)]
+	stats_description.text += "%s%s\n" % [_format_text("Defence"), _format_float(_attack_system.defence.value)]
+	stats_description.text += "\n"
+	stats_description.text += "%s%s/%s\n" % [_format_text("Stamina"), _format_float(_stamina_system.stamina.value), _format_float(_stamina_system.stamina.max_value)]
+	stats_description.text += "%s%s\n" % [_format_text("Stamina regen"), _format_float(_stamina_system.regeneration.value)]
+	stats_description.text += "%s%s/%s\n" % [_format_text("Life points"), _format_float(_life_points_system.life_points.value), _format_float(_life_points_system.life_points.max_value)]
 
 # @impure
 func _update_item_name_and_description(item: RkItemRes):
