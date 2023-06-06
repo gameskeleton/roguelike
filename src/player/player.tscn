@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=86 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
 [ext_resource type="AudioStream" uid="uid://coae4lk6cowab" path="res://src/player/sounds/attack.wav" id="15_8gyqs"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
+[ext_resource type="Script" path="res://src/player/scripts/states/death.gd" id="18_f5afl"]
 [ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
 [ext_resource type="Script" path="res://src/player/scripts/states/crouch.gd" id="20_8363j"]
@@ -1072,6 +1073,86 @@ tracks/2/keys = {
 "values": [3]
 }
 
+[sub_resource type="Animation" id="Animation_wnvtc"]
+resource_name = "death_fall"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_a75to")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_dkk0k"]
+resource_name = "death_hit_floor"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_a75to")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 "RESET": SubResource("Animation_11iq3"),
@@ -1083,6 +1164,8 @@ _data = {
 "crouch_to_stand": SubResource("Animation_b77xs"),
 "crouch_walk": SubResource("Animation_ygk1w"),
 "death": SubResource("Animation_jlirl"),
+"death_fall": SubResource("Animation_wnvtc"),
+"death_hit_floor": SubResource("Animation_dkk0k"),
 "fall": SubResource("Animation_ginsg"),
 "get_up": SubResource("Animation_fggvj"),
 "hit": SubResource("Animation_2epva"),
@@ -1186,6 +1269,9 @@ script = ExtResource("3_8ll75")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/stand"]
 stream = ExtResource("12_nfhlm")
 bus = &"SFX - Touch Ground"
+
+[node name="death" type="Node" parent="StateMachine"]
+script = ExtResource("18_f5afl")
 
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_fb2tt")

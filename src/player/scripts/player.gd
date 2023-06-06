@@ -24,6 +24,8 @@ const ROLL_STAMINA_COST := 2.0
 const ROLL_DECELERATION := 290.0
 const ROLL_BUMP_STRENGTH := -70.0
 
+const DEATH_DECELERATION := 290.0
+
 const ATTACK_DAMAGE := 1.0
 const ATTACK_MAX_SPEED := 120.0
 const ATTACK_STAMINA_COST := 2.0
@@ -77,11 +79,12 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 # State
 ###
 
+@export var dead := false
 @export var crouched := false
 @export var direction := 1.0
 @export var base_force := 1.0
 @export var base_stamina := 10.0
-@export var base_life_points := 10.0
+@export var base_life_points := 1.0
 @export var additional_force_per_level := Curve.new()
 @export var additional_stamina_per_level := Curve.new()
 @export var additional_life_points_per_level := Curve.new()
@@ -94,6 +97,8 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
 
 var disable_wall_hang_timeout := 0.0
+
+signal death()
 
 ###
 # Input
@@ -174,6 +179,18 @@ func input_just_pressed(input: float, buffer := 2.0 / 60.0) -> bool:
 ###
 # Movement
 ###
+
+# die makes the player collapse and emit the death signal
+# @impure
+func die():
+	dead = true
+	death.emit()
+	fsm.set_state_node(fsm.state_nodes.death)
+
+# hit makes the player hit and invincible for a little while.
+# @impure
+func hit():
+	fsm.set_state_node(fsm.state_nodes.hit)
 
 # jump applies an impulse to y-velocity.
 # @impure
@@ -473,4 +490,8 @@ func _on_level_level_up(_new_level: int):
 # @signal
 # @impure
 func _on_life_points_damage_taken(_damage_taken: float, _source: Node, _instigator: Node):
-	fsm.call_deferred("set_state_node", fsm.state_nodes.hit)
+	if life_points_system.has_lethal_damage():
+		if dead:
+			return
+		return call_deferred("die")
+	return call_deferred("hit")
