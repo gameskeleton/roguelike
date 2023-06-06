@@ -14,13 +14,20 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @onready var player_camera_node: Camera2D = $Game/Player/Camera2D
 @onready var object_spawner_node: RkObjectSpawner = $Game/ObjectSpawner
 
-@onready var ui_pause_control: Control = $CanvasLayer/Pause
-@onready var ui_tab_container: TabContainer = $CanvasLayer/Pause/MarginContainer/TabContainer
-@onready var ui_all_rooms_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms
-@onready var ui_map_room_dot_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot
+@onready var level_up_label: Label = $Game/Player/LevelUpLabel
+@onready var level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
+@onready var level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
 
-@onready var ui_level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
-@onready var ui_level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
+@onready var ui_game_control: Control = $CanvasLayer/Game
+@onready var ui_game_state_label: Label = $CanvasLayer/Game/State
+@onready var ui_game_stamina_meter: RkGuiProgressBar = $CanvasLayer/Game/StaminaMeter
+@onready var ui_game_magic_slot_button: TextureButton = $CanvasLayer/Game/MagicSlot
+@onready var ui_game_life_points_meter: RkGuiProgressBar = $CanvasLayer/Game/LifePointsMeter
+
+@onready var ui_pause_control: Control = $CanvasLayer/Pause
+@onready var ui_pause_tab_container: TabContainer = $CanvasLayer/Pause/MarginContainer/TabContainer
+@onready var ui_pause_all_rooms_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms
+@onready var ui_pause_map_room_dot_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot
 
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
@@ -54,8 +61,8 @@ func _ready():
 		if state == State.game:
 			state = State.level_up
 			ui_pause_control.visible = false
-			ui_level_up_animation_player.play("level_up!")
-		ui_level_up_audio_stream_player.play()
+			level_up_animation_player.play("level_up!")
+		level_up_audio_stream_player.play()
 	)
 	# limit camera
 	_limit_camera_to_room()
@@ -72,9 +79,9 @@ func _process(delta: float):
 # @impure
 func _process_game(delta: float):
 	# gui update
-	$CanvasLayer/State.text = player_node.fsm.current_state_node.name
-	$CanvasLayer/StaminaMeter.progress = move_toward($CanvasLayer/StaminaMeter.progress, player_node.stamina_system.stamina.ratio, delta)
-	$CanvasLayer/LifePointsMeter.progress = move_toward($CanvasLayer/LifePointsMeter.progress, player_node.life_points_system.life_points.ratio, delta)
+	ui_game_state_label.text = player_node.fsm.current_state_node.name
+	ui_game_stamina_meter.progress = move_toward(ui_game_stamina_meter.progress, player_node.stamina_system.stamina.ratio, delta)
+	ui_game_life_points_meter.progress = move_toward(ui_game_life_points_meter.progress, player_node.life_points_system.life_points.ratio, delta)
 	# pause game
 	if Input.is_action_just_pressed("player_pause"):
 		get_tree().paused = true
@@ -111,15 +118,15 @@ func _process_pause(_delta: float):
 		ui_pause_control.visible = false
 	# cycle pause tabs
 	if Input.is_action_just_pressed("player_pause_next") or Input.is_action_just_pressed("player_pause_previous"):
-		ui_tab_container.current_tab = (ui_tab_container.current_tab + 1) % ui_tab_container.get_child_count()
+		ui_pause_tab_container.current_tab = (ui_pause_tab_container.current_tab + 1) % ui_pause_tab_container.get_child_count()
 	# position map dot
-	ui_map_room_dot_control.visible = true
-	ui_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE)))
+	ui_pause_map_room_dot_control.visible = true
+	ui_pause_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE)))
 
 # @impure
 func _process_level_up():
-	current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, $Game/Player/LevelUpLabel.get_theme_color("font_color"))
-	if not ui_level_up_animation_player.is_playing():
+	current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, level_up_label.get_theme_color("font_color"))
+	if not level_up_animation_player.is_playing():
 		get_tree().paused = false
 		state = State.game
 		current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))
@@ -157,8 +164,8 @@ func _clear_rooms():
 	for room_node in all_rooms_node.get_children():
 		all_rooms_node.remove_child(room_node)
 		room_node.queue_free()
-	for map_room_control in ui_all_rooms_control.get_children():
-		ui_all_rooms_control.remove_child(map_room_control)
+	for map_room_control in ui_pause_all_rooms_control.get_children():
+		ui_pause_all_rooms_control.remove_child(map_room_control)
 		map_room_control.queue_free()
 
 # @impure
@@ -179,8 +186,8 @@ func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distanc
 	map_room_control.room_node = room_node
 	map_room_control.discovered = map_revealed
 	map_room_control.set_position(room_map_pos)
-	ui_all_rooms_control.add_child(map_room_control)
-	map_room_control.owner = ui_all_rooms_control
+	ui_pause_all_rooms_control.add_child(map_room_control)
+	map_room_control.owner = ui_pause_all_rooms_control
 	return room_node
 
 # @pure
@@ -193,7 +200,7 @@ func _get_room_node_name(grid_pos: Vector2i) -> StringName:
 
 # @pure
 func _get_map_room_control(grid_pos: Vector2i) -> RkMapRoom:
-	return ui_all_rooms_control.find_child(_get_map_room_control_name(grid_pos))
+	return ui_pause_all_rooms_control.find_child(_get_map_room_control_name(grid_pos))
 
 # @pure
 func _get_map_room_control_name(grid_pos: Vector2i) -> StringName:
@@ -258,4 +265,4 @@ func _generate_dungeon():
 func _on_magic_slot_pressed():
 	_generate_dungeon()
 	_limit_camera_to_room()
-	$CanvasLayer/MagicSlot.release_focus()
+	ui_game_magic_slot_button.release_focus()

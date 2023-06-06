@@ -183,6 +183,54 @@ spawn_node = NodePath("../AllRooms")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Game" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="State" type="Label" parent="CanvasLayer/Game"]
+offset_left = 4.0
+offset_top = 252.0
+offset_right = 56.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 10
+text = "Standing"
+vertical_alignment = 1
+uppercase = true
+
+[node name="MagicBg" type="ColorRect" parent="CanvasLayer/Game"]
+offset_left = 4.0
+offset_top = 271.0
+offset_right = 16.0
+offset_bottom = 285.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="MagicSlot" type="TextureButton" parent="CanvasLayer/Game"]
+offset_left = 6.0
+offset_top = 272.0
+offset_right = 14.0
+offset_bottom = 284.0
+texture_normal = ExtResource("11_jxnrm")
+
+[node name="StaminaMeter" parent="CanvasLayer/Game" instance=ExtResource("10_uyg37")]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 280.0
+offset_right = -428.0
+offset_bottom = -4.0
+
+[node name="LifePointsMeter" parent="CanvasLayer/Game" instance=ExtResource("10_uyg37")]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 272.0
+offset_right = -428.0
+offset_bottom = -12.0
+color = Color(0.847059, 0.137255, 0.137255, 1)
+lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
+
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2
 visible = false
@@ -248,44 +296,6 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 node = NodePath("../../../../../../../Game/Player")
 
-[node name="State" type="Label" parent="CanvasLayer"]
-offset_left = 4.0
-offset_top = 252.0
-offset_right = 56.0
-offset_bottom = 272.0
-theme_override_font_sizes/font_size = 10
-text = "Standing"
-vertical_alignment = 1
-uppercase = true
-
-[node name="MagicBg" type="ColorRect" parent="CanvasLayer"]
-offset_left = 4.0
-offset_top = 271.0
-offset_right = 16.0
-offset_bottom = 285.0
-color = Color(1, 0.827451, 0, 0.392157)
-
-[node name="MagicSlot" type="TextureButton" parent="CanvasLayer"]
-offset_left = 6.0
-offset_top = 272.0
-offset_right = 14.0
-offset_bottom = 284.0
-texture_normal = ExtResource("11_jxnrm")
-
-[node name="StaminaMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
-offset_left = 20.0
-offset_top = 280.0
-offset_right = -428.0
-offset_bottom = -4.0
-
-[node name="LifePointsMeter" parent="CanvasLayer" instance=ExtResource("10_uyg37")]
-offset_left = 20.0
-offset_top = 272.0
-offset_right = -428.0
-offset_bottom = -12.0
-color = Color(0.847059, 0.137255, 0.137255, 1)
-lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
-
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.8, 0.8, 0.8, 1)
 
@@ -298,4 +308,4 @@ volume_db = -10.0
 autoplay = true
 bus = &"Music"
 
-[connection signal="pressed" from="CanvasLayer/MagicSlot" to="." method="_on_magic_slot_pressed"]
+[connection signal="pressed" from="CanvasLayer/Game/MagicSlot" to="." method="_on_magic_slot_pressed"]
