@@ -55,7 +55,8 @@ func start_idle():
 func process_idle():
 	position = Vector2(_teleport_position.x, _teleport_position.y + AMPLITUDE * sin(SPEED * _timer))
 	if _timer > _idle_delay:
-		set_state(State.shriek)
+		if not RkMain.get_main_node(self).player_node.dead:
+			set_state(State.shriek)
 
 func start_appear():
 	animation_player.play("appear")
@@ -79,7 +80,9 @@ func process_shriek():
 		get_parent().add_child(projectile_node)
 		projectile_node.owner = get_parent()
 	if _timer > 1.0:
-		set_state(State.vanish)
+		if RkMain.get_main_node(self).player_node.dead:
+			return set_state(State.idle)
+		return set_state(State.vanish)
 
 func start_vanish():
 	_timer = 0.0

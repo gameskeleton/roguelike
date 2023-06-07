@@ -1,7 +1,7 @@
 extends Control
 class_name RkMain
 
-enum State { game, pause, level_up }
+enum State { game, pause, level_up, game_over }
 
 const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 
@@ -28,6 +28,8 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @onready var ui_pause_tab_container: TabContainer = $CanvasLayer/Pause/MarginContainer/TabContainer
 @onready var ui_pause_all_rooms_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms
 @onready var ui_pause_map_room_dot_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot
+
+@onready var ui_game_over_control: Control = $CanvasLayer/GameOver
 
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
@@ -56,6 +58,19 @@ func _ready():
 		player_node.position = Vector2(debug_start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, debug_start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
 	else:
 		_generate_dungeon()
+	# setup death animation
+	player_node.death.connect(func():
+		state = State.game_over
+		ui_game_over_control.visible = true
+		var tween := create_tween()
+		tween.tween_property($CanvasModulate, "color", Color8(0, 0, 0), 1.0)
+		tween.parallel().tween_property(ui_game_control, "modulate", Color8(0, 0, 0), 1.0)
+		tween.parallel().tween_property(ui_pause_control, "modulate", Color8(0, 0, 0), 1.0)
+		tween.parallel().tween_property(ui_game_over_control, "modulate", Color8(255, 255, 255), 1.0).from(Color8(255, 255, 255, 0))
+		tween.parallel().tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.0)
+		tween.parallel().tween_callback($DeathAudioStreamPlayer.play).set_delay(0.1)
+		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(5.0)
+	)
 	# setup level up animation
 	player_node.level_system.level_up.connect(func(_level: int):
 		if state == State.game:
@@ -75,6 +90,7 @@ func _process(delta: float):
 		State.game: _process_game(delta)
 		State.pause: _process_pause(delta)
 		State.level_up: _process_level_up()
+		State.game_over: _process_game_over()
 
 # @impure
 func _process_game(delta: float):
@@ -101,6 +117,8 @@ func _process_game(delta: float):
 
 # @impure
 func _process_debug():
+	if player_node.dead:
+		return
 	if Input.is_action_just_pressed("ui_home"):
 		_on_magic_slot_pressed()
 	if Input.is_action_just_pressed("ui_page_up"):
@@ -130,6 +148,23 @@ func _process_level_up():
 		get_tree().paused = false
 		state = State.game
 		current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))
+
+# @impure
+func _process_game_over():
+	# reset
+	if Input.is_key_pressed(KEY_ENTER):
+		get_tree().reload_current_scene()
+	# room and camera
+	var player_grid_pos := Vector2i(
+		floor(player_node_position.x / RkRoom.ROOM_SIZE.x),
+		floor(player_node_position.y / RkRoom.ROOM_SIZE.y)
+	)
+	if player_grid_pos != current_room_node.get_grid_pos():
+		var room_node_at_player_grid_pos := _get_room_node(player_grid_pos)
+		if current_room_node != room_node_at_player_grid_pos:
+			_leave_room(current_room_node)
+			_enter_room(room_node_at_player_grid_pos)
+			_limit_camera_to_room()
 
 # @pure
 static func get_main_node(from_node: Node) -> RkMain:

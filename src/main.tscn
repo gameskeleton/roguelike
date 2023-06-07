@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=19 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 [ext_resource type="PackedScene" uid="uid://dfafs7jw2i84p" path="res://src/gui/inventory.tscn" id="11_ptukl"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
+[ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
 
 [sub_resource type="Animation" id="Animation_8ny6t"]
 length = 0.001
@@ -192,6 +193,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="State" type="Label" parent="CanvasLayer/Game"]
+layout_mode = 0
 offset_left = 4.0
 offset_top = 252.0
 offset_right = 56.0
@@ -202,6 +204,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="MagicBg" type="ColorRect" parent="CanvasLayer/Game"]
+layout_mode = 0
 offset_left = 4.0
 offset_top = 271.0
 offset_right = 16.0
@@ -209,6 +212,7 @@ offset_bottom = 285.0
 color = Color(1, 0.827451, 0, 0.392157)
 
 [node name="MagicSlot" type="TextureButton" parent="CanvasLayer/Game"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 272.0
 offset_right = 14.0
@@ -296,6 +300,26 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 node = NodePath("../../../../../../../Game/Player")
 
+[node name="GameOver" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
 color = Color(0.8, 0.8, 0.8, 1)
 
@@ -306,6 +330,11 @@ color = Color(0.588235, 0.588235, 0.588235, 1)
 stream = ExtResource("13_dn0tp")
 volume_db = -10.0
 autoplay = true
+bus = &"Music"
+
+[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_pabrm")
+volume_db = -10.0
 bus = &"Music"
 
 [connection signal="pressed" from="CanvasLayer/Game/MagicSlot" to="." method="_on_magic_slot_pressed"]
