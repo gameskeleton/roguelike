@@ -365,10 +365,10 @@ func is_able_to_wall_slide() -> bool:
 func is_able_to_roll_when_pushing_wall() -> bool:
 	return is_able_to_roll() and not push_wall_roll_detector.has_overlapping_bodies()
 
-# is_on_wall_passive returns true if there is a wall in the player's direction.
-# note: this is useful if the player is not moving horizontally, whereas is_on_wall only work with a velocity going into a wall.
-func is_on_wall_passive() -> bool:
-	return is_on_wall() or test_move(transform, Vector2.RIGHT * direction)
+# is_on_wall_passive returns true if there is a wall in the given direction (defaults to the player's direction).
+# note: this is useful if the player is not moving horizontally, whereas is_on_wall only works with a velocity going into a wall.
+func is_on_wall_passive(passive_direction := direction) -> bool:
+	return test_move(transform, Vector2(2.0 * passive_direction, 0.0))
 
 # is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
 # note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
