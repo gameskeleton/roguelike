@@ -7,6 +7,7 @@
 script = ExtResource("1_jqc4w")
 
 [node name="Tilemap" type="TileMap" parent="."]
+light_mask = 0
 tile_set = ExtResource("2_7o6dw")
 format = 2
 layer_0/name = "Bg"
