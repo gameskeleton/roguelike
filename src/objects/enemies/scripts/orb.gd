@@ -70,7 +70,7 @@ func _lock():
 # @impure
 func _fire():
 	var projectile_node: RkProjectile = PROJECTILE_SCENE.instantiate()
-	projectile_node.position = position + Vector2(-5, -4) if animated_sprite.flip_h else Vector2(5, -4)
+	projectile_node.position = position + (Vector2(-5, -4) if animated_sprite.flip_h else Vector2(5, -4))
 	projectile_node.direction = (_player_node.global_position - global_position).normalized()
 	projectile_node.damage_type = RkLifePointsSystem.DmgType.fire
 	get_parent().add_child(projectile_node)
