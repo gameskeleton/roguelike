@@ -20,7 +20,7 @@ func _ready():
 
 # @impure 
 func _process(_delta: float):
-	if not _opened and Input.is_action_just_pressed("player_up"):
+	if content and not _opened and Input.is_action_just_pressed("player_up"):
 		_opened = true
 		$AnimatedSprite2D.play("open")
 	if _opened and $AnimatedSprite2D.frame > 5:

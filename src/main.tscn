@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
-[ext_resource type="PackedScene" uid="uid://cvi7pukwtusxy" path="res://src/playground.tscn" id="2_q1e4x"]
+[ext_resource type="PackedScene" uid="uid://pr37tuj3xe6t" path="res://src/rooms/scenes/down_left/room_02.tscn" id="2_rvdmq"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
@@ -103,7 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
-debug_start_room_scene = ExtResource("2_q1e4x")
+debug_start_room_scene = ExtResource("2_rvdmq")
 metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
