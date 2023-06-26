@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="RkItemRes" load_steps=4 format=3 uid="uid://dgm5e713lx73u"]
+
+[ext_resource type="Texture2D" uid="uid://dpmv8ns77wlgr" path="res://src/gui/textures/inventory_items.png" id="1_6c1pu"]
+[ext_resource type="Script" path="res://src/items/res/item_res.gd" id="2_haud4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4coe"]
+atlas = ExtResource("1_6c1pu")
+region = Rect2(240, 160, 16, 16)
+
+[resource]
+script = ExtResource("2_haud4")
+icon = SubResource("AtlasTexture_l4coe")
+name = "Gloves of Power"
+color = Color(0.925, 0.298, 0.278, 1)
+description = "These gloves radiate with an aura of immense power. Wearing them grants the wearer enhanced strength, allowing for more devastating attacks."
+gold_earn_multiplier = 0.0
+attack_force_bonus = 1.0
+attack_force_multiplier = 0.3
+attack_defence_bonus = 0.0
+attack_defence_multiplier = 0.0
+stamina_bonus = 0.0
+stamina_multiplier = 0.0
+stamina_regeneration_bonus = 0.0
+stamina_regeneration_multiplier = 0.0
+stamina_regeneration_delay_bonus = 0.0
+stamina_regeneration_delay_multiplier = 0.0
+life_points_bonus = 0.0
+life_points_multiplier = 0.0
