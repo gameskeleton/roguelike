@@ -6,13 +6,15 @@ const PROJECTILE_SCENE := preload("res://src/objects/projectiles/fire_ball.tscn"
 
 enum State { appear, idle, shriek, vanish, dying, dead }
 
-@onready var sprite: Sprite2D = $Sprite
-@onready var room_notifier: RkRoomNotifier2D = $RoomNotifier2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite_initial_position := sprite.position
+@export_group("Nodes")
+@export var sprite: Sprite2D
+@export var room_notifier: RkRoomNotifier2D
+@export var animation_player: AnimationPlayer
 
-@onready var drop_system: RkDropSystem = $Systems/Drop
-@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
+@export var drop_system: RkDropSystem
+@export var life_points_system: RkLifePointsSystem
+
+@onready var sprite_initial_position := sprite.position
 
 var _hits := 0
 var _shot := false

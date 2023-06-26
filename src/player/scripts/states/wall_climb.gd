@@ -1,6 +1,7 @@
 extends RkStateMachineState
 
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@export_group("Nodes")
+@export var audio_stream_player: AudioStreamPlayer
 
 var _animation_initial_speed_scale := 1.0
 

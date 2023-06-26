@@ -9,27 +9,28 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @export var debug_start_room_scene: PackedScene
 @export var debug_start_room_grid_pos := Vector2i(1, 1)
 
-@onready var player_node: RkPlayer = $Game/Player
-@onready var all_rooms_node: Node2D = $Game/AllRooms
-@onready var player_camera_node: Camera2D = $Game/Player/Camera2D
-@onready var object_spawner_node: RkObjectSpawner = $Game/ObjectSpawner
+@export_group("Nodes")
+@export var player_node: RkPlayer
+@export var all_rooms_node: Node2D
+@export var player_camera_node: Camera2D
+@export var object_spawner_node: RkObjectSpawner
 
-@onready var level_up_label: Label = $Game/Player/LevelUpLabel
-@onready var level_up_animation_player: AnimationPlayer = $Game/Player/LevelUpLabel/AnimationPlayer
-@onready var level_up_audio_stream_player: AudioStreamPlayer = $Game/Player/LevelUpLabel/AudioStreamPlayer
+@export var level_up_label: Label
+@export var level_up_animation_player: AnimationPlayer
+@export var level_up_audio_stream_player: AudioStreamPlayer
 
-@onready var ui_game_control: Control = $CanvasLayer/Game
-@onready var ui_game_state_label: Label = $CanvasLayer/Game/State
-@onready var ui_game_stamina_meter: RkGuiProgressBar = $CanvasLayer/Game/StaminaMeter
-@onready var ui_game_magic_slot_button: TextureButton = $CanvasLayer/Game/MagicSlot
-@onready var ui_game_life_points_meter: RkGuiProgressBar = $CanvasLayer/Game/LifePointsMeter
+@export var ui_game_control: Control
+@export var ui_game_state_label: Label
+@export var ui_game_stamina_meter: RkGuiProgressBar
+@export var ui_game_magic_slot_button: TextureButton
+@export var ui_game_life_points_meter: RkGuiProgressBar
 
-@onready var ui_pause_control: Control = $CanvasLayer/Pause
-@onready var ui_pause_tab_container: TabContainer = $CanvasLayer/Pause/MarginContainer/TabContainer
-@onready var ui_pause_all_rooms_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms
-@onready var ui_pause_map_room_dot_control: Control = $CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot
+@export var ui_pause_control: Control
+@export var ui_pause_tab_container: TabContainer
+@export var ui_pause_all_rooms_control: Control
+@export var ui_pause_map_room_dot_control: Control
 
-@onready var ui_game_over_control: Control = $CanvasLayer/GameOver
+@export var ui_game_over_control: Control
 
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.

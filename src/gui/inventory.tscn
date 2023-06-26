@@ -59,7 +59,7 @@ _data = {
 "disappear": SubResource("Animation_um1w5")
 }
 
-[node name="Inventory" type="Control"]
+[node name="Inventory" type="Control" node_paths=PackedStringArray("inventory_drop", "inventory_item_container", "inventory_slot_container", "inventory_drop_animation_player", "stats_description", "description_item_name", "description_item_description")]
 custom_minimum_size = Vector2(168, 171)
 layout_mode = 3
 anchors_preset = 15
@@ -68,6 +68,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_igqyd")
+inventory_drop = NodePath("HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop")
+inventory_item_container = NodePath("HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer")
+inventory_slot_container = NodePath("HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer")
+inventory_drop_animation_player = NodePath("HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop/AnimationPlayer")
+stats_description = NodePath("HBoxContainer/Statistics/Stats/VBoxContainer/StatsDescription")
+description_item_name = NodePath("HBoxContainer/Statistics/Description/VBoxContainer/ItemName")
+description_item_description = NodePath("HBoxContainer/Statistics/Description/VBoxContainer/ItemDescription")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

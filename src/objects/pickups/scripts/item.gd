@@ -4,8 +4,6 @@ class_name RkPickupItem
 
 const PICKUP_DELAY := 0.35
 
-@onready var player_detector: Area2D = $PlayerDetector
-
 @export var item: RkItemRes :
 	get: return item
 	set(new_item):
@@ -13,6 +11,9 @@ const PICKUP_DELAY := 0.35
 		name = item.name
 		$Sprite2D.texture = new_item.icon
 		($Sprite2D.material as ShaderMaterial).set_shader_parameter("tint", item.color)
+
+@export_group("Nodes")
+@export var player_detector: Area2D
 
 # @impure
 func _ready():

@@ -319,8 +319,13 @@ _data = {
 "vanish": SubResource("Animation_7wu0x")
 }
 
-[node name="Ghost" type="Node2D"]
+[node name="Ghost" type="Node2D" node_paths=PackedStringArray("sprite", "room_notifier", "animation_player", "drop_system", "life_points_system")]
 script = ExtResource("1_eewrg")
+sprite = NodePath("Sprite")
+room_notifier = NodePath("RoomNotifier2D")
+animation_player = NodePath("AnimationPlayer")
+drop_system = NodePath("Systems/Drop")
+life_points_system = NodePath("Systems/LifePoints")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = ExtResource("2_fuqh1")

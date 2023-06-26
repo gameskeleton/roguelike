@@ -9,7 +9,8 @@ var _attack_combo := 0
 var _hitbox_enabled := false
 var _animation_initial_speed_scale := 1.0
 
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@export_group("Nodes")
+@export var audio_stream_player: AudioStreamPlayer
 
 func start_state():
 	_combo = false

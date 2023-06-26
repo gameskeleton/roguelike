@@ -5,8 +5,9 @@ const PICKUP_DELAY := 0.35
 
 @export var value := 1
 
-@onready var line: Line2D = $Node/Line2D
-@onready var player_detector: Area2D = $PlayerDetector
+@export_group("Nodes")
+@export var line: Line2D
+@export var player_detector: Area2D
 
 # @impure
 func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(180.0, 200.0)) -> RkPickupCoin:

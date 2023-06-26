@@ -656,8 +656,12 @@ _data = {
 "lock": SubResource("Animation_wl67o")
 }
 
-[node name="Orb" type="Node2D"]
+[node name="Orb" type="Node2D" node_paths=PackedStringArray("animated_sprite", "animation_player", "drop_system", "life_points_system")]
 script = ExtResource("1_ds1gk")
+animated_sprite = NodePath("AnimatedSprite2D")
+animation_player = NodePath("AnimationPlayer")
+drop_system = NodePath("Systems/Drop")
+life_points_system = NodePath("Systems/LifePoints")
 
 [node name="Systems" type="Node" parent="."]
 

@@ -6,8 +6,9 @@ class_name RkProjectile
 @export var direction := Vector2.LEFT
 @export var damage_type := RkLifePointsSystem.DmgType.none
 
-@onready var attack_detector: Area2D = $AttackDetector
-@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
+@export_group("Nodes")
+@export var attack_detector: Area2D
+@export var life_points_system: RkLifePointsSystem
 
 # @impure
 func _ready():

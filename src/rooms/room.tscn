@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://src/rooms/scripts/room.gd" id="1_jqc4w"]
 [ext_resource type="TileSet" uid="uid://lth6na7avtvk" path="res://src/rooms/tileset.tres" id="2_7o6dw"]
 
-[node name="Room" type="Node2D"]
+[node name="Room" type="Node2D" node_paths=PackedStringArray("tile_map")]
 script = ExtResource("1_jqc4w")
+tile_map = NodePath("Tilemap")
 
 [node name="Tilemap" type="TileMap" parent="."]
 light_mask = 0

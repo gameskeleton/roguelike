@@ -4,12 +4,13 @@
 [ext_resource type="Script" path="res://src/gui/scripts/life_points_meter.gd" id="1_8oacj"]
 [ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="3_rxq5u"]
 
-[node name="LifePointsMeter" type="Control"]
+[node name="LifePointsMeter" type="Control" node_paths=PackedStringArray("progress_bar")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 32.0
 offset_bottom = 3.0
 script = ExtResource("1_8oacj")
+progress_bar = NodePath("ProgressBar")
 
 [node name="ProgressBar" parent="." instance=ExtResource("1_4ul0w")]
 self_modulate = Color(1, 1, 1, 0)

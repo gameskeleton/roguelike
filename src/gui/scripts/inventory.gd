@@ -3,14 +3,15 @@ class_name RkGuiInventory
 
 @export var node: Node
 
-@onready var inventory_drop: Control = $HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop
-@onready var inventory_item_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/ItemContainer
-@onready var inventory_slot_container: GridContainer = $HBoxContainer/Inventory/Equip/VBoxContainer/SlotContainer
-@onready var inventory_drop_animation_player: AnimationPlayer = $HBoxContainer/Inventory/Equip/VBoxContainer/CenterContainer/InventoryDrop/AnimationPlayer
+@export_group("Nodes")
+@export var inventory_drop: Control
+@export var inventory_item_container: GridContainer
+@export var inventory_slot_container: GridContainer
+@export var inventory_drop_animation_player: AnimationPlayer
 
-@onready var stats_description: RichTextLabel = $HBoxContainer/Statistics/Stats/VBoxContainer/StatsDescription
-@onready var description_item_name: Label = $HBoxContainer/Statistics/Description/VBoxContainer/ItemName
-@onready var description_item_description: RichTextLabel = $HBoxContainer/Statistics/Description/VBoxContainer/ItemDescription
+@export var stats_description: RichTextLabel
+@export var description_item_name: Label
+@export var description_item_description: RichTextLabel
 
 var _should_update := true
 var _selected_cell: RkGuiInventoryCell

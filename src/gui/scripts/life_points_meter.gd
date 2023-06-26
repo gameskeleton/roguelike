@@ -5,7 +5,8 @@ const VISIBLE_FOR := 2.5
 
 @export var life_points_system: RkLifePointsSystem
 
-@onready var progress_bar: RkGuiProgressBar = $ProgressBar
+@export_group("Nodes")
+@export var progress_bar: RkGuiProgressBar
 
 var _fade_in := 0.0
 var _visible := true

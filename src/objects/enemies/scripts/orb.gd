@@ -11,11 +11,12 @@ const FIRE_COOLDOWN := 0.1
 const EXPULSE_SPEED := 8.0
 const EXPULSE_STRENGTH := 10.0
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@export_group("Nodes")
+@export var animated_sprite: AnimatedSprite2D
+@export var animation_player: AnimationPlayer
 
-@onready var drop_system: RkDropSystem = $Systems/Drop
-@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
+@export var drop_system: RkDropSystem
+@export var life_points_system: RkLifePointsSystem
 
 var _timer := 0.0
 var _state := State.idle

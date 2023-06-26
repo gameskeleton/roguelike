@@ -74,7 +74,8 @@ const WALL_CORNER_ATLAS_COORDS := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0
 		if Engine.is_editor_hint():
 			queue_redraw()
 
-@onready var tile_map: TileMap = $Tilemap
+@export_group("Nodes")
+@export var tile_map: TileMap
 
 # _draw will draw this room exits in the editor.
 # @impure

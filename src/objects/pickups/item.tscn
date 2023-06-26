@@ -14,11 +14,12 @@ region = Rect2(48, 0, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl121"]
 size = Vector2(16, 16)
 
-[node name="Item" type="RigidBody2D"]
+[node name="Item" type="RigidBody2D" node_paths=PackedStringArray("player_detector")]
 collision_layer = 256
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_qhxi0")
 script = ExtResource("1_kj0ba")
+player_detector = NodePath("PlayerDetector")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("2_n8ogt")
@@ -29,8 +30,6 @@ centered = false
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 8
-monitoring = false
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 visible = false

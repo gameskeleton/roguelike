@@ -93,7 +93,7 @@ _data = {
 "level_up!": SubResource("Animation_58koh")
 }
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player", "ui_game_control", "ui_game_state_label", "ui_game_stamina_meter", "ui_game_magic_slot_button", "ui_game_life_points_meter", "ui_pause_control", "ui_pause_tab_container", "ui_pause_all_rooms_control", "ui_pause_map_room_dot_control", "ui_game_over_control")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -104,6 +104,23 @@ grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
 debug_start_room_scene = ExtResource("2_rvdmq")
+player_node = NodePath("Game/Player")
+all_rooms_node = NodePath("Game/AllRooms")
+player_camera_node = NodePath("Game/Player/Camera2D")
+object_spawner_node = NodePath("Game/ObjectSpawner")
+level_up_label = NodePath("Game/Player/LevelUpLabel")
+level_up_animation_player = NodePath("Game/Player/LevelUpLabel/AnimationPlayer")
+level_up_audio_stream_player = NodePath("Game/Player/LevelUpLabel/AudioStreamPlayer")
+ui_game_control = NodePath("CanvasLayer/Game")
+ui_game_state_label = NodePath("CanvasLayer/Game/State")
+ui_game_stamina_meter = NodePath("CanvasLayer/Game/StaminaMeter")
+ui_game_magic_slot_button = NodePath("CanvasLayer/Game/MagicSlot")
+ui_game_life_points_meter = NodePath("CanvasLayer/Game/LifePointsMeter")
+ui_pause_control = NodePath("CanvasLayer/Pause")
+ui_pause_tab_container = NodePath("CanvasLayer/Pause/MarginContainer/TabContainer")
+ui_pause_all_rooms_control = NodePath("CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms")
+ui_pause_map_room_dot_control = NodePath("CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot")
+ui_game_over_control = NodePath("CanvasLayer/GameOver")
 metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []

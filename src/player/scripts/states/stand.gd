@@ -1,6 +1,7 @@
 extends RkStateMachineState
 
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@export_group("Nodes")
+@export var audio_stream_player: AudioStreamPlayer
 
 func start_state():
 	player_node.play_animation("stand")

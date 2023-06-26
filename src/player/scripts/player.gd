@@ -52,35 +52,40 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 # Nodes
 ###
 
-@onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
-@onready var sprite: Sprite2D = $Sprite
-@onready var main_node := RkMain.get_main_node(self)
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@export_group("Nodes")
+@export var sprite: Sprite2D
+@export var animation_player: AnimationPlayer
 
-@onready var collider_stand: CollisionShape2D = $ColliderStand
-@onready var collider_crouch: CollisionShape2D = $ColliderCrouch
+@export var collider_stand: CollisionShape2D
+@export var collider_crouch: CollisionShape2D
 
-@onready var roll_detector: Area2D = $RollDetector
-@onready var attack_detector: Area2D = $AttackDetector
-@onready var crouch_detector: Area2D = $CrouchDetector
-@onready var one_way_detector: Area2D = $OneWayDetector
-@onready var push_wall_roll_detector: Area2D = $PushWallRollDetector
-@onready var wall_hang_down_detector: Node2D = $WallHangDownDetector
-@onready var wall_climb_stand_detector: Area2D = $WallClimbStandDetector
-@onready var wall_climb_crouch_detector: Area2D = $WallClimbCrouchDetector
+@export var roll_detector: Area2D
+@export var attack_detector: Area2D
+@export var crouch_detector: Area2D
+@export var one_way_detector: Area2D
+@export var push_wall_roll_detector: Area2D
+@export var wall_hang_down_detector: Node2D
+@export var wall_climb_stand_detector: Area2D
+@export var wall_climb_crouch_detector: Area2D
 
-@onready var wall_hang_hand: Node2D = $WallHangDownDetector/Hand
-@onready var wall_hang_down_raycast: RayCast2D = $WallHangDownSideRaycast
-@onready var wall_slide_down_raycast: RayCast2D = $WallSlideDownRaycast
-@onready var wall_slide_side_raycast: RayCast2D = $WallSlideSideRaycast
-@onready var wall_slide_down_side_raycast: RayCast2D = $WallSlideDownSideRaycast
+@export var wall_hang_hand: Node2D
+@export var wall_hang_down_raycast: RayCast2D
+@export var wall_slide_down_raycast: RayCast2D
+@export var wall_slide_side_raycast: RayCast2D
+@export var wall_slide_down_side_raycast: RayCast2D
+
+@export var gold_system: RkGoldSystem
+@export var level_system: RkLevelSystem
+@export var attack_system: RkAttackSystem
+@export var stamina_system: RkStaminaSystem
+@export var inventory_system: RkInventorySystem
+@export var life_points_system: RkLifePointsSystem
 
 ###
-# State
+# Initial values
 ###
 
-@export var dead := false
-@export var crouched := false
+@export_group("Initial values")
 @export var direction := 1.0
 @export var base_force := 1.0
 @export var base_stamina := 10.0
@@ -89,15 +94,16 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var additional_stamina_per_level := Curve.new()
 @export var additional_life_points_per_level := Curve.new()
 
-@onready var gold_system: RkGoldSystem = $Systems/Gold
-@onready var level_system: RkLevelSystem = $Systems/Level
-@onready var attack_system: RkAttackSystem = $Systems/Attack
-@onready var stamina_system: RkStaminaSystem = $Systems/Stamina
-@onready var inventory_system: RkInventorySystem = $Systems/Inventory
-@onready var life_points_system: RkLifePointsSystem = $Systems/LifePoints
+###
+# Variables
+###
 
+@onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
+@onready var main_node := RkMain.get_main_node(self)
+
+var dead := false
+var crouched := false
 var disable_wall_hang_timeout := 0.0
-
 signal death()
 
 ###

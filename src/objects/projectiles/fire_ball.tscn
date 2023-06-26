@@ -153,8 +153,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jmpmo"]
 radius = 6.0
 
-[node name="Projectile" type="Node2D"]
+[node name="Projectile" type="Node2D" node_paths=PackedStringArray("attack_detector", "life_points_system")]
 script = ExtResource("1_sf1mm")
+attack_detector = NodePath("AttackDetector")
+life_points_system = NodePath("Systems/LifePoints")
 
 [node name="Systems" type="Node" parent="."]
 

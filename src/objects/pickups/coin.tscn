@@ -50,13 +50,15 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
 size = Vector2(12, 12)
 
-[node name="Coin" type="RigidBody2D"]
+[node name="Coin" type="RigidBody2D" node_paths=PackedStringArray("line", "player_detector")]
 collision_layer = 256
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_i2lns")
 lock_rotation = true
 angular_damp = 10.0
 script = ExtResource("1_rcdwb")
+line = NodePath("Node/Line2D")
+player_detector = NodePath("PlayerDetector")
 
 [node name="Node" type="Node" parent="."]
 

@@ -2,7 +2,8 @@ extends RkStateMachineState
 
 enum State { fall, hit_floor, get_up }
 
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@export_group("Nodes")
+@export var audio_stream_player: AudioStreamPlayer
 
 var _state := State.fall
 var _animation_initial_speed_scale := 1.0
