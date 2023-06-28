@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=29 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://cvi7pukwtusxy" path="res://src/playground.tscn" id="2_46614"]
@@ -16,6 +16,75 @@
 [ext_resource type="Script" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_jfkim"]
+resource_name = "RichTextEffectOffset"
+script = ExtResource("11_61oyc")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_n4utg"]
+resource_name = "RichTextEffectBounce"
+script = ExtResource("12_phjov")
+
+[sub_resource type="Animation" id="Animation_2eu5m"]
+resource_name = "level_up!"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1mdru"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vjn4x"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gcljl"]
+_data = {
+"RESET": SubResource("Animation_1mdru"),
+"hide": SubResource("Animation_vjn4x"),
+"level_up!": SubResource("Animation_2eu5m")
+}
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_1pppy"]
+resource_name = "RichTextEffectOffset"
+script = ExtResource("11_61oyc")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_nehq1"]
+resource_name = "RichTextEffectBounce"
+script = ExtResource("12_phjov")
 
 [sub_resource type="Animation" id="Animation_8ny6t"]
 length = 0.001
@@ -69,14 +138,6 @@ _data = {
 "hide": SubResource("Animation_j46gx"),
 "picked_up!": SubResource("Animation_58koh")
 }
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_1pppy"]
-resource_name = "RichTextEffectOffset"
-script = ExtResource("11_61oyc")
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_nehq1"]
-resource_name = "RichTextEffectBounce"
-script = ExtResource("12_phjov")
 
 [node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player", "picked_up_label", "picked_up_animation_player", "picked_up_audio_stream_player", "ui_game_control", "ui_game_state_label", "ui_game_stamina_meter", "ui_game_magic_slot_button", "ui_game_life_points_meter", "ui_pause_control", "ui_pause_tab_container", "ui_pause_all_rooms_control", "ui_pause_map_room_dot_control", "ui_game_over_control")]
 process_mode = 3
@@ -154,25 +215,25 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="LevelUpLabel" type="Label" parent="Game/Player"]
+[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player"]
 z_index = 1
 material = ExtResource("6_41hv6")
-offset_left = -32.0
-offset_top = -63.0
-offset_right = 32.0
-offset_bottom = -43.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+offset_left = -40.0
+offset_top = -65.0
+offset_right = 40.0
+offset_bottom = -45.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 14
-text = "Level up!"
-horizontal_alignment = 1
-vertical_alignment = 1
+bbcode_enabled = true
+text = "[center][offset y=2][rainbow][bounce]Level up![/bounce][/rainbow][/offset][/center]"
+scroll_active = false
+autowrap_mode = 0
+custom_effects = [SubResource("RichTextEffect_jfkim"), SubResource("RichTextEffect_n4utg")]
 metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpLabel"]
 autoplay = "hide"
 libraries = {
-"": SubResource("AnimationLibrary_7n18l")
+"": SubResource("AnimationLibrary_gcljl")
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpLabel"]

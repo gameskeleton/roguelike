@@ -15,7 +15,7 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @export var player_camera_node: Camera2D
 @export var object_spawner_node: RkObjectSpawner
 
-@export var level_up_label: Label
+@export var level_up_label: RichTextLabel
 @export var level_up_animation_player: AnimationPlayer
 @export var level_up_audio_stream_player: AudioStreamPlayer
 
@@ -157,11 +157,11 @@ func _process_pause(_delta: float):
 
 # @impure
 func _process_level_up():
-	current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, level_up_label.get_theme_color("font_color"))
+	# current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, level_up_label.get_theme_color("font_color"))
 	if not level_up_animation_player.is_playing():
 		get_tree().paused = false
 		state = State.game
-		current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))
+		# current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))
 
 # @impure
 func _process_game_over():
