@@ -33,10 +33,10 @@ func _ready():
 	_inventory_system = RkInventorySystem.find_system_node(node)
 	_life_points_system = RkLifePointsSystem.find_system_node(node)
 	# connect signals
-	_inventory_system.item_added.connect(func(_item: RkItemRes, _index: int): _update_cells())
-	_inventory_system.slot_added.connect(func(_slot: RkItemRes, _index: int): _update_cells())
-	_inventory_system.item_removed.connect(func(_item: RkItemRes, _index: int): _update_cells())
-	_inventory_system.slot_removed.connect(func(_slot: RkItemRes, _index: int): _update_cells())
+	_inventory_system.item_added.connect(func(_item: RkItemRes, _index: int, _swapped: bool): _update_cells())
+	_inventory_system.slot_added.connect(func(_slot: RkItemRes, _index: int, _swapped: bool): _update_cells())
+	_inventory_system.item_removed.connect(func(_item: RkItemRes, _index: int, _swapped: bool): _update_cells())
+	_inventory_system.slot_removed.connect(func(_slot: RkItemRes, _index: int, _swapped: bool): _update_cells())
 	_update_cells()
 
 # @impure

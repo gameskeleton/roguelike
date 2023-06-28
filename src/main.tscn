@@ -1,8 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=23 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
+[ext_resource type="PackedScene" uid="uid://cvi7pukwtusxy" path="res://src/playground.tscn" id="2_46614"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
-[ext_resource type="PackedScene" uid="uid://pr37tuj3xe6t" path="res://src/rooms/scenes/down_left/room_02.tscn" id="2_rvdmq"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
@@ -10,8 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://bv67dd1mhtbs6" path="res://src/gui/map_room_dot.tscn" id="8_4s74v"]
 [ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/spawner/object_spawner.tscn" id="8_o2dbi"]
 [ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
+[ext_resource type="Script" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
 [ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
 [ext_resource type="PackedScene" uid="uid://dfafs7jw2i84p" path="res://src/gui/inventory.tscn" id="11_ptukl"]
+[ext_resource type="Script" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
 
@@ -20,22 +22,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -58,29 +48,16 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_58koh"]
-resource_name = "level_up!"
-length = 2.0
-step = 0.01
+resource_name = "picked_up!"
+length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_colors/font_color")
-tracks/0/interp = 2
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.35, 0.65, 0.85, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.294118, 1, 0.298039, 1), Color(0.317647, 0.52549, 1, 1), Color(1, 0.262745, 0.129412, 1), Color(1, 0.996078, 0.196078, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 1.8, 2),
+"times": PackedFloat32Array(0, 0.5, 3.5, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -90,10 +67,18 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_8ny6t"),
 "hide": SubResource("Animation_j46gx"),
-"level_up!": SubResource("Animation_58koh")
+"picked_up!": SubResource("Animation_58koh")
 }
 
-[node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player", "ui_game_control", "ui_game_state_label", "ui_game_stamina_meter", "ui_game_magic_slot_button", "ui_game_life_points_meter", "ui_pause_control", "ui_pause_tab_container", "ui_pause_all_rooms_control", "ui_pause_map_room_dot_control", "ui_game_over_control")]
+[sub_resource type="RichTextEffect" id="RichTextEffect_1pppy"]
+resource_name = "RichTextEffectOffset"
+script = ExtResource("11_61oyc")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_nehq1"]
+resource_name = "RichTextEffectBounce"
+script = ExtResource("12_phjov")
+
+[node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player", "picked_up_label", "picked_up_animation_player", "picked_up_audio_stream_player", "ui_game_control", "ui_game_state_label", "ui_game_stamina_meter", "ui_game_magic_slot_button", "ui_game_life_points_meter", "ui_pause_control", "ui_pause_tab_container", "ui_pause_all_rooms_control", "ui_pause_map_room_dot_control", "ui_game_over_control")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -103,7 +88,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
-debug_start_room_scene = ExtResource("2_rvdmq")
+debug_start_room_scene = ExtResource("2_46614")
 player_node = NodePath("Game/Player")
 all_rooms_node = NodePath("Game/AllRooms")
 player_camera_node = NodePath("Game/Player/Camera2D")
@@ -111,6 +96,9 @@ object_spawner_node = NodePath("Game/ObjectSpawner")
 level_up_label = NodePath("Game/Player/LevelUpLabel")
 level_up_animation_player = NodePath("Game/Player/LevelUpLabel/AnimationPlayer")
 level_up_audio_stream_player = NodePath("Game/Player/LevelUpLabel/AudioStreamPlayer")
+picked_up_label = NodePath("CanvasLayer/Game/PickedUpToast/PickedUpLabel")
+picked_up_animation_player = NodePath("CanvasLayer/Game/PickedUpToast/AnimationPlayer")
+picked_up_audio_stream_player = NodePath("CanvasLayer/Game/PickedUpToast/AudioStreamPlayer")
 ui_game_control = NodePath("CanvasLayer/Game")
 ui_game_state_label = NodePath("CanvasLayer/Game/State")
 ui_game_stamina_meter = NodePath("CanvasLayer/Game/StaminaMeter")
@@ -251,6 +239,46 @@ offset_right = -428.0
 offset_bottom = -12.0
 color = Color(0.847059, 0.137255, 0.137255, 1)
 lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
+
+[node name="PickedUpToast" type="Control" parent="CanvasLayer/Game"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PickedUpLabel" type="RichTextLabel" parent="CanvasLayer/Game/PickedUpToast"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[offset x=-10][right]You picked up a [bounce][rainbow freq=0.5]Skeleton miracle key.[/rainbow][/bounce][/right][/offset]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+custom_effects = [SubResource("RichTextEffect_1pppy"), SubResource("RichTextEffect_nehq1")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Game/PickedUpToast"]
+autoplay = "hide"
+libraries = {
+"": SubResource("AnimationLibrary_7n18l")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/Game/PickedUpToast"]
+stream = ExtResource("6_yr51s")
+volume_db = 10.0
+bus = &"SFX"
 
 [node name="Pause" type="Control" parent="CanvasLayer"]
 process_mode = 2

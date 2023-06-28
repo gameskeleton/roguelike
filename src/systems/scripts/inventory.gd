@@ -4,10 +4,10 @@ class_name RkInventorySystem
 
 enum ItemType { item = 0, slot = 1 }
 
-signal item_added(item: RkItemRes, index: int)
-signal slot_added(slot: RkItemRes, index: int)
-signal item_removed(item: RkItemRes, index: int)
-signal slot_removed(slot: RkItemRes, index: int)
+signal item_added(item: RkItemRes, index: int, swapped: bool)
+signal slot_added(slot: RkItemRes, index: int, swapped: bool)
+signal item_removed(item: RkItemRes, index: int, swapped: bool)
+signal slot_removed(slot: RkItemRes, index: int, swapped: bool)
 
 @export var default_items: Array[RkItemRes] = []
 @export var default_slots: Array[RkItemRes] = []
@@ -37,12 +37,12 @@ func add_item(item: RkItemRes, index := -1):
 		for i in items.size():
 			if items[i] == null:
 				items[i] = item
-				_item_added(item, i)
+				_item_added(item, i, false)
 				return true
 	else:
 		if items[index] == null:
 				items[index] = item
-				_item_added(item, index)
+				_item_added(item, index, false)
 				return true
 	return false
 
@@ -52,12 +52,12 @@ func add_slot(slot: RkItemRes, index := -1):
 		for i in slots.size():
 			if slots[i] == null:
 				slots[i] = slot
-				_slot_added(slot, i)
+				_slot_added(slot, i, false)
 				return true
 	else:
 		if slots[index] == null:
 				slots[index] = slot
-				_slot_added(slot, index)
+				_slot_added(slot, index, false)
 				return true
 	return false
 
@@ -65,13 +65,13 @@ func add_slot(slot: RkItemRes, index := -1):
 func remove_item(index: int):
 	var removed_item := items[index]
 	items[index] = null
-	_item_removed(removed_item, index)
+	_item_removed(removed_item, index, false)
 
 # @impure
 func remove_slot(index: int):
 	var removed_slot := slots[index]
 	slots[index] = null
-	_slot_removed(removed_slot, index)
+	_slot_removed(removed_slot, index, false)
 
 # @impure
 func drop_item_or_slot(from_type: RkInventorySystem.ItemType, from_index: int):
@@ -80,12 +80,12 @@ func drop_item_or_slot(from_type: RkInventorySystem.ItemType, from_index: int):
 			var from_item := items[from_index]
 			items[from_index] = null
 			if from_item:
-				_item_removed(from_item, from_index)
+				_item_removed(from_item, from_index, false)
 		ItemType.slot:
 			var from_item := slots[from_index]
 			slots[from_index] = null
 			if from_item:
-				_slot_removed(from_item, from_index)
+				_slot_removed(from_item, from_index, false)
 			_apply_slots_modifiers()
 
 # @impure
@@ -123,21 +123,21 @@ func move_item_or_slot(from_type: ItemType, from_index: int, to_type: ItemType, 
 					_item_added(from_item, to_index, true)
 
 # @impure
-func _item_added(item: RkItemRes, index: int, _swapped := false):
-	item_added.emit(item, index)
+func _item_added(item: RkItemRes, index: int, swapped: bool):
+	item_added.emit(item, index, swapped)
 
 # @impure
-func _item_removed(item: RkItemRes, index: int, _swapped := false):
-	item_removed.emit(item, index)
+func _item_removed(item: RkItemRes, index: int, swapped: bool):
+	item_removed.emit(item, index, swapped)
 
 # @impure
-func _slot_added(slot: RkItemRes, index: int, _swapped := false):
-	slot_added.emit(slot, index)
+func _slot_added(slot: RkItemRes, index: int, swapped: bool):
+	slot_added.emit(slot, index, swapped)
 	_apply_slots_modifiers()
 
 # @impure
-func _slot_removed(slot: RkItemRes, index: int, _swapped := false):
-	slot_removed.emit(slot, index)
+func _slot_removed(slot: RkItemRes, index: int, swapped: bool):
+	slot_removed.emit(slot, index, swapped)
 	_apply_slots_modifiers()
 
 # @impure

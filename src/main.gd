@@ -19,6 +19,10 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @export var level_up_animation_player: AnimationPlayer
 @export var level_up_audio_stream_player: AudioStreamPlayer
 
+@export var picked_up_label: RichTextLabel
+@export var picked_up_animation_player: AnimationPlayer
+@export var picked_up_audio_stream_player: AudioStreamPlayer
+
 @export var ui_game_control: Control
 @export var ui_game_state_label: Label
 @export var ui_game_stamina_meter: RkGuiProgressBar
@@ -79,6 +83,15 @@ func _ready():
 			ui_pause_control.visible = false
 			level_up_animation_player.play("level_up!")
 		level_up_audio_stream_player.play()
+	)
+	# setup picked up animation
+	player_node.inventory_system.item_added.connect(func(item: RkItemRes, _index: int, swapped: bool):
+		if swapped:
+			return
+		picked_up_label.text = "[offset x=-10][right]You picked up a [bounce][rainbow freq=0.5]%s.[/rainbow][/bounce][/right][/offset]" % [item.name]
+		picked_up_animation_player.stop()
+		picked_up_animation_player.play("picked_up!")
+		picked_up_audio_stream_player.play()
 	)
 	# limit camera
 	_limit_camera_to_room()
