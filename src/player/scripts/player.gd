@@ -10,7 +10,7 @@ const CEILING_KNOCKDOWN := 0.0
 const GRAVITY_MAX_SPEED := 800.0
 const GRAVITY_ACCELERATION := 850.0
 
-const HIT_IMPULSE := Vector2(140.0, -140.0)
+const HIT_IMPULSE := Vector2(140.0, 0.0)
 const HIT_INVINCIBILITY_DELAY := 1.5
 
 const WALK_MAX_SPEED := 126.0
@@ -89,7 +89,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var direction := 1.0
 @export var base_force := 1.0
 @export var base_stamina := 10.0
-@export var base_life_points := 1.0
+@export var base_life_points := 10.0
 @export var additional_force_per_level := Curve.new()
 @export var additional_stamina_per_level := Curve.new()
 @export var additional_life_points_per_level := Curve.new()
