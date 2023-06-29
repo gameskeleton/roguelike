@@ -1,7 +1,11 @@
 extends RkStateMachineState
 
+const FX_STEP_RANGE := Vector2(0.99, 1.01)
+
 @export_group("Nodes")
 @export var audio_stream_player: AudioStreamPlayer
+@export var footstep_left_audio_stream_player: AudioStreamPlayer
+@export var footstep_right_audio_stream_player: AudioStreamPlayer
 
 var _animation_initial_speed_scale := 1.0
 
@@ -45,3 +49,14 @@ func process_state(delta: float):
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_one_way_detector_active(false)
+
+# @animation
+# @impure
+func fx_step_left():
+	footstep_left_audio_stream_player.pitch_scale = randf_range(FX_STEP_RANGE.x, FX_STEP_RANGE.y)
+	footstep_left_audio_stream_player.play()
+
+# @impure
+func fx_step_right():
+	footstep_right_audio_stream_player.pitch_scale = randf_range(FX_STEP_RANGE.x, FX_STEP_RANGE.y)
+	footstep_right_audio_stream_player.play()

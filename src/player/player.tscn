@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=91 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -38,7 +38,9 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
 [ext_resource type="Script" path="res://src/player/scripts/states/death.gd" id="18_f5afl"]
 [ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
+[ext_resource type="AudioStream" uid="uid://dscxgbqgra4qd" path="res://src/player/sounds/footstep_concrete_01.wav" id="19_ijjec"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
+[ext_resource type="AudioStream" uid="uid://pto63svukyiw" path="res://src/player/sounds/footstep_concrete_02.wav" id="20_3b45q"]
 [ext_resource type="Script" path="res://src/player/scripts/states/crouch.gd" id="20_8363j"]
 [ext_resource type="AudioStream" uid="uid://bcvwnlep707ax" path="res://src/player/sounds/wall_climb.wav" id="20_onny2"]
 [ext_resource type="Script" path="res://src/player/scripts/states/stand_to_crouch.gd" id="21_ymkf1"]
@@ -423,6 +425,7 @@ tracks/2/keys = {
 resource_name = "crouch_walk"
 length = 0.8
 loop_mode = 1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -458,6 +461,23 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [8]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StateMachine/crouch_walk")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.05, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"fx_step_right"
+}, {
+"args": [],
+"method": &"fx_step_left"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_jlirl"]
@@ -1034,6 +1054,23 @@ tracks/2/keys = {
 "update": 1,
 "values": [10]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StateMachine/walk")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"fx_step_right"
+}, {
+"args": [],
+"method": &"fx_step_left"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_3qcmk"]
 resource_name = "wall_climb"
@@ -1303,13 +1340,27 @@ bus = &"SFX - Roll"
 [node name="skid" type="Node" parent="StateMachine"]
 script = ExtResource("7_3fko7")
 
-[node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player", "footstep_left_audio_stream_player", "footstep_right_audio_stream_player")]
 script = ExtResource("4_74l6q")
 audio_stream_player = NodePath("AudioStreamPlayer")
+footstep_left_audio_stream_player = NodePath("FootstepLeftAudioStreamPlayer")
+footstep_right_audio_stream_player = NodePath("FootstepRightAudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
 stream = ExtResource("12_nfhlm")
 bus = &"SFX - Touch Ground"
+
+[node name="FootstepLeftAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
+stream = ExtResource("19_ijjec")
+volume_db = -6.0
+max_polyphony = 15
+bus = &"SFX"
+
+[node name="FootstepRightAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
+stream = ExtResource("20_3b45q")
+volume_db = -6.0
+max_polyphony = 15
+bus = &"SFX"
 
 [node name="jump" type="Node" parent="StateMachine"]
 script = ExtResource("6_grvpe")
@@ -1353,8 +1404,22 @@ audio_stream_player = NodePath("AudioStreamPlayer")
 stream = ExtResource("20_onny2")
 bus = &"SFX - Wall Climb"
 
-[node name="crouch_walk" type="Node" parent="StateMachine"]
+[node name="crouch_walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("footstep_left_audio_stream_player", "footstep_right_audio_stream_player")]
 script = ExtResource("26_0ur0y")
+footstep_left_audio_stream_player = NodePath("FootstepLeftAudioStreamPlayer")
+footstep_right_audio_stream_player = NodePath("FootstepRightAudioStreamPlayer")
+
+[node name="FootstepLeftAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/crouch_walk"]
+stream = ExtResource("19_ijjec")
+volume_db = -9.0
+max_polyphony = 15
+bus = &"SFX"
+
+[node name="FootstepRightAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/crouch_walk"]
+stream = ExtResource("20_3b45q")
+volume_db = -9.0
+max_polyphony = 15
+bus = &"SFX"
 
 [node name="turn_around" type="Node" parent="StateMachine"]
 script = ExtResource("5_0i2rd")
