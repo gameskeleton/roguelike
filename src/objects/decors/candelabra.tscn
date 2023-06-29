@@ -52,9 +52,10 @@ _data = {
 "light_pulse": SubResource("Animation_gvcwi")
 }
 
-[node name="Candelabra" type="Node2D"]
+[node name="Candelabra" type="Node2D" node_paths=PackedStringArray("coin_spawn_position")]
 script = ExtResource("1_1nc1r")
 debris_scene = ExtResource("2_rwr4d")
+coin_spawn_position = NodePath("Sprite/SpawnPosition")
 
 [node name="Systems" type="Node" parent="."]
 
@@ -78,6 +79,9 @@ position = Vector2(0, -21)
 
 [node name="Flame3" parent="Sprite" instance=ExtResource("6_35btn")]
 position = Vector2(5, -20)
+
+[node name="SpawnPosition" type="Node2D" parent="Sprite"]
+position = Vector2(0, -15)
 
 [node name="AttackDetector" type="Area2D" parent="."]
 collision_layer = 16

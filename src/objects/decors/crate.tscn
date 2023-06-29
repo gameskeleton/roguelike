@@ -8,12 +8,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
 size = Vector2(16, 16)
 
-[node name="Crate" type="RigidBody2D"]
+[node name="Crate" type="RigidBody2D" node_paths=PackedStringArray("coin_spawn_position")]
 collision_layer = 16
 collision_mask = 19
 can_sleep = false
 script = ExtResource("1_e716a")
 debris_scene = ExtResource("2_6yd0v")
+coin_spawn_position = NodePath("Sprite2D")
 
 [node name="Systems" type="Node" parent="."]
 
