@@ -110,13 +110,13 @@ signal death()
 # Input
 ###
 
-var input_up := 0.0
-var input_down := 0.0
-var input_left := 0.0
-var input_right := 0.0
-var input_jump := 0.0
-var input_roll := 0.0
-var input_attack := 0.0
+var input_up := RkBoolInput.new("input_up")
+var input_down := RkBoolInput.new("input_down")
+var input_left := RkBoolInput.new("input_left")
+var input_right := RkBoolInput.new("input_right")
+var input_jump := RkBufferedInput.new("input_jump")
+var input_roll := RkBufferedInput.new("input_roll")
+var input_attack := RkBufferedInput.new("input_attack")
 var input_velocity := Vector2.ZERO
 
 ###
@@ -143,20 +143,15 @@ func _physics_process(delta: float):
 # process_input updates player inputs.
 # @impure
 func process_input(delta: float):
-	var up := Input.is_action_pressed("player_up")
-	var down := Input.is_action_pressed("player_down")
-	var left := Input.is_action_pressed("player_left")
-	var right := Input.is_action_pressed("player_right")
-	# compute input held
-	input_up = input_up + delta if up else 0.0
-	input_down = input_down + delta if down else 0.0
-	input_left = input_left + delta if left else 0.0
-	input_right = input_right + delta if right else 0.0
-	input_jump = input_jump + delta if Input.is_action_pressed("player_jump") else 0.0
-	input_roll = input_roll + delta if Input.is_action_pressed("player_roll") else 0.0
-	input_attack = input_attack + delta if Input.is_action_pressed("player_attack") else 0.0
-	# compute input velocity
-	input_velocity = Vector2(int(right) - int(left), int(down) - int(up))
+	input_up.process(delta, Input.is_action_pressed("player_up"))
+	input_down.process(delta, Input.is_action_pressed("player_down"))
+	input_left.process(delta, Input.is_action_pressed("player_left"))
+	input_right.process(delta, Input.is_action_pressed("player_right"))
+	input_jump.process(delta, Input.is_action_pressed("player_jump"))
+	input_roll.process(delta, Input.is_action_pressed("player_roll"))
+	input_attack.process(delta, Input.is_action_pressed("player_attack"))
+	# process input velocity
+	input_velocity = Vector2(input_right.to_pressed_int() - input_left.to_pressed_int(), input_down.to_pressed_int() - input_up.to_pressed_int())
 
 # process_velocity updates player position after applying velocity.
 # @impure
@@ -167,20 +162,6 @@ func process_velocity(_delta: float):
 # @impure
 func process_timeouts(delta: float):
 	disable_wall_hang_timeout = max(disable_wall_hang_timeout - delta, 0.0)
-
-###
-# Input
-###
-
-# input_pressed return true if the given input buffer is pressed.
-# @pure
-func input_pressed(input: float) -> bool:
-	return input > 0.0
-
-# input_just_pressed return true if the given input was just pressed.
-# @pure
-func input_just_pressed(input: float, buffer := 2.0 / 60.0) -> bool:
-	return input > 0.0 and input <= buffer
 
 ###
 # Movement

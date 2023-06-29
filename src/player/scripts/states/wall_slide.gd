@@ -15,7 +15,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.fall
 	if player_node.is_able_to_wall_hang():
 		return player_node.fsm.state_nodes.wall_hang
-	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_able_to_jump():
+	if player_node.input_jump.is_just_pressed() and player_node.is_able_to_jump():
 		player_node.velocity.x = player_node.direction * player_node.WALL_SLIDE_JUMP_EXPULSE_STRENGTH
 		return player_node.fsm.state_nodes.jump
 

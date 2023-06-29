@@ -21,10 +21,10 @@ func process_state(delta: float):
 	if not player_node.is_on_floor():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_pressed(player_node.input_down) and player_node.input_just_pressed(player_node.input_jump) and player_node.is_on_floor_one_way():
+	if player_node.input_down.is_pressed() and player_node.input_jump.is_just_pressed() and player_node.is_on_floor_one_way():
 		player_node.handle_drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_just_pressed(player_node.input_jump) and player_node.is_able_to_jump():
+	if player_node.input_jump.is_just_pressed() and player_node.is_able_to_jump():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.jump
 	if player_node.has_same_direction(player_node.velocity.x, player_node.input_velocity.x):

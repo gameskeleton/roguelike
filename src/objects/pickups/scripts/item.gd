@@ -17,6 +17,8 @@ const PICKUP_DELAY := 0.35
 
 # @impure
 func _ready():
+	if Engine.is_editor_hint():
+		return
 	# enable pickup after a while
 	await get_tree().create_timer(PICKUP_DELAY, false).timeout
 	player_detector.monitoring = true

@@ -14,13 +14,13 @@ func start_state():
 	player_node.set_wall_climb_detector_active(true)
 
 func process_state(_delta: float):
-	if player_node.input_just_pressed(player_node.input_up) and player_node.is_able_to_wall_climb():
+	if player_node.input_up.is_just_pressed() and player_node.is_able_to_wall_climb():
 		return player_node.fsm.state_nodes.wall_climb
-	if player_node.input_just_pressed(player_node.input_down):
+	if player_node.input_down.is_just_pressed():
 		player_node.position.x += player_node.direction * 2.5
 		player_node.disable_wall_hang_timeout = player_node.WALL_HANG_DROP_TIMEOUT
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_just_pressed(player_node.input_jump) and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
+	if player_node.input_jump.is_just_pressed() and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		player_node.velocity.x = player_node.direction * player_node.WALL_HANG_JUMP_EXPULSE_STRENGTH
 		return player_node.fsm.state_nodes.jump
 
