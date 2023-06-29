@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=27 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://cvi7pukwtusxy" path="res://src/playground.tscn" id="2_46614"]
@@ -25,28 +25,45 @@ script = ExtResource("11_61oyc")
 resource_name = "RichTextEffectBounce"
 script = ExtResource("12_phjov")
 
-[sub_resource type="Animation" id="Animation_2eu5m"]
+[sub_resource type="Animation" id="Animation_jiokg"]
 resource_name = "level_up!"
-length = 3.0
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("..:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 2.5, 3),
+"times": PackedFloat32Array(0, 0.3, 1.7, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show"
+}, {
+"args": [],
+"method": &"hide"
+}]
+}
 
-[sub_resource type="Animation" id="Animation_1mdru"]
+[sub_resource type="Animation" id="Animation_xfe3l"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("..:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -56,26 +73,10 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_vjn4x"]
-resource_name = "hide"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gcljl"]
 _data = {
-"RESET": SubResource("Animation_1mdru"),
-"hide": SubResource("Animation_vjn4x"),
-"level_up!": SubResource("Animation_2eu5m")
+"RESET": SubResource("Animation_xfe3l"),
+"level_up!": SubResource("Animation_jiokg")
 }
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_1pppy"]
@@ -101,21 +102,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_j46gx"]
-resource_name = "hide"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_58koh"]
 resource_name = "picked_up!"
 length = 4.0
@@ -131,11 +117,27 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show"
+}, {
+"args": [],
+"method": &"hide"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7n18l"]
 _data = {
 "RESET": SubResource("Animation_8ny6t"),
-"hide": SubResource("Animation_j46gx"),
 "picked_up!": SubResource("Animation_58koh")
 }
 
@@ -154,9 +156,9 @@ player_node = NodePath("Game/Player")
 all_rooms_node = NodePath("Game/AllRooms")
 player_camera_node = NodePath("Game/Player/Camera2D")
 object_spawner_node = NodePath("Game/ObjectSpawner")
-level_up_label = NodePath("Game/Player/LevelUpLabel")
-level_up_animation_player = NodePath("Game/Player/LevelUpLabel/AnimationPlayer")
-level_up_audio_stream_player = NodePath("Game/Player/LevelUpLabel/AudioStreamPlayer")
+level_up_label = NodePath("Game/Player/LevelUpToast/LevelUpLabel")
+level_up_animation_player = NodePath("Game/Player/LevelUpToast/AnimationPlayer")
+level_up_audio_stream_player = NodePath("Game/Player/LevelUpToast/AudioStreamPlayer")
 picked_up_label = NodePath("CanvasLayer/Game/PickedUpToast/PickedUpLabel")
 picked_up_animation_player = NodePath("CanvasLayer/Game/PickedUpToast/AnimationPlayer")
 picked_up_audio_stream_player = NodePath("CanvasLayer/Game/PickedUpToast/AudioStreamPlayer")
@@ -215,28 +217,39 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player"]
+[node name="LevelUpToast" type="Control" parent="Game/Player"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -48.0
+offset_top = -73.0
+offset_right = 48.0
+offset_bottom = -49.0
+
+[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player/LevelUpToast"]
 z_index = 1
 material = ExtResource("6_41hv6")
-offset_left = -40.0
-offset_top = -65.0
-offset_right = 40.0
-offset_bottom = -45.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "[center][offset y=2][rainbow][bounce]Level up![/bounce][/rainbow][/offset][/center]"
+text = "[center][offset y=4][rainbow][bounce]Level up![/bounce][/rainbow][/offset][/center]"
 scroll_active = false
 autowrap_mode = 0
 custom_effects = [SubResource("RichTextEffect_jfkim"), SubResource("RichTextEffect_n4utg")]
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpLabel"]
-autoplay = "hide"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpToast"]
+root_node = NodePath("../LevelUpLabel")
 libraries = {
 "": SubResource("AnimationLibrary_gcljl")
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpLabel"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpToast"]
 stream = ExtResource("6_yr51s")
 volume_db = 10.0
 bus = &"SFX"
@@ -302,6 +315,7 @@ color = Color(0.847059, 0.137255, 0.137255, 1)
 lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
 
 [node name="PickedUpToast" type="Control" parent="CanvasLayer/Game"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -331,7 +345,6 @@ shortcut_keys_enabled = false
 custom_effects = [SubResource("RichTextEffect_1pppy"), SubResource("RichTextEffect_nehq1")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Game/PickedUpToast"]
-autoplay = "hide"
 libraries = {
 "": SubResource("AnimationLibrary_7n18l")
 }
