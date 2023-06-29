@@ -110,13 +110,13 @@ signal death()
 # Input
 ###
 
-var input_up := RkBoolInput.new("input_up")
-var input_down := RkBoolInput.new("input_down")
-var input_left := RkBoolInput.new("input_left")
-var input_right := RkBoolInput.new("input_right")
-var input_jump := RkBufferedInput.new("input_jump")
-var input_roll := RkBufferedInput.new("input_roll")
-var input_attack := RkBufferedInput.new("input_attack")
+var input_up := RkBufferedInput.new("player_up")
+var input_down := RkBufferedInput.new("player_down")
+var input_left := RkBufferedInput.new("player_left")
+var input_right := RkBufferedInput.new("player_right")
+var input_jump := RkBufferedInput.new("player_jump", 0.2)
+var input_roll := RkBufferedInput.new("player_roll", 0.2)
+var input_attack := RkBufferedInput.new("player_attack", 0.2)
 var input_velocity := Vector2.ZERO
 
 ###
@@ -126,6 +126,7 @@ var input_velocity := Vector2.ZERO
 # _ready readies the player.
 # @impure
 func _ready():
+	# set default values.
 	set_direction(direction)
 	_on_level_level_up(level_system.level.value)
 	# resplenish system values to account for inventory default slots modifiers
@@ -143,15 +144,15 @@ func _physics_process(delta: float):
 # process_input updates player inputs.
 # @impure
 func process_input(delta: float):
-	input_up.process(delta, Input.is_action_pressed("player_up"))
-	input_down.process(delta, Input.is_action_pressed("player_down"))
-	input_left.process(delta, Input.is_action_pressed("player_left"))
-	input_right.process(delta, Input.is_action_pressed("player_right"))
-	input_jump.process(delta, Input.is_action_pressed("player_jump"))
-	input_roll.process(delta, Input.is_action_pressed("player_roll"))
-	input_attack.process(delta, Input.is_action_pressed("player_attack"))
+	input_up.process(delta)
+	input_down.process(delta)
+	input_left.process(delta)
+	input_right.process(delta)
+	input_jump.process(delta)
+	input_roll.process(delta)
+	input_attack.process(delta)
 	# process input velocity
-	input_velocity = Vector2(input_right.to_pressed_int() - input_left.to_pressed_int(), input_down.to_pressed_int() - input_up.to_pressed_int())
+	input_velocity = Vector2(input_right.to_down_int() - input_left.to_down_int(), input_down.to_down_int() - input_up.to_down_int())
 
 # process_velocity updates player position after applying velocity.
 # @impure

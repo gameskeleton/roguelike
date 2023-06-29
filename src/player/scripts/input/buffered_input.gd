@@ -1,37 +1,36 @@
 class_name RkBufferedInput
 
-var _name := ""
-var _pressed := false
-var _pressed_once := false
-var _pressed_ticks_msec := 0.0
+var _action: StringName
+var _buffer_time := 0.0
+var _buffer_remaining := 0.0
 
 # @impure
-func _init(name := "unnamed input"):
-	_name = name
+func _init(action: StringName, buffer_time := 0.0):
+	_action = action
+	_buffer_time = buffer_time
+
+# @impure
+func process(delta: float):
+	_buffer_remaining = clampf(_buffer_remaining - delta, 0.0, _buffer_time)
+	if Input.is_action_just_pressed(_action):
+		_buffer_remaining = _buffer_time
 
 # @impure
 func consume():
-	_pressed = false
-	_pressed_ticks_msec = 0.0
+	_buffer_remaining = 0.0
 
-# @impure
-func process(_delta: float, pressed: bool):
-	if pressed:
-		_pressed_once = true
-		if not _pressed:
-			_pressed = true
-			_pressed_ticks_msec = Time.get_ticks_msec()
-	else:
-		_pressed = false
+# @pure
+func is_down() -> bool:
+	return Input.is_action_pressed(_action)
 
 # @pure
 func is_pressed() -> bool:
-	return _pressed
+	return Input.is_action_just_pressed(_action) or _buffer_remaining > 0.0
 
 # @pure
-func is_just_pressed(grace_msec := 220.0) -> bool:
-	if _pressed_once and _pressed_ticks_msec > Time.get_ticks_msec() - grace_msec:
-		#if not _pressed:
-		#	print("is_just_pressed: %s pressed in grace period" % [_name])
-		return true
-	return false
+func to_down_int() -> int:
+	return 1 if is_down() else 0
+
+# @pure
+func to_pressed_int() -> int:
+	return 1 if is_pressed() else 0

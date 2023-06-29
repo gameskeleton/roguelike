@@ -12,7 +12,8 @@ func process_state(delta: float):
 	player_node.play_animation_transition("jump_to_fall", "fall")
 	if player_node.is_on_floor():
 		return player_node.fsm.state_nodes.stand if player_node.velocity.x == 0.0 else player_node.fsm.state_nodes.walk
-	if player_node.input_attack.is_just_pressed() and player_node.is_able_to_attack():
+	if player_node.input_attack.is_pressed() and player_node.is_able_to_attack():
+		player_node.input_attack.consume()
 		return player_node.fsm.state_nodes.attack
 	if player_node.is_able_to_wall_hang():
 		return player_node.fsm.state_nodes.wall_hang

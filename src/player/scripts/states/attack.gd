@@ -33,7 +33,7 @@ func process_state(delta: float):
 	else:
 		player_node.handle_deceleration_move(delta, player_node.ATTACK_DECELERATION)
 	# attack combo
-	if player_node.input_attack.is_pressed() and player_node.get_animation_played_ratio() >= 0.8:
+	if player_node.input_attack.is_down() and player_node.get_animation_played_ratio() >= 0.8:
 		_combo = true
 	if player_node.is_animation_finished():
 		if _combo and player_node.stamina_system.try_consume(player_node.ATTACK_STAMINA_COST):

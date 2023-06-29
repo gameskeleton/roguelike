@@ -17,14 +17,16 @@ func process_state(delta: float):
 	player_node.handle_deceleration_move(delta, player_node.CROUCH_DECELERATION)
 	if not player_node.is_on_floor():
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_down.is_pressed() and player_node.input_jump.is_just_pressed() and player_node.is_on_floor_one_way():
+	if player_node.input_jump.is_pressed() and player_node.input_down.is_down() and player_node.is_on_floor_one_way():
+		player_node.input_jump.consume()
 		player_node.handle_drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_roll.is_just_pressed() and player_node.is_able_to_roll():
+	if player_node.input_roll.is_pressed() and player_node.is_able_to_roll():
+		player_node.input_roll.consume()
 		return player_node.fsm.state_nodes.roll
 	if player_node.input_velocity.x != 0.0 and not player_node.is_on_wall_passive():
 		return player_node.fsm.state_nodes.crouch_walk
-	if not player_node.input_down.is_pressed() and player_node.is_able_to_uncrouch() and _timer >= player_node.CROUCH_LOCK_DELAY:
+	if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch() and _timer >= player_node.CROUCH_LOCK_DELAY:
 		return player_node.fsm.state_nodes.crouch_to_stand
 
 func finish_state():
