@@ -81,6 +81,9 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var inventory_system: RkInventorySystem
 @export var life_points_system: RkLifePointsSystem
 
+@export var coin_picked_up_audio_stream_player: AudioStreamPlayer
+@export var experience_picked_up_audio_stream_player: AudioStreamPlayer
+
 ###
 # Initial values
 ###

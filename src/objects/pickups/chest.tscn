@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://hpalx18kal14"]
+[gd_scene load_steps=17 format=3 uid="uid://hpalx18kal14"]
 
 [ext_resource type="Script" path="res://src/objects/pickups/scripts/chest.gd" id="1_oa2aj"]
 [ext_resource type="Texture2D" uid="uid://d03cqb4rxp7tg" path="res://src/objects/pickups/textures/wooden_chest.png" id="2_liup0"]
+[ext_resource type="AudioStream" uid="uid://psmngtkfyx51" path="res://src/objects/pickups/sounds/chest_open.wav" id="3_ptw4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ue8e6"]
 size = Vector2(32, 20)
@@ -114,6 +115,11 @@ sprite_frames = SubResource("SpriteFrames_2ylkt")
 animation = &"open"
 autoplay = "default"
 centered = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ptw4a")
+volume_db = -5.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

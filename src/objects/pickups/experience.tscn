@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cehywiepl3boy"]
+[gd_scene load_steps=11 format=3 uid="uid://cehywiepl3boy"]
 
 [ext_resource type="Script" path="res://src/objects/pickups/scripts/experience.gd" id="1_67vo4"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_25co4"]
 [ext_resource type="Texture2D" uid="uid://bd8oyo2df73nu" path="res://src/objects/pickups/textures/experience.png" id="3_ubxvh"]
 [ext_resource type="PackedScene" uid="uid://qt3kps4yxxl" path="res://src/shared/white_point_light.tscn" id="4_gpaxm"]
+[ext_resource type="AudioStream" uid="uid://dr4fmdi5gneqg" path="res://src/objects/pickups/sounds/coin_bounce.wav" id="5_xtjaj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i2lns"]
 bounce = 0.2
@@ -29,15 +30,15 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
 size = Vector2(8, 8)
 
-[node name="Experience" type="RigidBody2D" node_paths=PackedStringArray("line", "player_detector")]
+[node name="Experience" type="RigidBody2D"]
 collision_layer = 256
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_i2lns")
+max_contacts_reported = 1
+contact_monitor = true
 lock_rotation = true
 angular_damp = 10.0
 script = ExtResource("1_67vo4")
-line = NodePath("Node/Line2D")
-player_detector = NodePath("PlayerDetector")
 
 [node name="Node" type="Node" parent="."]
 
@@ -72,4 +73,10 @@ monitorable = false
 visible = false
 shape = SubResource("RectangleShape2D_wogr8")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xtjaj")
+volume_db = -4.0
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

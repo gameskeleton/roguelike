@@ -1,9 +1,10 @@
-[gd_scene load_steps=86 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=89 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
 [ext_resource type="PackedScene" uid="uid://5t2gx7epac85" path="res://src/systems/gold.tscn" id="2_18wbx"]
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/stand.png" id="2_a0emx"]
+[ext_resource type="AudioStream" uid="uid://bfkiun68kkj5c" path="res://src/objects/pickups/sounds/coin_picked_up.wav" id="3_3mvue"]
 [ext_resource type="Script" path="res://src/player/scripts/states/stand.gd" id="3_8ll75"]
 [ext_resource type="Script" path="res://src/player/scripts/states/fall.gd" id="3_73fy0"]
 [ext_resource type="Texture2D" uid="uid://5ing80amv0u5" path="res://src/player/textures/walk.png" id="3_acrg5"]
@@ -13,6 +14,7 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
 [ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/roll.png" id="4_80fq1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
+[ext_resource type="AudioStream" uid="uid://dutsihrhd7gj3" path="res://src/objects/pickups/sounds/experience_picked_up.wav" id="4_ppest"]
 [ext_resource type="Script" path="res://src/player/scripts/states/turn_around.gd" id="5_0i2rd"]
 [ext_resource type="Texture2D" uid="uid://dq457ojnbnmn0" path="res://src/player/textures/turn_around.png" id="5_eb2fg"]
 [ext_resource type="Script" path="res://src/player/scripts/states/hit.gd" id="6_ei416"]
@@ -26,6 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/player/sounds/roll.wav" id="9_7l0y8"]
 [ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/death.png" id="9_a75to"]
 [ext_resource type="Script" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
+[ext_resource type="AudioStream" uid="uid://cc30t52mrovey" path="res://src/player/sounds/hit.wav" id="10_m6ytp"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
 [ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
@@ -1183,7 +1186,7 @@ _data = {
 "wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "inventory_system", "life_points_system")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "inventory_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1212,6 +1215,8 @@ attack_system = NodePath("Systems/Attack")
 stamina_system = NodePath("Systems/Stamina")
 inventory_system = NodePath("Systems/Inventory")
 life_points_system = NodePath("Systems/LifePoints")
+coin_picked_up_audio_stream_player = NodePath("Sounds/CoinPickedUpAudioStreamPlayer")
+experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAudioStreamPlayer")
 additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
@@ -1237,6 +1242,20 @@ shape = SubResource("RectangleShape2D_ttjyw")
 disabled = true
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
+[node name="Sounds" type="Node" parent="."]
+
+[node name="CoinPickedUpAudioStreamPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("3_3mvue")
+volume_db = -5.0
+max_polyphony = 10
+bus = &"SFX"
+
+[node name="ExperiencePickedUpAudioStreamPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("4_ppest")
+volume_db = -5.0
+max_polyphony = 10
+bus = &"SFX"
+
 [node name="Systems" type="Node" parent="."]
 
 [node name="Gold" parent="Systems" instance=ExtResource("2_18wbx")]
@@ -1259,8 +1278,14 @@ life_points_system = NodePath("../LifePoints")
 
 [node name="StateMachine" type="Node" parent="."]
 
-[node name="hit" type="Node" parent="StateMachine"]
+[node name="hit" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
 script = ExtResource("6_ei416")
+audio_stream_player = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/hit"]
+stream = ExtResource("10_m6ytp")
+volume_db = -5.0
+bus = &"SFX"
 
 [node name="fall" type="Node" parent="StateMachine"]
 script = ExtResource("3_73fy0")
