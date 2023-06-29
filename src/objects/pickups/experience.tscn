@@ -4,13 +4,13 @@
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_25co4"]
 [ext_resource type="Texture2D" uid="uid://bd8oyo2df73nu" path="res://src/objects/pickups/textures/experience.png" id="3_ubxvh"]
 [ext_resource type="PackedScene" uid="uid://qt3kps4yxxl" path="res://src/shared/white_point_light.tscn" id="4_gpaxm"]
-[ext_resource type="AudioStream" uid="uid://dr4fmdi5gneqg" path="res://src/objects/pickups/sounds/coin_bounce.wav" id="5_xtjaj"]
+[ext_resource type="AudioStream" uid="uid://bmv8qw474yvfi" path="res://src/objects/pickups/sounds/experience_bounce.wav" id="5_nd0h7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i2lns"]
 bounce = 0.2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctdi1"]
-radius = 3.0
+radius = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60a7h"]
 atlas = ExtResource("3_ubxvh")
@@ -28,7 +28,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
-size = Vector2(8, 8)
+size = Vector2(10, 10)
 
 [node name="Experience" type="RigidBody2D"]
 collision_layer = 256
@@ -55,7 +55,6 @@ visible = false
 shape = SubResource("CircleShape2D_ctdi1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 3
 material = ExtResource("2_25co4")
 sprite_frames = SubResource("SpriteFrames_m2mye")
 
@@ -74,8 +73,8 @@ visible = false
 shape = SubResource("RectangleShape2D_wogr8")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_xtjaj")
-volume_db = -4.0
+stream = ExtResource("5_nd0h7")
+volume_db = -5.0
 bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

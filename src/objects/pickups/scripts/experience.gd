@@ -36,8 +36,8 @@ func _pick_up(player: RkPlayer):
 		hide()
 		player.level_system.earn_experience(value)
 		_picked_up = true
-		if not player.experience_picked_up_audio_stream_player.playing or player.experience_picked_up_audio_stream_player.get_playback_position() > 0.05:
-			player.experience_picked_up_audio_stream_player.pitch_scale = randf_range(0.995, 1.005)
+		if not player.experience_picked_up_audio_stream_player.playing or player.experience_picked_up_audio_stream_player.get_playback_position() > 0.03:
+			player.experience_picked_up_audio_stream_player.pitch_scale = randf_range(0.9, 1.1)
 			player.experience_picked_up_audio_stream_player.play()
 		await get_tree().create_timer(1.0, false).timeout
 		queue_free()
@@ -47,7 +47,7 @@ func _pick_up(player: RkPlayer):
 func _on_body_entered(body: Node2D):
 	if not _picked_up and body is TileMap and linear_velocity.length() >= 6.0 and not $AudioStreamPlayer.playing:
 		$AudioStreamPlayer.pitch_scale = randf_range(0.95, 1.05)
-		$AudioStreamPlayer.play()
+		$AudioStreamPlayer.play(0.1)
 
 # @signal
 # @impure

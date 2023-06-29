@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
 [ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/roll.png" id="4_80fq1"]
 [ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
-[ext_resource type="AudioStream" uid="uid://dutsihrhd7gj3" path="res://src/objects/pickups/sounds/experience_picked_up.wav" id="4_ppest"]
+[ext_resource type="AudioStream" uid="uid://ceycfyyjd7gif" path="res://src/objects/pickups/sounds/experience_picked_up.wav" id="4_ppest"]
 [ext_resource type="Script" path="res://src/player/scripts/states/turn_around.gd" id="5_0i2rd"]
 [ext_resource type="Texture2D" uid="uid://dq457ojnbnmn0" path="res://src/player/textures/turn_around.png" id="5_eb2fg"]
 [ext_resource type="Script" path="res://src/player/scripts/states/hit.gd" id="6_ei416"]
@@ -1252,8 +1252,8 @@ bus = &"SFX"
 
 [node name="ExperiencePickedUpAudioStreamPlayer" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("4_ppest")
-volume_db = -5.0
-max_polyphony = 10
+volume_db = 20.0
+max_polyphony = 15
 bus = &"SFX"
 
 [node name="Systems" type="Node" parent="."]
