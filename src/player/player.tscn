@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=94 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -36,14 +36,17 @@
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
 [ext_resource type="AudioStream" uid="uid://coae4lk6cowab" path="res://src/player/sounds/attack.wav" id="15_8gyqs"]
 [ext_resource type="Script" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
+[ext_resource type="AudioStream" uid="uid://c8d3u3t2idhwv" path="res://src/player/sounds/footstep_00.wav" id="18_d1hkk"]
 [ext_resource type="Script" path="res://src/player/scripts/states/death.gd" id="18_f5afl"]
 [ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
-[ext_resource type="AudioStream" uid="uid://dscxgbqgra4qd" path="res://src/player/sounds/footstep_concrete_01.wav" id="19_ijjec"]
+[ext_resource type="AudioStream" uid="uid://ciej7g7mescst" path="res://src/player/sounds/footstep_01.wav" id="19_ad0xw"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
-[ext_resource type="AudioStream" uid="uid://pto63svukyiw" path="res://src/player/sounds/footstep_concrete_02.wav" id="20_3b45q"]
 [ext_resource type="Script" path="res://src/player/scripts/states/crouch.gd" id="20_8363j"]
 [ext_resource type="AudioStream" uid="uid://bcvwnlep707ax" path="res://src/player/sounds/wall_climb.wav" id="20_onny2"]
+[ext_resource type="AudioStream" uid="uid://cc2xcwn321ey" path="res://src/player/sounds/footstep_03.wav" id="20_x46qy"]
+[ext_resource type="AudioStream" uid="uid://vdo6cmxolgsr" path="res://src/player/sounds/footstep_02.wav" id="21_um7ng"]
 [ext_resource type="Script" path="res://src/player/scripts/states/stand_to_crouch.gd" id="21_ymkf1"]
+[ext_resource type="AudioStream" uid="uid://dtki1objul30d" path="res://src/player/sounds/footstep_04.wav" id="22_bnx1i"]
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
 [ext_resource type="Script" path="res://src/player/scripts/states/crouch_walk.gd" id="26_0ur0y"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
@@ -1342,6 +1345,8 @@ script = ExtResource("7_3fko7")
 
 [node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player", "footstep_left_audio_stream_player", "footstep_right_audio_stream_player")]
 script = ExtResource("4_74l6q")
+footstep_left_streams = Array[AudioStream]([ExtResource("18_d1hkk"), ExtResource("19_ad0xw"), ExtResource("20_x46qy")])
+footstep_right_streams = Array[AudioStream]([ExtResource("21_um7ng"), ExtResource("22_bnx1i")])
 audio_stream_player = NodePath("AudioStreamPlayer")
 footstep_left_audio_stream_player = NodePath("FootstepLeftAudioStreamPlayer")
 footstep_right_audio_stream_player = NodePath("FootstepRightAudioStreamPlayer")
@@ -1351,14 +1356,14 @@ stream = ExtResource("12_nfhlm")
 bus = &"SFX - Touch Ground"
 
 [node name="FootstepLeftAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
-stream = ExtResource("19_ijjec")
-volume_db = -6.0
+stream = ExtResource("18_d1hkk")
+volume_db = -10.0
 max_polyphony = 15
 bus = &"SFX"
 
 [node name="FootstepRightAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
-stream = ExtResource("20_3b45q")
-volume_db = -6.0
+stream = ExtResource("21_um7ng")
+volume_db = -10.0
 max_polyphony = 15
 bus = &"SFX"
 
@@ -1406,18 +1411,20 @@ bus = &"SFX - Wall Climb"
 
 [node name="crouch_walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("footstep_left_audio_stream_player", "footstep_right_audio_stream_player")]
 script = ExtResource("26_0ur0y")
+footstep_left_streams = Array[AudioStream]([ExtResource("18_d1hkk"), ExtResource("19_ad0xw"), ExtResource("20_x46qy")])
+footstep_right_streams = Array[AudioStream]([ExtResource("21_um7ng"), ExtResource("22_bnx1i")])
 footstep_left_audio_stream_player = NodePath("FootstepLeftAudioStreamPlayer")
 footstep_right_audio_stream_player = NodePath("FootstepRightAudioStreamPlayer")
 
 [node name="FootstepLeftAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/crouch_walk"]
-stream = ExtResource("19_ijjec")
-volume_db = -9.0
+stream = ExtResource("18_d1hkk")
+volume_db = -12.0
 max_polyphony = 15
 bus = &"SFX"
 
 [node name="FootstepRightAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/crouch_walk"]
-stream = ExtResource("20_3b45q")
-volume_db = -9.0
+stream = ExtResource("21_um7ng")
+volume_db = -12.0
 max_polyphony = 15
 bus = &"SFX"
 

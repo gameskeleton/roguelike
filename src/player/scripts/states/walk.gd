@@ -2,6 +2,9 @@ extends RkStateMachineState
 
 const FX_STEP_RANGE := Vector2(0.99, 1.01)
 
+@export var footstep_left_streams: Array[AudioStream]
+@export var footstep_right_streams: Array[AudioStream]
+
 @export_group("Nodes")
 @export var audio_stream_player: AudioStreamPlayer
 @export var footstep_left_audio_stream_player: AudioStreamPlayer
@@ -53,10 +56,12 @@ func finish_state():
 # @animation
 # @impure
 func fx_step_left():
+	footstep_left_audio_stream_player.stream = footstep_left_streams.pick_random()
 	footstep_left_audio_stream_player.pitch_scale = randf_range(FX_STEP_RANGE.x, FX_STEP_RANGE.y)
 	footstep_left_audio_stream_player.play()
 
 # @impure
 func fx_step_right():
+	footstep_right_audio_stream_player.stream = footstep_right_streams.pick_random()
 	footstep_right_audio_stream_player.pitch_scale = randf_range(FX_STEP_RANGE.x, FX_STEP_RANGE.y)
 	footstep_right_audio_stream_player.play()
