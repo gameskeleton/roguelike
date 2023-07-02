@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bteus7x25vbqj"]
+[gd_scene load_steps=13 format=3 uid="uid://bteus7x25vbqj"]
 
 [ext_resource type="Script" path="res://src/objects/decors/scripts/decor.gd" id="1_1nc1r"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="1_4ih4r"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_tlyxk"]
 [ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/objects/decors/textures/decors_02.png" id="4_ihv35"]
 [ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/objects/decors/flame.tscn" id="6_35btn"]
+[ext_resource type="AudioStream" uid="uid://4udt2d4kaghe" path="res://src/objects/decors/sounds/broken_metal.wav" id="7_6lu6l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_imyae"]
 atlas = ExtResource("4_ihv35")
@@ -52,10 +53,11 @@ _data = {
 "light_pulse": SubResource("Animation_gvcwi")
 }
 
-[node name="Candelabra" type="Node2D" node_paths=PackedStringArray("coin_spawn_position")]
+[node name="Candelabra" type="Node2D" node_paths=PackedStringArray("coin_spawn_position", "audio_stream_player")]
 script = ExtResource("1_1nc1r")
 debris_scene = ExtResource("2_rwr4d")
 coin_spawn_position = NodePath("Sprite/SpawnPosition")
+audio_stream_player = NodePath("AudioStreamPlayer")
 
 [node name="Systems" type="Node" parent="."]
 
@@ -97,5 +99,9 @@ autoplay = "light_pulse"
 libraries = {
 "": SubResource("AnimationLibrary_g2w2u")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6lu6l")
+bus = &"SFX"
 
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
