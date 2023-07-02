@@ -1,4 +1,5 @@
 extends ColorRect
+class_name RkGuiInventoryCellDrop
 
 @export var inventory: RkGuiInventory
 

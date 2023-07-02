@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/gui/scripts/inventory_cell_drop.gd" id="1_8lft2"]
 [ext_resource type="Texture2D" uid="uid://d8fha1qgeb6s" path="res://src/gui/textures/gui.png" id="2_08loe"]
-[ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="3_7cd54"]
+[ext_resource type="Texture2D" uid="uid://b8aqrn27wljol" path="res://src/gui/textures/inventory_drop.png" id="3_cpsnx"]
 
 [node name="InventoryItem" type="ColorRect"]
 custom_minimum_size = Vector2(72, 20)
@@ -40,7 +40,7 @@ offset_bottom = 20.0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("3_7cd54")
+texture = ExtResource("3_cpsnx")
 expand_mode = 2
 stretch_mode = 3
 

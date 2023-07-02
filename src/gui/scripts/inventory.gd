@@ -4,7 +4,7 @@ class_name RkGuiInventory
 @export var node: Node
 
 @export_group("Nodes")
-@export var inventory_drop: Control
+@export var inventory_drop: RkGuiInventoryCellDrop
 @export var inventory_item_container: GridContainer
 @export var inventory_slot_container: GridContainer
 @export var inventory_drop_animation_player: AnimationPlayer
