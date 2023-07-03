@@ -5,4 +5,5 @@
 # Godot
 .build
 .godot
+.export
 project.godot.exe
