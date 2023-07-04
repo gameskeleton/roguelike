@@ -28,9 +28,17 @@ func is_pressed() -> bool:
 	return Input.is_action_just_pressed(_action) or _buffer_remaining > 0.0
 
 # @pure
+func is_released():
+	return Input.is_action_just_released(_action)
+
+# @pure
 func to_down_int() -> int:
 	return 1 if is_down() else 0
 
 # @pure
 func to_pressed_int() -> int:
 	return 1 if is_pressed() else 0
+
+# @pure
+func to_released_int() -> int:
+	return 1 if is_released() else 0

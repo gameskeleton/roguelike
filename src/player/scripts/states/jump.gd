@@ -21,8 +21,8 @@ func start_state():
 		player_node.set_direction(int(sign(player_node.input_velocity.x)))
 
 func process_state(delta: float):
-	_handle_direction()
-	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
+	_handle_gravity(delta)
+	_handle_direction(delta)
 	player_node.handle_airborne_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION)
 	if player_node.is_on_floor():
 		return player_node.fsm.state_nodes.stand
@@ -35,6 +35,10 @@ func process_state(delta: float):
 		player_node.input_attack.consume()
 		return player_node.fsm.state_nodes.attack
 
-func _handle_direction():
+func _handle_gravity(delta: float):
+	var gravity_acceleration := player_node.GRAVITY_ACCELERATION if player_node.input_jump.is_down() else player_node.GRAVITY_FAST_ACCELERATION
+	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, gravity_acceleration)
+
+func _handle_direction(_delta: float):
 	if not _was_wall_sliding:
 		player_node.handle_direction()
