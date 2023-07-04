@@ -6,6 +6,7 @@ const CROUCH_SIZE := Vector2(14.0, 24.0)
 const ONE_WAY_MARGIN := 2
 const CEILING_KNOCKDOWN := 0.0
 
+const COYOTE_TIME := 0.1
 const JUMP_STRENGTH := -260.0
 const GRAVITY_MAX_SPEED := 800.0
 const GRAVITY_ACCELERATION := 850.0
@@ -118,9 +119,9 @@ var input_up := RkBufferedInput.new("player_up")
 var input_down := RkBufferedInput.new("player_down")
 var input_left := RkBufferedInput.new("player_left")
 var input_right := RkBufferedInput.new("player_right")
-var input_jump := RkBufferedInput.new("player_jump", 0.2)
-var input_roll := RkBufferedInput.new("player_roll", 0.2)
-var input_attack := RkBufferedInput.new("player_attack", 0.2)
+var input_jump := RkBufferedInput.new("player_jump", 0.1)
+var input_roll := RkBufferedInput.new("player_roll", 0.1)
+var input_attack := RkBufferedInput.new("player_attack", 0.1)
 var input_velocity := Vector2.ZERO
 
 ###
