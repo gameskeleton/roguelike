@@ -9,10 +9,10 @@ size = Vector2(12, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
 size = Vector2(1, 10)
 
-[node name="Debris" type="Node2D"]
+[node name="Debris" type="Node2D" node_paths=PackedStringArray("pieces")]
 script = ExtResource("1_xns7y")
 force = 120.0
-pieces = Array[NodePath]([NodePath("BarrelTopPiece"), NodePath("BarrelLeftPiece"), NodePath("BarrelMiddlePiece1"), NodePath("BarrelMiddlePiece2"), NodePath("BarrelMiddlePiece3"), NodePath("BarrelRightPiece"), NodePath("BarrelBottomPiece")])
+pieces = [NodePath("BarrelTopPiece"), NodePath("BarrelLeftPiece"), NodePath("BarrelMiddlePiece1"), NodePath("BarrelMiddlePiece2"), NodePath("BarrelMiddlePiece3"), NodePath("BarrelRightPiece"), NodePath("BarrelBottomPiece")]
 
 [node name="BarrelTopPiece" type="RigidBody2D" parent="."]
 position = Vector2(0, -14)

@@ -16,9 +16,9 @@ size = Vector2(2, 16)
 atlas = ExtResource("2_qthdq")
 region = Rect2(128, 16, 16, 48)
 
-[node name="Debris" type="Node2D"]
+[node name="Debris" type="Node2D" node_paths=PackedStringArray("pieces")]
 script = ExtResource("1_cp7py")
-pieces = Array[NodePath]([NodePath("CandelabraFoot"), NodePath("CandelabraCandleHolder"), NodePath("CandelabraMiddleTop"), NodePath("CandelabraMiddleBottom")])
+pieces = [NodePath("CandelabraFoot"), NodePath("CandelabraCandleHolder"), NodePath("CandelabraMiddleTop"), NodePath("CandelabraMiddleBottom")]
 
 [node name="CandelabraFoot" type="RigidBody2D" parent="."]
 position = Vector2(0, -2)
