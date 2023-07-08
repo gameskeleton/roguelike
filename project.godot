@@ -122,6 +122,7 @@ player_pause_previous={
 2d_physics/layer_8="Projectile"
 2d_physics/layer_9="Pickup"
 2d_physics/layer_10="Chest"
+2d_physics/layer_11="PhysicsDecor"
 
 [physics]
 

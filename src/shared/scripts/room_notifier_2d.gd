@@ -41,7 +41,7 @@ func _ready():
 			room_node_collision_rect = room_node.get_coll_rect()
 			break
 		parent_node = parent_node.get_parent()
-	assert(room_node != null, "RoomNotifier2D must be a descendant of RkRoom")
+	assert(room_node != null, "RkRoomNotifier2D must be a descendant of RkRoom")
 	room_inside = _inside_room()
 	set_process(listen_room_on)
 	if listen_player_on:

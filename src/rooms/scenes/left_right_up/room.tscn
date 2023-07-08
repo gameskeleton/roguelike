@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bglhpa7iuf0xm"]
+[gd_scene load_steps=7 format=3 uid="uid://bglhpa7iuf0xm"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_kqa2n"]
 [ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_kgyvm"]
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_adjmn"]
 [ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="4_hcpot"]
+[ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/objects/decors/chain.tscn" id="5_4lnnv"]
+[ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="6_y7yux"]
 
 [node name="Room" instance=ExtResource("1_kqa2n")]
 exit_up = true
@@ -32,7 +34,13 @@ position = Vector2(376, 224)
 position = Vector2(360, 224)
 
 [node name="Candelabra" parent="." index="6" instance=ExtResource("4_hcpot")]
-position = Vector2(304, 224)
+position = Vector2(424, 224)
 
 [node name="Candelabra2" parent="." index="7" instance=ExtResource("4_hcpot")]
 position = Vector2(48, 176)
+
+[node name="Chain" parent="." index="8" instance=ExtResource("5_4lnnv")]
+position = Vector2(336, 144)
+
+[node name="Candle" parent="." index="9" instance=ExtResource("6_y7yux")]
+position = Vector2(280, 96)

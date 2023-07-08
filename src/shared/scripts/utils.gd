@@ -11,3 +11,9 @@ static func node_global_position(node: Node):
 	if node is Node2D or node is Control:
 		return node.global_position
 	return Vector2.ZERO
+
+# clear_node_children removes all children in the given node.
+# @impure
+static func clear_node_children(node: Node):
+	while node.get_child_count() > 0:
+		node.remove_child(node.get_child(0))

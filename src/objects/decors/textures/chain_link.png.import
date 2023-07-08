@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c536j82flnkwm"
-path="res://.godot/imported/tileset_decors_01_n.png-349fa235002572040e327bcb9b055f07.ctex"
+uid="uid://c47w7nv77yyfy"
+path="res://.godot/imported/chain_link.png-40b9525a7ca231151d873e46a834c2c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/rooms/textures/tileset_decors_01_n.png"
-dest_files=["res://.godot/imported/tileset_decors_01_n.png-349fa235002572040e327bcb9b055f07.ctex"]
+source_file="res://src/objects/decors/textures/chain_link.png"
+dest_files=["res://.godot/imported/chain_link.png-40b9525a7ca231151d873e46a834c2c4.ctex"]
 
 [params]
 

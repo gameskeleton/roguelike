@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=27 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
+[ext_resource type="PackedScene" uid="uid://cvi7pukwtusxy" path="res://src/playground.tscn" id="2_2qlwr"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="4_poqhe"]
@@ -150,6 +151,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
 map_revealed = true
+debug_start_room_scene = ExtResource("2_2qlwr")
 player_node = NodePath("Game/Player")
 all_rooms_node = NodePath("Game/AllRooms")
 player_camera_node = NodePath("Game/Player/Camera2D")
