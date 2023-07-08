@@ -5,6 +5,11 @@ class_name RkUtils
 static func pick_random(arr: Array, rng: RandomNumberGenerator):
 	return arr[rng.randi_range(0, arr.size() - 1)]
 
+# is_ran_from_editor returns true if the game is running from an editor build/
+# @pure
+static func is_ran_from_editor():
+	return OS.has_feature("editor")
+
 # node_global_position returns the given node global position if the node is a Node2D or Control.
 # @pure
 static func node_global_position(node: Node):

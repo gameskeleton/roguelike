@@ -33,4 +33,4 @@ position = Vector2(368, 160)
 position = Vector2(384, 160)
 
 [node name="Candle" parent="." index="7" instance=ExtResource("4_dccej")]
-position = Vector2(456, 176)
+position = Vector2(424, 176)

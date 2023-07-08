@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://mn1n6n61cfkm"]
+[gd_scene load_steps=11 format=3 uid="uid://mn1n6n61cfkm"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_7n2rj"]
 [ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_e6f1h"]
@@ -6,13 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="4_4e1y6"]
 [ext_resource type="PackedScene" uid="uid://hpalx18kal14" path="res://src/objects/pickups/chest.tscn" id="5_mjdou"]
 [ext_resource type="Script" path="res://src/spawner/res/one/spawn_coin.gd" id="6_c7msi"]
+[ext_resource type="Script" path="res://src/spawner/res/several/spawn_repeat.gd" id="7_m2nhq"]
 [ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="7_urvjx"]
 
-[sub_resource type="Resource" id="Resource_jqvgb"]
+[sub_resource type="Resource" id="Resource_52r1p"]
 script = ExtResource("6_c7msi")
 expulse_cone = 35.0
 expulse_strength = Vector2(180, 200)
 expulse_direction = Vector2(0, -1)
+
+[sub_resource type="Resource" id="Resource_2fhkd"]
+script = ExtResource("7_m2nhq")
+repeat = 10
+content = SubResource("Resource_52r1p")
+delay_between_spawn = 0.1
 
 [node name="Room" instance=ExtResource("1_7n2rj")]
 exit_down = true
@@ -43,7 +50,7 @@ position = Vector2(136, 176)
 position = Vector2(376, 192)
 
 [node name="Crate4" parent="." index="7" instance=ExtResource("3_ckka4")]
-position = Vector2(380, 176)
+position = Vector2(392, 192)
 
 [node name="Barrel4" parent="." index="8" instance=ExtResource("2_e6f1h")]
 position = Vector2(344, 224)
@@ -53,7 +60,7 @@ position = Vector2(208, 160)
 
 [node name="Chest" parent="." index="10" instance=ExtResource("5_mjdou")]
 position = Vector2(432, 192)
-content = SubResource("Resource_jqvgb")
+content = SubResource("Resource_2fhkd")
 
 [node name="Candelabra" parent="." index="11" instance=ExtResource("7_urvjx")]
-position = Vector2(368, 192)
+position = Vector2(312, 224)

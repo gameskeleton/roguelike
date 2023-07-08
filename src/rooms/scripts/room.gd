@@ -95,8 +95,16 @@ func _draw():
 # _ready will queue a redraw in the editor.
 # @impure
 func _ready():
+	set_process_input(RkUtils.is_ran_from_editor())
 	if Engine.is_editor_hint():
 		queue_redraw()
+
+# _input listens for a keystroke to copy and display the room path.
+# @impure
+func _input(event: InputEvent):
+	if event is InputEventKey and event.is_released() and event.keycode == KEY_F and RkMain.get_main_node(self).current_room_node == self:
+		print("Room %s: %s" % [get_path(), scene_file_path])
+		DisplayServer.clipboard_set(scene_file_path.replace("res://", ""))
 
 # has_corner_tile returns true if there is a corner tile at the given position.
 # @pure
