@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://co15ct8otqtpv"]
+[gd_scene load_steps=5 format=3 uid="uid://co15ct8otqtpv"]
 
 [ext_resource type="Script" path="res://src/objects/decors/scripts/chain.gd" id="1_ks50i"]
 [ext_resource type="Texture2D" uid="uid://c47w7nv77yyfy" path="res://src/objects/decors/textures/chain_link.png" id="2_4mfh3"]
+[ext_resource type="Texture2D" uid="uid://dnuv02gslgq6y" path="res://src/objects/decors/textures/chain_hook.png" id="3_fx4eq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_udfjo"]
 radius = 4.0
@@ -9,9 +10,10 @@ radius = 4.0
 [node name="Chain" type="Node2D"]
 script = ExtResource("1_ks50i")
 chain_link_texture = ExtResource("2_4mfh3")
+last_chain_link_texture = ExtResource("3_fx4eq")
 chain_link_collision_layer = 1024
-final_chain_link_collision_mask = 9
-final_chain_link_collision_layer = 1024
+last_chain_link_collision_mask = 9
+last_chain_link_collision_layer = 1024
 
 [node name="Base" type="StaticBody2D" parent="."]
 collision_layer = 1024

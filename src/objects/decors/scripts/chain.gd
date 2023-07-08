@@ -16,6 +16,11 @@ extends Node2D
 		chain_link_texture = value
 		if Engine.is_editor_hint():
 			_create_chain()
+@export var last_chain_link_texture: Texture2D:
+	set(value):
+		last_chain_link_texture = value
+		if Engine.is_editor_hint():
+			_create_chain()
 @export var freeze_first_chain_link := false:
 	set(value):
 		freeze_first_chain_link = value
@@ -31,14 +36,14 @@ extends Node2D
 		chain_link_collision_layer = value
 		if Engine.is_editor_hint():
 			_create_chain()
-@export_flags_2d_physics var final_chain_link_collision_mask: int:
+@export_flags_2d_physics var last_chain_link_collision_mask: int:
 	set(value):
-		final_chain_link_collision_mask = value
+		last_chain_link_collision_mask = value
 		if Engine.is_editor_hint():
 			_create_chain()
-@export_flags_2d_physics var final_chain_link_collision_layer: int:
+@export_flags_2d_physics var last_chain_link_collision_layer: int:
 	set(value):
-		final_chain_link_collision_layer = value
+		last_chain_link_collision_layer = value
 		if Engine.is_editor_hint():
 			_create_chain()
 
@@ -63,7 +68,7 @@ func _create_chain():
 	chain_base.collision_layer = chain_link_collision_layer
 	# create chain links and pin joints.
 	for i in length:
-		var final := i == length - 1
+		var last := i == length - 1
 		var pin_joint := PinJoint2D.new()
 		var chain_link_sprite := Sprite2D.new()
 		var chain_link_rigid_body := RigidBody2D.new()
@@ -73,14 +78,14 @@ func _create_chain():
 		pin_joint.softness = 0.0
 		pin_joint.position = Vector2(0, chain_link_size.y * i)
 		pin_joint.disable_collision = true
-		chain_link_sprite.texture = chain_link_texture
+		chain_link_sprite.texture = chain_link_texture if not last or not last_chain_link_texture else last_chain_link_texture
 		chain_link_sprite.centered = false
 		chain_link_rigid_body.position = Vector2(-chain_link_size.x * 0.5, -chain_link_size.y + chain_link_size.y * (i + 1))
-		chain_link_rigid_body.linear_damp = 0.5
-		chain_link_rigid_body.angular_damp = 0.5
-		chain_link_rigid_body.gravity_scale = 0.8
-		chain_link_rigid_body.collision_mask = chain_link_collision_mask if not final else final_chain_link_collision_mask
-		chain_link_rigid_body.collision_layer = chain_link_collision_layer if not final else final_chain_link_collision_layer
+		chain_link_rigid_body.linear_damp = 1.5
+		chain_link_rigid_body.angular_damp = 1.5
+		chain_link_rigid_body.gravity_scale = 1.1
+		chain_link_rigid_body.collision_mask = chain_link_collision_mask if not last else last_chain_link_collision_mask
+		chain_link_rigid_body.collision_layer = chain_link_collision_layer if not last else last_chain_link_collision_layer
 		chain_link_collision_shape.shape = _chain_link_circle_shape
 		chain_link_collision_shape.position = Vector2(chain_link_size.x * 0.5, chain_link_size.y * 0.5)
 		#
