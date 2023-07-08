@@ -49,6 +49,7 @@ extends Node2D
 
 @onready var chain_base := $Base as StaticBody2D
 @onready var chain_links := $Links as Node2D
+@onready var audio_stream_player := $AudioStreamPlayer as AudioStreamPlayer
 
 var _chain_link_circle_shape := CircleShape2D.new()
 
@@ -96,6 +97,15 @@ func _create_chain():
 		#
 		pin_joints.push_back(pin_joint)
 		chain_link_rigid_bodies.push_back(chain_link_rigid_body)
+		#
+		if last:
+			chain_link_rigid_body.contact_monitor = true
+			chain_link_rigid_body.max_contacts_reported = 1
+			chain_link_rigid_body.body_entered.connect(func(body: Node):
+				if body is RkPlayer and not audio_stream_player.playing:
+					audio_stream_player.pitch_scale = randf_range(0.95, 1.05)
+					audio_stream_player.play()
+			)
 	# link pin joints to chain links.
 	for i in length:
 		if i == 0:
