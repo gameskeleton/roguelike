@@ -47,8 +47,8 @@ extends Node2D
 		if Engine.is_editor_hint():
 			_create_chain()
 
-@onready var chain_base: StaticBody2D = $Base
-@onready var chain_links: Node2D = $Links
+@onready var chain_base := $Base as StaticBody2D
+@onready var chain_links := $Links as Node2D
 
 var _chain_link_circle_shape := CircleShape2D.new()
 

@@ -15,7 +15,7 @@ class_name RkGuiInventoryCell
 		selected = new_selected
 @export var inventory: RkGuiInventory
 
-@onready var texture_rect: TextureRect = $TextureRect
+@onready var texture_rect := $TextureRect as TextureRect
 @onready var default_color := color
 
 # @impure
