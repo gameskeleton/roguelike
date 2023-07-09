@@ -36,6 +36,8 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 
 @export var ui_game_over_control: Control
 
+static var _main_node: RkMain = null
+
 signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
 
@@ -47,6 +49,10 @@ var player_node_position: Vector2 :
 	get: return player_node.position + Vector2(0.0, -RkPlayer.SIZE.y * 0.5)
 
 var _generator := RkDungeonGenerator.new()
+
+# @impure
+func _init():
+	RkMain._main_node = self
 
 # @impure
 func _ready():
@@ -181,14 +187,8 @@ func _process_game_over():
 			_limit_camera_to_room()
 
 # @pure
-static func get_main_node(from_node: Node) -> RkMain:
-	return from_node.get_tree().root.get_node("/root/Main") as RkMain
-
-# @pure
-static func try_get_main_node(from_node: Node) -> RkMain:
-	if from_node.is_inside_tree():
-		return from_node.get_tree().root.get_node_or_null("/root/Main") as RkMain
-	return null
+static func get_main_node() -> RkMain:
+	return _main_node
 
 ###
 # Room

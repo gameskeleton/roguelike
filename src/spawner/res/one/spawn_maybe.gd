@@ -19,7 +19,7 @@ class_name RkSpawnMaybeRes
 # @impure
 func spawn(parent_node: Node, global_position: Vector2) -> Node:
 	if content:
-		var main_node := RkMain.get_main_node(parent_node)
+		var main_node := RkMain.get_main_node()
 		if probability > main_node.rng.randf():
 			return content.spawn(parent_node, global_position)
 	return null

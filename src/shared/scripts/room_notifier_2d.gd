@@ -45,8 +45,8 @@ func _ready():
 	room_inside = _inside_room()
 	set_process(listen_room_on)
 	if listen_player_on:
-		RkMain.get_main_node(self).room_enter.connect(_on_room_enter)
-		RkMain.get_main_node(self).room_leave.connect(_on_room_leave)
+		RkMain.get_main_node().room_enter.connect(_on_room_enter)
+		RkMain.get_main_node().room_leave.connect(_on_room_leave)
 
 # _process checks if this notifier is inside this room's collision rectangle.
 # @impure

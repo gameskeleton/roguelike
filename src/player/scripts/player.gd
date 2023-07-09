@@ -104,7 +104,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 ###
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
-@onready var main_node := RkMain.get_main_node(self)
+@onready var main_node := RkMain.get_main_node()
 
 var dead := false
 var crouched := false

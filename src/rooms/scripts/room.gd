@@ -102,7 +102,7 @@ func _ready():
 # _input listens for a keystroke to copy and display the room path.
 # @impure
 func _input(event: InputEvent):
-	if event is InputEventKey and event.is_released() and event.keycode == KEY_F and RkMain.get_main_node(self).current_room_node == self:
+	if event is InputEventKey and event.is_released() and event.keycode == KEY_F and RkMain.get_main_node().current_room_node == self:
 		print("Room %s: %s" % [get_path(), scene_file_path])
 		DisplayServer.clipboard_set(scene_file_path.replace("res://", ""))
 

@@ -29,7 +29,7 @@ func _ready():
 
 func _process(delta: float):
 	_timer += delta
-	sprite.flip_h = global_position.x < RkMain.get_main_node(self).player_node.global_position.x
+	sprite.flip_h = global_position.x < RkMain.get_main_node().player_node.global_position.x
 	match _state:
 		State.idle: process_idle()
 		State.dying: process_dying()
@@ -57,7 +57,7 @@ func start_idle():
 func process_idle():
 	position = Vector2(_teleport_position.x, _teleport_position.y + AMPLITUDE * sin(SPEED * _timer))
 	if _timer > _idle_delay:
-		if not RkMain.get_main_node(self).player_node.dead:
+		if not RkMain.get_main_node().player_node.dead:
 			set_state(State.shriek)
 
 func start_appear():
@@ -77,12 +77,12 @@ func process_shriek():
 		var projectile_node: RkProjectile = PROJECTILE_SCENE.instantiate()
 		_shot = true
 		projectile_node.position = position + Vector2(0.0, -24.0)
-		projectile_node.direction = (RkMain.get_main_node(self).player_node.global_position - global_position).normalized()
+		projectile_node.direction = (RkMain.get_main_node().player_node.global_position - global_position).normalized()
 		projectile_node.damage_type = RkLifePointsSystem.DmgType.fire
 		get_parent().add_child(projectile_node)
 		projectile_node.owner = get_parent()
 	if _timer > 1.0:
-		if RkMain.get_main_node(self).player_node.dead:
+		if RkMain.get_main_node().player_node.dead:
 			return set_state(State.idle)
 		return set_state(State.vanish)
 
