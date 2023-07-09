@@ -194,6 +194,5 @@ collision_mask = 9
 shape = SubResource("CircleShape2D_jmpmo")
 
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
-[connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]
 [connection signal="room_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_room_leave"]
 [connection signal="body_entered" from="AttackDetector" to="." method="_on_attack_detector_body_entered"]

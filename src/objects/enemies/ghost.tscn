@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dvae065e8oo3"]
+[gd_scene load_steps=32 format=3 uid="uid://dvae065e8oo3"]
 
 [ext_resource type="Script" path="res://src/objects/enemies/scripts/ghost.gd" id="1_eewrg"]
 [ext_resource type="Texture2D" uid="uid://pucl0x5jqyi7" path="res://src/objects/enemies/textures/ghost_idle.png" id="1_yxvag"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dhnsi47c2vmm8" path="res://src/objects/enemies/textures/ghost_shriek.png" id="4_juqg0"]
 [ext_resource type="Texture2D" uid="uid://cwxv0vtw4xoc7" path="res://src/objects/enemies/textures/ghost_vanish.png" id="5_a3dpc"]
 [ext_resource type="Script" path="res://src/spawner/res/one/spawn_coin.gd" id="5_cntmm"]
-[ext_resource type="PackedScene" uid="uid://c0cbsac27kyye" path="res://src/shared/room_notifier_2d.tscn" id="6_coxhh"]
 [ext_resource type="Script" path="res://src/spawner/res/several/spawn_repeat.gd" id="6_oe2nc"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="7_agja5"]
 [ext_resource type="Script" path="res://src/spawner/res/one/spawn_experience.gd" id="7_d77a6"]
@@ -319,10 +318,9 @@ _data = {
 "vanish": SubResource("Animation_7wu0x")
 }
 
-[node name="Ghost" type="Node2D" node_paths=PackedStringArray("sprite", "room_notifier", "animation_player", "drop_system", "life_points_system")]
+[node name="Ghost" type="Node2D" node_paths=PackedStringArray("sprite", "animation_player", "drop_system", "life_points_system")]
 script = ExtResource("1_eewrg")
 sprite = NodePath("Sprite")
-room_notifier = NodePath("RoomNotifier2D")
 animation_player = NodePath("AnimationPlayer")
 drop_system = NodePath("Systems/Drop")
 life_points_system = NodePath("Systems/LifePoints")
@@ -357,9 +355,6 @@ offset_bottom = -48.0
 life_points_system = NodePath("../Systems/LifePoints")
 metadata/_edit_use_anchors_ = true
 
-[node name="RoomNotifier2D" parent="." instance=ExtResource("6_coxhh")]
-listen_room_on = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "appear"
 libraries = {
@@ -367,5 +362,3 @@ libraries = {
 }
 
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
-[connection signal="player_enter" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_enter"]
-[connection signal="player_leave" from="RoomNotifier2D" to="." method="_on_room_notifier_2d_player_leave"]

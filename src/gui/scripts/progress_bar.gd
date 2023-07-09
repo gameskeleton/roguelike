@@ -65,7 +65,6 @@ func _process(delta: float):
 
 # @impure
 func _update_lag():
-	set_process(lag)
 	$ProgressBarLag.visible = lag
 
 # @impure

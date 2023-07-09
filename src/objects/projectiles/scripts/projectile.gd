@@ -21,6 +21,10 @@ func _process(delta: float):
 	position += direction * speed * delta
 
 # @impure
+func _leave_room(_room: RkRoom):
+	destroy_projectile(true)
+
+# @impure
 func destroy_projectile(force := false):
 	if force:
 		queue_free()
@@ -36,16 +40,11 @@ func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: No
 
 # @signal
 # @impure
-func _on_attack_detector_body_entered(body: Node2D):
-	if body is RkPlayer:
-		body.life_points_system.take_damage(damage, damage_type, self, owner)
-
-# @signal
-# @impure
 func _on_room_notifier_2d_room_leave():
 	destroy_projectile(true)
 
 # @signal
 # @impure
-func _on_room_notifier_2d_player_leave():
-	destroy_projectile(true)
+func _on_attack_detector_body_entered(body: Node2D):
+	if body is RkPlayer:
+		body.life_points_system.take_damage(damage, damage_type, self, owner)

@@ -32,7 +32,7 @@ var _fire_cooldown := FIRE_COOLDOWN
 func _ready():
 	_player_node = RkMain.get_main_node().player_node
 	_reset()
-	_on_room_notifier_2d_player_leave()
+	_leave_room(null)
 	life_points_system.life_points.max_value_base = 5.0
 
 # @impure
@@ -104,14 +104,10 @@ func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Nod
 
 # @signal
 # @impure
-func _on_room_notifier_2d_player_enter():
+func _enter_room(_room: RkRoom):
 	_reset()
-	set_process(true)
-	set_physics_process(true)
 
 # @signal
 # @impure
-func _on_room_notifier_2d_player_leave():
+func _leave_room(_room: RkRoom):
 	_reset()
-	set_process(false)
-	set_physics_process(false)

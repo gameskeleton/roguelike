@@ -125,10 +125,5 @@ func _on_life_points_damage_taken(_damage: float, source: Node, _instigator: Nod
 	tween_position.tween_property(sprite, "position", sprite_initial_position, 0.1).set_trans(Tween.TRANS_LINEAR)
 
 # @signal
-func _on_room_notifier_2d_player_enter():
-	set_process(true)
-
-# @signal
-func _on_room_notifier_2d_player_leave():
+func _leave_room(_room: RkRoom):
 	set_state(State.appear)
-	set_process(false)

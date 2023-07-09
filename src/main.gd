@@ -199,6 +199,7 @@ static func get_main_node() -> RkMain:
 # @impure
 func _enter_room(room_node := current_room_node):
 	current_room_node = room_node
+	current_room_node.enter()
 	room_enter.emit(current_room_node)
 	# mark room as discovered
 	var map_room_control := _get_map_room_control(current_room_node.get_grid_pos())
@@ -209,6 +210,7 @@ func _enter_room(room_node := current_room_node):
 func _leave_room(room_node := current_room_node):
 	previous_room_node = room_node
 	room_leave.emit(previous_room_node)
+	previous_room_node.leave()
 
 # @impure
 func _clear_rooms():
@@ -239,6 +241,7 @@ func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distanc
 	map_room_control.set_position(room_map_pos)
 	ui_pause_all_rooms_control.add_child(map_room_control)
 	map_room_control.owner = ui_pause_all_rooms_control
+	room_node.leave()
 	return room_node
 
 # @pure

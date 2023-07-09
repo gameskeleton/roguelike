@@ -13,26 +13,13 @@ var _visible := true
 var _visible_for := 2.0
 
 # @impure
-func fade_in():
-	_visible = true
-	_visible_for = VISIBLE_FOR
-
-# @impure
-func fade_out():
-	_fade_in = 0.0
-	_visible = false
-	_visible_for = VISIBLE_FOR
-	progress_bar.modulate.a = 0.0
-
-# @impure
 func _ready():
-	set_process(false)
 	if not life_points_system:
 		var parent_node := get_parent()
 		if parent_node:
 			life_points_system = RkLifePointsSystem.find_system_node(parent_node)
 	assert(life_points_system, "LifePointsMeter must be a sibling of RkLifePointsSystem")
-	await get_tree().process_frame # wait for life_points_system to be ready
+	await get_tree().process_frame # small hack to wait for life_points_system to be ready
 	progress_bar.progress = life_points_system.life_points.ratio
 	life_points_system.damage_taken.connect(_on_life_points_damage_taken)
 
@@ -50,20 +37,28 @@ func _process(delta: float):
 		_fade_in -= delta * FADE_SPEED
 	progress_bar.modulate.a = ease(_fade_in, -2.0)
 
+# @impure
+func _enter_room(_room: RkRoom):
+	fade_in()
+
+# @impure
+func _leave_room(_room: RkRoom):
+	fade_out()
+
+# @impure
+func fade_in():
+	_visible = true
+	_visible_for = VISIBLE_FOR
+
+# @impure
+func fade_out():
+	_fade_in = 0.0
+	_visible = false
+	_visible_for = VISIBLE_FOR
+	progress_bar.modulate.a = 0.0
+
 # @signal
 # @impure
 func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node):
 	fade_in()
 	progress_bar.progress = life_points_system.life_points.ratio
-
-# @signal
-# @impure
-func _on_room_notifier_2d_player_enter():
-	fade_in()
-	set_process(true)
-
-# @signal
-# @impure
-func _on_room_notifier_2d_player_leave():
-	fade_out()
-	set_process(false)
