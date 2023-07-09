@@ -42,6 +42,8 @@ signal room_enter(room_node: RkRoom) # emitted when the player enters a new room
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
 
 var rng := RandomNumberGenerator.new()
+var spawn_rng := RandomNumberGenerator.new()
+
 var state := State.game
 var current_room_node: RkRoom # the room node the player is in.
 var previous_room_node: RkRoom # the previous room node the player was in.
