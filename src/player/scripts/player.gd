@@ -103,13 +103,13 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 # Variables
 ###
 
+signal death()
+
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
-@onready var main_node := RkMain.get_main_node()
 
 var dead := false
 var crouched := false
 var disable_wall_hang_timeout := 0.0
-signal death()
 
 ###
 # Input
@@ -263,6 +263,10 @@ func handle_deceleration_move(delta: float, deceleration: float):
 func handle_drop_through_one_way():
 	position.y += ONE_WAY_MARGIN
 
+###
+# Maths utils
+###
+
 # is_nearly returns true if the first given value nearly equals the second given value.
 # @pure
 func is_nearly(value1: float, value2: float, epsilon = 0.001) -> bool:
@@ -288,11 +292,6 @@ func apply_acceleration(delta: float, value: float, max_speed: float, accelerati
 func apply_deceleration(delta: float, value: float, deceleration: float) -> float:
 	return move_toward(value, 0.0, deceleration * delta)
 
-# get_corner_position returns the snapped position to the nearest corner wall.
-# @pure
-func get_corner_position() -> Vector2:
-	return main_node.current_room_node.get_corner_tile_pos(wall_hang_hand.global_position)
-
 ###
 # Checks
 ###
@@ -301,6 +300,26 @@ func get_corner_position() -> Vector2:
 # @pure
 func is_stopped() -> bool:
 	return get_real_velocity().length_squared() < 0.1
+
+# is_on_wall_passive returns true if there is a wall in the given direction (defaults to the player's direction).
+# note: this is useful if the player is not moving horizontally, whereas is_on_wall only works with a velocity going into a wall.
+func is_on_wall_passive(passive_direction := direction) -> bool:
+	return test_move(transform, Vector2(2.0 * passive_direction, 0.0))
+
+# is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
+# note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
+# @pure
+func is_on_floor_one_way() -> bool:
+	return is_on_floor() and one_way_detector.has_overlapping_bodies()
+
+# get_corner_position returns the snapped position to the nearest corner wall.
+# @pure
+func get_corner_position() -> Vector2:
+	return RkMain.get_main_node().current_room_node.get_corner_tile_pos(wall_hang_hand.global_position)
+
+###
+# Capabilities
+###
 
 # is_able_to_jump returns true if the player is able to jump.
 # @pure
@@ -327,47 +346,33 @@ func is_able_to_uncrouch() -> bool:
 func is_able_to_attack() -> bool:
 	return stamina_system.has_enough(ATTACK_STAMINA_COST)
 
-# is_able_to_wall_hang returns true if the player is near a corner wall.
-# note: is_able_to_wall_hang will only work if the wall slide detector was activated with set_wall_hang_detector_active(true).
+# is_able_to_wall_hang returns true if the player can hang to the corner of a wall.
 # @pure
 func is_able_to_wall_hang() -> bool:
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
-	var hand_pos := wall_hang_hand.global_position - main_node.current_room_node.global_position
-	if main_node.current_room_node.has_corner_tile(hand_pos):
-		var corner_pos := main_node.current_room_node.get_corner_tile_pos(hand_pos)
+	var main_node := RkMain.get_main_node()
+	var wall_hang_hand_pos := wall_hang_hand.global_position - main_node.current_room_node.global_position
+	if main_node.current_room_node.has_corner_tile(wall_hang_hand_pos):
+		var corner_pos := main_node.current_room_node.get_corner_tile_pos(wall_hang_hand_pos)
 		var distance_to_corner := (global_position - main_node.current_room_node.global_position).distance_to(corner_pos)
 		return distance_to_corner < 31.0
 	return false
 
-# is_able_to_wall_climb returns true if the player can climb up a corner wall.
-# note: is_able_to_wall_climb will only work if the wall climb detector was activated with set_wall_climb_detector_active(true).
+# is_able_to_wall_climb returns true if the player can climb to the corner of the wall its currently hanging to.
 # @pure
 func is_able_to_wall_climb() -> bool:
 	return not wall_climb_stand_detector.has_overlapping_bodies() or not wall_climb_crouch_detector.has_overlapping_bodies()
 
-# is_able_to_wall_slide returns true if the player is able to slide on a wall.
-# note: is_able_to_wall_slide will only work if the wall slide detector was activated with set_wall_slide_raycast_active(true).
+# is_able_to_wall_slide returns true if the player is able to slide along a wall.
 # @pure
 func is_able_to_wall_slide() -> bool:
 	return is_on_wall() and wall_slide_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()
 
-# is_able_to_roll_when_pushing_wall returns true if the player is able to roll under a crouchable section if touching a wall.
-# note: use is_able_to_roll_when_pushing_wall instead of is_able_to_roll to prevent the player from bumping directly into a wall
+# is_able_to_roll_when_pushing_wall returns true if the player is able to roll under a crouchable section if standing next to a wall.
 # @pure
 func is_able_to_roll_when_pushing_wall() -> bool:
 	return is_able_to_roll() and not push_wall_roll_detector.has_overlapping_bodies()
-
-# is_on_wall_passive returns true if there is a wall in the given direction (defaults to the player's direction).
-# note: this is useful if the player is not moving horizontally, whereas is_on_wall only works with a velocity going into a wall.
-func is_on_wall_passive(passive_direction := direction) -> bool:
-	return test_move(transform, Vector2(2.0 * passive_direction, 0.0))
-
-# is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
-# note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
-# @pure
-func is_on_floor_one_way() -> bool:
-	return is_on_floor() and one_way_detector.has_overlapping_bodies()
 
 ###
 # Sound
@@ -486,5 +491,7 @@ func _on_life_points_damage_taken(_damage_taken: float, _source: Node, _instigat
 	if life_points_system.has_lethal_damage():
 		if dead:
 			return
-		return call_deferred("die")
-	return call_deferred("hit")
+		die.call_deferred()
+		return
+	hit.call_deferred()
+	return

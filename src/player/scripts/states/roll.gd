@@ -56,4 +56,4 @@ func finish_state():
 func _on_roll_detector_area_entered(area: Area2D):
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
-		player_node.attack_system.call_deferred("attack", target_node, player_node.ROLL_DAMAGE, RkLifePointsSystem.DmgType.roll)
+		player_node.attack_system.attack.call_deferred(target_node, player_node.ROLL_DAMAGE, RkLifePointsSystem.DmgType.roll)

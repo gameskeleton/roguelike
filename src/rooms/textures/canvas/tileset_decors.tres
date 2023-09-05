@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://0obpqpceh0km" path="res://src/rooms/textures/tileset_decors_d.png" id="1_kpwu2"]
 [ext_resource type="Texture2D" uid="uid://c536j82flnkwm" path="res://src/rooms/textures/tileset_decors_n.png" id="2_i6nge"]
 
-
 [resource]
 diffuse_texture = ExtResource("1_kpwu2")
 normal_texture = ExtResource("2_i6nge")
