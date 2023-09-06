@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=17 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -6,12 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
-[ext_resource type="PackedScene" uid="uid://bv67dd1mhtbs6" path="res://src/gui/map_room_dot.tscn" id="8_4s74v"]
-[ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/spawner/object_spawner.tscn" id="8_o2dbi"]
-[ext_resource type="PackedScene" uid="uid://dg86awcxwv0pg" path="res://src/gui/progress_bar.tscn" id="10_uyg37"]
+[ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/shared/object_spawner.tscn" id="8_o2dbi"]
 [ext_resource type="Script" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
-[ext_resource type="Texture2D" uid="uid://dlr7bvjcakdfp" path="res://src/gui/textures/fire.png" id="11_jxnrm"]
-[ext_resource type="PackedScene" uid="uid://dfafs7jw2i84p" path="res://src/gui/inventory.tscn" id="11_ptukl"]
 [ext_resource type="Script" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
@@ -78,69 +74,7 @@ _data = {
 "level_up!": SubResource("Animation_jiokg")
 }
 
-[sub_resource type="RichTextEffect" id="RichTextEffect_1pppy"]
-resource_name = "RichTextEffectOffset"
-script = ExtResource("11_61oyc")
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_nehq1"]
-resource_name = "RichTextEffectBounce"
-script = ExtResource("12_phjov")
-
-[sub_resource type="Animation" id="Animation_8ny6t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_58koh"]
-resource_name = "picked_up!"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 3.5, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 4),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"show"
-}, {
-"args": [],
-"method": &"hide"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7n18l"]
-_data = {
-"RESET": SubResource("Animation_8ny6t"),
-"picked_up!": SubResource("Animation_58koh")
-}
-
-[node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player", "picked_up_label", "picked_up_animation_player", "picked_up_audio_stream_player", "ui_game_control", "ui_game_state_label", "ui_game_stamina_meter", "ui_game_magic_slot_button", "ui_game_life_points_meter", "ui_pause_control", "ui_pause_tab_container", "ui_pause_all_rooms_control", "ui_pause_map_room_dot_control", "ui_game_over_control")]
+[node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -149,7 +83,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7kkph")
-map_revealed = true
 player_node = NodePath("Game/Player")
 all_rooms_node = NodePath("Game/AllRooms")
 player_camera_node = NodePath("Game/Player/Camera2D")
@@ -157,19 +90,6 @@ object_spawner_node = NodePath("Game/ObjectSpawner")
 level_up_label = NodePath("Game/Player/LevelUpToast/LevelUpLabel")
 level_up_animation_player = NodePath("Game/Player/LevelUpToast/AnimationPlayer")
 level_up_audio_stream_player = NodePath("Game/Player/LevelUpToast/AudioStreamPlayer")
-picked_up_label = NodePath("CanvasLayer/Game/PickedUpToast/PickedUpLabel")
-picked_up_animation_player = NodePath("CanvasLayer/Game/PickedUpToast/AnimationPlayer")
-picked_up_audio_stream_player = NodePath("CanvasLayer/Game/PickedUpToast/AudioStreamPlayer")
-ui_game_control = NodePath("CanvasLayer/Game")
-ui_game_state_label = NodePath("CanvasLayer/Game/State")
-ui_game_stamina_meter = NodePath("CanvasLayer/Game/StaminaMeter")
-ui_game_magic_slot_button = NodePath("CanvasLayer/Game/MagicSlot")
-ui_game_life_points_meter = NodePath("CanvasLayer/Game/LifePointsMeter")
-ui_pause_control = NodePath("CanvasLayer/Pause")
-ui_pause_tab_container = NodePath("CanvasLayer/Pause/MarginContainer/TabContainer")
-ui_pause_all_rooms_control = NodePath("CanvasLayer/Pause/MarginContainer/TabContainer/Map/AllMapRooms")
-ui_pause_map_room_dot_control = NodePath("CanvasLayer/Pause/MarginContainer/TabContainer/Map/MapRoomDot")
-ui_game_over_control = NodePath("CanvasLayer/GameOver")
 metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
@@ -180,10 +100,6 @@ process_mode = 1
 [node name="Player" parent="Game" instance=ExtResource("2_ak6nv")]
 position = Vector2(-16, -31)
 safe_margin = 1.0
-direction = null
-base_force = null
-base_stamina = null
-base_life_points = null
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
 process_mode = 3
@@ -263,187 +179,6 @@ bus = &"SFX"
 [node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../AllRooms")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Game" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="State" type="Label" parent="CanvasLayer/Game"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 252.0
-offset_right = 56.0
-offset_bottom = 272.0
-theme_override_font_sizes/font_size = 10
-text = "Standing"
-vertical_alignment = 1
-uppercase = true
-
-[node name="MagicBg" type="ColorRect" parent="CanvasLayer/Game"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 271.0
-offset_right = 16.0
-offset_bottom = 285.0
-color = Color(1, 0.827451, 0, 0.392157)
-
-[node name="MagicSlot" type="TextureButton" parent="CanvasLayer/Game"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 272.0
-offset_right = 14.0
-offset_bottom = 284.0
-texture_normal = ExtResource("11_jxnrm")
-
-[node name="StaminaMeter" parent="CanvasLayer/Game" instance=ExtResource("10_uyg37")]
-layout_mode = 1
-offset_left = 20.0
-offset_top = 280.0
-offset_right = -428.0
-offset_bottom = -4.0
-
-[node name="LifePointsMeter" parent="CanvasLayer/Game" instance=ExtResource("10_uyg37")]
-layout_mode = 1
-offset_left = 20.0
-offset_top = 272.0
-offset_right = -428.0
-offset_bottom = -12.0
-color = Color(0.847059, 0.137255, 0.137255, 1)
-lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
-
-[node name="PickedUpToast" type="Control" parent="CanvasLayer/Game"]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -384.0
-offset_top = -32.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="PickedUpLabel" type="RichTextLabel" parent="CanvasLayer/Game/PickedUpToast"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 6
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "[offset x=-10][right]You picked up a [bounce][rainbow freq=0.5]Skeleton miracle key.[/rainbow][/bounce][/right][/offset]"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-shortcut_keys_enabled = false
-custom_effects = [SubResource("RichTextEffect_1pppy"), SubResource("RichTextEffect_nehq1")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Game/PickedUpToast"]
-libraries = {
-"": SubResource("AnimationLibrary_7n18l")
-}
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/Game/PickedUpToast"]
-stream = ExtResource("6_yr51s")
-volume_db = 10.0
-bus = &"SFX"
-
-[node name="Pause" type="Control" parent="CanvasLayer"]
-process_mode = 2
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BlurBg" type="ColorRect" parent="CanvasLayer/Pause"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.784314)
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Pause"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 40
-
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Pause/MarginContainer"]
-layout_mode = 2
-
-[node name="Map" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer"]
-layout_mode = 2
-
-[node name="AllMapRooms" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Map"]
-layout_mode = 1
-anchors_preset = 0
-
-[node name="MapRoomDot" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Map" instance=ExtResource("8_4s74v")]
-visible = false
-layout_mode = 0
-
-[node name="Inventory" type="Control" parent="CanvasLayer/Pause/MarginContainer/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Inventory"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="Inventory" parent="CanvasLayer/Pause/MarginContainer/TabContainer/Inventory/MarginContainer" node_paths=PackedStringArray("node") instance=ExtResource("11_ptukl")]
-layout_mode = 2
-node = NodePath("../../../../../../../Game/Player")
-
-[node name="GameOver" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/GameOver"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "GAME OVER"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
-color = Color(0.8, 0.8, 0.8, 1)
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.588235, 0.588235, 0.588235, 1)
 
@@ -457,5 +192,3 @@ bus = &"Music"
 stream = ExtResource("14_pabrm")
 volume_db = -10.0
 bus = &"Music"
-
-[connection signal="pressed" from="CanvasLayer/Game/MagicSlot" to="." method="_on_magic_slot_pressed"]

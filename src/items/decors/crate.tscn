@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4fd720bg2n0h"]
+
+[ext_resource type="Script" path="res://src/items/decors/scripts/decor.gd" id="1_e716a"]
+[ext_resource type="PackedScene" uid="uid://dc6pi2hgemcvf" path="res://src/items/decors/barrel_debris.tscn" id="2_6yd0v"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_rakp4"]
+[ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/items/decors/textures/decors_01.png" id="4_a5yr8"]
+
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
+size = Vector2(16, 16)
+
+[node name="Crate" type="RigidBody2D" node_paths=PackedStringArray("coin_spawn_position")]
+collision_layer = 16
+collision_mask = 19
+can_sleep = false
+script = ExtResource("1_e716a")
+debris_scene = ExtResource("2_6yd0v")
+coin_spawn_position = NodePath("Sprite2D")
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("2_rakp4")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -8)
+texture = ExtResource("4_a5yr8")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_1quh3")
+
+[node name="AttackDetector" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 16
+collision_mask = 136
+
+[node name="Collision" type="CollisionShape2D" parent="AttackDetector"]
+shape = SubResource("RectangleShape2D_1quh3")
+
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]

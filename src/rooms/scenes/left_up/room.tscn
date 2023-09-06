@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://ciu46dfq56tk3"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_lhuqx"]
-[ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="2_e1j28"]
-[ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/objects/decors/chain.tscn" id="3_eobbp"]
+[ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/items/decors/candelabra.tscn" id="2_e1j28"]
+[ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/items/decors/chain.tscn" id="3_eobbp"]
 
-[node name="Room" instance=ExtResource("1_lhuqx")]
+[node name="Room2" instance=ExtResource("1_lhuqx")]
 exit_up = true
 exit_left = true
 

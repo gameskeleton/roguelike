@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://kojbpi6e5oji"]
+
+[ext_resource type="Texture2D" uid="uid://djwyov40iqpnu" path="res://src/items/decors/textures/candle.png" id="1_o3hiu"]
+[ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_l0ky8"]
+[ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/items/decors/flame.tscn" id="3_rauy0"]
+
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw0wv"]
+atlas = ExtResource("1_o3hiu")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdxs0"]
+atlas = ExtResource("1_o3hiu")
+region = Rect2(16, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wffun"]
+atlas = ExtResource("1_o3hiu")
+region = Rect2(32, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jb1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pw0wv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdxs0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wffun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fo7qc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.25]
+}
+
+[sub_resource type="Animation" id="Animation_gvcwi"]
+resource_name = "light_pulse"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.25, 0.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g2w2u"]
+_data = {
+"RESET": SubResource("Animation_fo7qc"),
+"light_pulse": SubResource("Animation_gvcwi")
+}
+
+[node name="Candle" type="Node2D"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(-8, -8)
+sprite_frames = SubResource("SpriteFrames_1jb1l")
+autoplay = "default"
+frame_progress = 0.855633
+centered = false
+
+[node name="Light" parent="Sprite" instance=ExtResource("2_l0ky8")]
+position = Vector2(8, -3)
+scale = Vector2(0.75, 0.75)
+texture_scale = 0.25
+
+[node name="Flame" parent="Sprite" instance=ExtResource("3_rauy0")]
+position = Vector2(8, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite/Light")
+autoplay = "light_pulse"
+libraries = {
+"": SubResource("AnimationLibrary_g2w2u")
+}

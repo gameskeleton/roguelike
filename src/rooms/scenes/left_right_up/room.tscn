@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://bglhpa7iuf0xm"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_kqa2n"]
-[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_kgyvm"]
-[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_adjmn"]
-[ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/objects/decors/candelabra.tscn" id="4_hcpot"]
-[ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/objects/decors/chain.tscn" id="5_4lnnv"]
-[ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/objects/decors/candle.tscn" id="6_y7yux"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/items/decors/barrel.tscn" id="2_kgyvm"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/items/decors/crate.tscn" id="3_adjmn"]
+[ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/items/decors/candelabra.tscn" id="4_hcpot"]
+[ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/items/decors/chain.tscn" id="5_4lnnv"]
+[ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/items/decors/candle.tscn" id="6_y7yux"]
 
-[node name="Room" instance=ExtResource("1_kqa2n")]
+[node name="Room2" instance=ExtResource("1_kqa2n")]
 exit_up = true
 exit_left = true
 exit_right = true

@@ -3,9 +3,6 @@ class_name RkMain
 
 enum State { game, pause, level_up, game_over }
 
-const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
-
-@export var map_revealed := false
 @export var debug_start_room_scene: PackedScene
 @export var debug_start_room_grid_pos := Vector2i(1, 1)
 
@@ -22,19 +19,6 @@ const MAP_ROOM_SCENE: PackedScene = preload("res://src/gui/map_room.tscn")
 @export var picked_up_label: RichTextLabel
 @export var picked_up_animation_player: AnimationPlayer
 @export var picked_up_audio_stream_player: AudioStreamPlayer
-
-@export var ui_game_control: Control
-@export var ui_game_state_label: Label
-@export var ui_game_stamina_meter: RkGuiProgressBar
-@export var ui_game_magic_slot_button: TextureButton
-@export var ui_game_life_points_meter: RkGuiProgressBar
-
-@export var ui_pause_control: Control
-@export var ui_pause_tab_container: TabContainer
-@export var ui_pause_all_rooms_control: Control
-@export var ui_pause_map_room_dot_control: Control
-
-@export var ui_game_over_control: Control
 
 static var _main_node: RkMain = null
 
@@ -58,11 +42,6 @@ func _init():
 
 # @impure
 func _ready():
-	# start in pause if visible
-	if ui_pause_control.visible:
-		state = State.pause
-		get_tree().paused  = true
-		push_warning("Pause control is visible, game will start paused")
 	# load debug start room scene or generate a new dungeon
 	if debug_start_room_scene:
 		_clear_rooms()
@@ -74,12 +53,8 @@ func _ready():
 	# setup death animation
 	player_node.death.connect(func():
 		state = State.game_over
-		ui_game_over_control.visible = true
 		var tween := create_tween()
 		tween.tween_property($CanvasModulate, "color", Color8(0, 0, 0), 1.0)
-		tween.parallel().tween_property(ui_game_control, "modulate", Color8(0, 0, 0), 1.0)
-		tween.parallel().tween_property(ui_pause_control, "modulate", Color8(0, 0, 0), 1.0)
-		tween.parallel().tween_property(ui_game_over_control, "modulate", Color8(255, 255, 255), 1.0).from(Color8(255, 255, 255, 0))
 		tween.parallel().tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.0)
 		tween.parallel().tween_callback($DeathAudioStreamPlayer.play).set_delay(0.1)
 		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(5.0)
@@ -88,18 +63,8 @@ func _ready():
 	player_node.level_system.level_up.connect(func(_level: int):
 		if state == State.game:
 			state = State.level_up
-			ui_pause_control.visible = false
 			level_up_animation_player.play("level_up!")
 		level_up_audio_stream_player.play()
-	)
-	# setup picked up animation
-	player_node.inventory_system.item_added.connect(func(item: RkItemRes, _index: int, swapped: bool):
-		if swapped:
-			return
-		picked_up_label.text = "[offset x=-10][right]You picked up a [bounce][rainbow freq=0.5]%s.[/rainbow][/bounce][/right][/offset]" % [item.name]
-		picked_up_animation_player.stop()
-		picked_up_animation_player.play("picked_up!")
-		picked_up_audio_stream_player.play()
 	)
 	# limit camera
 	_limit_camera_to_room()
@@ -115,16 +80,11 @@ func _process(delta: float):
 		State.game_over: _process_game_over()
 
 # @impure
-func _process_game(delta: float):
-	# gui update
-	ui_game_state_label.text = player_node.fsm.current_state_node.name
-	ui_game_stamina_meter.progress = move_toward(ui_game_stamina_meter.progress, player_node.stamina_system.stamina.ratio, delta)
-	ui_game_life_points_meter.progress = move_toward(ui_game_life_points_meter.progress, player_node.life_points_system.life_points.ratio, delta)
+func _process_game(_delta: float):
 	# pause game
 	if Input.is_action_just_pressed("player_pause"):
 		get_tree().paused = true
 		state = State.pause
-		ui_pause_control.visible = true
 	# room and camera
 	var player_grid_pos := Vector2i(
 		floor(player_node_position.x / RkRoom.ROOM_SIZE.x),
@@ -155,13 +115,6 @@ func _process_pause(_delta: float):
 	if Input.is_action_just_pressed("player_pause"):
 		get_tree().paused = false
 		state = State.game
-		ui_pause_control.visible = false
-	# cycle pause tabs
-	if Input.is_action_just_pressed("player_pause_next") or Input.is_action_just_pressed("player_pause_previous"):
-		ui_pause_tab_container.current_tab = (ui_pause_tab_container.current_tab + 1) % ui_pause_tab_container.get_child_count()
-	# position map dot
-	ui_pause_map_room_dot_control.visible = true
-	ui_pause_map_room_dot_control.position = (player_node.position * (RkMapRoom.MAP_ROOM_SIZE / Vector2(RkRoom.ROOM_SIZE)))
 
 # @impure
 func _process_level_up():
@@ -196,15 +149,27 @@ static func get_main_node() -> RkMain:
 # Room
 ###
 
+# room_pos transforms the given position in room position.
+# @pure
+func room_pos(global_pos: Vector2) -> Vector2:
+	return global_pos - current_room_node.global_position
+
+# has_corner_tile returns true if there is a corner tile at the given position.
+# @pure
+func has_corner_tile(pos: Vector2) -> bool:
+	return current_room_node.has_corner_tile(pos)
+
+# get_corner_tile_pos returns the top-center position of the corner tile.
+# calling this when has_corner_tile of the given position returned false will yield incorrect results.
+# @pure
+func get_corner_tile_pos(pos: Vector2) -> Vector2:
+	return current_room_node.tile_map.map_to_local(current_room_node.tile_map.local_to_map(pos))
+
 # @impure
 func _enter_room(room_node := current_room_node):
 	current_room_node = room_node
 	current_room_node.enter()
 	room_enter.emit(current_room_node)
-	# mark room as discovered
-	var map_room_control := _get_map_room_control(current_room_node.get_grid_pos())
-	if map_room_control:
-		map_room_control.discovered = true
 
 # @impure
 func _leave_room(room_node := current_room_node):
@@ -217,9 +182,6 @@ func _clear_rooms():
 	for room_node in all_rooms_node.get_children():
 		all_rooms_node.remove_child(room_node)
 		room_node.queue_free()
-	for map_room_control in ui_pause_all_rooms_control.get_children():
-		ui_pause_all_rooms_control.remove_child(map_room_control)
-		map_room_control.queue_free()
 
 # @impure
 func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distance: int) -> RkRoom:
@@ -229,18 +191,6 @@ func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distanc
 	room_node.position = room_grid_pos * RkRoom.ROOM_SIZE
 	all_rooms_node.add_child(room_node)
 	room_node.owner = all_rooms_node
-	# create pause map room control
-	var room_map_pos := Vector2(
-		room_grid_pos.x * RkMapRoom.MAP_ROOM_SIZE.x,
-		room_grid_pos.y * RkMapRoom.MAP_ROOM_SIZE.y
-	)
-	var map_room_control: RkMapRoom = MAP_ROOM_SCENE.instantiate()
-	map_room_control.name = _get_map_room_control_name(room_grid_pos)
-	map_room_control.room_node = room_node
-	map_room_control.discovered = map_revealed
-	map_room_control.set_position(room_map_pos)
-	ui_pause_all_rooms_control.add_child(map_room_control)
-	map_room_control.owner = ui_pause_all_rooms_control
 	room_node.leave()
 	return room_node
 
@@ -251,14 +201,6 @@ func _get_room_node(grid_pos: Vector2i) -> RkRoom:
 # @pure
 func _get_room_node_name(grid_pos: Vector2i) -> StringName:
 	return "Room_%s_%s" % [grid_pos.x, grid_pos.y]
-
-# @pure
-func _get_map_room_control(grid_pos: Vector2i) -> RkMapRoom:
-	return ui_pause_all_rooms_control.find_child(_get_map_room_control_name(grid_pos))
-
-# @pure
-func _get_map_room_control_name(grid_pos: Vector2i) -> StringName:
-	return "MapRoom_%s_%s" % [grid_pos.x, grid_pos.y]
 
 ###
 # Camera
@@ -319,4 +261,3 @@ func _generate_dungeon():
 func _on_magic_slot_pressed():
 	_generate_dungeon()
 	_limit_camera_to_room()
-	ui_game_magic_slot_button.release_focus()

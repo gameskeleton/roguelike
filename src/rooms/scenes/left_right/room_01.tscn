@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://db8oggo20iiqb"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_mlova"]
-[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_rnyej"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/items/decors/barrel.tscn" id="2_rnyej"]
 
-[node name="Room" instance=ExtResource("1_mlova")]
+[node name="Room2" instance=ExtResource("1_mlova")]
 exit_left = true
 exit_right = true
 player_spawn = Vector2(32, 144)

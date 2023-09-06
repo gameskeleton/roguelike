@@ -80,7 +80,6 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var level_system: RkLevelSystem
 @export var attack_system: RkAttackSystem
 @export var stamina_system: RkStaminaSystem
-@export var inventory_system: RkInventorySystem
 @export var life_points_system: RkLifePointsSystem
 
 @export var coin_picked_up_audio_stream_player: AudioStreamPlayer
@@ -134,7 +133,7 @@ func _ready():
 	# set default values.
 	set_direction(direction)
 	_on_level_level_up(level_system.level.value)
-	# resplenish system values to account for inventory default slots modifiers
+	# resplenish system values.
 	stamina_system.stamina.resplenish()
 	life_points_system.life_points.resplenish()
 
@@ -352,10 +351,10 @@ func is_able_to_wall_hang() -> bool:
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
 	var main_node := RkMain.get_main_node()
-	var wall_hang_hand_pos := wall_hang_hand.global_position - main_node.current_room_node.global_position
-	if main_node.current_room_node.has_corner_tile(wall_hang_hand_pos):
-		var corner_pos := main_node.current_room_node.get_corner_tile_pos(wall_hang_hand_pos)
-		var distance_to_corner := (global_position - main_node.current_room_node.global_position).distance_to(corner_pos)
+	var wall_hang_hand_pos := main_node.room_pos(wall_hang_hand.global_position)
+	if main_node.has_corner_tile(wall_hang_hand_pos):
+		var corner_pos := main_node.get_corner_tile_pos(wall_hang_hand_pos)
+		var distance_to_corner := (main_node.room_pos(global_position)).distance_to(corner_pos)
 		return distance_to_corner < 31.0
 	return false
 

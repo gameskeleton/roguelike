@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=93 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -22,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://clnc3derlho4i" path="res://src/player/textures/jump.png" id="6_ss6l5"]
 [ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/fall.png" id="7_2bcbe"]
 [ext_resource type="Script" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
-[ext_resource type="PackedScene" uid="uid://dn80e533lwh5d" path="res://src/systems/inventory.tscn" id="7_s3n7i"]
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
 [ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
 [ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/player/sounds/roll.wav" id="9_7l0y8"]
@@ -1226,7 +1225,7 @@ _data = {
 "wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "inventory_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1253,7 +1252,6 @@ gold_system = NodePath("Systems/Gold")
 level_system = NodePath("Systems/Level")
 attack_system = NodePath("Systems/Attack")
 stamina_system = NodePath("Systems/Stamina")
-inventory_system = NodePath("Systems/Inventory")
 life_points_system = NodePath("Systems/LifePoints")
 coin_picked_up_audio_stream_player = NodePath("Sounds/CoinPickedUpAudioStreamPlayer")
 experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAudioStreamPlayer")
@@ -1307,12 +1305,6 @@ source = NodePath("../..")
 instigator = NodePath("../..")
 
 [node name="Stamina" parent="Systems" instance=ExtResource("3_kren4")]
-
-[node name="Inventory" parent="Systems" node_paths=PackedStringArray("gold_system", "attack_system", "stamina_system", "life_points_system") instance=ExtResource("7_s3n7i")]
-gold_system = NodePath("../Gold")
-attack_system = NodePath("../Attack")
-stamina_system = NodePath("../Stamina")
-life_points_system = NodePath("../LifePoints")
 
 [node name="LifePoints" parent="Systems" instance=ExtResource("3_h8vvb")]
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgsu1pg5g3kou"]
+[gd_scene load_steps=4 format=3 uid="uid://cgsu1pg5g3kou"]
 
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="1_6ttmn"]
-[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/objects/decors/barrel.tscn" id="2_0i112"]
-[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/objects/decors/crate.tscn" id="3_g3jmk"]
-[ext_resource type="PackedScene" uid="uid://baeqgyv8h7is3" path="res://src/objects/enemies/orb.tscn" id="4_crtwx"]
+[ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/items/decors/barrel.tscn" id="2_0i112"]
+[ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/items/decors/crate.tscn" id="3_g3jmk"]
 
-[node name="Room" instance=ExtResource("1_6ttmn")]
+[node name="Room2" instance=ExtResource("1_6ttmn")]
 exit_left = true
 player_spawn = Vector2(400, 64)
 
@@ -35,6 +34,3 @@ position = Vector2(216, 240)
 
 [node name="Barrel7" parent="." index="7" instance=ExtResource("2_0i112")]
 position = Vector2(232, 240)
-
-[node name="Orb" parent="." index="8" instance=ExtResource("4_crtwx")]
-position = Vector2(344, 224)
