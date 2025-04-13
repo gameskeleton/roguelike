@@ -8,7 +8,6 @@
         // Editor
         "editor.inlayHints.enabled": "offUnlessPressed",
         "editor.formatOnSave": true,
-        "workbench.colorTheme": "Godot Adaptive",
         // Exclude
         "files.exclude": {
             "project.godot.exe": true

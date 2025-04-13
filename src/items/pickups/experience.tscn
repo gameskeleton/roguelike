@@ -1,11 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://cehywiepl3boy"]
 
-[ext_resource type="Script" path="res://src/items/pickups/scripts/experience.gd" id="1_67vo4"]
+[ext_resource type="Script" uid="uid://7qxqxujcu4l0" path="res://src/items/pickups/scripts/experience.gd" id="1_67vo4"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_25co4"]
 [ext_resource type="Texture2D" uid="uid://bd8oyo2df73nu" path="res://src/items/pickups/textures/experience.png" id="3_ubxvh"]
 [ext_resource type="PackedScene" uid="uid://qt3kps4yxxl" path="res://src/shared/white_point_light.tscn" id="4_gpaxm"]
 [ext_resource type="AudioStream" uid="uid://bmv8qw474yvfi" path="res://src/items/pickups/sounds/experience_bounce.wav" id="5_nd0h7"]
-
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i2lns"]
 bounce = 0.2

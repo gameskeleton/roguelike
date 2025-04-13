@@ -1,13 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://bteus7x25vbqj"]
 
-[ext_resource type="Script" path="res://src/items/decors/scripts/decor.gd" id="1_1nc1r"]
+[ext_resource type="Script" uid="uid://d573px1ev4uc" path="res://src/items/decors/scripts/decor.gd" id="1_1nc1r"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="1_4ih4r"]
 [ext_resource type="PackedScene" uid="uid://bany582navmts" path="res://src/items/decors/candelabra_debris.tscn" id="2_rwr4d"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_tlyxk"]
 [ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/items/decors/textures/decors_02.png" id="4_ihv35"]
 [ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/items/decors/flame.tscn" id="6_35btn"]
 [ext_resource type="AudioStream" uid="uid://4udt2d4kaghe" path="res://src/items/decors/sounds/broken_metal.wav" id="7_6lu6l"]
-
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_imyae"]
 atlas = ExtResource("4_ihv35")
@@ -50,8 +49,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2w2u"]
 _data = {
-"RESET": SubResource("Animation_fo7qc"),
-"light_pulse": SubResource("Animation_gvcwi")
+&"RESET": SubResource("Animation_fo7qc"),
+&"light_pulse": SubResource("Animation_gvcwi")
 }
 
 [node name="Candelabra" type="Node2D" node_paths=PackedStringArray("coin_spawn_position", "audio_stream_player")]

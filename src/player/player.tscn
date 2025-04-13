@@ -1,56 +1,56 @@
 [gd_scene load_steps=93 format=3 uid="uid://ba5uvg88hin86"]
 
-[ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_wluja"]
+[ext_resource type="Script" uid="uid://sxecentfet3b" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
 [ext_resource type="PackedScene" uid="uid://5t2gx7epac85" path="res://src/systems/gold.tscn" id="2_18wbx"]
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/stand.png" id="2_a0emx"]
-[ext_resource type="AudioStream" uid="uid://bfkiun68kkj5c" path="res://src/objects/pickups/sounds/coin_picked_up.wav" id="3_3mvue"]
-[ext_resource type="Script" path="res://src/player/scripts/states/stand.gd" id="3_8ll75"]
-[ext_resource type="Script" path="res://src/player/scripts/states/fall.gd" id="3_73fy0"]
+[ext_resource type="AudioStream" uid="uid://bfkiun68kkj5c" path="res://src/items/pickups/sounds/coin_picked_up.wav" id="3_3mvue"]
+[ext_resource type="Script" uid="uid://bkprgy15uimpl" path="res://src/player/scripts/states/stand.gd" id="3_8ll75"]
+[ext_resource type="Script" uid="uid://psmro46atb5s" path="res://src/player/scripts/states/fall.gd" id="3_73fy0"]
 [ext_resource type="Texture2D" uid="uid://5ing80amv0u5" path="res://src/player/textures/walk.png" id="3_acrg5"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="3_h8vvb"]
 [ext_resource type="PackedScene" uid="uid://36pqgx0wbj8x" path="res://src/systems/stamina.tscn" id="3_kren4"]
 [ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="3_tf4v5"]
-[ext_resource type="Script" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
+[ext_resource type="Script" uid="uid://c7uggbvqrjdey" path="res://src/player/scripts/states/walk.gd" id="4_74l6q"]
 [ext_resource type="Texture2D" uid="uid://bniocov5sotgf" path="res://src/player/textures/roll.png" id="4_80fq1"]
-[ext_resource type="Script" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
-[ext_resource type="AudioStream" uid="uid://ceycfyyjd7gif" path="res://src/objects/pickups/sounds/experience_picked_up.wav" id="4_ppest"]
-[ext_resource type="Script" path="res://src/player/scripts/states/turn_around.gd" id="5_0i2rd"]
+[ext_resource type="Script" uid="uid://bef14t5aglra7" path="res://src/player/scripts/states/roll.gd" id="4_giqnr"]
+[ext_resource type="AudioStream" uid="uid://ceycfyyjd7gif" path="res://src/items/pickups/sounds/experience_picked_up.wav" id="4_ppest"]
+[ext_resource type="Script" uid="uid://cuk07332nfri5" path="res://src/player/scripts/states/turn_around.gd" id="5_0i2rd"]
 [ext_resource type="Texture2D" uid="uid://dq457ojnbnmn0" path="res://src/player/textures/turn_around.png" id="5_eb2fg"]
-[ext_resource type="Script" path="res://src/player/scripts/states/hit.gd" id="6_ei416"]
-[ext_resource type="Script" path="res://src/player/scripts/states/jump.gd" id="6_grvpe"]
+[ext_resource type="Script" uid="uid://dia34jyk42bbl" path="res://src/player/scripts/states/hit.gd" id="6_ei416"]
+[ext_resource type="Script" uid="uid://cmsin3ggg1te4" path="res://src/player/scripts/states/jump.gd" id="6_grvpe"]
 [ext_resource type="Texture2D" uid="uid://clnc3derlho4i" path="res://src/player/textures/jump.png" id="6_ss6l5"]
 [ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/fall.png" id="7_2bcbe"]
-[ext_resource type="Script" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
+[ext_resource type="Script" uid="uid://c1bjrnwjd8b4p" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
-[ext_resource type="Script" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
+[ext_resource type="Script" uid="uid://f2v6kq143tru" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
 [ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/player/sounds/roll.wav" id="9_7l0y8"]
 [ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/death.png" id="9_a75to"]
-[ext_resource type="Script" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
+[ext_resource type="Script" uid="uid://dnl515miobrkn" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
 [ext_resource type="AudioStream" uid="uid://cc30t52mrovey" path="res://src/player/sounds/hit.wav" id="10_m6ytp"]
-[ext_resource type="Script" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
-[ext_resource type="Script" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
+[ext_resource type="Script" uid="uid://dap5u4df0mo7s" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
+[ext_resource type="Script" uid="uid://bd88jncowr6n2" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
 [ext_resource type="AudioStream" uid="uid://cd17eiunch3uo" path="res://src/player/sounds/stand.wav" id="12_nfhlm"]
-[ext_resource type="Script" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
+[ext_resource type="Script" uid="uid://hhpajie5n4no" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
 [ext_resource type="AudioStream" uid="uid://coae4lk6cowab" path="res://src/player/sounds/attack.wav" id="15_8gyqs"]
-[ext_resource type="Script" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
+[ext_resource type="Script" uid="uid://dsl56jgclnrbg" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
 [ext_resource type="AudioStream" uid="uid://c8d3u3t2idhwv" path="res://src/player/sounds/footstep_00.wav" id="18_d1hkk"]
-[ext_resource type="Script" path="res://src/player/scripts/states/death.gd" id="18_f5afl"]
+[ext_resource type="Script" uid="uid://b7bghjls1abeb" path="res://src/player/scripts/states/death.gd" id="18_f5afl"]
 [ext_resource type="Texture2D" uid="uid://dga1utln6piqv" path="res://src/player/textures/attack_02.png" id="18_kg8o1"]
 [ext_resource type="AudioStream" uid="uid://ciej7g7mescst" path="res://src/player/sounds/footstep_01.wav" id="19_ad0xw"]
 [ext_resource type="Texture2D" uid="uid://berwr7jtmbl8c" path="res://src/player/textures/attack_01.png" id="19_y10ov"]
-[ext_resource type="Script" path="res://src/player/scripts/states/crouch.gd" id="20_8363j"]
+[ext_resource type="Script" uid="uid://b5uqjkieoqyps" path="res://src/player/scripts/states/crouch.gd" id="20_8363j"]
 [ext_resource type="AudioStream" uid="uid://bcvwnlep707ax" path="res://src/player/sounds/wall_climb.wav" id="20_onny2"]
 [ext_resource type="AudioStream" uid="uid://cc2xcwn321ey" path="res://src/player/sounds/footstep_03.wav" id="20_x46qy"]
 [ext_resource type="AudioStream" uid="uid://vdo6cmxolgsr" path="res://src/player/sounds/footstep_02.wav" id="21_um7ng"]
-[ext_resource type="Script" path="res://src/player/scripts/states/stand_to_crouch.gd" id="21_ymkf1"]
+[ext_resource type="Script" uid="uid://08ad2i5ecebx" path="res://src/player/scripts/states/stand_to_crouch.gd" id="21_ymkf1"]
 [ext_resource type="AudioStream" uid="uid://dtki1objul30d" path="res://src/player/sounds/footstep_04.wav" id="22_bnx1i"]
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
-[ext_resource type="Script" path="res://src/player/scripts/states/crouch_walk.gd" id="26_0ur0y"]
+[ext_resource type="Script" uid="uid://civ68ktreihns" path="res://src/player/scripts/states/crouch_walk.gd" id="26_0ur0y"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
 [ext_resource type="AudioStream" uid="uid://2jyymk422ofv" path="res://src/player/sounds/bump_into_wall.wav" id="29_g2dly"]
-[ext_resource type="Script" path="res://src/player/scripts/states/crouch_to_stand.gd" id="29_rp25n"]
+[ext_resource type="Script" uid="uid://u1q2fao2c4g6" path="res://src/player/scripts/states/crouch_to_stand.gd" id="29_rp25n"]
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
 [ext_resource type="Texture2D" uid="uid://dd7or7xh8rhva" path="res://src/player/textures/hit.png" id="32_lv00v"]
 [ext_resource type="Texture2D" uid="uid://lmu66c30jhhc" path="res://src/player/textures/get_up.png" id="40_wryqc"]
@@ -59,19 +59,19 @@
 [ext_resource type="Texture2D" uid="uid://wmq5lfsyxof7" path="res://src/player/textures/crouch_walk.png" id="47_45k7c"]
 
 [sub_resource type="Curve" id="Curve_egsaa"]
-max_value = 20.0
+_limits = [0.0, 20.0, 0.0, 1.0]
 bake_resolution = 10
 _data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vector2(0.2, 2), 10.0, 10.0, 1, 1, Vector2(0.3, 3), 10.0, 10.0, 1, 1, Vector2(0.4, 4), 10.0, 10.0, 1, 1, Vector2(0.5, 5), 10.0, 10.0, 1, 1, Vector2(0.6, 6), 10.0, 10.0, 1, 1, Vector2(0.7, 7), 10.0, 10.0, 1, 1, Vector2(0.8, 8), 10.0, 10.0, 1, 1, Vector2(0.9, 9), 10.0, 10.0, 1, 1, Vector2(1, 10), 10.0, 10.0, 1, 1]
 point_count = 11
 
 [sub_resource type="Curve" id="Curve_5ghgr"]
-max_value = 20.0
+_limits = [0.0, 20.0, 0.0, 1.0]
 bake_resolution = 10
 _data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vector2(0.2, 2), 10.0, 10.0, 1, 1, Vector2(0.3, 3), 10.0, 10.0, 1, 1, Vector2(0.4, 4), 10.0, 10.0, 1, 1, Vector2(0.5, 5), 10.0, 10.0, 1, 1, Vector2(0.6, 6), 10.0, 10.0, 1, 1, Vector2(0.7, 7), 10.0, 10.0, 1, 1, Vector2(0.8, 8), 10.0, 10.0, 1, 1, Vector2(0.9, 9), 10.0, 10.0, 1, 1, Vector2(1, 10), 10.0, 10.0, 1, 1]
 point_count = 11
 
 [sub_resource type="Curve" id="Curve_gr7ew"]
-max_value = 20.0
+_limits = [0.0, 20.0, 0.0, 1.0]
 bake_resolution = 10
 _data = [Vector2(0, 0), 10.0, 10.0, 1, 1, Vector2(0.1, 1), 10.0, 10.0, 1, 1, Vector2(0.2, 2), 10.0, 10.0, 1, 1, Vector2(0.3, 3), 10.0, 10.0, 1, 1, Vector2(0.4, 4), 10.0, 10.0, 1, 1, Vector2(0.5, 5), 10.0, 10.0, 1, 1, Vector2(0.6, 6), 10.0, 10.0, 1, 1, Vector2(0.7, 7), 10.0, 10.0, 1, 1, Vector2(0.8, 8), 10.0, 10.0, 1, 1, Vector2(0.9, 9), 10.0, 10.0, 1, 1, Vector2(1, 10), 10.0, 10.0, 1, 1]
 point_count = 11
@@ -83,8 +83,7 @@ size = Vector2(14, 34)
 size = Vector2(14, 24)
 
 [sub_resource type="Curve" id="Curve_8k3oh"]
-min_value = -10.0
-max_value = 0.0
+_limits = [-10.0, 0.0, 0.0, 1.0]
 _data = [Vector2(0, -2), 0.0, -15.0, 0, 0, Vector2(0.35, -7.5), -8.0, -8.5, 0, 0, Vector2(1, -9), -2.5, 0.0, 0, 0]
 point_count = 3
 
@@ -1198,31 +1197,31 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
-"RESET": SubResource("Animation_11iq3"),
-"attack_01": SubResource("Animation_i0u8u"),
-"attack_02": SubResource("Animation_0dkd4"),
-"bump_into_wall_fall": SubResource("Animation_bkav5"),
-"bump_into_wall_hit_floor": SubResource("Animation_g0oe8"),
-"crouch": SubResource("Animation_fcv8u"),
-"crouch_to_stand": SubResource("Animation_b77xs"),
-"crouch_walk": SubResource("Animation_ygk1w"),
-"death": SubResource("Animation_jlirl"),
-"death_fall": SubResource("Animation_wnvtc"),
-"death_hit_floor": SubResource("Animation_dkk0k"),
-"fall": SubResource("Animation_ginsg"),
-"get_up": SubResource("Animation_fggvj"),
-"hit": SubResource("Animation_2epva"),
-"jump": SubResource("Animation_roadd"),
-"jump_to_fall": SubResource("Animation_bqla8"),
-"push_wall": SubResource("Animation_vcbyw"),
-"roll": SubResource("Animation_5lkvp"),
-"stand": SubResource("Animation_rquo4"),
-"stand_to_crouch": SubResource("Animation_ye4mf"),
-"turn_around": SubResource("Animation_rsfdr"),
-"walk": SubResource("Animation_gwxbh"),
-"wall_climb": SubResource("Animation_3qcmk"),
-"wall_hang": SubResource("Animation_xw7du"),
-"wall_slide": SubResource("Animation_v4465")
+&"RESET": SubResource("Animation_11iq3"),
+&"attack_01": SubResource("Animation_i0u8u"),
+&"attack_02": SubResource("Animation_0dkd4"),
+&"bump_into_wall_fall": SubResource("Animation_bkav5"),
+&"bump_into_wall_hit_floor": SubResource("Animation_g0oe8"),
+&"crouch": SubResource("Animation_fcv8u"),
+&"crouch_to_stand": SubResource("Animation_b77xs"),
+&"crouch_walk": SubResource("Animation_ygk1w"),
+&"death": SubResource("Animation_jlirl"),
+&"death_fall": SubResource("Animation_wnvtc"),
+&"death_hit_floor": SubResource("Animation_dkk0k"),
+&"fall": SubResource("Animation_ginsg"),
+&"get_up": SubResource("Animation_fggvj"),
+&"hit": SubResource("Animation_2epva"),
+&"jump": SubResource("Animation_roadd"),
+&"jump_to_fall": SubResource("Animation_bqla8"),
+&"push_wall": SubResource("Animation_vcbyw"),
+&"roll": SubResource("Animation_5lkvp"),
+&"stand": SubResource("Animation_rquo4"),
+&"stand_to_crouch": SubResource("Animation_ye4mf"),
+&"turn_around": SubResource("Animation_rsfdr"),
+&"walk": SubResource("Animation_gwxbh"),
+&"wall_climb": SubResource("Animation_3qcmk"),
+&"wall_hang": SubResource("Animation_xw7du"),
+&"wall_slide": SubResource("Animation_v4465")
 }
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
@@ -1552,7 +1551,7 @@ collision_mask = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_w4g2l")
+&"": SubResource("AnimationLibrary_w4g2l")
 }
 
 [connection signal="level_up" from="Systems/Level" to="." method="_on_level_level_up"]

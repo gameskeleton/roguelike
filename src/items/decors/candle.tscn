@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_l0ky8"]
 [ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/items/decors/flame.tscn" id="3_rauy0"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_pw0wv"]
 atlas = ExtResource("1_o3hiu")
 region = Rect2(0, 0, 16, 8)
@@ -68,8 +67,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2w2u"]
 _data = {
-"RESET": SubResource("Animation_fo7qc"),
-"light_pulse": SubResource("Animation_gvcwi")
+&"RESET": SubResource("Animation_fo7qc"),
+&"light_pulse": SubResource("Animation_gvcwi")
 }
 
 [node name="Candle" type="Node2D"]

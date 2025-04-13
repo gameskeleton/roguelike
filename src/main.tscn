@@ -1,14 +1,14 @@
 [gd_scene load_steps=17 format=3 uid="uid://bvc6dvh0vebam"]
 
-[ext_resource type="Script" path="res://src/main.gd" id="1_7kkph"]
+[ext_resource type="Script" uid="uid://dst7pyir2s0uo" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
 [ext_resource type="Texture2D" uid="uid://45rm8clnrjij" path="res://src/shared/textures/light_mask.png" id="4_me4t0"]
 [ext_resource type="PackedScene" uid="uid://dhxqyuajsocl7" path="res://src/rooms/room.tscn" id="4_poqhe"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
 [ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/shared/object_spawner.tscn" id="8_o2dbi"]
-[ext_resource type="Script" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
-[ext_resource type="Script" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
+[ext_resource type="Script" uid="uid://0t28ien32pa3" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
+[ext_resource type="Script" uid="uid://dhredeafxscgf" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
 
@@ -70,8 +70,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gcljl"]
 _data = {
-"RESET": SubResource("Animation_xfe3l"),
-"level_up!": SubResource("Animation_jiokg")
+&"RESET": SubResource("Animation_xfe3l"),
+&"level_up!": SubResource("Animation_jiokg")
 }
 
 [node name="Main" type="Control" node_paths=PackedStringArray("player_node", "all_rooms_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
@@ -164,7 +164,7 @@ metadata/_edit_use_anchors_ = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpToast"]
 root_node = NodePath("../LevelUpLabel")
 libraries = {
-"": SubResource("AnimationLibrary_gcljl")
+&"": SubResource("AnimationLibrary_gcljl")
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpToast"]

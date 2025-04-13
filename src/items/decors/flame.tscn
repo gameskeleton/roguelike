@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://cr1bm3swxqke7" path="res://src/items/decors/textures/flame.png" id="1_sbgjh"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_gcppb"]
 atlas = ExtResource("1_sbgjh")
 region = Rect2(0, 0, 16, 8)

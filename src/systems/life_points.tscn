@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cmobbg2dk3rip"]
 
-[ext_resource type="Script" path="res://src/systems/scripts/life_points.gd" id="1_ihe2e"]
+[ext_resource type="Script" uid="uid://c7ksdj8ywvemg" path="res://src/systems/scripts/life_points.gd" id="1_ihe2e"]
 
 [node name="LifePoints" type="Node"]
 script = ExtResource("1_ihe2e")

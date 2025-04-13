@@ -1,8 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bany582navmts"]
 
-[ext_resource type="Script" path="res://src/items/decors/scripts/debris.gd" id="1_cp7py"]
+[ext_resource type="Script" uid="uid://boh1gjjs5485m" path="res://src/items/decors/scripts/debris.gd" id="1_cp7py"]
 [ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/items/decors/textures/decors_02.png" id="2_qthdq"]
-
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_neskb"]
 size = Vector2(13.375, 4)

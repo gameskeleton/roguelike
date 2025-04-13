@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0cbsac27kyye"]
 
-[ext_resource type="Script" path="res://src/shared/scripts/room_notifier_2d.gd" id="1_e2xd2"]
+[ext_resource type="Script" uid="uid://c05nt6sudnrrx" path="res://src/shared/scripts/room_notifier_2d.gd" id="1_e2xd2"]
 
 [node name="RoomNotifier2D" type="Node2D"]
 script = ExtResource("1_e2xd2")

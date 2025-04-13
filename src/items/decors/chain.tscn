@@ -1,10 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://co15ct8otqtpv"]
 
-[ext_resource type="Script" path="res://src/items/decors/scripts/chain.gd" id="1_ks50i"]
+[ext_resource type="Script" uid="uid://bddneuqc15n5g" path="res://src/items/decors/scripts/chain.gd" id="1_ks50i"]
 [ext_resource type="Texture2D" uid="uid://c47w7nv77yyfy" path="res://src/items/decors/textures/chain_link.png" id="2_4mfh3"]
 [ext_resource type="Texture2D" uid="uid://dnuv02gslgq6y" path="res://src/items/decors/textures/chain_hook.png" id="3_fx4eq"]
 [ext_resource type="AudioStream" uid="uid://4udt2d4kaghe" path="res://src/items/decors/sounds/broken_metal.wav" id="4_062i4"]
-
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_udfjo"]
 radius = 4.0

@@ -1,10 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://d4fd720bg2n0h"]
 
-[ext_resource type="Script" path="res://src/items/decors/scripts/decor.gd" id="1_e716a"]
+[ext_resource type="Script" uid="uid://d573px1ev4uc" path="res://src/items/decors/scripts/decor.gd" id="1_e716a"]
 [ext_resource type="PackedScene" uid="uid://dc6pi2hgemcvf" path="res://src/items/decors/barrel_debris.tscn" id="2_6yd0v"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_rakp4"]
 [ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/items/decors/textures/decors_01.png" id="4_a5yr8"]
-
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
 size = Vector2(16, 16)

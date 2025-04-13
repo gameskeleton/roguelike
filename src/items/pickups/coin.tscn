@@ -1,11 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://dnrxtsteyox5f"]
 
-[ext_resource type="Script" path="res://src/items/pickups/scripts/coin.gd" id="1_rcdwb"]
+[ext_resource type="Script" uid="uid://ciy4sjrvuw2di" path="res://src/items/pickups/scripts/coin.gd" id="1_rcdwb"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_71mxx"]
 [ext_resource type="Texture2D" uid="uid://d27wac7748750" path="res://src/items/pickups/textures/coin.png" id="3_qji7c"]
 [ext_resource type="PackedScene" uid="uid://qt3kps4yxxl" path="res://src/shared/white_point_light.tscn" id="4_ghc68"]
 [ext_resource type="AudioStream" uid="uid://dr4fmdi5gneqg" path="res://src/items/pickups/sounds/coin_bounce.wav" id="5_x67o0"]
-
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i2lns"]
 bounce = 0.2
