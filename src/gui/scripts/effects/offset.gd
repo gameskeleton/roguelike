@@ -2,7 +2,7 @@
 extends RichTextEffectBase
 class_name RichTextEffectOffset
 
-var bbcode = "offset"
+var bbcode := "offset"
 
 # @impure
 func _init():

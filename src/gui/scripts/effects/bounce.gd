@@ -2,7 +2,7 @@
 extends RichTextEffectBase
 class_name RichTextEffectBounce
 
-var bbcode = "bounce"
+var bbcode := "bounce"
 
 # @impure
 func _init():

@@ -118,11 +118,9 @@ func _process_pause(_delta: float):
 
 # @impure
 func _process_level_up():
-	# current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, level_up_label.get_theme_color("font_color"))
 	if not level_up_animation_player.is_playing():
 		get_tree().paused = false
 		state = State.game
-		# current_room_node.tile_map.set_layer_modulate(RkRoom.Layer.wall, Color8(255, 255, 255, 255))
 
 # @impure
 func _process_game_over():
@@ -163,7 +161,7 @@ func has_corner_tile(pos: Vector2) -> bool:
 # calling this when has_corner_tile of the given position returned false will yield incorrect results.
 # @pure
 func get_corner_tile_pos(pos: Vector2) -> Vector2:
-	return current_room_node.tile_map.map_to_local(current_room_node.tile_map.local_to_map(pos))
+	return current_room_node.wall_tile_map_layer.map_to_local(current_room_node.wall_tile_map_layer.local_to_map(pos))
 
 # @impure
 func _enter_room(room_node := current_room_node):

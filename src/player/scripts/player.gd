@@ -394,19 +394,19 @@ func play_sound_effect(audio_stream_player: AudioStreamPlayer, from_position := 
 
 # play_animation changes the player animation to the given animation name.
 # @impure
-func play_animation(animation_name: String):
+func play_animation(animation_name: StringName):
 	if not is_animation_playing(animation_name):
 		animation_player.play(animation_name)
 
 # play_animation_transition transitions the player animation from start to then.
 # @impure
-func play_animation_transition(start_animation_name: String, then_animation_name: String):
+func play_animation_transition(start_animation_name: StringName, then_animation_name: StringName):
 	if is_animation_playing(start_animation_name) and is_animation_finished():
 		play_animation(then_animation_name)
 
 # is_animation_playing returns true if the given animation is playing.
 # @pure
-func is_animation_playing(animation: String) -> bool:
+func is_animation_playing(animation: StringName) -> bool:
 	return animation_player.current_animation == animation
 
 # is_animation_finished returns true if the animation is finished (and not looping).

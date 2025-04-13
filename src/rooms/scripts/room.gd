@@ -15,14 +15,6 @@ enum Tile {
 	border = 2
 }
 
-enum Layer {
-	bg = 0,
-	decor_behind = 1,
-	wall = 2,
-	one_way = 3,
-	decor_front = 4,
-}
-
 const ROOM_SIZE := Vector2i(512, 288)
 const ROOM_TILE_SIZE := Vector2i(16, 16)
 const ROOM_TILE_COUNT := Vector2i(32, 18)
@@ -75,7 +67,8 @@ const WALL_CORNER_ATLAS_COORDS := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0
 			queue_redraw()
 
 @export_group("Nodes")
-@export var tile_map: TileMap
+@export var wall_tile_map_layer: TileMapLayer
+@export var one_way_tile_map_layer: TileMapLayer
 
 # _draw will draw this room exits in the editor.
 # @impure
@@ -122,14 +115,14 @@ func leave():
 # has_corner_tile returns true if there is a corner tile at the given position.
 # @pure
 func has_corner_tile(pos: Vector2) -> bool:
-	var atlas_coords := tile_map.get_cell_atlas_coords(Layer.wall, tile_map.local_to_map(pos))
+	var atlas_coords := wall_tile_map_layer.get_cell_atlas_coords(wall_tile_map_layer.local_to_map(pos))
 	return WALL_CORNER_ATLAS_COORDS.has(atlas_coords)
 
 # get_corner_tile_pos returns the top-center position of the corner tile.
 # note: calling this when has_corner_tile of the given position is false will yield incorrect results.
 # @pure
 func get_corner_tile_pos(pos: Vector2) -> Vector2:
-	return tile_map.map_to_local(tile_map.local_to_map(pos))
+	return wall_tile_map_layer.map_to_local(wall_tile_map_layer.local_to_map(pos))
 
 # get_grid_pos returns the position in the grid of this room.
 # @pure
@@ -144,18 +137,18 @@ func get_coll_rect() -> Rect2i:
 # get_wall_tiles returns the position of all wall tiles in this room's tilemap.
 # @pure
 func get_wall_tiles() -> Array[Vector2i]:
-	return tile_map.get_used_cells(Layer.wall)
+	return wall_tile_map_layer.get_used_cells()
 
 # get_one_way_tiles returns the position of all one way tiles in this room's tilemap.
 # @pure
 func get_one_way_tiles() -> Array[Vector2i]:
-	return tile_map.get_used_cells(Layer.one_way)
+	return one_way_tile_map_layer.get_used_cells()
 
 # get_wall_tiles_with_border returns a 2D grid of all wall tiles and add border tiles around the walls, useful for drawing map.
 # @pure
 func get_wall_tiles_with_border() -> Array[Array]:
 	var tiles_grid: Array[Array] = []
-	var used_tiles := tile_map.get_used_cells(Layer.wall)
+	var used_tiles := wall_tile_map_layer.get_used_cells()
 	# fill tile grid
 	tiles_grid.resize(ROOM_TILE_COUNT.y)
 	for y in ROOM_TILE_COUNT.y:
@@ -176,7 +169,7 @@ func get_wall_tiles_with_border() -> Array[Array]:
 # get_random_free_cell_global_position returns a random position where there is no wall tile.
 # @pure
 func get_random_free_cell_global_position(width := 1, height := 1, fallback_pos := Vector2.ZERO) -> Vector2:
-	var used_cells = tile_map.get_used_cells(Layer.wall)
+	var used_cells = wall_tile_map_layer.get_used_cells()
 	var max_iterations := 100
 	var room_tile_count := ROOM_TILE_COUNT - Vector2i(width, height) + Vector2i(1, 1)
 	for i in range(max_iterations):
@@ -192,7 +185,7 @@ func get_random_free_cell_global_position(width := 1, height := 1, fallback_pos 
 			if not found_free_cell:
 				break
 		if found_free_cell:
-			return tile_map.map_to_local(Vector2i(start_x, start_y)) + Vector2(ROOM_TILE_SIZE) * Vector2(width * 0.5, height * 0.5)
+			return wall_tile_map_layer.map_to_local(Vector2i(start_x, start_y)) + Vector2(ROOM_TILE_SIZE) * Vector2(width * 0.5, height * 0.5)
 	return fallback_pos
 
 # generate_room_exits_name returns a list of human readable exits.
