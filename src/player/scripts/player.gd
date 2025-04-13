@@ -55,6 +55,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 ###
 
 @export_group("Nodes")
+@export var slot: Node2D
 @export var sprite: Sprite2D
 @export var animation_player: AnimationPlayer
 
@@ -109,6 +110,7 @@ signal death()
 var dead := false
 var crouched := false
 var disable_wall_hang_timeout := 0.0
+@export var slot_offset := Vector2.ZERO
 
 ###
 # Input

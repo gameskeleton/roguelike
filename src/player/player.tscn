@@ -146,6 +146,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:slot_offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_i0u8u"]
 resource_name = "attack_01"
@@ -1112,6 +1124,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [7]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:slot_offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -16), Vector2(0, -24), Vector2(8, -32), Vector2(12, -32), Vector2(17, -31)]
+}
 
 [sub_resource type="Animation" id="Animation_xw7du"]
 resource_name = "wall_hang"
@@ -1224,12 +1248,13 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("slot", "sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
 floor_snap_length = 5.0
 script = ExtResource("1_wluja")
+slot = NodePath("Slot")
 sprite = NodePath("Sprite")
 animation_player = NodePath("AnimationPlayer")
 collider_stand = NodePath("ColliderStand")
@@ -1257,6 +1282,8 @@ experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAu
 additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
+
+[node name="Slot" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 light_mask = 2
@@ -1550,6 +1577,7 @@ target_position = Vector2(0, 20)
 collision_mask = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
 libraries = {
 &"": SubResource("AnimationLibrary_w4g2l")
 }

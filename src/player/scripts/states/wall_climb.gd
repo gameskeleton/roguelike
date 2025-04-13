@@ -13,6 +13,10 @@ func start_state():
 	player_node.set_wall_climb_detector_active(true)
 
 func process_state(_delta: float):
+	player_node.slot.position = Vector2(
+		player_node.slot_offset.x * player_node.direction,
+		player_node.slot_offset.y
+	)
 	if player_node.is_animation_finished():
 		var can_climb_stand := not player_node.wall_climb_stand_detector.has_overlapping_bodies()
 		var can_climb_crouch := not player_node.wall_climb_crouch_detector.has_overlapping_bodies()
@@ -29,5 +33,6 @@ func process_state(_delta: float):
 			return player_node.fsm.state_nodes.stand
 
 func finish_state():
+	player_node.slot.position = Vector2.ZERO
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_wall_climb_detector_active(false)
