@@ -23,14 +23,6 @@ window/size/window_width_override=1024
 window/size/window_height_override=576
 window/stretch/mode="canvas_items"
 
-[dotnet]
-
-project/assembly_name="Roguelike"
-
-[filesystem]
-
-import/blender/enabled=false
-
 [input]
 
 player_up={
