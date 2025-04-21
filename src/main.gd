@@ -3,9 +3,6 @@ class_name RkMain
 
 enum State { game, pause, level_up, game_over }
 
-@export var debug_start_room_scene: PackedScene
-@export var debug_start_room_grid_pos := Vector2i(1, 1)
-
 @export_group("Nodes")
 @export var player_node: RkPlayer
 @export var all_rooms_node: Node2D
@@ -26,8 +23,6 @@ signal room_enter(room_node: RkRoom) # emitted when the player enters a new room
 signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
 
 var rng := RandomNumberGenerator.new()
-var spawn_rng := RandomNumberGenerator.new()
-
 var state := State.game
 var current_room_node: RkRoom # the room node the player is in.
 var previous_room_node: RkRoom # the previous room node the player was in.
@@ -42,14 +37,7 @@ func _init():
 
 # @impure
 func _ready():
-	# load debug start room scene or generate a new dungeon
-	if debug_start_room_scene:
-		_clear_rooms()
-		var start_room_node := _instantiate_room(debug_start_room_scene, debug_start_room_grid_pos, 0)
-		_enter_room(start_room_node)
-		player_node.position = Vector2(debug_start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, debug_start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
-	else:
-		_generate_dungeon()
+	_generate_dungeon()
 	# setup death animation
 	player_node.death.connect(func():
 		state = State.game_over
@@ -66,7 +54,7 @@ func _ready():
 			level_up_animation_player.play("level_up!")
 		level_up_audio_stream_player.play()
 	)
-	# limit camera
+	# limit camera to the initial room
 	_limit_camera_to_room()
 	player_camera_node.reset_smoothing()
 
@@ -83,8 +71,8 @@ func _process(delta: float):
 func _process_game(_delta: float):
 	# pause game
 	if Input.is_action_just_pressed("player_pause"):
-		get_tree().paused = true
 		state = State.pause
+		get_tree().paused = true
 	# room and camera
 	var player_grid_pos := Vector2i(
 		floor(player_node_position.x / RkRoom.ROOM_SIZE.x),
@@ -93,8 +81,7 @@ func _process_game(_delta: float):
 	if player_grid_pos != current_room_node.get_grid_pos():
 		var room_node_at_player_grid_pos := _get_room_node(player_grid_pos)
 		if current_room_node != room_node_at_player_grid_pos:
-			_leave_room(current_room_node)
-			_enter_room(room_node_at_player_grid_pos)
+			_change_room(room_node_at_player_grid_pos)
 			_limit_camera_to_room()
 
 # @impure
@@ -102,7 +89,8 @@ func _process_debug():
 	if player_node.dead:
 		return
 	if Input.is_action_just_pressed("ui_home"):
-		_on_magic_slot_pressed()
+		_generate_dungeon()
+		_limit_camera_to_room()
 	if Input.is_action_just_pressed("ui_page_up"):
 		player_node.level_system.earn_experience(ceili(player_node.level_system.experience_required_to_level_up / 10.0))
 	if Input.is_action_just_pressed("ui_page_down"):
@@ -135,8 +123,7 @@ func _process_game_over():
 	if player_grid_pos != current_room_node.get_grid_pos():
 		var room_node_at_player_grid_pos := _get_room_node(player_grid_pos)
 		if current_room_node != room_node_at_player_grid_pos:
-			_leave_room(current_room_node)
-			_enter_room(room_node_at_player_grid_pos)
+			_change_room(room_node_at_player_grid_pos)
 			_limit_camera_to_room()
 
 # @pure
@@ -164,16 +151,14 @@ func get_corner_tile_pos(pos: Vector2) -> Vector2:
 	return current_room_node.wall_tile_map_layer.map_to_local(current_room_node.wall_tile_map_layer.local_to_map(pos))
 
 # @impure
-func _enter_room(room_node := current_room_node):
+func _change_room(room_node := current_room_node):
+	previous_room_node = current_room_node
+	if previous_room_node:
+		room_leave.emit(previous_room_node)
+		previous_room_node.leave()
 	current_room_node = room_node
 	current_room_node.enter()
 	room_enter.emit(current_room_node)
-
-# @impure
-func _leave_room(room_node := current_room_node):
-	previous_room_node = room_node
-	room_leave.emit(previous_room_node)
-	previous_room_node.leave()
 
 # @impure
 func _clear_rooms():
@@ -247,15 +232,5 @@ func _generate_dungeon():
 	# position player
 	var start_room_node: RkRoom = _get_room_node(_generator.start)
 	var start_room_grid_pos := start_room_node.get_grid_pos()
-	_enter_room(start_room_node)
+	_change_room(start_room_node)
 	player_node.position = Vector2(start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)
-
-###
-# User interface
-###
-
-# @signal
-# @impure
-func _on_magic_slot_pressed():
-	_generate_dungeon()
-	_limit_camera_to_room()

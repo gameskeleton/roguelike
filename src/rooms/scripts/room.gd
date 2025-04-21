@@ -98,19 +98,15 @@ func _input(event: InputEvent):
 		print("Room %s: %s" % [get_path(), scene_file_path])
 		DisplayServer.clipboard_set(scene_file_path.replace("res://", ""))
 
+# enter is called by the main node when the player enters this room.
 # @impure
 func enter():
-	propagate_call("set_process_internal", [true])
-	propagate_call("set_physics_process", [true])
-	propagate_call("set_process", [true])
-	propagate_call("_enter_room", [self])
+	propagate_call("_on_enter_room", [self])
 
+# leave is called by the main node when the player leaves this room.
 # @impure
 func leave():
-	propagate_call("set_process_internal", [false])
-	propagate_call("set_physics_process", [false])
-	propagate_call("set_process", [false])
-	propagate_call("_leave_room", [self])
+	propagate_call("_on_leave_room", [self])
 
 # has_corner_tile returns true if there is a corner tile at the given position.
 # @pure
