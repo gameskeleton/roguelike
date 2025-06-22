@@ -11,7 +11,11 @@ func _run() -> void:
 	_add_files("res://")
 	for file in _files:
 		var res := load(file)
-		if ResourceSaver.save(res) == OK:
+		if file.ends_with(".tscn"):
+			EditorInterface.open_scene_from_path(file)
+			EditorInterface.save_scene()
+			print("scene %s saved" % [file])
+		elif ResourceSaver.save(res) == OK:
 			print("resource %s saved" % [file])
 
 # @impure

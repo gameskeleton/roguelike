@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name RkMain
 
 enum State {game, pause, level_up, game_over}

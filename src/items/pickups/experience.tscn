@@ -34,9 +34,9 @@ size = Vector2(10, 10)
 collision_layer = 256
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_i2lns")
-max_contacts_reported = 1
-contact_monitor = true
 lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
 angular_damp = 10.0
 script = ExtResource("1_67vo4")
 

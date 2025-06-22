@@ -74,14 +74,8 @@ _data = {
 &"level_up!": SubResource("Animation_jiokg")
 }
 
-[node name="Main" type="Control" node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("1_7kkph")
 level_node = NodePath("Game/Level")
 player_node = NodePath("Game/Player")
@@ -106,7 +100,7 @@ level_node = NodePath("../Level")
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player/Slot" index="0"]
 process_mode = 3
-position = Vector2(0, -16)
+process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 512

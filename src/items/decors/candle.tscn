@@ -91,7 +91,7 @@ position = Vector2(8, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite/Light")
-autoplay = "light_pulse"
 libraries = {
-"": SubResource("AnimationLibrary_g2w2u")
+&"": SubResource("AnimationLibrary_g2w2u")
 }
+autoplay = "light_pulse"
