@@ -95,7 +95,6 @@ process_mode = 1
 
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
 position = Vector2(64, 256)
-safe_margin = 1.0
 level_node = NodePath("../Level")
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player/Slot" index="0"]

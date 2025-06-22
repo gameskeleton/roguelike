@@ -1295,13 +1295,13 @@ hframes = 10
 
 [node name="ColliderStand" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, -18)
+position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
 [node name="ColliderCrouch" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, -13)
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
 disabled = true
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
@@ -1472,7 +1472,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RollDetector"]
-position = Vector2(0, -13)
+visible = false
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
@@ -1484,7 +1485,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
-position = Vector2(25, -19)
+visible = false
+position = Vector2(25, -18)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
@@ -1495,7 +1497,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchDetector"]
-position = Vector2(0, -18)
+visible = false
+position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_qf2lc")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
@@ -1507,7 +1510,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
-position = Vector2(0, -1)
+visible = false
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
@@ -1518,7 +1521,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PushWallRollDetector"]
-position = Vector2(14, -13)
+visible = false
+position = Vector2(14, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
@@ -1526,7 +1530,8 @@ debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 visible = false
 
 [node name="Hand" type="Node2D" parent="WallHangDownDetector"]
-position = Vector2(10, -32)
+visible = false
+position = Vector2(10, -31)
 
 [node name="WallClimbStandDetector" type="Area2D" parent="."]
 visible = false
@@ -1535,7 +1540,8 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbStandDetector"]
-position = Vector2(16, -53)
+visible = false
+position = Vector2(16, -52)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
 
@@ -1546,32 +1552,33 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbCrouchDetector"]
-position = Vector2(16, -48)
+visible = false
+position = Vector2(16, -47)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 visible = false
-position = Vector2(0, -29)
+position = Vector2(0, -28)
 enabled = false
 target_position = Vector2(-12, 0)
 
 [node name="WallSlideDownRaycast" type="RayCast2D" parent="."]
 visible = false
-position = Vector2(0, -9)
+position = Vector2(0, -8)
 enabled = false
 target_position = Vector2(0, 32)
 collision_mask = 3
 
 [node name="WallSlideDownSideRaycast" type="RayCast2D" parent="."]
 visible = false
-position = Vector2(0, -13)
+position = Vector2(0, -12)
 enabled = false
 target_position = Vector2(-12, 0)
 
 [node name="WallHangDownSideRaycast" type="RayCast2D" parent="."]
 visible = false
-position = Vector2(0, -13)
+position = Vector2(0, -12)
 enabled = false
 target_position = Vector2(0, 20)
 collision_mask = 3
