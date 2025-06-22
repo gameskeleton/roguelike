@@ -3,7 +3,7 @@ extends RkStateMachineState
 var corner_pos := Vector2.ZERO
 
 func start_state():
-	corner_pos = player_node.get_corner_position()
+	corner_pos = player_node.get_corner_tile_pos_at_hand()
 	player_node.velocity = Vector2.ZERO
 	player_node.position = \
 		corner_pos \

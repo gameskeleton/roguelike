@@ -320,10 +320,21 @@ func is_on_wall_passive(passive_direction := direction) -> bool:
 func is_on_floor_one_way() -> bool:
 	return is_on_floor() and one_way_detector.has_overlapping_bodies()
 
-# get_corner_position returns the snapped position to the nearest corner wall.
+# has_corner_tile_at_hand returns true if there is a corner tile at the wall hang hand's position.
+# note: this will only return true if the player is in a level and the wall hang hand is positioned at a corner tile.
 # @pure
-func get_corner_position() -> Vector2:
-	assert(level_node.has_corner_tile(wall_hang_hand.global_position), "get_corner_tile_pos called without checking if has_corner_tile")
+func has_corner_tile_at_hand() -> bool:
+	if not level_node:
+		push_warning("has_corner_tile_at_hand should not be called outside of a level")
+		return false
+	return level_node.has_corner_tile(wall_hang_hand.global_position)
+
+# get_corner_tile_pos_at_hand returns the top-center position of the corner tile at the wall hang hand's position.
+# note: this will only return a valid position if the player is in a level and the wall hang hand is positioned at a corner tile.
+# @pure
+func get_corner_tile_pos_at_hand() -> Vector2:
+	assert(level_node, "get_corner_tile_pos_at_hand cannot be called outside of a level")
+	assert(has_corner_tile_at_hand(), "get_corner_tile_pos_at_hand called without checking if has_corner_tile_at_hand")
 	return level_node.get_corner_tile_pos(wall_hang_hand.global_position)
 
 ###
@@ -360,8 +371,8 @@ func is_able_to_attack() -> bool:
 func is_able_to_wall_hang() -> bool:
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
-	if level_node and level_node.has_corner_tile(wall_hang_hand.global_position):
-		var corner_pos := level_node.get_corner_tile_pos(wall_hang_hand.global_position)
+	if level_node and has_corner_tile_at_hand():
+		var corner_pos := get_corner_tile_pos_at_hand()
 		var distance_to_corner := position.distance_to(corner_pos)
 		return distance_to_corner < 31.0
 	return false
