@@ -1,11 +1,11 @@
 extends Control
 class_name RkMain
 
-enum State { game, pause, level_up, game_over }
+enum State {game, pause, level_up, game_over}
 
 @export_group("Nodes")
+@export var level_node: RkLevel
 @export var player_node: RkPlayer
-@export var all_rooms_node: Node2D
 @export var player_camera_node: Camera2D
 @export var object_spawner_node: RkObjectSpawner
 
@@ -19,17 +19,8 @@ enum State { game, pause, level_up, game_over }
 
 static var _main_node: RkMain = null
 
-signal room_enter(room_node: RkRoom) # emitted when the player enters a new room.
-signal room_leave(room_node: RkRoom) # emitted when the player leaves the current room and will be emitted before the next room_enter.
-
 var rng := RandomNumberGenerator.new()
 var state := State.game
-var current_room_node: RkRoom # the room node the player is in.
-var previous_room_node: RkRoom # the previous room node the player was in.
-var player_node_position: Vector2 :
-	get: return player_node.position + Vector2(0.0, -RkPlayer.SIZE.y * 0.5)
-
-var _generator := RkDungeonGenerator.new()
 
 # @impure
 func _init():
@@ -37,7 +28,6 @@ func _init():
 
 # @impure
 func _ready():
-	_generate_dungeon()
 	# setup death animation
 	player_node.death.connect(func():
 		state = State.game_over
@@ -54,8 +44,12 @@ func _ready():
 			level_up_animation_player.play("level_up!")
 		level_up_audio_stream_player.play()
 	)
-	# limit camera to the initial room
-	_limit_camera_to_room()
+	# restrict player's camera to level bounds
+	var bounds := level_node.get_wall_bbox()
+	player_camera_node.limit_top = ceili(bounds.position.y)
+	player_camera_node.limit_left = ceili(bounds.position.x)
+	player_camera_node.limit_right = ceili(bounds.position.x + bounds.size.x)
+	player_camera_node.limit_bottom = ceili(bounds.position.y + bounds.size.y)
 	player_camera_node.reset_smoothing()
 
 # @impure
@@ -73,24 +67,11 @@ func _process_game(_delta: float):
 	if Input.is_action_just_pressed("player_pause"):
 		state = State.pause
 		get_tree().paused = true
-	# room and camera
-	var player_grid_pos := Vector2i(
-		floor(player_node_position.x / RkRoom.ROOM_SIZE.x),
-		floor(player_node_position.y / RkRoom.ROOM_SIZE.y)
-	)
-	if player_grid_pos != current_room_node.get_grid_pos():
-		var room_node_at_player_grid_pos := _get_room_node(player_grid_pos)
-		if current_room_node != room_node_at_player_grid_pos:
-			_change_room(room_node_at_player_grid_pos)
-			_limit_camera_to_room()
 
 # @impure
 func _process_debug():
 	if player_node.dead:
 		return
-	if Input.is_action_just_pressed("ui_home"):
-		_generate_dungeon()
-		_limit_camera_to_room()
 	if Input.is_action_just_pressed("ui_page_up"):
 		player_node.level_system.earn_experience(ceili(player_node.level_system.experience_required_to_level_up / 10.0))
 	if Input.is_action_just_pressed("ui_page_down"):
@@ -115,122 +96,7 @@ func _process_game_over():
 	# reset
 	if Input.is_key_pressed(KEY_ENTER):
 		get_tree().reload_current_scene()
-	# room and camera
-	var player_grid_pos := Vector2i(
-		floor(player_node_position.x / RkRoom.ROOM_SIZE.x),
-		floor(player_node_position.y / RkRoom.ROOM_SIZE.y)
-	)
-	if player_grid_pos != current_room_node.get_grid_pos():
-		var room_node_at_player_grid_pos := _get_room_node(player_grid_pos)
-		if current_room_node != room_node_at_player_grid_pos:
-			_change_room(room_node_at_player_grid_pos)
-			_limit_camera_to_room()
 
 # @pure
 static func get_main_node() -> RkMain:
 	return _main_node
-
-###
-# Room
-###
-
-# room_pos transforms the given position in room position.
-# @pure
-func room_pos(global_pos: Vector2) -> Vector2:
-	return global_pos - current_room_node.global_position
-
-# has_corner_tile returns true if there is a corner tile at the given position.
-# @pure
-func has_corner_tile(pos: Vector2) -> bool:
-	return current_room_node.has_corner_tile(pos)
-
-# get_corner_tile_pos returns the top-center position of the corner tile.
-# calling this when has_corner_tile of the given position returned false will yield incorrect results.
-# @pure
-func get_corner_tile_pos(pos: Vector2) -> Vector2:
-	return current_room_node.wall_tile_map_layer.map_to_local(current_room_node.wall_tile_map_layer.local_to_map(pos))
-
-# @impure
-func _change_room(room_node := current_room_node):
-	previous_room_node = current_room_node
-	if previous_room_node:
-		room_leave.emit(previous_room_node)
-		previous_room_node.leave()
-	current_room_node = room_node
-	current_room_node.enter()
-	room_enter.emit(current_room_node)
-
-# @impure
-func _clear_rooms():
-	for room_node in all_rooms_node.get_children():
-		all_rooms_node.remove_child(room_node)
-		room_node.queue_free()
-
-# @impure
-func _instantiate_room(room_scene: PackedScene, room_grid_pos: Vector2i, distance: int) -> RkRoom:
-	var room_node: RkRoom = room_scene.instantiate()
-	room_node.name = _get_room_node_name(room_grid_pos)
-	room_node.distance = distance
-	room_node.position = room_grid_pos * RkRoom.ROOM_SIZE
-	all_rooms_node.add_child(room_node)
-	room_node.owner = all_rooms_node
-	room_node.leave()
-	return room_node
-
-# @pure
-func _get_room_node(grid_pos: Vector2i) -> RkRoom:
-	return all_rooms_node.find_child(_get_room_node_name(grid_pos))
-
-# @pure
-func _get_room_node_name(grid_pos: Vector2i) -> StringName:
-	return "Room_%s_%s" % [grid_pos.x, grid_pos.y]
-
-###
-# Camera
-###
-
-# @impure
-func _limit_camera_to_room():
-	var current_room_grid_pos := current_room_node.get_grid_pos()
-	player_camera_node.limit_top = int(current_room_grid_pos.y * RkRoom.ROOM_SIZE.y)
-	player_camera_node.limit_left = int(current_room_grid_pos.x * RkRoom.ROOM_SIZE.x)
-	player_camera_node.limit_right = int((current_room_grid_pos.x + 1) * RkRoom.ROOM_SIZE.x)
-	player_camera_node.limit_bottom = int((current_room_grid_pos.y + 1) * RkRoom.ROOM_SIZE.y)
-
-###
-# Dungeon
-###
-
-# @impure
-func _generate_dungeon():
-	_clear_rooms()
-	_generator.rng = rng
-	_generator.start = Vector2i(1, 1)
-	_generator.min_rooms = 12
-	_generator.max_rooms = 12
-	var dungeon := _generator.next()
-	var room_nodes: Array[RkRoom] = []
-	# loop over each cell and create a room
-	for y in _generator.height:
-		for x in _generator.width:
-			var pos = Vector2i(x + 1, y + 1)
-			var cell: int = dungeon[pos.y][pos.x]
-			var distance := absi(x - _generator.start.x) + absi(y - _generator.start.y)
-			var cell_exits := 0
-			if cell == 1:
-				if dungeon[pos.y][pos.x - 1]: cell_exits |= RkRoom.Exit.left
-				if dungeon[pos.y][pos.x + 1]: cell_exits |= RkRoom.Exit.right
-				if dungeon[pos.y - 1][pos.x]: cell_exits |= RkRoom.Exit.up
-				if dungeon[pos.y + 1][pos.x]: cell_exits |= RkRoom.Exit.down
-				if RkRoomList.ROOM_SCENES.has(cell_exits):
-					# create dungeon room node
-					var room_node := _instantiate_room(RkUtils.pick_random(RkRoomList.ROOM_SCENES[cell_exits], rng), Vector2i(x, y), distance)
-					room_nodes.push_back(room_node)
-				else:
-					push_error("room %s does not exist..." % [RkRoom.generate_room_exits_name(cell_exits)])
-					return
-	# position player
-	var start_room_node: RkRoom = _get_room_node(_generator.start)
-	var start_room_grid_pos := start_room_node.get_grid_pos()
-	_change_room(start_room_node)
-	player_node.position = Vector2(start_room_grid_pos.x * RkRoom.ROOM_SIZE.x + start_room_node.player_spawn.x, start_room_grid_pos.y * RkRoom.ROOM_SIZE.y + start_room_node.player_spawn.y)

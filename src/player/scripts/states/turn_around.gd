@@ -2,6 +2,7 @@ extends RkStateMachineState
 
 var _initial_direction := 0.0
 var _animation_initial_speed_scale := 1.0
+
 const TURN_AROUND_OFFSET := -2.0
 
 func start_state():

@@ -57,6 +57,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export_group("Nodes")
 @export var slot: Node2D
 @export var sprite: Sprite2D
+@export var level_node: RkLevel
 @export var animation_player: AnimationPlayer
 
 @export var collider_stand: CollisionShape2D
@@ -139,13 +140,19 @@ func _ready():
 	stamina_system.stamina.resplenish()
 	life_points_system.life_points.resplenish()
 
-# _physics_process is called every physics tick and updates player state.
+# _physics_process is called every physics tick and updates the player state.
 # @impure
 func _physics_process(delta: float):
+	process(delta)
+
+# process updates the player state.
+# @impure
+func process(delta: float):
 	process_input(delta)
 	process_velocity(delta)
 	process_timeouts(delta)
 	fsm.process_state_machine(delta)
+	animation_player.advance(delta)
 
 # process_input updates player inputs.
 # @impure
@@ -316,7 +323,8 @@ func is_on_floor_one_way() -> bool:
 # get_corner_position returns the snapped position to the nearest corner wall.
 # @pure
 func get_corner_position() -> Vector2:
-	return RkMain.get_main_node().current_room_node.get_corner_tile_pos(wall_hang_hand.global_position)
+	assert(level_node.has_corner_tile(wall_hang_hand.global_position), "get_corner_tile_pos called without checking if has_corner_tile")
+	return level_node.get_corner_tile_pos(wall_hang_hand.global_position)
 
 ###
 # Capabilities
@@ -352,11 +360,9 @@ func is_able_to_attack() -> bool:
 func is_able_to_wall_hang() -> bool:
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
-	var main_node := RkMain.get_main_node()
-	var wall_hang_hand_pos := main_node.room_pos(wall_hang_hand.global_position)
-	if main_node.has_corner_tile(wall_hang_hand_pos):
-		var corner_pos := main_node.get_corner_tile_pos(wall_hang_hand_pos)
-		var distance_to_corner := (main_node.room_pos(global_position)).distance_to(corner_pos)
+	if level_node and level_node.has_corner_tile(wall_hang_hand.global_position):
+		var corner_pos := level_node.get_corner_tile_pos(wall_hang_hand.global_position)
+		var distance_to_corner := position.distance_to(corner_pos)
 		return distance_to_corner < 31.0
 	return false
 
@@ -400,10 +406,10 @@ func play_animation(animation_name: StringName):
 	if not is_animation_playing(animation_name):
 		animation_player.play(animation_name)
 
-# play_animation_transition transitions the player animation from start to then.
+# play_animation_transition transitions the player animation from start to then when start finishes.
 # @impure
 func play_animation_transition(start_animation_name: StringName, then_animation_name: StringName):
-	if is_animation_playing(start_animation_name) and is_animation_finished():
+	if not is_animation_playing(start_animation_name):
 		play_animation(then_animation_name)
 
 # is_animation_playing returns true if the given animation is playing.

@@ -1578,6 +1578,7 @@ collision_mask = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
+callback_mode_process = 2
 libraries = {
 &"": SubResource("AnimationLibrary_w4g2l")
 }
