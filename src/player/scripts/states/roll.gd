@@ -38,7 +38,7 @@ func process_state(delta: float):
 			player_node.input_jump.consume()
 			return player_node.fsm.state_nodes.jump
 	if player_node.is_animation_finished():
-		if player_node.is_able_to_uncrouch():
+		if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch():
 			return player_node.fsm.state_nodes.stand
 		return player_node.fsm.state_nodes.crouch
 

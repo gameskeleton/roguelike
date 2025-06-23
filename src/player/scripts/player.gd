@@ -436,7 +436,7 @@ func is_animation_finished() -> bool:
 # get_animation_played_ratio returns the ratio of the animation played by its length.
 # @impure
 func get_animation_played_ratio() -> float:
-	return clampf(animation_player.current_animation_position / (animation_player.current_animation_length - 0.05), 0.0, 1.0)
+	return clampf(animation_player.current_animation_position / (animation_player.current_animation_length - 0.001), 0.0, 1.0)
 
 ###
 # Raycasts and detectors
