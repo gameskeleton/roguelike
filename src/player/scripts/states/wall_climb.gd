@@ -21,9 +21,7 @@ func process_state(_delta: float):
 	if player_node.is_animation_finished():
 		var can_climb_stand := not player_node.wall_climb_stand_detector.has_overlapping_bodies()
 		var can_climb_crouch := not player_node.wall_climb_crouch_detector.has_overlapping_bodies()
-		player_node.position = player_node.fsm.state_nodes.wall_hang.corner_pos
-		player_node.velocity.y = -1
-		player_node.move_and_slide()
+		player_node.position = player_node.fsm.state_nodes.wall_hang.corner_pos + Vector2(0.0, -8.0)
 		if can_climb_stand:
 			return player_node.fsm.state_nodes.stand
 		elif can_climb_crouch:
