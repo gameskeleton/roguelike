@@ -35,6 +35,7 @@ func process_state(delta: float):
 	# attack combo
 	if player_node.input_attack.is_down() and player_node.get_animation_played_ratio() >= 0.8:
 		_combo = true
+		player_node.input_attack.consume()
 	if player_node.is_animation_finished():
 		if _combo and player_node.stamina_system.try_consume(player_node.ATTACK_STAMINA_COST):
 			_combo = false

@@ -26,9 +26,11 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_jump.is_pressed() and player_node.input_down.is_down() and player_node.is_on_floor_one_way():
 		player_node.input_jump.consume()
+		player_node.input_down.consume()
 		player_node.handle_drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
 	if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch() and _timer >= player_node.CROUCH_LOCK_DELAY:
+		player_node.input_down.consume()
 		return player_node.fsm.state_nodes.crouch_to_stand
 	if player_node.input_roll.is_pressed() and player_node.is_able_to_roll():
 		player_node.input_roll.consume()
