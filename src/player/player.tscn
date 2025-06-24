@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=101 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" uid="uid://sxecentfet3b" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -47,6 +47,8 @@
 [ext_resource type="Script" uid="uid://08ad2i5ecebx" path="res://src/player/scripts/states/stand_to_crouch.gd" id="21_ymkf1"]
 [ext_resource type="AudioStream" uid="uid://dtki1objul30d" path="res://src/player/sounds/footstep_04.wav" id="22_bnx1i"]
 [ext_resource type="Texture2D" uid="uid://ltfknefd2iei" path="res://src/player/textures/wall_hang.png" id="23_ona11"]
+[ext_resource type="Script" uid="uid://ddwfk27nbfyw2" path="res://src/player/scripts/states/slide.gd" id="23_w56km"]
+[ext_resource type="AudioStream" uid="uid://dmfwwboxg3rrd" path="res://src/player/sounds/slide.wav" id="24_3uvft"]
 [ext_resource type="Script" uid="uid://civ68ktreihns" path="res://src/player/scripts/states/crouch_walk.gd" id="26_0ur0y"]
 [ext_resource type="Texture2D" uid="uid://b0uaxunpcv42c" path="res://src/player/textures/push_wall.png" id="27_s6a2l"]
 [ext_resource type="AudioStream" uid="uid://2jyymk422ofv" path="res://src/player/sounds/bump_into_wall.wav" id="29_g2dly"]
@@ -57,6 +59,7 @@
 [ext_resource type="Texture2D" uid="uid://cutvm2ws54ay1" path="res://src/player/textures/stand_to_crouch.png" id="43_isit8"]
 [ext_resource type="Texture2D" uid="uid://b2aw2dtyw7wi2" path="res://src/player/textures/crouch.png" id="44_b78r0"]
 [ext_resource type="Texture2D" uid="uid://wmq5lfsyxof7" path="res://src/player/textures/crouch_walk.png" id="47_45k7c"]
+[ext_resource type="Texture2D" uid="uid://bcn4ds27x37sk" path="res://src/player/textures/slide.png" id="59_2rxss"]
 
 [sub_resource type="Curve" id="Curve_egsaa"]
 _limits = [0.0, 20.0, 0.0, 1.0]
@@ -86,6 +89,14 @@ size = Vector2(14, 24)
 _limits = [-10.0, 0.0, 0.0, 1.0]
 _data = [Vector2(0, -2), 0.0, -15.0, 0, 0, Vector2(0.35, -7.5), -8.0, -8.5, 0, 0, Vector2(1, -9), -2.5, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Curve" id="Curve_2rxss"]
+_limits = [0.0, 1.0, 0.0, 0.6]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6, 0), -5.5, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2rxss"]
+size = Vector2(14, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1fp4"]
 size = Vector2(28, 40)
@@ -392,6 +403,46 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_2rxss"]
+resource_name = "crouch_to_slide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("59_2rxss")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
 }
 
 [sub_resource type="Animation" id="Animation_b77xs"]
@@ -907,6 +958,87 @@ tracks/2/keys = {
 "values": [12]
 }
 
+[sub_resource type="Animation" id="Animation_ymg6t"]
+resource_name = "slide"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("59_2rxss")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_jqx1k"]
+resource_name = "slide_to_crouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("59_2rxss")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
 [sub_resource type="Animation" id="Animation_rquo4"]
 resource_name = "stand"
 length = 0.9
@@ -1227,6 +1359,7 @@ _data = {
 &"bump_into_wall_fall": SubResource("Animation_bkav5"),
 &"bump_into_wall_hit_floor": SubResource("Animation_g0oe8"),
 &"crouch": SubResource("Animation_fcv8u"),
+&"crouch_to_slide": SubResource("Animation_2rxss"),
 &"crouch_to_stand": SubResource("Animation_b77xs"),
 &"crouch_walk": SubResource("Animation_ygk1w"),
 &"death": SubResource("Animation_jlirl"),
@@ -1239,6 +1372,8 @@ _data = {
 &"jump_to_fall": SubResource("Animation_bqla8"),
 &"push_wall": SubResource("Animation_vcbyw"),
 &"roll": SubResource("Animation_5lkvp"),
+&"slide": SubResource("Animation_ymg6t"),
+&"slide_to_crouch": SubResource("Animation_jqx1k"),
 &"stand": SubResource("Animation_rquo4"),
 &"stand_to_crouch": SubResource("Animation_ye4mf"),
 &"turn_around": SubResource("Animation_rsfdr"),
@@ -1248,7 +1383,7 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("slot", "sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("slot", "sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1260,6 +1395,7 @@ animation_player = NodePath("AnimationPlayer")
 collider_stand = NodePath("ColliderStand")
 collider_crouch = NodePath("ColliderCrouch")
 roll_detector = NodePath("RollDetector")
+slide_detector = NodePath("SlideDetector")
 attack_detector = NodePath("AttackDetector")
 crouch_detector = NodePath("CrouchDetector")
 one_way_detector = NodePath("OneWayDetector")
@@ -1385,6 +1521,16 @@ volume_db = -10.0
 max_polyphony = 15
 bus = &"SFX"
 
+[node name="slide" type="Node" parent="StateMachine" node_paths=PackedStringArray("slide_audio_stream_player")]
+script = ExtResource("23_w56km")
+slide_curve = SubResource("Curve_2rxss")
+slide_audio_stream_player = NodePath("SlideAudioStreamPlayer")
+
+[node name="SlideAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/slide"]
+stream = ExtResource("24_3uvft")
+volume_db = -1.0
+bus = &"SFX - Roll"
+
 [node name="jump" type="Node" parent="StateMachine"]
 script = ExtResource("6_grvpe")
 
@@ -1472,9 +1618,21 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RollDetector"]
-visible = false
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
+debug_color = Color(0.129412, 0, 0.701961, 0.419608)
+
+[node name="SlideDetector" type="Area2D" parent="."]
+visible = false
+position = Vector2(16, 0)
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlideDetector"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_2rxss")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
 [node name="AttackDetector" type="Area2D" parent="."]
@@ -1485,7 +1643,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
-visible = false
 position = Vector2(25, -18)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
@@ -1497,7 +1654,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchDetector"]
-visible = false
 position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_qf2lc")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
@@ -1510,7 +1666,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
-visible = false
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
@@ -1521,7 +1676,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PushWallRollDetector"]
-visible = false
 position = Vector2(14, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
@@ -1530,7 +1684,6 @@ debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 visible = false
 
 [node name="Hand" type="Node2D" parent="WallHangDownDetector"]
-visible = false
 position = Vector2(10, -31)
 
 [node name="WallClimbStandDetector" type="Area2D" parent="."]
@@ -1540,7 +1693,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbStandDetector"]
-visible = false
 position = Vector2(16, -52)
 shape = SubResource("RectangleShape2D_1wnfa")
 debug_color = Color(1, 0, 0.0156863, 0.419608)
@@ -1552,7 +1704,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbCrouchDetector"]
-visible = false
 position = Vector2(16, -47)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
@@ -1593,4 +1744,5 @@ libraries = {
 [connection signal="level_up" from="Systems/Level" to="." method="_on_level_level_up"]
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
+[connection signal="area_entered" from="SlideDetector" to="StateMachine/slide" method="_on_slide_detector_area_entered"]
 [connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]

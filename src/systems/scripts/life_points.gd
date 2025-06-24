@@ -7,8 +7,9 @@ enum DmgType {
 	#
 	fire = 1,
 	roll = 2,
-	world = 4,
-	physical = 8,
+	slide = 4,
+	world = 8,
+	physical = 16,
 }
 
 signal damage_taken(damage: float, source: Node, instigator: Node)
@@ -22,6 +23,7 @@ const NO_DAMAGE := -1.0
 @export_group("Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_fire := 1.0
 @export var damage_multiplier_roll := 1.0
+@export var damage_multiplier_slide := 1.0
 @export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
 
@@ -45,6 +47,7 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Node = null
 	var damage_multiplier := 1.0
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.fire): damage_multiplier *= damage_multiplier_fire
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.roll): damage_multiplier *= damage_multiplier_roll
+	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.slide): damage_multiplier *= damage_multiplier_slide
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
 	var scaled_damage := damage * damage_multiplier

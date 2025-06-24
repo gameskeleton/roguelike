@@ -28,6 +28,10 @@ const ROLL_BUMP_STRENGTH := -70.0
 
 const DEATH_DECELERATION := 290.0
 
+const SLIDE_DAMAGE := 1.0
+const SLIDE_MAX_SPEED := 160.0
+const SLIDE_STAMINA_COST := 2.0
+
 const ATTACK_DAMAGE := 1.0
 const ATTACK_MAX_SPEED := 120.0
 const ATTACK_STAMINA_COST := 2.0
@@ -64,6 +68,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var collider_crouch: CollisionShape2D
 
 @export var roll_detector: Area2D
+@export var slide_detector: Area2D
 @export var attack_detector: Area2D
 @export var crouch_detector: Area2D
 @export var one_way_detector: Area2D
@@ -123,6 +128,7 @@ var input_left := RkBufferedInput.new("player_left")
 var input_right := RkBufferedInput.new("player_right")
 var input_jump := RkBufferedInput.new("player_jump", 0.1)
 var input_roll := RkBufferedInput.new("player_roll", 0.1)
+var input_slide := RkBufferedInput.new("player_slide", 0.1)
 var input_attack := RkBufferedInput.new("player_attack", 0.1)
 var input_velocity := Vector2.ZERO
 
@@ -163,6 +169,7 @@ func process_input(delta: float):
 	input_right.process(delta)
 	input_jump.process(delta)
 	input_roll.process(delta)
+	input_slide.process(delta)
 	input_attack.process(delta)
 	# process input velocity
 	input_velocity = Vector2(input_right.to_down_int() - input_left.to_down_int(), input_down.to_down_int() - input_up.to_down_int())
@@ -266,6 +273,11 @@ func handle_airborne_move(delta: float, max_speed: float, acceleration: float, d
 func handle_deceleration_move(delta: float, deceleration: float):
 	velocity.x = apply_deceleration(delta, velocity.x, deceleration)
 
+# handle_directional_slide_move sets the velocity to the given value scaled by the direction.
+# @impure
+func handle_directional_slide_move(slide_velocity: float):
+	velocity.x = slide_velocity * direction
+
 # handle_drop_through_one_way positions the player a little down to make it drop through one ways.
 # @impure
 func handle_drop_through_one_way():
@@ -350,6 +362,11 @@ func is_able_to_jump() -> bool:
 # @pure
 func is_able_to_roll() -> bool:
 	return stamina_system.has_enough(ROLL_STAMINA_COST)
+
+# is_able_to_slide returns true if the player is able to slide.
+# @pure
+func is_able_to_slide() -> bool:
+	return stamina_system.has_enough(SLIDE_STAMINA_COST)
 
 # is_able_to_crouch returns true if the player is able to crouch.
 # @pure
@@ -447,6 +464,12 @@ func get_animation_played_ratio() -> float:
 func set_roll_detector_active(active: bool):
 	roll_detector.monitoring = active
 	roll_detector.monitorable = active
+
+# set_slide_detector_active activates or deactivates the monitoring for destroying decors when sliding.
+# @impure
+func set_slide_detector_active(active: bool):
+	slide_detector.monitoring = active
+	slide_detector.monitorable = active
 
 # set_attack_detector_active activates or deactivates the monitoring for attack colliders.
 # @impure
