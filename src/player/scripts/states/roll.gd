@@ -3,7 +3,7 @@ extends RkStateMachineState
 @export var offset_curve: Curve
 
 @export_group("Nodes")
-@export var audio_stream_player: AudioStreamPlayer
+@export var roll_audio_stream_player: AudioStreamPlayer
 
 var _sprite_initial_offset := Vector2()
 var _animation_initial_speed_scale := 1.0
@@ -15,7 +15,7 @@ func start_state():
 		player_node.crouch()
 	player_node.roll(player_node.direction * player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
-	player_node.play_sound_effect(audio_stream_player, 0.0, 0.85, 0.9)
+	player_node.play_sound_effect(roll_audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_detector_active(true)
 	player_node.set_crouch_detector_active(true)
 	player_node.set_one_way_detector_active(true)
@@ -48,7 +48,7 @@ func finish_state():
 	player_node.sprite.offset = _sprite_initial_offset
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.life_points_system.invincible -= 1
-	player_node.stop_sound_effect(audio_stream_player)
+	player_node.stop_sound_effect(roll_audio_stream_player)
 	player_node.set_roll_detector_active(false)
 	player_node.set_crouch_detector_active(false)
 	player_node.set_one_way_detector_active(false)

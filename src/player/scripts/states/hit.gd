@@ -1,7 +1,7 @@
 extends RkStateMachineState
 
 @export_group("Nodes")
-@export var audio_stream_player: AudioStreamPlayer
+@export var hit_audio_stream_player: AudioStreamPlayer
 
 func start_state():
 	var damage_direction := 1.0
@@ -10,8 +10,7 @@ func start_state():
 	player_node.velocity = Vector2(damage_direction * player_node.HIT_IMPULSE.x, player_node.HIT_IMPULSE.y)
 	player_node.life_points_system.invincible += 1
 	player_node.play_animation("hit")
-	audio_stream_player.pitch_scale = randf_range(0.95, 1.05)
-	audio_stream_player.play()
+	player_node.play_sound_effect(hit_audio_stream_player, 0.0, 0.95, 1.05)
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)

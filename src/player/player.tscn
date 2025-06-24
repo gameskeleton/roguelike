@@ -1336,11 +1336,11 @@ instigator = NodePath("../..")
 
 [node name="StateMachine" type="Node" parent="."]
 
-[node name="hit" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="hit" type="Node" parent="StateMachine" node_paths=PackedStringArray("hit_audio_stream_player")]
 script = ExtResource("6_ei416")
-audio_stream_player = NodePath("AudioStreamPlayer")
+hit_audio_stream_player = NodePath("HitAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/hit"]
+[node name="HitAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/hit"]
 stream = ExtResource("10_m6ytp")
 volume_db = -5.0
 bus = &"SFX"
@@ -1348,10 +1348,10 @@ bus = &"SFX"
 [node name="fall" type="Node" parent="StateMachine"]
 script = ExtResource("3_73fy0")
 
-[node name="roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("roll_audio_stream_player")]
 script = ExtResource("4_giqnr")
 offset_curve = SubResource("Curve_8k3oh")
-audio_stream_player = NodePath("AudioStreamPlayer")
+roll_audio_stream_player = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/roll"]
 stream = ExtResource("9_7l0y8")
@@ -1361,15 +1361,15 @@ bus = &"SFX - Roll"
 [node name="skid" type="Node" parent="StateMachine"]
 script = ExtResource("7_3fko7")
 
-[node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player", "footstep_left_audio_stream_player", "footstep_right_audio_stream_player")]
+[node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("stand_audio_stream_player", "footstep_left_audio_stream_player", "footstep_right_audio_stream_player")]
 script = ExtResource("4_74l6q")
 footstep_left_streams = Array[AudioStream]([ExtResource("18_d1hkk"), ExtResource("19_ad0xw"), ExtResource("20_x46qy")])
 footstep_right_streams = Array[AudioStream]([ExtResource("21_um7ng"), ExtResource("22_bnx1i")])
-audio_stream_player = NodePath("AudioStreamPlayer")
+stand_audio_stream_player = NodePath("StandAudioStreamPlayer")
 footstep_left_audio_stream_player = NodePath("FootstepLeftAudioStreamPlayer")
 footstep_right_audio_stream_player = NodePath("FootstepRightAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
+[node name="StandAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/walk"]
 stream = ExtResource("12_nfhlm")
 bus = &"SFX - Touch Ground"
 
@@ -1388,22 +1388,22 @@ bus = &"SFX"
 [node name="jump" type="Node" parent="StateMachine"]
 script = ExtResource("6_grvpe")
 
-[node name="stand" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="stand" type="Node" parent="StateMachine" node_paths=PackedStringArray("stand_audio_stream_player")]
 script = ExtResource("3_8ll75")
-audio_stream_player = NodePath("AudioStreamPlayer")
+stand_audio_stream_player = NodePath("StandAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/stand"]
+[node name="StandAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/stand"]
 stream = ExtResource("12_nfhlm")
 bus = &"SFX - Touch Ground"
 
 [node name="death" type="Node" parent="StateMachine"]
 script = ExtResource("18_f5afl")
 
-[node name="attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_audio_stream_player")]
 script = ExtResource("9_fb2tt")
-audio_stream_player = NodePath("AudioStreamPlayer")
+attack_audio_stream_player = NodePath("AttackAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/attack"]
+[node name="AttackAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/attack"]
 stream = ExtResource("15_8gyqs")
 bus = &"SFX"
 
@@ -1419,11 +1419,11 @@ script = ExtResource("9_3cgs6")
 [node name="wall_hang" type="Node" parent="StateMachine"]
 script = ExtResource("10_ml0y4")
 
-[node name="wall_climb" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="wall_climb" type="Node" parent="StateMachine" node_paths=PackedStringArray("climb_audio_stream_player")]
 script = ExtResource("16_gdcg3")
-audio_stream_player = NodePath("AudioStreamPlayer")
+climb_audio_stream_player = NodePath("ClimbAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/wall_climb"]
+[node name="ClimbAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/wall_climb"]
 stream = ExtResource("20_onny2")
 bus = &"SFX - Wall Climb"
 
@@ -1449,11 +1449,11 @@ bus = &"SFX"
 [node name="turn_around" type="Node" parent="StateMachine"]
 script = ExtResource("5_0i2rd")
 
-[node name="bump_into_wall" type="Node" parent="StateMachine" node_paths=PackedStringArray("audio_stream_player")]
+[node name="bump_into_wall" type="Node" parent="StateMachine" node_paths=PackedStringArray("bump_audio_stream_player")]
 script = ExtResource("11_nnruh")
-audio_stream_player = NodePath("AudioStreamPlayer")
+bump_audio_stream_player = NodePath("BumpAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/bump_into_wall"]
+[node name="BumpAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/bump_into_wall"]
 stream = ExtResource("29_g2dly")
 volume_db = 11.0
 bus = &"SFX"

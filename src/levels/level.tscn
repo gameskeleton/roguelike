@@ -67,12 +67,15 @@ position = Vector2(528, 96)
 
 [node name="Chain" parent="." instance=ExtResource("5_dv8wo")]
 position = Vector2(448, 32)
+length = 6
 
 [node name="Chain2" parent="." instance=ExtResource("5_dv8wo")]
 position = Vector2(768, 32)
+length = 6
 
 [node name="Chain3" parent="." instance=ExtResource("5_dv8wo")]
 position = Vector2(848, 32)
+length = 6
 
 [node name="Crate" parent="." instance=ExtResource("6_2tyx5")]
 position = Vector2(112, 160)
