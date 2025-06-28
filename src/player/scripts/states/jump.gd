@@ -18,7 +18,7 @@ func start_state():
 	player_node.jump(_jump_strength)
 	player_node.play_animation("jump")
 	if not _was_wall_sliding and player_node.input_velocity.x != 0.0:
-		player_node.set_direction(int(sign(player_node.input_velocity.x)))
+		player_node.set_direction(int(signf(player_node.input_velocity.x)))
 
 func process_state(delta: float):
 	_handle_gravity(delta)

@@ -182,7 +182,7 @@ func process_velocity(_delta: float):
 # process_timeouts decreases timeouts.
 # @impure
 func process_timeouts(delta: float):
-	disable_wall_hang_timeout = max(disable_wall_hang_timeout - delta, 0.0)
+	disable_wall_hang_timeout = maxf(disable_wall_hang_timeout - delta, 0.0)
 
 ###
 # Movement
@@ -248,7 +248,7 @@ func handle_gravity(delta: float, max_speed: float, acceleration: float):
 # handle_direction changes the direction depending on the input velocity.
 # @impure
 func handle_direction():
-	var input_direction := int(sign(input_velocity.x))
+	var input_direction := int(signf(input_velocity.x))
 	if input_direction != 0.0:
 		set_direction(input_direction)
 
@@ -289,23 +289,23 @@ func handle_drop_through_one_way():
 
 # is_nearly returns true if the first given value nearly equals the second given value.
 # @pure
-func is_nearly(value1: float, value2: float, epsilon = 0.001) -> bool:
-	return abs(value1 - value2) < epsilon
+func is_nearly(value1: float, value2: float, epsilon := 0.001) -> bool:
+	return absf(value1 - value2) < epsilon
 
 # has_same_direction returns true if the two given numbers are non-zero and of the same sign.
 # @pure
 func has_same_direction(dir1: float, dir2: float) -> bool:
-	return dir1 != 0.0 and dir2 != 0.0 and sign(dir1) == sign(dir2)
+	return dir1 != 0.0 and dir2 != 0.0 and signf(dir1) == signf(dir2)
 
 # has_invert_direction returns true if the two given numbers are non-zero and of the opposed sign.
 # @pure
 func has_invert_direction(dir1: float, dir2: float) -> bool:
-	return dir1 != 0.0 and dir2 != 0.0 and sign(dir1) != sign(dir2)
+	return dir1 != 0.0 and dir2 != 0.0 and signf(dir1) != signf(dir2)
 
 # apply_acceleration returns the next value after acceleration is applied.
 # @pure
-func apply_acceleration(delta: float, value: float, max_speed: float, acceleration: float, override_direction = direction) -> float:
-	return move_toward(value, max_speed * sign(override_direction), acceleration * delta)
+func apply_acceleration(delta: float, value: float, max_speed: float, acceleration: float, override_direction := direction) -> float:
+	return move_toward(value, max_speed * signf(override_direction), acceleration * delta)
 
 # apply_deceleration returns the next value after deceleration is applied.
 # @pure

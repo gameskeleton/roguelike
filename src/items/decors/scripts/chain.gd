@@ -76,6 +76,7 @@ func _create_chain():
 		var chain_link_collision_shape := CollisionShape2D.new()
 		#
 		pin_joint.bias = 0.0
+		pin_joint.visible = false
 		pin_joint.softness = 0.0
 		pin_joint.position = Vector2(0, chain_link_size.y * i)
 		pin_joint.disable_collision = true

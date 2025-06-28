@@ -36,7 +36,7 @@ var last_damage_instigator: Node
 # _process reduces the invincibility delay.
 # @impure
 func _process(delta: float):
-	invincibility_delay = max(0.0, invincibility_delay - delta)
+	invincibility_delay = maxf(0.0, invincibility_delay - delta)
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure

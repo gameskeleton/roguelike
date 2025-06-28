@@ -66,4 +66,4 @@ func _disable_hitbox():
 func _on_attack_detector_area_entered(area: Area2D):
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
-		player_node.attack_system.call_deferred("attack", target_node, player_node.ATTACK_DAMAGE, RkLifePointsSystem.DmgType.physical)
+		player_node.attack_system.attack.call_deferred(target_node, player_node.ATTACK_DAMAGE, RkLifePointsSystem.DmgType.physical)
