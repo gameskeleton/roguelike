@@ -32,6 +32,7 @@ func process_state(delta: float):
 	if player_node.get_animation_played_ratio() > 0.8:
 		if player_node.input_jump.is_pressed() and player_node.input_down.is_down() and player_node.is_on_floor_one_way():
 			player_node.input_jump.consume()
+			player_node.input_down.consume()
 			player_node.handle_drop_through_one_way()
 			return player_node.fsm.state_nodes.fall
 		if player_node.input_jump.is_pressed() and player_node.is_on_floor() and player_node.is_able_to_jump() and player_node.is_able_to_uncrouch():
@@ -39,6 +40,7 @@ func process_state(delta: float):
 			return player_node.fsm.state_nodes.jump
 	if player_node.is_animation_finished():
 		if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch():
+			player_node.input_down.consume()
 			return player_node.fsm.state_nodes.stand
 		return player_node.fsm.state_nodes.crouch
 
