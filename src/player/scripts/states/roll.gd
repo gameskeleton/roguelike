@@ -13,7 +13,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	if not player_node.crouched:
 		player_node.crouch()
-	player_node.roll(player_node.direction * player_node.ROLL_STRENGTH)
+	player_node.dash(player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
 	player_node.play_sound_effect(roll_audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_detector_active(true)
@@ -45,7 +45,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.crouch
 
 func finish_state():
-	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
+	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
 		player_node.uncrouch()
 	player_node.sprite.offset = _sprite_initial_offset
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale

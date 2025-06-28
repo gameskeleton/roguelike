@@ -21,4 +21,4 @@ func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: No
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	var life_points_system := RkLifePointsSystem.find_system_node(body)
 	if life_points_system:
-		life_points_system.take_damage(4.0, RkLifePointsSystem.DmgType.physical)
+		life_points_system.take_damage(3.0, RkLifePointsSystem.DmgType.physical)

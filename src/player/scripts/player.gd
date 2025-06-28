@@ -158,7 +158,7 @@ func process(delta: float):
 	process_velocity(delta)
 	process_timeouts(delta)
 	fsm.process_state_machine(delta)
-	animation_player.advance(delta)
+	if animation_player.is_playing(): animation_player.advance(delta)
 
 # process_input updates player inputs.
 # @impure
@@ -200,15 +200,15 @@ func die():
 func hit():
 	fsm.set_state_node(fsm.state_nodes.hit)
 
+# dash sets the velocity to the given value scaled by the direction.
+# @impure
+func dash(slide_velocity: float):
+	velocity.x = slide_velocity * direction
+
 # jump applies an impulse to y-velocity.
 # @impure
 func jump(strength: float):
 	velocity.y = strength
-
-# roll applies an impulse to x-velocity.
-# @impure
-func roll(strength: float):
-	velocity.x = strength
 
 # crouch reduces the collider height to crouch size and makes the player crouch.
 # @impure
@@ -232,6 +232,7 @@ func set_direction(new_direction: float):
 	direction = new_direction
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
+	slide_detector.scale.x = new_direction
 	attack_detector.scale.x = new_direction
 	push_wall_roll_detector.scale.x = new_direction
 	wall_hang_down_detector.scale.x = new_direction
@@ -272,11 +273,6 @@ func handle_airborne_move(delta: float, max_speed: float, acceleration: float, d
 # @impure
 func handle_deceleration_move(delta: float, deceleration: float):
 	velocity.x = apply_deceleration(delta, velocity.x, deceleration)
-
-# handle_directional_slide_move sets the velocity to the given value scaled by the direction.
-# @impure
-func handle_directional_slide_move(slide_velocity: float):
-	velocity.x = slide_velocity * direction
 
 # handle_drop_through_one_way positions the player a little down to make it drop through one ways.
 # @impure
@@ -529,10 +525,5 @@ func _on_level_level_up(_new_level: int):
 # @signal
 # @impure
 func _on_life_points_damage_taken(_damage_taken: float, _source: Node, _instigator: Node):
-	if life_points_system.has_lethal_damage():
-		if dead:
-			return
-		die.call_deferred()
-		return
-	hit.call_deferred()
-	return
+	if not dead:
+		(die if life_points_system.has_lethal_damage() else hit).call_deferred()

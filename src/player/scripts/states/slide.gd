@@ -20,8 +20,8 @@ func start_state():
 
 func process_state(delta: float):
 	_offset = clampf(_offset + delta, 0.0, slide_curve.max_domain)
+	player_node.dash(player_node.SLIDE_MAX_SPEED * slide_curve.sample_baked(_offset))
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_directional_slide_move(player_node.SLIDE_MAX_SPEED * slide_curve.sample_baked(_offset))
 	if player_node.is_on_wall() and _offset < 0.4 * slide_curve.max_domain:
 		return player_node.fsm.state_nodes.bump_into_wall
 	if not player_node.is_on_floor():
@@ -40,7 +40,7 @@ func process_state(delta: float):
 				return player_node.fsm.state_nodes.crouch
 
 func finish_state():
-	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
+	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
 		player_node.uncrouch()
 	player_node.set_slide_detector_active(false)
 

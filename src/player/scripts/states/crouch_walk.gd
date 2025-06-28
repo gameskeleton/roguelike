@@ -44,7 +44,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.crouch
 
 func finish_state():
-	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch]):
+	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch]):
 		player_node.uncrouch()
 	player_node.set_crouch_detector_active(false)
 	player_node.set_one_way_detector_active(false)

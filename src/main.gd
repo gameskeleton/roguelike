@@ -35,7 +35,7 @@ func _ready():
 		tween.tween_property($CanvasModulate, "color", Color8(0, 0, 0), 1.0)
 		tween.parallel().tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.0)
 		tween.parallel().tween_callback($DeathAudioStreamPlayer.play).set_delay(0.1)
-		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(5.0)
+		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(0.5)
 	)
 	# setup level up animation
 	player_node.level_system.level_up.connect(func(_level: int):
