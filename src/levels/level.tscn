@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dhxqyuajsocl7"]
+[gd_scene load_steps=9 format=4 uid="uid://dhxqyuajsocl7"]
 
 [ext_resource type="Script" uid="uid://bkpy1kpi3wgiu" path="res://src/levels/scripts/level.gd" id="1_ub47v"]
 [ext_resource type="TileSet" uid="uid://lth6na7avtvk" path="res://src/levels/tileset.tres" id="2_aeuny"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/items/decors/chain.tscn" id="5_dv8wo"]
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/items/decors/crate.tscn" id="6_2tyx5"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/items/decors/candle.tscn" id="7_dv8wo"]
+[ext_resource type="PackedScene" uid="uid://berv51qihfk8t" path="res://src/items/enemies/zombie/zombie.tscn" id="8_2tyx5"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_ub47v")
@@ -112,3 +113,6 @@ position = Vector2(720, 80)
 
 [node name="Barrel12" parent="." instance=ExtResource("3_aeuny")]
 position = Vector2(704, 80)
+
+[node name="Zombie" parent="." instance=ExtResource("8_2tyx5")]
+position = Vector2(272, 176)

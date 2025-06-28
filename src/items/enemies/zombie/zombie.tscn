@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://berv51qihfk8t"]
+
+[ext_resource type="Script" uid="uid://b5d6px5i1khr" path="res://src/items/enemies/zombie/scripts/zombie.gd" id="1_6kla0"]
+[ext_resource type="Script" uid="uid://c7ksdj8ywvemg" path="res://src/systems/scripts/life_points.gd" id="1_yfgva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfgva"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kla0"]
+size = Vector2(16, 24)
+
+[node name="Zombie" type="CharacterBody2D"]
+collision_layer = 64
+script = ExtResource("1_6kla0")
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" type="Node" parent="Systems"]
+script = ExtResource("1_yfgva")
+metadata/_custom_type_script = "uid://c7ksdj8ywvemg"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 8.0
+color = Color(1, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_yfgva")
+
+[node name="AttackDetector" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 64
+collision_mask = 136
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_6kla0")
+metadata/_edit_lock_ = true
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_6kla0")
+metadata/_edit_lock_ = true
+
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

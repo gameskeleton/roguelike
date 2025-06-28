@@ -70,7 +70,7 @@ func set_invincibility_delay(delay: float):
 
 # is_damage_type returns true if the given individual_damage_type is included in the given damage_type.
 # @pure
-static func is_damage_type(damage_type: DmgType, individual_damage_type: DmgType):
+static func is_damage_type(damage_type: DmgType, individual_damage_type: DmgType) -> bool:
 	return damage_type & individual_damage_type == individual_damage_type
 
 # find_system_node returns the life points system in the given node, or null if not found.
