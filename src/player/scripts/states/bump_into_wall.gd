@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-enum State { fall, hit_floor, get_up }
+enum State { fall, hit_floor, to_stand, to_crouch }
 
 @export_group("Nodes")
 @export var bump_audio_stream_player: AudioStreamPlayer
@@ -27,14 +27,20 @@ func process_state(delta: float):
 				player_node.play_animation("bump_into_wall_hit_floor")
 		State.hit_floor:
 			if player_node.is_stopped() and player_node.is_animation_finished():
-				_state = State.get_up
-				if player_node.is_able_to_uncrouch():
-					player_node.play_animation("get_up")
+				if player_node.is_able_to_uncrouch() and not (player_node.input_down.is_down() and player_node.is_able_to_crouch()):
+					_state = State.to_stand
+					player_node.play_animation("bump_into_wall_to_stand")
 					player_node.animation_player.speed_scale = 1.2
-		State.get_up:
+				else:
+					_state = State.to_crouch
+					player_node.play_animation("bump_into_wall_to_crouch")
+					player_node.animation_player.speed_scale = 1.2
+		State.to_stand:
 			if player_node.is_stopped() and player_node.is_animation_finished():
-				if player_node.is_able_to_uncrouch():
-					return player_node.fsm.state_nodes.stand
+				assert(player_node.is_able_to_uncrouch())
+				return player_node.fsm.state_nodes.stand
+		State.to_crouch:
+			if player_node.is_stopped() and player_node.is_animation_finished():
 				return player_node.fsm.state_nodes.crouch
 
 func finish_state():

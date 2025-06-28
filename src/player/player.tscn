@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=102 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" uid="uid://sxecentfet3b" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -704,46 +704,6 @@ tracks/2/keys = {
 "values": [3]
 }
 
-[sub_resource type="Animation" id="Animation_fggvj"]
-resource_name = "get_up"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("40_wryqc")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-
 [sub_resource type="Animation" id="Animation_2epva"]
 resource_name = "hit"
 length = 0.35
@@ -1351,6 +1311,86 @@ tracks/2/keys = {
 "values": [3]
 }
 
+[sub_resource type="Animation" id="Animation_fggvj"]
+resource_name = "bump_into_wall_to_stand"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("40_wryqc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_3uvft"]
+resource_name = "bump_into_wall_to_crouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("40_wryqc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4g2l"]
 _data = {
 &"RESET": SubResource("Animation_11iq3"),
@@ -1358,6 +1398,8 @@ _data = {
 &"attack_02": SubResource("Animation_0dkd4"),
 &"bump_into_wall_fall": SubResource("Animation_bkav5"),
 &"bump_into_wall_hit_floor": SubResource("Animation_g0oe8"),
+&"bump_into_wall_to_crouch": SubResource("Animation_3uvft"),
+&"bump_into_wall_to_stand": SubResource("Animation_fggvj"),
 &"crouch": SubResource("Animation_fcv8u"),
 &"crouch_to_slide": SubResource("Animation_2rxss"),
 &"crouch_to_stand": SubResource("Animation_b77xs"),
@@ -1366,7 +1408,6 @@ _data = {
 &"death_fall": SubResource("Animation_wnvtc"),
 &"death_hit_floor": SubResource("Animation_dkk0k"),
 &"fall": SubResource("Animation_ginsg"),
-&"get_up": SubResource("Animation_fggvj"),
 &"hit": SubResource("Animation_2epva"),
 &"jump": SubResource("Animation_roadd"),
 &"jump_to_fall": SubResource("Animation_bqla8"),
