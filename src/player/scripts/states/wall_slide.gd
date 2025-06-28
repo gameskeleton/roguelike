@@ -21,11 +21,11 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.jump
 
 func finish_state():
-	if player_node.fsm.next_state_node == player_node.fsm.state_nodes.fall:
+	if player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.fall]):
 		player_node.set_direction(-player_node.direction)
-	if player_node.fsm.next_state_node == player_node.fsm.state_nodes.jump:
+	if player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.jump]):
 		player_node.set_direction(-player_node.direction)
-	if player_node.fsm.next_state_node == player_node.fsm.state_nodes.stand and player_node.input_velocity.x == 0:
+	if player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.stand]) and player_node.input_velocity.x == 0:
 		player_node.set_direction(-player_node.direction)
 	player_node.set_wall_hang_detector_active(false)
 	player_node.set_wall_slide_raycast_active(false)

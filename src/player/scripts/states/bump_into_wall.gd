@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-enum State { fall, hit_floor, to_stand, to_crouch }
+enum State {fall, hit_floor, to_stand, to_crouch}
 
 @export_group("Nodes")
 @export var bump_audio_stream_player: AudioStreamPlayer
@@ -44,7 +44,7 @@ func process_state(delta: float):
 				return player_node.fsm.state_nodes.crouch
 
 func finish_state():
-	if player_node.fsm.next_state_node != player_node.fsm.state_nodes.crouch:
+	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.crouch]):
 		player_node.uncrouch()
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_crouch_detector_active(false)

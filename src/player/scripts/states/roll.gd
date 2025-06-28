@@ -45,7 +45,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.crouch
 
 func finish_state():
-	if player_node.fsm.next_state_node != player_node.fsm.state_nodes.crouch and player_node.fsm.next_state_node != player_node.fsm.state_nodes.bump_into_wall:
+	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
 		player_node.uncrouch()
 	player_node.sprite.offset = _sprite_initial_offset
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale

@@ -6,7 +6,7 @@ func start_state():
 	player_node.play_animation("jump_to_fall")
 	player_node.set_wall_hang_detector_active(true)
 	player_node.set_wall_slide_raycast_active(true)
-	_coyote_time = player_node.COYOTE_TIME if player_node.fsm.prev_state_node == player_node.fsm.state_nodes.walk else 0.0
+	_coyote_time = player_node.COYOTE_TIME if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.walk]) else 0.0
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
