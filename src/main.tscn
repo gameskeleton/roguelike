@@ -79,11 +79,11 @@ process_mode = 3
 script = ExtResource("1_7kkph")
 level_node = NodePath("Game/Level")
 player_node = NodePath("Game/Player")
-player_camera_node = NodePath("Game/Player/Slot/Camera2D")
+player_camera_node = NodePath("Game/Player/Camera2D")
 object_spawner_node = NodePath("Game/ObjectSpawner")
-level_up_label = NodePath("Game/Player/Slot/LevelUpToast/LevelUpLabel")
-level_up_animation_player = NodePath("Game/Player/Slot/LevelUpToast/AnimationPlayer")
-level_up_audio_stream_player = NodePath("Game/Player/Slot/LevelUpToast/AudioStreamPlayer")
+level_up_label = NodePath("Game/Player/LevelUpToast/LevelUpLabel")
+level_up_animation_player = NodePath("Game/Player/LevelUpToast/AnimationPlayer")
+level_up_audio_stream_player = NodePath("Game/Player/LevelUpToast/AudioStreamPlayer")
 metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
@@ -97,7 +97,7 @@ process_mode = 1
 position = Vector2(456, 256)
 level_node = NodePath("../Level")
 
-[node name="Camera2D" type="Camera2D" parent="Game/Player/Slot" index="0"]
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
 process_mode = 3
 process_callback = 0
 limit_left = 0
@@ -111,7 +111,7 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_screen = false
 
-[node name="TorchLight2D" type="PointLight2D" parent="Game/Player/Slot" index="1"]
+[node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
 position = Vector2(0, -16)
 color = Color(1, 0.27451, 0, 1)
 shadow_enabled = true
@@ -120,7 +120,7 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="PlayerLight2D" type="PointLight2D" parent="Game/Player/Slot" index="2"]
+[node name="PlayerLight2D" type="PointLight2D" parent="Game/Player"]
 position = Vector2(0, -16)
 energy = 0.5
 range_item_cull_mask = 2
@@ -130,7 +130,7 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="LevelUpToast" type="Control" parent="Game/Player/Slot" index="3"]
+[node name="LevelUpToast" type="Control" parent="Game/Player"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -139,7 +139,7 @@ offset_top = -73.0
 offset_right = 48.0
 offset_bottom = -49.0
 
-[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player/Slot/LevelUpToast"]
+[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player/LevelUpToast"]
 z_index = 1
 material = ExtResource("6_41hv6")
 layout_mode = 1
@@ -156,13 +156,13 @@ autowrap_mode = 0
 custom_effects = [SubResource("RichTextEffect_jfkim"), SubResource("RichTextEffect_n4utg")]
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/Slot/LevelUpToast"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpToast"]
 root_node = NodePath("../LevelUpLabel")
 libraries = {
 &"": SubResource("AnimationLibrary_gcljl")
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/Slot/LevelUpToast"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpToast"]
 stream = ExtResource("6_yr51s")
 volume_db = 10.0
 bus = &"SFX"
@@ -183,5 +183,3 @@ bus = &"Music"
 stream = ExtResource("14_pabrm")
 volume_db = -10.0
 bus = &"Music"
-
-[editable path="Game/Player"]
