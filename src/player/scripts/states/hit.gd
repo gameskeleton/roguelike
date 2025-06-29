@@ -17,6 +17,7 @@ func start_state():
 		player_node.play_animation("hit_stand")
 	_play_hit_effect()
 	_apply_impulse_in_damage_direction()
+	player_node.play_sound_effect(hit_audio_stream_player)
 	player_node.life_points_system.invincible += 1
 
 func process_state(delta: float):
