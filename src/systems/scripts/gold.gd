@@ -31,5 +31,5 @@ func try_consume(amount: float) -> bool:
 static func find_system_node(node: Node) -> RkGoldSystem:
 	var system := node.get_node_or_null("Systems/Gold")
 	if system is RkGoldSystem:
-		return system
+		return system as RkGoldSystem
 	return null

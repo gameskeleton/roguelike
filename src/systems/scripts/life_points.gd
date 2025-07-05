@@ -78,5 +78,5 @@ static func is_damage_type(damage_type: DmgType, individual_damage_type: DmgType
 static func find_system_node(node: Node) -> RkLifePointsSystem:
 	var system := node.get_node_or_null("Systems/LifePoints")
 	if system is RkLifePointsSystem:
-		return system
+		return system as RkLifePointsSystem
 	return null

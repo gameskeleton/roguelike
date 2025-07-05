@@ -237,8 +237,8 @@ func set_direction(new_direction: float):
 	wall_hang_down_detector.scale.x = new_direction
 	wall_climb_stand_detector.scale.x = new_direction
 	wall_climb_crouch_detector.scale.x = new_direction
-	wall_slide_side_raycast.target_position.x = abs(wall_slide_side_raycast.target_position.x) * new_direction
-	wall_slide_down_side_raycast.target_position.x = abs(wall_slide_down_side_raycast.target_position.x) * new_direction
+	wall_slide_side_raycast.target_position.x = absf(wall_slide_side_raycast.target_position.x) * new_direction
+	wall_slide_down_side_raycast.target_position.x = absf(wall_slide_down_side_raycast.target_position.x) * new_direction
 
 # handle_gravity applies gravity to the velocity.
 # @impure

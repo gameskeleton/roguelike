@@ -9,7 +9,7 @@ var experience := 0
 
 var experience_required_to_level_up: int :
 	get:
-		return int(round(pow((level.value + 1), 1.8) + (level.value + 1) * 4.0))
+		return roundi(pow((level.value + 1), 1.8) + (level.value + 1) * 4.0)
 
 # @impure
 func _init(start_level := 0, start_experience := 0):
@@ -44,5 +44,5 @@ func earn_experience(amount_exp: int):
 static func find_system_node(node: Node) -> RkLevelSystem:
 	var system := node.get_node_or_null("Systems/Level")
 	if system is RkLevelSystem:
-		return system
+		return system as RkLevelSystem
 	return null

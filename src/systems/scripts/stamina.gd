@@ -41,5 +41,5 @@ func try_consume(amount: float) -> bool:
 static func find_system_node(node: Node) -> RkStaminaSystem:
 	var system := node.get_node_or_null("Systems/Stamina")
 	if system is RkStaminaSystem:
-		return system
+		return system as RkStaminaSystem
 	return null

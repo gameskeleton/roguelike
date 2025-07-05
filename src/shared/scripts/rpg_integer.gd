@@ -6,7 +6,7 @@ var value := 0:
 var min_value := 0
 var max_value := 0
 
-var ratio:
+var ratio: float:
 	get: return float(value) / float(max_value)
 
 # @impure

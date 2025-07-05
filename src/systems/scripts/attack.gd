@@ -45,5 +45,5 @@ func attack(target: RkLifePointsSystem, damage: float, damage_type: RkLifePoints
 static func find_system_node(node: Node) -> RkAttackSystem:
 	var system := node.get_node_or_null("Systems/Attack")
 	if system is RkAttackSystem:
-		return system
+		return system as RkAttackSystem
 	return null
