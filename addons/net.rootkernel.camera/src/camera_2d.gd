@@ -28,6 +28,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 # Camera
 ##
 
+var _target_bounds: Rect2
 var _camera_region: RkCameraRegion2D
 var _camera_regions: Array[RkCameraRegion2D] = []
 
@@ -48,7 +49,7 @@ func _ready() -> void:
 	position = target_node.global_position
 	reset_smoothing.call_deferred()
 
-func _physics_process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	position = target_node.global_position
 	for smart_region in _camera_regions:
 		if smart_region == _camera_region:
@@ -58,10 +59,19 @@ func _physics_process(_delta: float) -> void:
 			_camera_region = smart_region
 			enable_camera_region(_camera_region)
 			return
+	if not _target_bounds:
+		return
+	limit_top = ceili(move_toward(limit_top, _target_bounds.position.y, 600.0 * delta))
+	limit_left = ceili(move_toward(limit_left, _target_bounds.position.x, 600.0 * delta))
+	limit_right = ceili(move_toward(limit_right, _target_bounds.position.x + _target_bounds.size.x, 600.0 * delta))
+	limit_bottom = ceili(move_toward(limit_bottom, _target_bounds.position.y + _target_bounds.size.y, 600.0 * delta))
 
 func enable_camera_region(camera_region: RkCameraRegion2D) -> void:
 	var bounds := camera_region.get_bounds()
-	limit_top = ceili(bounds.position.y)
-	limit_left = ceili(bounds.position.x)
-	limit_right = ceili(bounds.position.x + bounds.size.x)
-	limit_bottom = ceili(bounds.position.y + bounds.size.y)
+	if not _target_bounds:
+		limit_top = ceili(bounds.position.y)
+		limit_left = ceili(bounds.position.x)
+		limit_right = ceili(bounds.position.x + bounds.size.x)
+		limit_bottom = ceili(bounds.position.y + bounds.size.y)
+		reset_smoothing.call_deferred()
+	_target_bounds = bounds
