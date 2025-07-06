@@ -3,7 +3,7 @@ extends Node2D
 class_name RkLevel
 
 const TILE_SIZE := Vector2i(16, 16)
-const WALL_CORNER_ATLAS_COORDS := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(0, 3), Vector2i(2, 3)]
+const CORNER_CUSTOM_DATA_LAYER_NAME := &"Corner"
 
 @export_group("Nodes")
 @export var wall_tile_map_layer: TileMapLayer
@@ -12,8 +12,8 @@ const WALL_CORNER_ATLAS_COORDS := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0
 # has_corner_tile returns true if there is a corner tile at the given position.
 # @pure
 func has_corner_tile(pos: Vector2) -> bool:
-	var atlas_coords := wall_tile_map_layer.get_cell_atlas_coords(wall_tile_map_layer.local_to_map(pos))
-	return WALL_CORNER_ATLAS_COORDS.has(atlas_coords)
+	var data := wall_tile_map_layer.get_cell_tile_data(wall_tile_map_layer.local_to_map(pos))
+	return data and data.get_custom_data(CORNER_CUSTOM_DATA_LAYER_NAME) == true
 
 # get_corner_tile_pos returns the top-center position of the corner tile.
 # note: calling this when has_corner_tile of the given position is false will yield incorrect results.
