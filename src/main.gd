@@ -6,7 +6,6 @@ enum State {game, pause, level_up, game_over}
 @export_group("Nodes")
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
-@export var player_camera_node: Camera2D
 @export var object_spawner_node: RkObjectSpawner
 
 @export var level_up_label: RichTextLabel
@@ -44,13 +43,6 @@ func _ready():
 			level_up_animation_player.play("level_up!")
 		level_up_audio_stream_player.play()
 	)
-	# restrict player's camera to level bounds
-	var bounds := level_node.get_wall_bbox()
-	player_camera_node.limit_top = ceili(bounds.position.y)
-	player_camera_node.limit_left = ceili(bounds.position.x)
-	player_camera_node.limit_right = ceili(bounds.position.x + bounds.size.x)
-	player_camera_node.limit_bottom = ceili(bounds.position.y + bounds.size.y)
-	player_camera_node.reset_smoothing()
 
 # @impure
 func _process(delta: float):

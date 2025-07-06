@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=18 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" uid="uid://dst7pyir2s0uo" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="6_41hv6"]
 [ext_resource type="AudioStream" uid="uid://d37betoj5ty53" path="res://src/player/sounds/level_up.wav" id="6_yr51s"]
 [ext_resource type="PackedScene" uid="uid://btx7apvwpa523" path="res://src/shared/object_spawner.tscn" id="8_o2dbi"]
+[ext_resource type="Script" uid="uid://tkxcqhvo0nde" path="res://addons/net.rootkernel.camera/src/camera_2d.gd" id="9_kqbth"]
 [ext_resource type="Script" uid="uid://0t28ien32pa3" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
 [ext_resource type="Script" uid="uid://dhredeafxscgf" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
@@ -74,12 +75,11 @@ _data = {
 &"level_up!": SubResource("Animation_jiokg")
 }
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("level_node", "player_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
 process_mode = 3
 script = ExtResource("1_7kkph")
 level_node = NodePath("Game/Level")
 player_node = NodePath("Game/Player")
-player_camera_node = NodePath("Game/Player/Camera2D")
 object_spawner_node = NodePath("Game/ObjectSpawner")
 level_up_label = NodePath("Game/Player/LevelUpToast/LevelUpLabel")
 level_up_animation_player = NodePath("Game/Player/LevelUpToast/AnimationPlayer")
@@ -96,20 +96,6 @@ process_mode = 1
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
 position = Vector2(456, 256)
 level_node = NodePath("../Level")
-
-[node name="Camera2D" type="Camera2D" parent="Game/Player"]
-process_mode = 3
-process_callback = 0
-limit_left = 0
-limit_top = 0
-limit_right = 512
-limit_bottom = 288
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-editor_draw_screen = false
 
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
 position = Vector2(0, -16)
@@ -166,6 +152,16 @@ libraries = {
 stream = ExtResource("6_yr51s")
 volume_db = 10.0
 bus = &"SFX"
+
+[node name="Camera2D" type="Camera2D" parent="Game" node_paths=PackedStringArray("target_node")]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("9_kqbth")
+target_node = NodePath("../Player")
+metadata/_custom_type_script = "uid://tkxcqhvo0nde"
 
 [node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../Level")
