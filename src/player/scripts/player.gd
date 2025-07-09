@@ -144,6 +144,8 @@ func _ready():
 	# resplenish system values.
 	stamina_system.stamina.resplenish()
 	life_points_system.life_points.resplenish()
+	# make sure the collision's are safe.
+	handle_safe_margin_after_teleport()
 
 # _physics_process is called every physics tick and updates the player state.
 # @impure
@@ -277,6 +279,12 @@ func handle_deceleration_move(delta: float, deceleration: float):
 # @impure
 func handle_drop_through_one_way():
 	position.y += ONE_WAY_MARGIN
+
+# handle_safe_margin_after_teleport applies a small y velocity after a teleport.
+# this is to make sure the player's collision boxes are not touching a solid collider.
+# @impure
+func handle_safe_margin_after_teleport():
+	velocity.y -= safe_margin
 
 ###
 # Maths utils

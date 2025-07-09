@@ -24,6 +24,7 @@ func process_state(_delta: float):
 	player_node.position = _initial_position + player_node.root_motion * Vector2(player_node.direction, 1.0)
 	if player_node.is_animation_finished():
 		player_node.position = player_node.fsm.state_nodes.wall_hang.corner_pos + Vector2(0.0, -8.0)
+		player_node.handle_safe_margin_after_teleport()
 		if _can_climb_stand:
 			return player_node.fsm.state_nodes.stand
 		else:
