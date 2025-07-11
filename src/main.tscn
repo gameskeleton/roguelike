@@ -94,7 +94,7 @@ process_mode = 1
 [node name="Level" parent="Game" instance=ExtResource("4_poqhe")]
 
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
-position = Vector2(456, 256)
+position = Vector2(200, 160)
 level_node = NodePath("../Level")
 
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
@@ -154,6 +154,7 @@ volume_db = 10.0
 bus = &"SFX"
 
 [node name="Camera2D" type="Camera2D" parent="Game" node_paths=PackedStringArray("target_node")]
+position = Vector2(200, 160)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -162,6 +163,7 @@ drag_vertical_enabled = true
 script = ExtResource("9_kqbth")
 target_node = NodePath("../Player")
 metadata/_custom_type_script = "uid://tkxcqhvo0nde"
+metadata/_edit_lock_ = true
 
 [node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../Level")
