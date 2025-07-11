@@ -94,7 +94,7 @@ process_mode = 1
 [node name="Level" parent="Game" instance=ExtResource("4_poqhe")]
 
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
-position = Vector2(200, 160)
+position = Vector2(160, 256)
 level_node = NodePath("../Level")
 
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
@@ -154,7 +154,7 @@ volume_db = 10.0
 bus = &"SFX"
 
 [node name="Camera2D" type="Camera2D" parent="Game" node_paths=PackedStringArray("target_node")]
-position = Vector2(200, 160)
+position = Vector2(160, 256)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0

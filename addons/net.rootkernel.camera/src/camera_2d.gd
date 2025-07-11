@@ -3,6 +3,7 @@
 extends Camera2D
 class_name RkCamera2D
 
+const CAMERA_TRANSITION_SPEED := 400.0
 const CAMERA_REGION_GROUP_NAME := &"rk_camera_region_2d"
 
 @export var target_node: Node2D:
@@ -61,13 +62,18 @@ func _process(delta: float) -> void:
 			return
 	if not _target_bounds:
 		return
-	limit_top = ceili(move_toward(limit_top, _target_bounds.position.y, 600.0 * delta))
-	limit_left = ceili(move_toward(limit_left, _target_bounds.position.x, 600.0 * delta))
-	limit_right = ceili(move_toward(limit_right, _target_bounds.position.x + _target_bounds.size.x, 600.0 * delta))
-	limit_bottom = ceili(move_toward(limit_bottom, _target_bounds.position.y + _target_bounds.size.y, 600.0 * delta))
+	limit_top = ceili(move_toward(limit_top, _target_bounds.position.y, CAMERA_TRANSITION_SPEED * delta))
+	limit_left = ceili(move_toward(limit_left, _target_bounds.position.x, CAMERA_TRANSITION_SPEED * delta))
+	limit_right = ceili(move_toward(limit_right, _target_bounds.position.x + _target_bounds.size.x, CAMERA_TRANSITION_SPEED * delta))
+	limit_bottom = ceili(move_toward(limit_bottom, _target_bounds.position.y + _target_bounds.size.y, CAMERA_TRANSITION_SPEED * delta))
 
 func enable_camera_region(camera_region: RkCameraRegion2D) -> void:
 	var bounds := camera_region.get_bounds()
+	var viewport_size := Vector2(
+		ProjectSettings.get(&"display/window/size/viewport_width"),
+		ProjectSettings.get(&"display/window/size/viewport_height"),
+	)
+	bounds = bounds.merge(Rect2(bounds.position, viewport_size))
 	if not _target_bounds:
 		limit_top = ceili(bounds.position.y)
 		limit_left = ceili(bounds.position.x)
