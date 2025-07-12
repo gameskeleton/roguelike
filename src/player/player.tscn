@@ -1442,7 +1442,7 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "crouch_detector", "one_way_detector", "push_wall_roll_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "crouch_detector", "one_way_detector", "roll_under_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1457,7 +1457,7 @@ slide_detector = NodePath("SlideDetector")
 attack_detector = NodePath("AttackDetector")
 crouch_detector = NodePath("CrouchDetector")
 one_way_detector = NodePath("OneWayDetector")
-push_wall_roll_detector = NodePath("PushWallRollDetector")
+roll_under_detector = NodePath("RollUnderDetector")
 wall_hang_down_detector = NodePath("WallHangDownDetector")
 wall_climb_stand_detector = NodePath("WallClimbStandDetector")
 wall_climb_crouch_detector = NodePath("WallClimbCrouchDetector")
@@ -1724,13 +1724,13 @@ monitorable = false
 shape = SubResource("RectangleShape2D_7g7q4")
 debug_color = Color(0.701961, 0.647059, 0, 0.419608)
 
-[node name="PushWallRollDetector" type="Area2D" parent="."]
+[node name="RollUnderDetector" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PushWallRollDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RollUnderDetector"]
 position = Vector2(14, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)

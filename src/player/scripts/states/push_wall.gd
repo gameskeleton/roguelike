@@ -3,7 +3,7 @@ extends RkStateMachineState
 func start_state():
 	player_node.play_animation("push_wall")
 	player_node.set_one_way_detector_active(true)
-	player_node.set_push_wall_roll_detector_active(true)
+	player_node.set_roll_under_detector_active(true)
 	if (player_node.direction < 0.0 and not player_node.is_on_wall_passive(-1.0)) or (player_node.direction > 0.0 and not player_node.is_on_wall_passive(+1.0)):
 		return player_node.fsm.state_nodes.stand if player_node.input_velocity.x == 0.0 else player_node.fsm.state_nodes.walk
 
@@ -23,7 +23,7 @@ func process_state(delta: float):
 	if player_node.input_jump.is_pressed() and player_node.is_able_to_jump():
 		player_node.input_jump.consume()
 		return player_node.fsm.state_nodes.jump
-	if player_node.input_roll.is_pressed() and player_node.is_able_to_roll_when_pushing_wall():
+	if player_node.input_roll.is_pressed() and player_node.is_able_to_roll_under():
 		player_node.input_roll.consume()
 		return player_node.fsm.state_nodes.roll
 	if player_node.input_velocity.x == 0.0:
@@ -33,4 +33,4 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.set_one_way_detector_active(false)
-	player_node.set_push_wall_roll_detector_active(true)
+	player_node.set_roll_under_detector_active(false)

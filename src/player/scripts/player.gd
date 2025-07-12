@@ -71,7 +71,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var attack_detector: Area2D
 @export var crouch_detector: Area2D
 @export var one_way_detector: Area2D
-@export var push_wall_roll_detector: Area2D
+@export var roll_under_detector: Area2D
 @export var wall_hang_down_detector: Node2D
 @export var wall_climb_stand_detector: Area2D
 @export var wall_climb_crouch_detector: Area2D
@@ -235,7 +235,7 @@ func set_direction(new_direction: float):
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
 	slide_detector.scale.x = new_direction
 	attack_detector.scale.x = new_direction
-	push_wall_roll_detector.scale.x = new_direction
+	roll_under_detector.scale.x = new_direction
 	wall_hang_down_detector.scale.x = new_direction
 	wall_climb_stand_detector.scale.x = new_direction
 	wall_climb_crouch_detector.scale.x = new_direction
@@ -407,10 +407,10 @@ func is_able_to_wall_climb() -> bool:
 func is_able_to_wall_slide() -> bool:
 	return is_on_wall() and wall_slide_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()
 
-# is_able_to_roll_when_pushing_wall returns true if the player is able to roll under a crouchable section if standing next to a wall.
+# is_able_to_roll_under returns true if the player is able to roll under a crouchable section if standing next to a wall.
 # @pure
-func is_able_to_roll_when_pushing_wall() -> bool:
-	return is_able_to_roll() and not push_wall_roll_detector.has_overlapping_bodies()
+func is_able_to_roll_under() -> bool:
+	return is_able_to_roll() and not roll_under_detector.has_overlapping_bodies()
 
 ###
 # Sound
@@ -512,11 +512,11 @@ func set_wall_slide_raycast_active(active: bool):
 	wall_slide_side_raycast.enabled = active
 	wall_slide_down_side_raycast.enabled = active
 
-# set_push_wall_roll_detector_active activates or deactivates the monitoring for safely rolling under a crouchable section.
+# set_roll_under_detector_active activates or deactivates the monitoring for safely rolling under a crouchable section.
 # @impure
-func set_push_wall_roll_detector_active(active: bool):
-	push_wall_roll_detector.monitoring = active
-	push_wall_roll_detector.monitorable = active
+func set_roll_under_detector_active(active: bool):
+	roll_under_detector.monitoring = active
+	roll_under_detector.monitorable = active
 
 ###
 # Signals
