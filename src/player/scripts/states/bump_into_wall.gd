@@ -25,6 +25,7 @@ func process_state(delta: float):
 			if player_node.is_on_floor() and player_node.is_animation_finished():
 				_state = State.hit_floor
 				player_node.play_animation("bump_into_wall_hit_floor")
+				player_node.handle_safe_margin_after_teleport(-1.0)
 		State.hit_floor:
 			if player_node.is_stopped() and player_node.is_animation_finished():
 				if player_node.is_able_to_uncrouch() and not (player_node.input_down.is_down() and player_node.is_able_to_crouch()):

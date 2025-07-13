@@ -283,7 +283,8 @@ func handle_drop_through_one_way():
 # handle_safe_margin_after_teleport applies a small y velocity after a teleport.
 # this is to make sure the player's collision boxes are not touching a solid collider.
 # @impure
-func handle_safe_margin_after_teleport():
+func handle_safe_margin_after_teleport(nudge_y := 0.0):
+	position.y += nudge_y
 	velocity.y -= safe_margin
 
 ###
