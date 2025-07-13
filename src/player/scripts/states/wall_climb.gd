@@ -9,8 +9,9 @@ var _initial_position := Vector2.ZERO
 var _animation_initial_speed_scale := 1.0
 
 func start_state():
-	_can_climb_stand = not player_node.wall_climb_stand_detector.has_overlapping_bodies()
-	_can_climb_crouch = not player_node.wall_climb_crouch_detector.has_overlapping_bodies()
+	# TODO: activate wall_climb_stand_detector and wall_climb_crouch_detector
+	_can_climb_stand = not player_node.wall_climb_stand_detector.is_colliding()
+	_can_climb_crouch = not player_node.wall_climb_crouch_detector.is_colliding()
 	_initial_position = player_node.position
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.root_motion = Vector2.ZERO

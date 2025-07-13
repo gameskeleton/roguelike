@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://bmxx3x47vayqd" path="res://src/player/textures/fall.png" id="7_2bcbe"]
 [ext_resource type="Script" uid="uid://c1bjrnwjd8b4p" path="res://src/player/scripts/states/skid.gd" id="7_3fko7"]
 [ext_resource type="Texture2D" uid="uid://br8ph63uuonv5" path="res://src/player/textures/jump_fall.png" id="8_hg6ir"]
-[ext_resource type="Script" uid="uid://f2v6kq143tru" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
+[ext_resource type="Script" uid="uid://bqmbxv1sryxwh" path="res://src/player/scripts/states/push_wall.gd" id="9_3cgs6"]
 [ext_resource type="AudioStream" uid="uid://cktylq1lnb64q" path="res://src/player/sounds/roll.wav" id="9_7l0y8"]
 [ext_resource type="Texture2D" uid="uid://cksyyayaxg41m" path="res://src/player/textures/death.png" id="9_a75to"]
 [ext_resource type="Script" uid="uid://dnl515miobrkn" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
@@ -1612,11 +1612,11 @@ bus = &"SFX"
 [node name="crouch" type="Node" parent="StateMachine"]
 script = ExtResource("20_8363j")
 
-[node name="wall_slide" type="Node" parent="StateMachine"]
-script = ExtResource("13_ma8tw")
-
 [node name="push_wall" type="Node" parent="StateMachine"]
 script = ExtResource("9_3cgs6")
+
+[node name="wall_slide" type="Node" parent="StateMachine"]
+script = ExtResource("13_ma8tw")
 
 [node name="wall_hang" type="Node" parent="StateMachine"]
 script = ExtResource("10_ml0y4")
@@ -1702,38 +1702,25 @@ position = Vector2(25, -18)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
-[node name="CrouchDetector" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchDetector"]
+[node name="CrouchDetector" type="ShapeCast2D" parent="."]
 position = Vector2(0, -17)
+enabled = false
 shape = SubResource("RectangleShape2D_qf2lc")
-debug_color = Color(0.129412, 0, 0.701961, 0.419608)
+target_position = Vector2(0, 0)
 
-[node name="OneWayDetector" type="Area2D" parent="."]
+[node name="OneWayDetector" type="ShapeCast2D" parent="."]
 visible = false
-collision_layer = 0
-collision_mask = 2
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayDetector"]
+enabled = false
 shape = SubResource("RectangleShape2D_7g7q4")
-debug_color = Color(0.701961, 0.647059, 0, 0.419608)
+target_position = Vector2(0, 0)
+collision_mask = 2
 
-[node name="RollUnderDetector" type="Area2D" parent="."]
+[node name="RollUnderDetector" type="ShapeCast2D" parent="."]
 visible = false
-collision_layer = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RollUnderDetector"]
 position = Vector2(14, -12)
+enabled = false
 shape = SubResource("RectangleShape2D_ttjyw")
-debug_color = Color(0.129412, 0, 0.701961, 0.419608)
+target_position = Vector2(0, 0)
 
 [node name="WallHangDownDetector" type="Node2D" parent="."]
 visible = false
@@ -1741,27 +1728,19 @@ visible = false
 [node name="Hand" type="Node2D" parent="WallHangDownDetector"]
 position = Vector2(10, -31)
 
-[node name="WallClimbStandDetector" type="Area2D" parent="."]
+[node name="WallClimbStandDetector" type="ShapeCast2D" parent="."]
 visible = false
-collision_layer = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbStandDetector"]
 position = Vector2(16, -52)
+enabled = false
 shape = SubResource("RectangleShape2D_1wnfa")
-debug_color = Color(1, 0, 0.0156863, 0.419608)
+target_position = Vector2(0, 0)
 
-[node name="WallClimbCrouchDetector" type="Area2D" parent="."]
+[node name="WallClimbCrouchDetector" type="ShapeCast2D" parent="."]
 visible = false
-collision_layer = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallClimbCrouchDetector"]
 position = Vector2(16, -47)
+enabled = false
 shape = SubResource("RectangleShape2D_ttjyw")
-debug_color = Color(0.129412, 0, 0.701961, 0.419608)
+target_position = Vector2(0, 0)
 
 [node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
 visible = false

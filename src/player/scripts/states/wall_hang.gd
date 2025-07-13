@@ -10,7 +10,7 @@ func start_state():
 		- Vector2(player_node.direction * 5.0, 6.0) \
 		- Vector2(player_node.direction * player_node.wall_hang_hand.position.x, player_node.wall_hang_hand.position.y)
 	player_node.play_animation("wall_hang")
-	player_node.set_wall_hang_detector_active(true)
+	player_node.set_wall_hang_raycast_active(true)
 	player_node.set_wall_climb_detector_active(true)
 
 func process_state(_delta: float):
@@ -29,6 +29,6 @@ func process_state(_delta: float):
 		return player_node.fsm.state_nodes.jump
 
 func finish_state():
-	player_node.set_wall_hang_detector_active(false)
+	player_node.set_wall_hang_raycast_active(false)
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.wall_climb]):
 		player_node.set_wall_climb_detector_active(false)

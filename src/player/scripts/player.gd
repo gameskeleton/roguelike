@@ -69,12 +69,12 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var roll_detector: Area2D
 @export var slide_detector: Area2D
 @export var attack_detector: Area2D
-@export var crouch_detector: Area2D
-@export var one_way_detector: Area2D
-@export var roll_under_detector: Area2D
+@export var crouch_detector: ShapeCast2D
+@export var one_way_detector: ShapeCast2D
+@export var roll_under_detector: ShapeCast2D
 @export var wall_hang_down_detector: Node2D
-@export var wall_climb_stand_detector: Area2D
-@export var wall_climb_crouch_detector: Area2D
+@export var wall_climb_stand_detector: ShapeCast2D
+@export var wall_climb_crouch_detector: ShapeCast2D
 
 @export var wall_hang_hand: Node2D
 @export var wall_hang_down_raycast: RayCast2D
@@ -235,12 +235,17 @@ func set_direction(new_direction: float):
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
 	slide_detector.scale.x = new_direction
 	attack_detector.scale.x = new_direction
-	roll_under_detector.scale.x = new_direction
+	roll_under_detector.position.x = absf(roll_under_detector.position.x) * new_direction
+	roll_under_detector.force_shapecast_update()
 	wall_hang_down_detector.scale.x = new_direction
-	wall_climb_stand_detector.scale.x = new_direction
-	wall_climb_crouch_detector.scale.x = new_direction
+	wall_climb_stand_detector.position.x = absf(wall_climb_stand_detector.position.x) * new_direction
+	wall_climb_stand_detector.force_shapecast_update()
+	wall_climb_crouch_detector.position.x = absf(wall_climb_crouch_detector.position.x) * new_direction
+	wall_climb_crouch_detector.force_shapecast_update()
 	wall_slide_side_raycast.target_position.x = absf(wall_slide_side_raycast.target_position.x) * new_direction
+	wall_slide_side_raycast.force_raycast_update()
 	wall_slide_down_side_raycast.target_position.x = absf(wall_slide_down_side_raycast.target_position.x) * new_direction
+	wall_slide_side_raycast.force_raycast_update()
 
 # handle_gravity applies gravity to the velocity.
 # @impure
@@ -334,7 +339,7 @@ func is_on_wall_passive(passive_direction := direction) -> bool:
 # note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_detector_active(true).
 # @pure
 func is_on_floor_one_way() -> bool:
-	return is_on_floor() and one_way_detector.has_overlapping_bodies()
+	return is_on_floor() and one_way_detector.is_colliding()
 
 # has_corner_tile_at_hand returns true if there is a corner tile at the wall hang hand's position.
 # note: this will only return true if the player is in a level and the wall hang hand is positioned at a corner tile.
@@ -380,7 +385,7 @@ func is_able_to_crouch() -> bool:
 # is_able_to_uncrouch returns true if the player is able to un-crouch.
 # @pure
 func is_able_to_uncrouch() -> bool:
-	return not crouch_detector.has_overlapping_bodies()
+	return not crouch_detector.is_colliding()
 
 # is_able_to_attack returns true if the player is able to attack.
 # @pure
@@ -401,7 +406,7 @@ func is_able_to_wall_hang() -> bool:
 # is_able_to_wall_climb returns true if the player can climb to the corner of the wall its currently hanging to.
 # @pure
 func is_able_to_wall_climb() -> bool:
-	return not wall_climb_stand_detector.has_overlapping_bodies() or not wall_climb_crouch_detector.has_overlapping_bodies()
+	return not wall_climb_stand_detector.is_colliding() or not wall_climb_crouch_detector.is_colliding()
 
 # is_able_to_wall_slide returns true if the player is able to slide along a wall.
 # @pure
@@ -411,7 +416,7 @@ func is_able_to_wall_slide() -> bool:
 # is_able_to_roll_under returns true if the player is able to roll under a crouchable section if standing next to a wall.
 # @pure
 func is_able_to_roll_under() -> bool:
-	return is_able_to_roll() and not roll_under_detector.has_overlapping_bodies()
+	return is_able_to_roll() and not roll_under_detector.is_colliding()
 
 ###
 # Sound
@@ -484,40 +489,44 @@ func set_attack_detector_active(active: bool):
 # set_crouch_detector_active activates or deactivates the monitoring for crouch colliders.
 # @impure
 func set_crouch_detector_active(active: bool):
-	crouch_detector.monitoring = active
-	crouch_detector.monitorable = active
+	crouch_detector.enabled = active
+	crouch_detector.force_shapecast_update()
 
 # set_one_way_detector_active activates or deactivates the monitoring for one way colliders.
 # @impure
 func set_one_way_detector_active(active: bool):
-	one_way_detector.monitoring = active
-	one_way_detector.monitorable = active
+	one_way_detector.enabled = active
+	one_way_detector.force_shapecast_update()
 
-# set_wall_hang_detector_active activates or deactivates the monitoring for hanging to a wall.
+# set_wall_hang_raycast_active activates or deactivates the monitoring for hanging to a wall.
 # @impure
-func set_wall_hang_detector_active(active: bool):
+func set_wall_hang_raycast_active(active: bool):
 	wall_hang_down_raycast.enabled = active
+	wall_hang_down_raycast.force_raycast_update()
 
 # set_wall_climb_detector_active activates or deactivates the monitoring for climbing to a wall.
 # @impure
 func set_wall_climb_detector_active(active: bool):
-	wall_climb_stand_detector.monitoring = active
-	wall_climb_stand_detector.monitorable = active
-	wall_climb_crouch_detector.monitoring = active
-	wall_climb_crouch_detector.monitorable = active
+	wall_climb_stand_detector.enabled = active
+	wall_climb_stand_detector.force_shapecast_update()
+	wall_climb_crouch_detector.enabled = active
+	wall_climb_crouch_detector.force_shapecast_update()
 
 # set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
 # @impure
 func set_wall_slide_raycast_active(active: bool):
 	wall_slide_down_raycast.enabled = active
+	wall_slide_down_raycast.force_raycast_update()
 	wall_slide_side_raycast.enabled = active
+	wall_slide_side_raycast.force_raycast_update()
 	wall_slide_down_side_raycast.enabled = active
+	wall_slide_down_side_raycast.force_raycast_update()
 
 # set_roll_under_detector_active activates or deactivates the monitoring for safely rolling under a crouchable section.
 # @impure
 func set_roll_under_detector_active(active: bool):
-	roll_under_detector.monitoring = active
-	roll_under_detector.monitorable = active
+	roll_under_detector.enabled = active
+	roll_under_detector.force_shapecast_update()
 
 ###
 # Signals
