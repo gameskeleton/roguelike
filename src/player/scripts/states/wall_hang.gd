@@ -30,5 +30,4 @@ func process_state(_delta: float):
 
 func finish_state():
 	player_node.set_wall_hang_raycast_active(false)
-	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.wall_climb]):
-		player_node.set_wall_climb_shapecast_active(false)
+	player_node.set_wall_climb_shapecast_active(false)

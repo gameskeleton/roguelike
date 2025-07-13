@@ -105,7 +105,7 @@ size = Vector2(28, 40)
 size = Vector2(14, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
-size = Vector2(14, 34)
+size = Vector2(14, 8)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -1714,10 +1714,10 @@ collision_mask = 2
 
 [node name="UncrouchShapecast" type="ShapeCast2D" parent="."]
 visible = false
-position = Vector2(0, -17)
+position = Vector2(0, -6)
 enabled = false
 shape = SubResource("RectangleShape2D_qf2lc")
-target_position = Vector2(0, 0)
+target_position = Vector2(0, -24)
 
 [node name="RollUnderShapecast" type="ShapeCast2D" parent="."]
 visible = false

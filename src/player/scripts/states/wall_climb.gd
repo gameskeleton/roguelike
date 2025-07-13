@@ -9,7 +9,7 @@ var _initial_position := Vector2.ZERO
 var _animation_initial_speed_scale := 1.0
 
 func start_state():
-	# TODO: activate wall_climb_stand_shapecast and wall_climb_crouch_shapecast
+	player_node.set_wall_climb_shapecast_active(true)
 	_can_climb_stand = not player_node.wall_climb_stand_shapecast.is_colliding()
 	_can_climb_crouch = not player_node.wall_climb_crouch_shapecast.is_colliding()
 	_initial_position = player_node.position

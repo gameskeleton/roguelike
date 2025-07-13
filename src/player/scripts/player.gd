@@ -289,10 +289,9 @@ func handle_drop_through_one_way():
 	position.y += ONE_WAY_MARGIN
 
 # handle_safe_margin_after_teleport applies a small y velocity after a teleport.
-# this is to make sure the player's collision boxes are not touching a solid collider.
+# this is to make sure the player's safe margin is applied after a teleport (to prevent collision boxes from touching a solid collider).
 # @impure
-func handle_safe_margin_after_teleport(nudge_y := 0.0):
-	position.y += nudge_y
+func handle_safe_margin_after_teleport():
 	velocity.y -= safe_margin
 
 ###
@@ -335,6 +334,7 @@ func is_stopped() -> bool:
 
 # is_on_wall_passive returns true if there is a wall in the given direction (defaults to the player's direction).
 # note: this is useful if the player is not moving horizontally, whereas is_on_wall only works with a velocity going into a wall.
+# @pure
 func is_on_wall_passive(passive_direction := direction) -> bool:
 	return test_move(transform, Vector2(2.0 * passive_direction, 0.0))
 
