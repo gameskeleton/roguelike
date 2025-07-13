@@ -14,8 +14,8 @@ var _timer := 0.0
 func start_state():
 	_timer = 0.0
 	player_node.play_animation("crouch_walk")
-	player_node.set_crouch_detector_active(true)
-	player_node.set_one_way_detector_active(true)
+	player_node.set_one_way_shapecast_active(true)
+	player_node.set_uncrouch_shapecast_active(true)
 
 func process_state(delta: float):
 	_timer += delta
@@ -46,8 +46,8 @@ func process_state(delta: float):
 func finish_state():
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch]):
 		player_node.uncrouch()
-	player_node.set_crouch_detector_active(false)
-	player_node.set_one_way_detector_active(false)
+	player_node.set_one_way_shapecast_active(false)
+	player_node.set_uncrouch_shapecast_active(false)
 
 # @animation
 # @impure

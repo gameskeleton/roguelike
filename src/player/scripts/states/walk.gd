@@ -16,7 +16,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.animation_player.speed_scale = 1.2
 	player_node.play_animation("walk")
-	player_node.set_one_way_detector_active(true)
+	player_node.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall]):
 		player_node.play_sound_effect(stand_audio_stream_player)
 
@@ -53,7 +53,7 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
-	player_node.set_one_way_detector_active(false)
+	player_node.set_one_way_shapecast_active(false)
 
 # @animation
 # @impure

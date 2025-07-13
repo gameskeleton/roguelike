@@ -14,7 +14,7 @@ func start_state():
 	player_node.dash(player_node.ROLL_BUMP_STRENGTH)
 	player_node.play_animation("bump_into_wall_fall")
 	player_node.play_sound_effect(bump_audio_stream_player, 0.07)
-	player_node.set_crouch_detector_active(true)
+	player_node.set_uncrouch_shapecast_active(true)
 	player_node.animation_player.speed_scale = 1.8
 
 func process_state(delta: float):
@@ -48,4 +48,4 @@ func finish_state():
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch]):
 		player_node.uncrouch()
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
-	player_node.set_crouch_detector_active(false)
+	player_node.set_uncrouch_shapecast_active(false)

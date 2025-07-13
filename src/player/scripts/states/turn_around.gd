@@ -11,7 +11,7 @@ func start_state():
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
 	player_node.animation_player.speed_scale = 1.8
 	player_node.play_animation("turn_around")
-	player_node.set_one_way_detector_active(true)
+	player_node.set_one_way_shapecast_active(true)
 	if player_node.velocity.x == 0.0:
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.walk
@@ -41,6 +41,6 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
-	player_node.set_one_way_detector_active(false)
+	player_node.set_one_way_shapecast_active(false)
 	if player_node.direction == _initial_direction:
 		player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET

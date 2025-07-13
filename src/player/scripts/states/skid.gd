@@ -1,7 +1,7 @@
 extends RkStateMachineState
 
 func start_state():
-	player_node.set_one_way_detector_active(true)
+	player_node.set_one_way_shapecast_active(true)
 	if player_node.input_velocity.x != 0.0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
 
@@ -32,4 +32,4 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():
-	player_node.set_one_way_detector_active(false)
+	player_node.set_one_way_shapecast_active(false)

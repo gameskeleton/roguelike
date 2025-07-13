@@ -101,11 +101,11 @@ size = Vector2(14, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1fp4"]
 size = Vector2(28, 40)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
-size = Vector2(14, 34)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
 size = Vector2(14, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf2lc"]
+size = Vector2(14, 34)
 
 [sub_resource type="Animation" id="Animation_11iq3"]
 length = 0.001
@@ -1442,30 +1442,29 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "crouch_detector", "one_way_detector", "roll_under_detector", "wall_hang_down_detector", "wall_climb_stand_detector", "wall_climb_crouch_detector", "wall_hang_hand", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_side_raycast", "wall_slide_down_side_raycast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "roll_under_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
 floor_snap_length = 5.0
 script = ExtResource("1_wluja")
 sprite = NodePath("Sprite")
+hand_marker = NodePath("Hand")
 animation_player = NodePath("AnimationPlayer")
 collider_stand = NodePath("ColliderStand")
 collider_crouch = NodePath("ColliderCrouch")
 roll_detector = NodePath("RollDetector")
 slide_detector = NodePath("SlideDetector")
 attack_detector = NodePath("AttackDetector")
-crouch_detector = NodePath("CrouchDetector")
-one_way_detector = NodePath("OneWayDetector")
-roll_under_detector = NodePath("RollUnderDetector")
-wall_hang_down_detector = NodePath("WallHangDownDetector")
-wall_climb_stand_detector = NodePath("WallClimbStandDetector")
-wall_climb_crouch_detector = NodePath("WallClimbCrouchDetector")
-wall_hang_hand = NodePath("WallHangDownDetector/Hand")
-wall_hang_down_raycast = NodePath("WallHangDownSideRaycast")
+wall_hang_down_raycast = NodePath("WallHangDownRaycast")
 wall_slide_down_raycast = NodePath("WallSlideDownRaycast")
-wall_slide_side_raycast = NodePath("WallSlideSideRaycast")
+wall_slide_top_side_raycast = NodePath("WallSlideTopSideRaycast")
 wall_slide_down_side_raycast = NodePath("WallSlideDownSideRaycast")
+one_way_shapecast = NodePath("OneWayShapecast")
+uncrouch_shapecast = NodePath("UncrouchShapecast")
+roll_under_shapecast = NodePath("RollUnderShapecast")
+wall_climb_stand_shapecast = NodePath("WallClimbStandShapecast")
+wall_climb_crouch_shapecast = NodePath("WallClimbCrouchShapecast")
 gold_system = NodePath("Systems/Gold")
 level_system = NodePath("Systems/Level")
 attack_system = NodePath("Systems/Attack")
@@ -1476,6 +1475,10 @@ experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAu
 additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
+
+[node name="Hand" type="Marker2D" parent="."]
+visible = false
+position = Vector2(10, -31)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 light_mask = 2
@@ -1702,51 +1705,40 @@ position = Vector2(25, -18)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
-[node name="CrouchDetector" type="ShapeCast2D" parent="."]
-position = Vector2(0, -17)
-enabled = false
-shape = SubResource("RectangleShape2D_qf2lc")
-target_position = Vector2(0, 0)
-
-[node name="OneWayDetector" type="ShapeCast2D" parent="."]
+[node name="OneWayShapecast" type="ShapeCast2D" parent="."]
 visible = false
 enabled = false
 shape = SubResource("RectangleShape2D_7g7q4")
 target_position = Vector2(0, 0)
 collision_mask = 2
 
-[node name="RollUnderDetector" type="ShapeCast2D" parent="."]
+[node name="UncrouchShapecast" type="ShapeCast2D" parent="."]
+visible = false
+position = Vector2(0, -17)
+enabled = false
+shape = SubResource("RectangleShape2D_qf2lc")
+target_position = Vector2(0, 0)
+
+[node name="RollUnderShapecast" type="ShapeCast2D" parent="."]
 visible = false
 position = Vector2(14, -12)
 enabled = false
 shape = SubResource("RectangleShape2D_ttjyw")
 target_position = Vector2(0, 0)
 
-[node name="WallHangDownDetector" type="Node2D" parent="."]
-visible = false
-
-[node name="Hand" type="Node2D" parent="WallHangDownDetector"]
-position = Vector2(10, -31)
-
-[node name="WallClimbStandDetector" type="ShapeCast2D" parent="."]
+[node name="WallClimbStandShapecast" type="ShapeCast2D" parent="."]
 visible = false
 position = Vector2(16, -52)
 enabled = false
 shape = SubResource("RectangleShape2D_1wnfa")
 target_position = Vector2(0, 0)
 
-[node name="WallClimbCrouchDetector" type="ShapeCast2D" parent="."]
+[node name="WallClimbCrouchShapecast" type="ShapeCast2D" parent="."]
 visible = false
 position = Vector2(16, -47)
 enabled = false
 shape = SubResource("RectangleShape2D_ttjyw")
 target_position = Vector2(0, 0)
-
-[node name="WallSlideSideRaycast" type="RayCast2D" parent="."]
-visible = false
-position = Vector2(0, -28)
-enabled = false
-target_position = Vector2(-12, 0)
 
 [node name="WallSlideDownRaycast" type="RayCast2D" parent="."]
 visible = false
@@ -1755,18 +1747,24 @@ enabled = false
 target_position = Vector2(0, 32)
 collision_mask = 3
 
-[node name="WallSlideDownSideRaycast" type="RayCast2D" parent="."]
-visible = false
-position = Vector2(0, -12)
-enabled = false
-target_position = Vector2(-12, 0)
-
-[node name="WallHangDownSideRaycast" type="RayCast2D" parent="."]
+[node name="WallHangDownRaycast" type="RayCast2D" parent="."]
 visible = false
 position = Vector2(0, -12)
 enabled = false
 target_position = Vector2(0, 20)
 collision_mask = 3
+
+[node name="WallSlideTopSideRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(0, -28)
+enabled = false
+target_position = Vector2(-12, 0)
+
+[node name="WallSlideDownSideRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(0, -12)
+enabled = false
+target_position = Vector2(-12, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
