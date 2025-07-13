@@ -74,7 +74,7 @@ func _ready():
 # set_state_node changes the current state node to the given state node.
 # @impure
 func set_state_node(state_node: RkStateMachineState):
-	# print("Changing state to: ", state_node.name, " from: ", current_state_node.name)
+	# print("Changing state to: %s from: %s" % [state_node.name, current_state_node.name])
 	next_state_node = state_node
 	if current_state_node:
 		current_state_node.finish_state()
