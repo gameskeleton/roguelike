@@ -43,12 +43,10 @@ func process_state(delta: float):
 	if player_node.input_attack.is_pressed() and player_node.is_able_to_attack():
 		player_node.input_attack.consume()
 		return player_node.fsm.state_nodes.attack
-	if player_node.input_velocity.x != 0.0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
+	if player_node.has_horizontal_input() and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
-	if player_node.input_velocity.x == 0.0 and player_node.velocity.x != 0.0:
-		return player_node.fsm.state_nodes.skid
-	if player_node.input_velocity.x == 0.0 and player_node.velocity.x == 0.0:
-		return player_node.fsm.state_nodes.stand
+	if not player_node.has_horizontal_input() and not player_node.is_stopped():
+		return player_node.fsm.state_nodes.skid if not player_node.is_stopped() else player_node.fsm.state_nodes.stand
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale

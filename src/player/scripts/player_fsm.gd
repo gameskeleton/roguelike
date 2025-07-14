@@ -72,7 +72,7 @@ func _ready():
 # set_state_node changes the current state node to the given state node.
 # @impure
 func set_state_node(state_node: RkStateMachineState):
-	# print("Changing state to: %s from: %s at frame: %d" % [state_node.name, current_state_node.name, Engine.get_frames_drawn()])
+	print("Changing state to: %s from: %s at frame: %d" % [state_node.name, current_state_node.name, Engine.get_frames_drawn()])
 	next_state_node = state_node
 	if current_state_node:
 		current_state_node.finish_state()

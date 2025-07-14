@@ -17,7 +17,7 @@ func start_state():
 	# apply jump
 	player_node.jump(_jump_strength)
 	player_node.play_animation("jump")
-	if not _was_wall_sliding and player_node.input_velocity.x != 0.0:
+	if not _was_wall_sliding and player_node.has_horizontal_input():
 		player_node.set_direction(int(signf(player_node.input_velocity.x)))
 
 func process_state(delta: float):

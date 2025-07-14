@@ -14,7 +14,7 @@ func start_state():
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.is_stopped():
 		player_node.set_direction(-player_node.direction)
-		return player_node.fsm.state_nodes.walk
+		return player_node.fsm.state_nodes.stand
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -32,11 +32,9 @@ func process_state(delta: float):
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.jump
 	if player_node.has_same_direction(player_node.velocity.x, player_node.input_velocity.x):
-		return player_node.fsm.state_nodes.walk
+		return player_node.fsm.state_nodes.stand
 	if player_node.is_animation_finished():
 		player_node.set_direction(-player_node.direction)
-		if player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
-			return player_node.fsm.state_nodes.walk
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():

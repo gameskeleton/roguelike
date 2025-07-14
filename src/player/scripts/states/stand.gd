@@ -35,7 +35,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.attack
 	if player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.walk
-	if player_node.input_velocity.x != 0.0 and not player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
+	if player_node.has_horizontal_input() and not player_node.has_same_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
 
 func finish_state():

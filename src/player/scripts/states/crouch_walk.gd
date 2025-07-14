@@ -39,7 +39,7 @@ func process_state(delta: float):
 	if player_node.input_slide.is_pressed() and player_node.is_able_to_slide():
 		player_node.input_slide.consume()
 		return player_node.fsm.state_nodes.slide
-	if player_node.input_velocity.x == 0.0:
+	if not player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.crouch
 
 func finish_state():

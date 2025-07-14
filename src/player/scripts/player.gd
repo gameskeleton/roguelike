@@ -313,6 +313,11 @@ func has_same_direction(dir1: float, dir2: float) -> bool:
 func has_invert_direction(dir1: float, dir2: float) -> bool:
 	return dir1 != 0.0 and dir2 != 0.0 and signf(dir1) != signf(dir2)
 
+# has_horizontal_input returns true if the left or right key is held (exclusively).
+# @pure
+func has_horizontal_input() -> bool:
+	return input_velocity.x  !=  0.0
+
 # apply_acceleration returns the next value after acceleration is applied.
 # @pure
 func apply_acceleration(delta: float, value: float, max_speed: float, acceleration: float, override_direction := direction) -> float:

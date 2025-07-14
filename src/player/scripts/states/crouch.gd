@@ -9,7 +9,7 @@ func start_state():
 	player_node.play_animation("crouch")
 	player_node.set_one_way_shapecast_active(true)
 	player_node.set_uncrouch_shapecast_active(true)
-	if player_node.input_velocity.x != 0.0:
+	if player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.crouch_walk
 
 func process_state(delta: float):
@@ -30,7 +30,7 @@ func process_state(delta: float):
 	if player_node.input_slide.is_pressed() and player_node.is_able_to_slide():
 		player_node.input_slide.consume()
 		return player_node.fsm.state_nodes.slide
-	if player_node.input_velocity.x != 0.0:
+	if player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.crouch_walk
 	if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch() and _timer >= player_node.CROUCH_LOCK_DELAY:
 		player_node.input_down.consume()
