@@ -24,6 +24,8 @@ func process_state(delta: float):
 	_play_animation()
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_floor_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
+	if player_node.is_on_wall():
+		player_node.velocity.x = 0.0
 	if not player_node.is_on_floor():
 		return player_node.fsm.state_nodes.fall
 	if player_node.input_down.is_down() and player_node.is_able_to_crouch():
@@ -45,7 +47,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.attack
 	if player_node.has_horizontal_input() and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
-	if not player_node.has_horizontal_input() and not player_node.is_stopped():
+	if not player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.skid if not player_node.is_stopped() else player_node.fsm.state_nodes.stand
 
 func finish_state():
