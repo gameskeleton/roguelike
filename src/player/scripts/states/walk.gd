@@ -13,6 +13,7 @@ const FX_STEP_RANGE := Vector2(0.95, 1.05)
 var _animation_initial_speed_scale := 1.0
 
 func start_state():
+	_play_animation()
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.animation_player.speed_scale = 1.2
 	player_node.set_one_way_shapecast_active(true)
@@ -20,7 +21,7 @@ func start_state():
 		player_node.play_sound_effect(stand_audio_stream_player)
 
 func process_state(delta: float):
-	player_node.play_animation("stand" if player_node.get_real_velocity().length() < 0.1 * player_node.WALK_MAX_SPEED else "walk")
+	_play_animation()
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_floor_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
 	if not player_node.is_on_floor():
@@ -52,6 +53,10 @@ func process_state(delta: float):
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_one_way_shapecast_active(false)
+
+# @impure
+func _play_animation():
+	player_node.play_animation("stand" if player_node.get_real_velocity().length() < 0.15 * player_node.WALK_MAX_SPEED else "walk")
 
 # @animation
 # @impure

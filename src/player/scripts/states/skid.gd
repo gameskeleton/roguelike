@@ -26,9 +26,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.attack
 	if player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
-	if player_node.input_velocity.x != 0.0:
-		return player_node.fsm.state_nodes.walk
-	if player_node.velocity.x == 0.0:
+	if player_node.is_stopped():
 		return player_node.fsm.state_nodes.stand
 
 func finish_state():

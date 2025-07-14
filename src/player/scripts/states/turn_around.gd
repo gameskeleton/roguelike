@@ -12,7 +12,7 @@ func start_state():
 	player_node.animation_player.speed_scale = 1.8
 	player_node.play_animation("turn_around")
 	player_node.set_one_way_shapecast_active(true)
-	if player_node.velocity.x == 0.0:
+	if player_node.is_stopped():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.walk
 

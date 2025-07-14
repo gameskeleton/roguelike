@@ -8,6 +8,8 @@ func start_state():
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall, player_node.fsm.state_nodes.wall_slide]):
 		player_node.play_sound_effect(stand_audio_stream_player)
+	if player_node.has_same_direction(player_node.direction, player_node.input_velocity.x) and not player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.wall_climb]):
+		return player_node.fsm.state_nodes.walk
 
 func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)

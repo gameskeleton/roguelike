@@ -9,6 +9,8 @@ func start_state():
 	player_node.play_animation("crouch")
 	player_node.set_one_way_shapecast_active(true)
 	player_node.set_uncrouch_shapecast_active(true)
+	if player_node.input_velocity.x != 0.0:
+		return player_node.fsm.state_nodes.crouch_walk
 
 func process_state(delta: float):
 	_timer += delta

@@ -121,10 +121,10 @@ var disable_wall_hang_timeout := 0.0
 # Input
 ###
 
-var input_up := RkBufferedInput.new("player_up")
-var input_down := RkBufferedInput.new("player_down")
-var input_left := RkBufferedInput.new("player_left")
-var input_right := RkBufferedInput.new("player_right")
+var input_up := RkBufferedInput.new("player_up", 0.1)
+var input_down := RkBufferedInput.new("player_down", 0.1)
+var input_left := RkBufferedInput.new("player_left", 0.0)
+var input_right := RkBufferedInput.new("player_right", 0.0)
 var input_jump := RkBufferedInput.new("player_jump", 0.1)
 var input_roll := RkBufferedInput.new("player_roll", 0.1)
 var input_slide := RkBufferedInput.new("player_slide", 0.1)

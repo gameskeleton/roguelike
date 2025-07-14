@@ -13,12 +13,13 @@ var _timer := 0.0
 
 func start_state():
 	_timer = 0.0
+	_play_animation()
 	player_node.set_one_way_shapecast_active(true)
 	player_node.set_uncrouch_shapecast_active(true)
 
 func process_state(delta: float):
 	_timer += delta
-	player_node.play_animation("crouch" if player_node.get_real_velocity().length() < 0.1 * player_node.CROUCH_MAX_SPEED else "crouch_walk")
+	_play_animation()
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_direction()
 	player_node.handle_floor_move(delta, player_node.CROUCH_MAX_SPEED, player_node.CROUCH_ACCELERATION, player_node.CROUCH_DECELERATION * player_node.CROUCH_DECELERATION_BRAKE)
@@ -46,6 +47,10 @@ func finish_state():
 		player_node.uncrouch()
 	player_node.set_one_way_shapecast_active(false)
 	player_node.set_uncrouch_shapecast_active(false)
+
+# @impure
+func _play_animation():
+	player_node.play_animation("crouch" if player_node.get_real_velocity().length() < 20.0 else "crouch_walk")
 
 # @animation
 # @impure
