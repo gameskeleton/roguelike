@@ -28,7 +28,7 @@ func process_state(delta: float):
 	if player_node.input_slide.is_pressed() and player_node.is_able_to_slide():
 		player_node.input_slide.consume()
 		return player_node.fsm.state_nodes.slide
-	if player_node.input_velocity.x != 0.0 and not player_node.is_on_wall_passive():
+	if player_node.input_velocity.x != 0.0:
 		return player_node.fsm.state_nodes.crouch_walk
 	if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch() and _timer >= player_node.CROUCH_LOCK_DELAY:
 		player_node.input_down.consume()

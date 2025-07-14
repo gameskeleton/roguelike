@@ -330,13 +330,7 @@ func apply_deceleration(delta: float, value: float, deceleration: float) -> floa
 # is_stopped returns true if the player is nearly stopped.
 # @pure
 func is_stopped() -> bool:
-	return get_real_velocity().length_squared() < 0.1
-
-# is_on_wall_passive returns true if there is a wall in the given direction (defaults to the player's direction).
-# note: this is useful if the player is not moving horizontally, whereas is_on_wall only works with a velocity going into a wall.
-# @pure
-func is_on_wall_passive(passive_direction := direction) -> bool:
-	return test_move(transform, Vector2(2.0 * passive_direction, 0.0))
+	return get_real_velocity().length_squared() < 1.0
 
 # is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
 # note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_shapecast_active(true).
@@ -446,9 +440,9 @@ func play_animation(animation_name: StringName):
 	if not is_animation_playing(animation_name):
 		animation_player.play(animation_name)
 
-# play_animation_transition transitions the player animation from start to then when start finishes.
+# play_animation_then plays a first animation then another one when the first finishes.
 # @impure
-func play_animation_transition(start_animation_name: StringName, then_animation_name: StringName):
+func play_animation_then(start_animation_name: StringName, then_animation_name: StringName):
 	if not is_animation_playing(start_animation_name):
 		play_animation(then_animation_name)
 

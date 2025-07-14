@@ -9,10 +9,10 @@ func start_state():
 	_coyote_time = player_node.COYOTE_TIME if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.walk, player_node.fsm.state_nodes.crouch_walk]) else 0.0
 
 func process_state(delta: float):
+	player_node.play_animation_then("jump_to_fall", "fall")
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_direction()
 	player_node.handle_airborne_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION)
-	player_node.play_animation_transition("jump_to_fall", "fall")
 	_coyote_time -= delta
 	if player_node.is_on_floor():
 		return player_node.fsm.state_nodes.stand if player_node.is_stopped() else player_node.fsm.state_nodes.walk

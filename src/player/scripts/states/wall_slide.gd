@@ -11,7 +11,7 @@ func process_state(delta: float):
 	player_node.handle_gravity(delta, player_node.WALL_SLIDE_GRAVITY_MAX_SPEED, player_node.WALL_SLIDE_GRAVITY_ACCELERATION)
 	if player_node.is_on_floor():
 		return player_node.fsm.state_nodes.stand
-	if not player_node.is_on_wall_passive():
+	if not player_node.is_on_wall():
 		return player_node.fsm.state_nodes.fall
 	if player_node.is_able_to_wall_hang():
 		return player_node.fsm.state_nodes.wall_hang

@@ -15,12 +15,12 @@ var _animation_initial_speed_scale := 1.0
 func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.animation_player.speed_scale = 1.2
-	player_node.play_animation("walk")
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall]):
 		player_node.play_sound_effect(stand_audio_stream_player)
 
 func process_state(delta: float):
+	player_node.play_animation("stand" if player_node.get_real_velocity().length() < 0.1 * player_node.WALK_MAX_SPEED else "walk")
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_floor_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
 	if not player_node.is_on_floor():
@@ -44,8 +44,6 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.attack
 	if player_node.input_velocity.x != 0.0 and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
-	if player_node.input_velocity.x != 0.0 and player_node.is_on_wall():
-		return player_node.fsm.state_nodes.push_wall
 	if player_node.input_velocity.x == 0.0 and player_node.velocity.x != 0.0:
 		return player_node.fsm.state_nodes.skid
 	if player_node.input_velocity.x == 0.0 and player_node.velocity.x == 0.0:
