@@ -16,6 +16,17 @@ script = ExtResource("1_6kla0")
 attack_system = NodePath("Systems/Attack")
 life_points_system = NodePath("Systems/LifePoints")
 
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 8.0
+color = Color(1, 0, 0, 1)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_yfgva")
+
 [node name="Systems" type="Node" parent="."]
 
 [node name="Attack" parent="Systems" node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_gsj3p")]
@@ -25,17 +36,6 @@ instigator = NodePath("../..")
 [node name="LifePoints" type="Node" parent="Systems"]
 script = ExtResource("1_yfgva")
 metadata/_custom_type_script = "uid://c7ksdj8ywvemg"
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -8.0
-offset_top = -24.0
-offset_right = 8.0
-color = Color(1, 0, 0, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_yfgva")
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 64

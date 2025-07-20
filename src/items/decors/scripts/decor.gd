@@ -10,7 +10,7 @@ var _broken := false
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node):
+func _on_life_points_damage_taken(_damage: float, _from_source: Node, _from_instigator: Node):
 	if _broken:
 		return
 	hide()

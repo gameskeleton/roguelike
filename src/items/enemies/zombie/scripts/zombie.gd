@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage: float, _source: Node, _instigator: Node) -> void:
+func _on_life_points_damage_taken(_damage: float, _from_source: Node, _from_instigator: Node) -> void:
 	if life_points_system.has_lethal_damage():
 		queue_free()
 

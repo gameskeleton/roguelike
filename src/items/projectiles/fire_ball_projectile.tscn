@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://4f5krslq71th"]
+[gd_scene load_steps=15 format=3 uid="uid://4f5krslq71th"]
 
 [ext_resource type="Script" uid="uid://3ceobj6sbq1q" path="res://src/items/projectiles/scripts/projectile.gd" id="1_xmvir"]
 [ext_resource type="Texture2D" uid="uid://bt8g0mmcomglm" path="res://src/items/projectiles/textures/fire_ball.png" id="2_3nt0a"]
+[ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="3_uq01u"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="3_xrel0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrel0"]
@@ -78,15 +79,19 @@ script = ExtResource("1_xmvir")
 sprite_frames = SubResource("SpriteFrames_xmvir")
 autoplay = "default"
 
+[node name="Systems" type="Node" parent="."]
+
+[node name="Attack" parent="Systems" node_paths=PackedStringArray("source", "instigator") instance=ExtResource("3_uq01u")]
+source = NodePath("../..")
+instigator = NodePath("../..")
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("3_xrel0")]
+
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 128
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 shape = SubResource("CircleShape2D_xmvir")
-
-[node name="Systems" type="Node" parent="."]
-
-[node name="LifePoints" parent="Systems" instance=ExtResource("3_xrel0")]
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

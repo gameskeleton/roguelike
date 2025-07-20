@@ -16,6 +16,7 @@ var defence := RkRpgSimpleFloat.create(1.0)
 @export var damage_multiplier_fire := 1.0
 @export var damage_multiplier_roll := 1.0
 @export var damage_multiplier_world := 1.0
+@export var damage_multiplier_slide := 1.0
 @export var damage_multiplier_physical := 1.0
 
 var last_target: RkLifePointsSystem
@@ -24,14 +25,15 @@ var last_damage_type := RkLifePointsSystem.DmgType.none
 
 # attack deals the given amount of damages to the given target.
 # @impure
-func attack(target: RkLifePointsSystem, damage: float, damage_type: RkLifePointsSystem.DmgType) -> float:
+func attack(target: RkLifePointsSystem, damage: float, damage_type: RkLifePointsSystem.DmgType, damage_source := source, damage_instigator := instigator) -> float:
 	var damage_multiplier := 1.0
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.fire): damage_multiplier *= damage_multiplier_fire
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.roll): damage_multiplier *= damage_multiplier_roll
+	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.slide): damage_multiplier *= damage_multiplier_slide
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
 	var scaled_damage := force.value * damage * damage_multiplier
-	var target_scaled_damage := target.take_damage(scaled_damage, damage_type, source, instigator)
+	var target_scaled_damage := target.take_damage(scaled_damage, damage_type, damage_source, damage_instigator)
 	if target_scaled_damage != RkLifePointsSystem.NO_DAMAGE:
 		last_target = target
 		last_damage = target_scaled_damage

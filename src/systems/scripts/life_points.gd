@@ -12,7 +12,7 @@ enum DmgType {
 	physical = 16,
 }
 
-signal damage_taken(damage: float, source: Node, instigator: Node)
+signal damage_taken(damage: float, from_source: Node, from_instigator: Node)
 signal life_points_changed(life_points: float, life_points_ratio: float, life_points_previous: float)
 
 const NO_DAMAGE := -1.0
@@ -41,7 +41,7 @@ func _process(delta: float):
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.
 # @impure
-func take_damage(damage: float, damage_type := DmgType.none, source: Node = null, instigator: Node = null) -> float:
+func take_damage(damage: float, damage_type := DmgType.none, from_source: Node = null, from_instigator: Node = null) -> float:
 	assert(damage >= 0.0, "damage must be positive")
 	if invincible > 0 or invincibility_delay > 0.0:
 		return NO_DAMAGE
@@ -55,9 +55,9 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Node = null
 	var life_points_previous := life_points.value
 	last_damage = scaled_damage
 	last_damage_type = damage_type
-	last_damage_source = source
-	last_damage_instigator = instigator
-	damage_taken.emit(life_points.sub(scaled_damage), source, instigator)
+	last_damage_source = from_source
+	last_damage_instigator = from_instigator
+	damage_taken.emit(life_points.sub(scaled_damage), from_source, from_instigator)
 	life_points_changed.emit(life_points.value, life_points.ratio, life_points_previous)
 	return scaled_damage
 
