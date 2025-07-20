@@ -27,4 +27,4 @@ func _on_life_points_damage_taken(_damage: float, _from_source: Node, _from_inst
 func _on_attack_hitbox_body_entered(body: Node2D):
 	var target := RkLifePointsSystem.find_system_node(body)
 	if target and attack_system.attack(target, damage, damage_type) != RkAttackSystem.NO_DAMAGE:
-		destroy_projectile()
+		destroy_projectile.call_deferred()
