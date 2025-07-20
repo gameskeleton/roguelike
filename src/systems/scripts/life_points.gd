@@ -13,6 +13,7 @@ enum DmgType {
 }
 
 signal damage_taken(damage: float, source: Node, instigator: Node)
+signal life_points_changed(life_points: float, life_points_ratio: float, life_points_previous: float)
 
 const NO_DAMAGE := -1.0
 
@@ -51,11 +52,13 @@ func take_damage(damage: float, damage_type := DmgType.none, source: Node = null
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.world): damage_multiplier *= damage_multiplier_world
 	if RkLifePointsSystem.is_damage_type(damage_type, RkLifePointsSystem.DmgType.physical): damage_multiplier *= damage_multiplier_physical
 	var scaled_damage := damage * damage_multiplier
+	var life_points_previous := life_points.value
 	last_damage = scaled_damage
 	last_damage_type = damage_type
 	last_damage_source = source
 	last_damage_instigator = instigator
 	damage_taken.emit(life_points.sub(scaled_damage), source, instigator)
+	life_points_changed.emit(life_points.value, life_points.ratio, life_points_previous)
 	return scaled_damage
 
 # has_lethal_damage returns true if our life points are lower or equal than zero.

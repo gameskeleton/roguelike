@@ -1,0 +1,22 @@
+class_name RkColorTheme
+
+const RED := Color("#d82323")
+const DARK := Color("#161423")
+const GOLD := Color("#ffd300")
+const BLUE := Color("#05BFDB")
+const GRAY := Color("#333333")
+const BROWN := Color("#934226")
+const GREEN := Color("#1fcb23")
+const WHITE := Color("#f2f2f9")
+const ORANGE := Color("#e76d14")
+const PURPLE := Color("#6a5fa0")
+const YELLOW := Color("#edb329")
+const DARK_RED := Color("#d82323")
+const DARK_BLUE := Color("#1867a0")
+const DARK_BROWN := Color("#6c251e")
+const DARK_GREEN := Color("#126d30")
+const LIGHT_BLUE := Color("#26dddd")
+const LIGHT_YELLOW := Color("#f7e26c")
+
+const GOLD_ALPHA := Color("#ffd30064")
+const GREEN_ALPHA := Color("#1fcb2364")

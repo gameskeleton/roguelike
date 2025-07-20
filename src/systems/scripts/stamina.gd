@@ -8,6 +8,8 @@ var regeneration_delay := RkRpgSimpleFloat.create(1.25, true)
 
 var _regeneration_delay := 0.0
 
+signal stamina_changed(stamina: float, stamina_ratio: float, stamina_previous: float)
+
 # _process regenerates the stamina if the regen is not blocked.
 # @impure
 func _process(delta: float):
@@ -15,7 +17,9 @@ func _process(delta: float):
 		_regeneration_delay = maxf(0.0, _regeneration_delay - delta)
 		if _regeneration_delay > 0.0:
 			return
+	var stamina_previous := stamina.value
 	stamina.add(delta * regeneration.value)
+	stamina_changed.emit(stamina.value, stamina.ratio, stamina_previous)
 
 # has_enough returns true if the object has enough stamina left.
 # @pure
@@ -25,8 +29,10 @@ func has_enough(amount: float) -> bool:
 # consume reduces the stamina by the specified amount, if there is not enough the stamina will be zeroed.
 # @impure
 func consume(amount: float):
+	var stamina_previous := stamina.value
 	stamina.sub(amount)
 	_regeneration_delay = regeneration_delay.value
+	stamina_changed.emit(stamina.value, stamina.ratio, stamina_previous)
 
 # try_consume returns true if the object has enough stamina left and will consume that amount if it does.
 # @impure

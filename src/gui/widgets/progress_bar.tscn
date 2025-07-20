@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cegviomkjdxqm"]
+
+[ext_resource type="Script" uid="uid://dey2qlgc5qce1" path="res://src/gui/scripts/widgets/progress_bar.gd" id="1_uibkm"]
+
+[node name="ProgressBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 8.0
+script = ExtResource("1_uibkm")
+value_color = null
+
+[node name="Margin" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 81.0
+offset_bottom = 9.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 8.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="ProgressBarLag" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 8.0
+color = Color(0.121569, 0.796078, 0.137255, 0.392157)
+
+[node name="ProgressBarValue" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 8.0
+color = Color(0.121569, 0.796078, 0.137255, 1)
+
+[connection signal="resized" from="." to="." method="_on_resized"]

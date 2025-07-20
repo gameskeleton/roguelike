@@ -1813,7 +1813,9 @@ libraries = {
 }
 
 [connection signal="level_up" from="Systems/Level" to="." method="_on_level_level_up"]
+[connection signal="stamina_changed" from="Systems/Stamina" to="." method="_on_stamina_stamina_changed"]
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="life_points_changed" from="Systems/LifePoints" to="." method="_on_life_points_life_points_changed"]
 [connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
 [connection signal="area_entered" from="SlideDetector" to="StateMachine/slide" method="_on_slide_detector_area_entered"]
 [connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]

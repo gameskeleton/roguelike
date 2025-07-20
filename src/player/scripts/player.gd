@@ -109,10 +109,16 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var additional_life_points_per_level := Curve.new()
 
 ###
-# Variables
+# Signals
 ###
 
 signal death()
+signal stamina_ratio_changed(stamina_ratio: float)
+signal life_points_ratio_changed(life_points_ratio: float)
+
+###
+# Variables
+###
 
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 
@@ -554,6 +560,16 @@ func _on_level_level_up(_new_level: int):
 
 # @signal
 # @impure
+func _on_stamina_stamina_changed(_stamina: float, stamina_ratio: float, _stamina_previous: float):
+	stamina_ratio_changed.emit(stamina_ratio)
+
+# @signal
+# @impure
 func _on_life_points_damage_taken(_damage_taken: float, _source: Node, _instigator: Node):
 	if not dead:
 		(die if life_points_system.has_lethal_damage() else hit).call_deferred()
+
+# @signal
+# @impure
+func _on_life_points_life_points_changed(_life_points: float, life_points_ratio: float, _life_points_previous: float):
+	life_points_ratio_changed.emit(life_points_ratio)

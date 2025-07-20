@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=19 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" uid="uid://dst7pyir2s0uo" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://0t28ien32pa3" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
 [ext_resource type="Script" uid="uid://dhredeafxscgf" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
+[ext_resource type="PackedScene" uid="uid://cegviomkjdxqm" path="res://src/gui/widgets/progress_bar.tscn" id="13_srxbw"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_jfkim"]
@@ -88,10 +89,35 @@ metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
 
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="Weapon" type="ColorRect" parent="GUI"]
+offset_left = 2.0
+offset_top = 272.0
+offset_right = 14.0
+offset_bottom = 286.0
+color = Color(1, 0.827451, 0, 0.392157)
+
+[node name="StaminaProgressBar" parent="GUI" instance=ExtResource("13_srxbw")]
+offset_left = 17.0
+offset_top = 281.0
+offset_right = 81.0
+offset_bottom = 285.0
+value_color = Color(0.121569, 0.796078, 0.137255, 1)
+
+[node name="LifePointsProgressBar" parent="GUI" instance=ExtResource("13_srxbw")]
+offset_left = 17.0
+offset_top = 273.0
+offset_right = 81.0
+offset_bottom = 277.0
+lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
+value_color = Color(0.847059, 0.137255, 0.137255, 1)
+
 [node name="Game" type="Node2D" parent="."]
 process_mode = 1
 
 [node name="Level" parent="Game" instance=ExtResource("4_poqhe")]
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
 position = Vector2(224, 256)
@@ -181,3 +207,6 @@ bus = &"Music"
 stream = ExtResource("14_pabrm")
 volume_db = -10.0
 bus = &"Music"
+
+[connection signal="stamina_ratio_changed" from="Game/Player" to="GUI/StaminaProgressBar" method="set_progress"]
+[connection signal="life_points_ratio_changed" from="Game/Player" to="GUI/LifePointsProgressBar" method="set_progress"]
