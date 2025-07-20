@@ -208,5 +208,5 @@ stream = ExtResource("14_pabrm")
 volume_db = -10.0
 bus = &"Music"
 
-[connection signal="stamina_ratio_changed" from="Game/Player" to="GUI/StaminaProgressBar" method="set_progress"]
 [connection signal="life_points_ratio_changed" from="Game/Player" to="GUI/LifePointsProgressBar" method="set_progress"]
+[connection signal="stamina_ratio_changed" from="Game/Player" to="GUI/StaminaProgressBar" method="set_progress"]

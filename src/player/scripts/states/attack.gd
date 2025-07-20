@@ -43,7 +43,7 @@ func process_state(delta: float):
 			player_node.play_sound_effect(attack_audio_stream_player, SOUND_POSITION_02)
 		else:
 			player_node.animation_player.stop()
-			return player_node.fsm.state_nodes.stand
+			return player_node.fsm.state_nodes.fall if not player_node.is_on_floor() else player_node.fsm.state_nodes.stand
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
