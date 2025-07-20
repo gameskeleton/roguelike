@@ -17,15 +17,17 @@ func _enter_tree() -> void:
 	color = Color.from_rgba8(255, 255, 255, 50)
 
 func _fill_screen() -> void:
-	var undo_redo := EditorInterface.get_editor_undo_redo()
-	var viewport_size := Vector2(
-		ProjectSettings.get(&"display/window/size/viewport_width"),
-		ProjectSettings.get(&"display/window/size/viewport_height"),
-	)
-	undo_redo.create_action("SmartCameraRegion2D: Fill screen")
-	undo_redo.add_do_property(self, &"size", viewport_size)
-	undo_redo.add_undo_property(self, &"size", size)
-	undo_redo.commit_action()
+	if Engine.is_editor_hint():
+		var interface = Engine.get_singleton("EditorInterface") # safe in exported build, whereas direct access to EditorInterface in a tool would crash the script
+		var undo_redo := interface.get_editor_undo_redo() as UndoRedo
+		var viewport_size := Vector2(
+			ProjectSettings.get(&"display/window/size/viewport_width"),
+			ProjectSettings.get(&"display/window/size/viewport_height"),
+		)
+		undo_redo.create_action("SmartCameraRegion2D: Fill screen")
+		undo_redo.add_do_property(self, &"size", viewport_size)
+		undo_redo.add_undo_property(self, &"size", size)
+		undo_redo.commit_action()
 
 # @pure
 func get_bounds() -> Rect2:
