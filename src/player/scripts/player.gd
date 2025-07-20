@@ -44,6 +44,9 @@ const CROUCH_ACCELERATION := 280.0
 const CROUCH_DECELERATION := 460.0
 const CROUCH_DECELERATION_BRAKE := 1.6
 
+const CROUCH_ATTACK_DAMAGE := 0.8
+const CROUCH_ATTACK_STAMINA_COST := 2.0
+
 const WALL_HANG_DROP_TIMEOUT := 0.3
 const WALL_HANG_JUMP_STRENGTH := -200.0
 const WALL_HANG_JUMP_EXPULSE_STRENGTH := -100.0
@@ -70,6 +73,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var roll_detector: Area2D
 @export var slide_detector: Area2D
 @export var attack_detector: Area2D
+@export var crouch_attack_detector: Area2D
 
 @export var wall_hang_down_raycast: RayCast2D
 @export var wall_slide_down_raycast: RayCast2D
@@ -237,6 +241,7 @@ func set_direction(new_direction: float):
 	roll_detector.scale.x = new_direction
 	slide_detector.scale.x = new_direction
 	attack_detector.scale.x = new_direction
+	crouch_attack_detector.scale.x = new_direction
 	roll_under_shapecast.position.x = absf(roll_under_shapecast.position.x) * new_direction
 	roll_under_shapecast.force_shapecast_update()
 	wall_climb_stand_shapecast.position.x = absf(wall_climb_stand_shapecast.position.x) * new_direction
@@ -482,11 +487,17 @@ func set_slide_detector_active(active: bool):
 	slide_detector.monitoring = active
 	slide_detector.monitorable = active
 
-# set_attack_detector_active activates or deactivates the monitoring for attack colliders.
+# set_attack_detector_active activates or deactivates the monitoring for attack collider.
 # @impure
 func set_attack_detector_active(active: bool):
 	attack_detector.monitoring = active
 	attack_detector.monitorable = active
+
+# set_attack_detector_active activates or deactivates the monitoring for crouch attack collider.
+# @impure
+func set_crouch_attack_detector_active(active: bool):
+	crouch_attack_detector.monitoring = active
+	crouch_attack_detector.monitorable = active
 
 # set_wall_hang_raycast_active activates or deactivates the shapecast for hanging to a wall.
 # @impure

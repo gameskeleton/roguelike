@@ -41,11 +41,14 @@ func process_state(delta: float):
 	if player_node.input_slide.is_pressed() and player_node.is_able_to_slide():
 		player_node.input_slide.consume()
 		return player_node.fsm.state_nodes.slide
+	if player_node.input_attack.is_pressed() and player_node.is_able_to_attack():
+		player_node.input_attack.consume()
+		return player_node.fsm.state_nodes.crouch_attack
 	if not player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.crouch
 
 func finish_state():
-	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch]):
+	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.crouch_attack]):
 		player_node.uncrouch()
 	player_node.set_one_way_shapecast_active(false)
 	player_node.set_uncrouch_shapecast_active(false)

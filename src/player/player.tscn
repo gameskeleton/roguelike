@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=104 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" uid="uid://sxecentfet3b" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
@@ -53,11 +53,13 @@
 [ext_resource type="Script" uid="uid://u1q2fao2c4g6" path="res://src/player/scripts/states/crouch_to_stand.gd" id="29_rp25n"]
 [ext_resource type="Texture2D" uid="uid://c2ioebltlh2hx" path="res://src/player/textures/wall_climb.png" id="30_pd4ss"]
 [ext_resource type="Texture2D" uid="uid://dd7or7xh8rhva" path="res://src/player/textures/hit.png" id="32_lv00v"]
+[ext_resource type="Script" uid="uid://de0b8uijt15qh" path="res://src/player/scripts/states/crouch_attack.gd" id="37_3uvft"]
 [ext_resource type="Texture2D" uid="uid://lmu66c30jhhc" path="res://src/player/textures/get_up.png" id="40_wryqc"]
 [ext_resource type="Texture2D" uid="uid://cutvm2ws54ay1" path="res://src/player/textures/stand_to_crouch.png" id="43_isit8"]
 [ext_resource type="Texture2D" uid="uid://b2aw2dtyw7wi2" path="res://src/player/textures/crouch.png" id="44_b78r0"]
 [ext_resource type="Texture2D" uid="uid://wmq5lfsyxof7" path="res://src/player/textures/crouch_walk.png" id="47_45k7c"]
 [ext_resource type="Texture2D" uid="uid://bcn4ds27x37sk" path="res://src/player/textures/slide.png" id="59_2rxss"]
+[ext_resource type="Texture2D" uid="uid://dgffmvn64vq6e" path="res://src/player/textures/crouch_attack.png" id="59_3uvft"]
 
 [sub_resource type="Curve" id="Curve_egsaa"]
 _limits = [0.0, 20.0, 0.0, 1.0]
@@ -97,7 +99,10 @@ point_count = 2
 size = Vector2(14, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1fp4"]
-size = Vector2(28, 40)
+size = Vector2(28, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uvft"]
+size = Vector2(22, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g7q4"]
 size = Vector2(14, 2)
@@ -469,6 +474,64 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_8o3kr"]
+resource_name = "crouch_attack"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("59_3uvft")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StateMachine/crouch_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_enable_hitbox"
+}, {
+"args": [],
+"method": &"_disable_hitbox"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_2rxss"]
@@ -1376,6 +1439,7 @@ _data = {
 &"bump_into_wall_to_crouch": SubResource("Animation_3uvft"),
 &"bump_into_wall_to_stand": SubResource("Animation_fggvj"),
 &"crouch": SubResource("Animation_fcv8u"),
+&"crouch_attack": SubResource("Animation_8o3kr"),
 &"crouch_to_slide": SubResource("Animation_2rxss"),
 &"crouch_to_stand": SubResource("Animation_b77xs"),
 &"crouch_walk": SubResource("Animation_ygk1w"),
@@ -1399,7 +1463,7 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "roll_under_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "crouch_attack_detector", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "roll_under_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1413,6 +1477,7 @@ collider_crouch = NodePath("ColliderCrouch")
 roll_detector = NodePath("RollDetector")
 slide_detector = NodePath("SlideDetector")
 attack_detector = NodePath("AttackDetector")
+crouch_attack_detector = NodePath("CrouchAttackDetector")
 wall_hang_down_raycast = NodePath("WallHangDownRaycast")
 wall_slide_down_raycast = NodePath("WallSlideDownRaycast")
 wall_slide_top_side_raycast = NodePath("WallSlideTopSideRaycast")
@@ -1608,6 +1673,14 @@ bus = &"SFX"
 [node name="turn_around" type="Node" parent="StateMachine"]
 script = ExtResource("5_0i2rd")
 
+[node name="crouch_attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("crouch_attack_audio_stream_player")]
+script = ExtResource("37_3uvft")
+crouch_attack_audio_stream_player = NodePath("CrouchAttackAudioStreamPlayer")
+
+[node name="CrouchAttackAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/crouch_attack"]
+stream = ExtResource("15_8gyqs")
+bus = &"SFX"
+
 [node name="bump_into_wall" type="Node" parent="StateMachine" node_paths=PackedStringArray("bump_audio_stream_player")]
 script = ExtResource("11_nnruh")
 bump_audio_stream_player = NodePath("BumpAudioStreamPlayer")
@@ -1655,9 +1728,21 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
-position = Vector2(25, -18)
+position = Vector2(27, -18)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
+
+[node name="CrouchAttackDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 208
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchAttackDetector"]
+position = Vector2(24, -13)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_3uvft")
 
 [node name="OneWayShapecast" type="ShapeCast2D" parent="."]
 visible = false
@@ -1732,3 +1817,4 @@ libraries = {
 [connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
 [connection signal="area_entered" from="SlideDetector" to="StateMachine/slide" method="_on_slide_detector_area_entered"]
 [connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]
+[connection signal="area_entered" from="CrouchAttackDetector" to="StateMachine/crouch_attack" method="_on_crouch_attack_detector_area_entered"]

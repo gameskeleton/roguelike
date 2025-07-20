@@ -6,7 +6,6 @@ const SOUND_POSITION_02 := 0.005
 var _combo := false
 var _air_control := false
 var _attack_combo := 0
-var _hitbox_enabled := false
 var _animation_initial_speed_scale := 1.0
 
 @export_group("Nodes")
@@ -16,7 +15,6 @@ func start_state():
 	_combo = false
 	_air_control = not player_node.is_on_floor()
 	_attack_combo = 0
-	_hitbox_enabled = false
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.stamina_system.consume(player_node.ATTACK_STAMINA_COST)
 	player_node.animation_player.speed_scale = 1.6
@@ -54,11 +52,9 @@ func finish_state():
 # @impure
 func _enable_hitbox():
 	player_node.set_attack_detector_active(true)
-	_hitbox_enabled = true
 
 # @impure
 func _disable_hitbox():
-	_hitbox_enabled = false
 	player_node.set_attack_detector_active(false)
 
 # @signal

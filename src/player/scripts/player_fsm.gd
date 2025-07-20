@@ -18,6 +18,7 @@ class StateNodes extends RefCounted:
 	var wall_slide: RkStateMachineState
 	var crouch_walk: RkStateMachineState
 	var turn_around: RkStateMachineState
+	var crouch_attack: RkStateMachineState
 	var bump_into_wall: RkStateMachineState
 	var crouch_to_stand: RkStateMachineState
 	var stand_to_crouch: RkStateMachineState
@@ -41,6 +42,7 @@ class StateNodes extends RefCounted:
 		assert(wall_slide, "StateNodes: wall_slide is not set")
 		assert(crouch_walk, "StateNodes: crouch_walk is not set")
 		assert(turn_around, "StateNodes: turn_around is not set")
+		assert(crouch_attack, "StateNodes: crouch_attack is not set")
 		assert(bump_into_wall, "StateNodes: bump_into_wall is not set")
 		assert(crouch_to_stand, "StateNodes: crouch_to_stand is not set")
 		assert(stand_to_crouch, "StateNodes: stand_to_crouch is not set")
