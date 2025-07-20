@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://4f5krslq71th"]
+
+[ext_resource type="Script" uid="uid://3ceobj6sbq1q" path="res://src/items/projectiles/scripts/projectile.gd" id="1_xmvir"]
+[ext_resource type="Texture2D" uid="uid://bt8g0mmcomglm" path="res://src/items/projectiles/textures/fire_ball.png" id="2_3nt0a"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="3_xrel0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrel0"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(0, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq01u"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(17, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2c7f"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(34, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3prcq"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(51, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upx75"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(68, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po6gt"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(85, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cafjr"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(102, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq4is"]
+atlas = ExtResource("2_3nt0a")
+region = Rect2(119, 0, 17, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xmvir"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrel0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq01u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2c7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3prcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upx75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po6gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cafjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fq4is")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xmvir"]
+radius = 6.0
+
+[node name="FireBallProjectile" type="Node2D"]
+script = ExtResource("1_xmvir")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xmvir")
+autoplay = "default"
+
+[node name="AttackDetector" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+shape = SubResource("CircleShape2D_xmvir")
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("3_xrel0")]
+
+[connection signal="body_entered" from="AttackDetector" to="." method="_on_attack_detector_body_entered"]
