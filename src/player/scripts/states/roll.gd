@@ -16,7 +16,7 @@ func start_state():
 	player_node.dash(player_node.ROLL_STRENGTH)
 	player_node.play_animation("roll")
 	player_node.play_sound_effect(roll_audio_stream_player, 0.0, 0.85, 0.9)
-	player_node.set_roll_detector_active(true)
+	player_node.set_roll_hitbox_active(true)
 	player_node.set_one_way_shapecast_active(true)
 	player_node.set_uncrouch_shapecast_active(true)
 	player_node.stamina_system.consume(player_node.ROLL_STAMINA_COST)
@@ -51,11 +51,11 @@ func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.life_points_system.invincible -= 1
 	player_node.stop_sound_effect(roll_audio_stream_player)
-	player_node.set_roll_detector_active(false)
+	player_node.set_roll_hitbox_active(false)
 	player_node.set_one_way_shapecast_active(false)
 	player_node.set_uncrouch_shapecast_active(false)
 
-func _on_roll_detector_area_entered(area: Area2D):
+func _on_roll_hitbox_area_entered(area: Area2D):
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
 		player_node.attack_system.attack.call_deferred(target_node, player_node.ROLL_DAMAGE, RkLifePointsSystem.DmgType.roll)

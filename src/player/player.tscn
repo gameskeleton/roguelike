@@ -1463,7 +1463,7 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_detector", "slide_detector", "attack_detector", "crouch_attack_detector", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "roll_under_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_hitbox", "slide_hitbox", "attack_hitbox", "crouch_attack_hitbox", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "roll_under_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1474,10 +1474,10 @@ hand_marker = NodePath("Hand")
 animation_player = NodePath("AnimationPlayer")
 collider_stand = NodePath("ColliderStand")
 collider_crouch = NodePath("ColliderCrouch")
-roll_detector = NodePath("RollDetector")
-slide_detector = NodePath("SlideDetector")
-attack_detector = NodePath("AttackDetector")
-crouch_attack_detector = NodePath("CrouchAttackDetector")
+roll_hitbox = NodePath("RollHitbox")
+slide_hitbox = NodePath("SlideHitbox")
+attack_hitbox = NodePath("AttackHitbox")
+crouch_attack_hitbox = NodePath("CrouchAttackHitbox")
 wall_hang_down_raycast = NodePath("WallHangDownRaycast")
 wall_slide_down_raycast = NodePath("WallSlideDownRaycast")
 wall_slide_top_side_raycast = NodePath("WallSlideTopSideRaycast")
@@ -1487,13 +1487,13 @@ uncrouch_shapecast = NodePath("UncrouchShapecast")
 roll_under_shapecast = NodePath("RollUnderShapecast")
 wall_climb_stand_shapecast = NodePath("WallClimbStandShapecast")
 wall_climb_crouch_shapecast = NodePath("WallClimbCrouchShapecast")
+coin_picked_up_audio_stream_player = NodePath("Sounds/CoinPickedUpAudioStreamPlayer")
+experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAudioStreamPlayer")
 gold_system = NodePath("Systems/Gold")
 level_system = NodePath("Systems/Level")
 attack_system = NodePath("Systems/Attack")
 stamina_system = NodePath("Systems/Stamina")
 life_points_system = NodePath("Systems/LifePoints")
-coin_picked_up_audio_stream_player = NodePath("Sounds/CoinPickedUpAudioStreamPlayer")
-experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAudioStreamPlayer")
 additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
@@ -1696,50 +1696,50 @@ script = ExtResource("29_rp25n")
 [node name="stand_to_crouch" type="Node" parent="StateMachine"]
 script = ExtResource("21_ymkf1")
 
-[node name="RollDetector" type="Area2D" parent="."]
+[node name="RollHitbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
 collision_mask = 16
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RollDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RollHitbox"]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ttjyw")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
-[node name="SlideDetector" type="Area2D" parent="."]
+[node name="SlideHitbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
 collision_mask = 208
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SlideDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlideHitbox"]
 position = Vector2(16, -8)
 shape = SubResource("RectangleShape2D_2rxss")
 debug_color = Color(0.129412, 0, 0.701961, 0.419608)
 
-[node name="AttackDetector" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
 collision_mask = 208
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(27, -18)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_g1fp4")
 
-[node name="CrouchAttackDetector" type="Area2D" parent="."]
+[node name="CrouchAttackHitbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
 collision_mask = 208
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchAttackDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrouchAttackHitbox"]
 position = Vector2(24, -13)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_3uvft")
@@ -1816,7 +1816,7 @@ libraries = {
 [connection signal="stamina_changed" from="Systems/Stamina" to="." method="_on_stamina_stamina_changed"]
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
 [connection signal="life_points_changed" from="Systems/LifePoints" to="." method="_on_life_points_life_points_changed"]
-[connection signal="area_entered" from="RollDetector" to="StateMachine/roll" method="_on_roll_detector_area_entered"]
-[connection signal="area_entered" from="SlideDetector" to="StateMachine/slide" method="_on_slide_detector_area_entered"]
-[connection signal="area_entered" from="AttackDetector" to="StateMachine/attack" method="_on_attack_detector_area_entered"]
-[connection signal="area_entered" from="CrouchAttackDetector" to="StateMachine/crouch_attack" method="_on_crouch_attack_detector_area_entered"]
+[connection signal="area_entered" from="RollHitbox" to="StateMachine/roll" method="_on_roll_hitbox_area_entered"]
+[connection signal="area_entered" from="SlideHitbox" to="StateMachine/slide" method="_on_slide_hitbox_area_entered"]
+[connection signal="area_entered" from="AttackHitbox" to="StateMachine/attack" method="_on_attack_hitbox_area_entered"]
+[connection signal="area_entered" from="CrouchAttackHitbox" to="StateMachine/crouch_attack" method="_on_crouch_attack_hitbox_area_entered"]

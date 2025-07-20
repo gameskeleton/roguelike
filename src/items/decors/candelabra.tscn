@@ -85,11 +85,11 @@ position = Vector2(5, -20)
 [node name="SpawnPosition" type="Node2D" parent="Sprite"]
 position = Vector2(0, -15)
 
-[node name="AttackDetector" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 136
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_pqnap")
 

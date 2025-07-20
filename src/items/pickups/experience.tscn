@@ -62,13 +62,13 @@ sprite_frames = SubResource("SpriteFrames_m2mye")
 color = Color(0.388235, 0.607843, 1, 1)
 texture_scale = 0.1
 
-[node name="PlayerDetector" type="Area2D" parent="."]
+[node name="PlayerHitbox" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 8
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 visible = false
 shape = SubResource("RectangleShape2D_wogr8")
 
@@ -78,4 +78,4 @@ volume_db = -5.0
 bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]

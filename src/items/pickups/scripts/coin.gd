@@ -17,8 +17,8 @@ func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(150.0, 180.0
 func _ready():
 	# enable pickup after a while
 	await get_tree().create_timer(PICKUP_DELAY, false).timeout
-	$PlayerDetector.monitoring = true
-	$PlayerDetector.monitorable = true
+	$PlayerHitbox.monitoring = true
+	$PlayerHitbox.monitorable = true
 
 # @impure
 func _process(_delta: float):
@@ -51,6 +51,6 @@ func _on_body_entered(body: Node2D):
 
 # @signal
 # @impure
-func _on_player_detector_body_entered(body: Node2D):
+func _on_player_hitbox_body_entered(body: Node2D):
 	if body is RkPlayer:
 		_pick_up(body)

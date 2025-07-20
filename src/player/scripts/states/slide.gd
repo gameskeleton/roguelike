@@ -15,7 +15,7 @@ func start_state():
 	_offset = 0.0
 	player_node.play_animation("crouch_to_slide")
 	player_node.play_sound_effect(slide_audio_stream_player, 0.0, 0.85, 0.9)
-	player_node.set_slide_detector_active(true)
+	player_node.set_slide_hitbox_active(true)
 	player_node.stamina_system.consume(player_node.SLIDE_STAMINA_COST)
 
 func process_state(delta: float):
@@ -42,9 +42,9 @@ func process_state(delta: float):
 func finish_state():
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
 		player_node.uncrouch()
-	player_node.set_slide_detector_active(false)
+	player_node.set_slide_hitbox_active(false)
 
-func _on_slide_detector_area_entered(area: Area2D):
+func _on_slide_hitbox_area_entered(area: Area2D):
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
 		player_node.attack_system.attack.call_deferred(target_node, player_node.SLIDE_DAMAGE, RkLifePointsSystem.DmgType.slide)

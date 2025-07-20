@@ -47,19 +47,19 @@ func process_state(delta: float):
 
 func finish_state():
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
-	player_node.set_attack_detector_active(false)
+	player_node.set_attack_hitbox_active(false)
 
 # @impure
 func _enable_hitbox():
-	player_node.set_attack_detector_active(true)
+	player_node.set_attack_hitbox_active(true)
 
 # @impure
 func _disable_hitbox():
-	player_node.set_attack_detector_active(false)
+	player_node.set_attack_hitbox_active(false)
 
 # @signal
 # @impure
-func _on_attack_detector_area_entered(area: Area2D):
+func _on_attack_hitbox_area_entered(area: Area2D):
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
 		player_node.attack_system.attack.call_deferred(target_node, player_node.ATTACK_DAMAGE, RkLifePointsSystem.DmgType.physical)

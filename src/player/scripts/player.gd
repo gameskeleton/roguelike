@@ -70,10 +70,10 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var collider_stand: CollisionShape2D
 @export var collider_crouch: CollisionShape2D
 
-@export var roll_detector: Area2D
-@export var slide_detector: Area2D
-@export var attack_detector: Area2D
-@export var crouch_attack_detector: Area2D
+@export var roll_hitbox: Area2D
+@export var slide_hitbox: Area2D
+@export var attack_hitbox: Area2D
+@export var crouch_attack_hitbox: Area2D
 
 @export var wall_hang_down_raycast: RayCast2D
 @export var wall_slide_down_raycast: RayCast2D
@@ -86,14 +86,15 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var wall_climb_stand_shapecast: ShapeCast2D
 @export var wall_climb_crouch_shapecast: ShapeCast2D
 
+@export var coin_picked_up_audio_stream_player: AudioStreamPlayer
+@export var experience_picked_up_audio_stream_player: AudioStreamPlayer
+
+@export_group("Systems")
 @export var gold_system: RkGoldSystem
 @export var level_system: RkLevelSystem
 @export var attack_system: RkAttackSystem
 @export var stamina_system: RkStaminaSystem
 @export var life_points_system: RkLifePointsSystem
-
-@export var coin_picked_up_audio_stream_player: AudioStreamPlayer
-@export var experience_picked_up_audio_stream_player: AudioStreamPlayer
 
 ###
 # Initial values
@@ -244,10 +245,10 @@ func set_direction(new_direction: float):
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
 	hand_marker.position.x = absf(hand_marker.position.x) * new_direction
-	roll_detector.scale.x = new_direction
-	slide_detector.scale.x = new_direction
-	attack_detector.scale.x = new_direction
-	crouch_attack_detector.scale.x = new_direction
+	roll_hitbox.scale.x = new_direction
+	slide_hitbox.scale.x = new_direction
+	attack_hitbox.scale.x = new_direction
+	crouch_attack_hitbox.scale.x = new_direction
 	roll_under_shapecast.position.x = absf(roll_under_shapecast.position.x) * new_direction
 	roll_under_shapecast.force_shapecast_update()
 	wall_climb_stand_shapecast.position.x = absf(wall_climb_stand_shapecast.position.x) * new_direction
@@ -327,7 +328,7 @@ func has_invert_direction(dir1: float, dir2: float) -> bool:
 # has_horizontal_input returns true if the left or right key is held (exclusively).
 # @pure
 func has_horizontal_input() -> bool:
-	return input_velocity.x  !=  0.0
+	return input_velocity.x != 0.0
 
 # apply_acceleration returns the next value after acceleration is applied.
 # @pure
@@ -478,32 +479,32 @@ func get_animation_played_ratio() -> float:
 	return clampf(animation_player.current_animation_position / (animation_player.current_animation_length - 0.001), 0.0, 1.0)
 
 ###
-# Raycasts and detectors
+# Hitboxes, raycasts and shape casts
 ###
 
-# set_roll_detector_active activates or deactivates the monitoring for destroying decors when rolling.
+# set_roll_hitbox_active activates or deactivates the monitoring for destroying decors when rolling.
 # @impure
-func set_roll_detector_active(active: bool):
-	roll_detector.monitoring = active
-	roll_detector.monitorable = active
+func set_roll_hitbox_active(active: bool):
+	roll_hitbox.monitoring = active
+	roll_hitbox.monitorable = active
 
-# set_slide_detector_active activates or deactivates the monitoring for destroying decors when sliding.
+# set_slide_hitbox_active activates or deactivates the monitoring for destroying decors when sliding.
 # @impure
-func set_slide_detector_active(active: bool):
-	slide_detector.monitoring = active
-	slide_detector.monitorable = active
+func set_slide_hitbox_active(active: bool):
+	slide_hitbox.monitoring = active
+	slide_hitbox.monitorable = active
 
-# set_attack_detector_active activates or deactivates the monitoring for attack collider.
+# set_attack_hitbox_active activates or deactivates the monitoring for attack collider.
 # @impure
-func set_attack_detector_active(active: bool):
-	attack_detector.monitoring = active
-	attack_detector.monitorable = active
+func set_attack_hitbox_active(active: bool):
+	attack_hitbox.monitoring = active
+	attack_hitbox.monitorable = active
 
-# set_attack_detector_active activates or deactivates the monitoring for crouch attack collider.
+# set_attack_hitbox_active activates or deactivates the monitoring for crouch attack collider.
 # @impure
-func set_crouch_attack_detector_active(active: bool):
-	crouch_attack_detector.monitoring = active
-	crouch_attack_detector.monitorable = active
+func set_crouch_attack_hitbox_active(active: bool):
+	crouch_attack_hitbox.monitoring = active
+	crouch_attack_hitbox.monitorable = active
 
 # set_wall_hang_raycast_active activates or deactivates the shapecast for hanging to a wall.
 # @impure
