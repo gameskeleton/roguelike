@@ -82,7 +82,6 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 
 @export var one_way_shapecast: ShapeCast2D
 @export var uncrouch_shapecast: ShapeCast2D
-@export var roll_under_shapecast: ShapeCast2D
 @export var wall_climb_stand_shapecast: ShapeCast2D
 @export var wall_climb_crouch_shapecast: ShapeCast2D
 
@@ -249,8 +248,6 @@ func set_direction(new_direction: float):
 	slide_hitbox.scale.x = new_direction
 	attack_hitbox.scale.x = new_direction
 	crouch_attack_hitbox.scale.x = new_direction
-	roll_under_shapecast.position.x = absf(roll_under_shapecast.position.x) * new_direction
-	roll_under_shapecast.force_shapecast_update()
 	wall_climb_stand_shapecast.position.x = absf(wall_climb_stand_shapecast.position.x) * new_direction
 	wall_climb_stand_shapecast.force_shapecast_update()
 	wall_climb_crouch_shapecast.position.x = absf(wall_climb_crouch_shapecast.position.x) * new_direction
@@ -350,22 +347,21 @@ func is_stopped() -> bool:
 	return get_real_velocity().length_squared() < 1.0
 
 # is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
-# note: is_on_floor_one_way will only work if the one way detector was activated with set_one_way_shapecast_active(true).
 # @pure
 func is_on_floor_one_way() -> bool:
+	assert(one_way_shapecast.enabled, "is_on_floor_one_way can only be called after calling set_one_way_shapecast_active(true)")
 	return is_on_floor() and one_way_shapecast.is_colliding()
 
 # has_corner_tile_at_hand returns true if there is a corner tile at the wall hang hand's position.
-# note: this will only return true if the player is in a level and the wall hang hand is positioned at a corner tile.
 # @pure
 func has_corner_tile_at_hand() -> bool:
 	if not level_node:
+		# not an assert because this can be called outside of a level (e.g. in the editor when testing).
 		push_warning("has_corner_tile_at_hand should not be called outside of a level")
 		return false
 	return level_node.has_corner_tile(hand_marker.global_position)
 
 # get_corner_tile_pos_at_hand returns the top-center position of the corner tile at the wall hang hand's position.
-# note: this will only return a valid position if the player is in a level and the wall hang hand is positioned at a corner tile.
 # @pure
 func get_corner_tile_pos_at_hand() -> Vector2:
 	assert(level_node, "get_corner_tile_pos_at_hand cannot be called outside of a level")
@@ -399,6 +395,7 @@ func is_able_to_crouch() -> bool:
 # is_able_to_uncrouch returns true if the player is able to un-crouch.
 # @pure
 func is_able_to_uncrouch() -> bool:
+	assert(uncrouch_shapecast.enabled, "is_able_to_uncrouch can only be called after calling set_uncrouch_shapecast_active(true)")
 	return not uncrouch_shapecast.is_colliding()
 
 # is_able_to_attack returns true if the player is able to attack.
@@ -409,6 +406,7 @@ func is_able_to_attack() -> bool:
 # is_able_to_wall_hang returns true if the player can hang to the corner of a wall.
 # @pure
 func is_able_to_wall_hang() -> bool:
+	assert(wall_hang_down_raycast.enabled, "is_able_to_wall_hang can only be called after calling set_wall_hang_raycast_active(true)")
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
 	if level_node and has_corner_tile_at_hand():
@@ -420,17 +418,14 @@ func is_able_to_wall_hang() -> bool:
 # is_able_to_wall_climb returns true if the player can climb to the corner of the wall its currently hanging to.
 # @pure
 func is_able_to_wall_climb() -> bool:
+	assert(wall_climb_stand_shapecast.enabled, "is_able_to_wall_climb can only be called after calling set_wall_climb_shapecast_active(true)")
 	return not wall_climb_stand_shapecast.is_colliding() or not wall_climb_crouch_shapecast.is_colliding()
 
 # is_able_to_wall_slide returns true if the player is able to slide along a wall.
 # @pure
 func is_able_to_wall_slide() -> bool:
+	assert(wall_slide_down_raycast.enabled, "is_able_to_wall_slide can only be called after calling set_wall_slide_raycast_active(true)")
 	return is_on_wall() and wall_slide_top_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()
-
-# is_able_to_roll_under returns true if the player is able to roll under a crouchable section if standing next to a wall.
-# @pure
-func is_able_to_roll_under() -> bool:
-	return is_able_to_roll() and not roll_under_shapecast.is_colliding()
 
 ###
 # Sound
@@ -541,12 +536,6 @@ func set_wall_climb_shapecast_active(active: bool):
 	wall_climb_stand_shapecast.force_shapecast_update()
 	wall_climb_crouch_shapecast.enabled = active
 	wall_climb_crouch_shapecast.force_shapecast_update()
-
-# set_roll_under_shapecast_active activates or deactivates the monitoring for safely rolling under a crouchable section.
-# @impure
-func set_roll_under_shapecast_active(active: bool):
-	roll_under_shapecast.enabled = active
-	roll_under_shapecast.force_shapecast_update()
 
 ###
 # Signals

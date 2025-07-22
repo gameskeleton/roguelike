@@ -1463,7 +1463,7 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_hitbox", "slide_hitbox", "attack_hitbox", "crouch_attack_hitbox", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "roll_under_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_hitbox", "slide_hitbox", "attack_hitbox", "crouch_attack_hitbox", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
@@ -1484,7 +1484,6 @@ wall_slide_top_side_raycast = NodePath("WallSlideTopSideRaycast")
 wall_slide_down_side_raycast = NodePath("WallSlideDownSideRaycast")
 one_way_shapecast = NodePath("OneWayShapecast")
 uncrouch_shapecast = NodePath("UncrouchShapecast")
-roll_under_shapecast = NodePath("RollUnderShapecast")
 wall_climb_stand_shapecast = NodePath("WallClimbStandShapecast")
 wall_climb_crouch_shapecast = NodePath("WallClimbCrouchShapecast")
 coin_picked_up_audio_stream_player = NodePath("Sounds/CoinPickedUpAudioStreamPlayer")
@@ -1757,13 +1756,6 @@ position = Vector2(0, -6)
 enabled = false
 shape = SubResource("RectangleShape2D_qf2lc")
 target_position = Vector2(0, -24)
-
-[node name="RollUnderShapecast" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(14, -12)
-enabled = false
-shape = SubResource("RectangleShape2D_ttjyw")
-target_position = Vector2(0, 0)
 
 [node name="WallClimbStandShapecast" type="ShapeCast2D" parent="."]
 visible = false
