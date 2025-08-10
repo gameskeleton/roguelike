@@ -8,7 +8,6 @@ anchors_preset = 0
 offset_right = 80.0
 offset_bottom = 8.0
 script = ExtResource("1_uibkm")
-value_color = null
 
 [node name="Margin" type="ColorRect" parent="."]
 layout_mode = 0

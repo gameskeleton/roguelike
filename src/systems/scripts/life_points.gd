@@ -28,7 +28,7 @@ const NO_DAMAGE := -1.0
 @export var damage_multiplier_world := 1.0
 @export var damage_multiplier_physical := 1.0
 
-var life_points := RkRpgFloat.create_with_min(10.0, 0.0)
+var life_points := RkRpgFloat.create(10.0, 0.0, 10.0)
 var last_damage := NO_DAMAGE
 var last_damage_type := DmgType.none
 var last_damage_source: Node

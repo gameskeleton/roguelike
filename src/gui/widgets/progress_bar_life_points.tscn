@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxt75cixtt7y6"]
+
+[ext_resource type="PackedScene" uid="uid://cegviomkjdxqm" path="res://src/gui/widgets/progress_bar.tscn" id="1_iuoat"]
+[ext_resource type="Script" uid="uid://bg8e7k3ba5vpu" path="res://src/gui/scripts/widgets/progress_bar_life_points.gd" id="2_o8axf"]
+
+[node name="LifePoints" instance=ExtResource("1_iuoat")]
+script = ExtResource("2_o8axf")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://berv51qihfk8t"]
+[gd_scene load_steps=7 format=3 uid="uid://berv51qihfk8t"]
 
 [ext_resource type="Script" uid="uid://b5d6px5i1khr" path="res://src/items/enemies/zombie/scripts/zombie.gd" id="1_6kla0"]
 [ext_resource type="Script" uid="uid://c7ksdj8ywvemg" path="res://src/systems/scripts/life_points.gd" id="1_yfgva"]
 [ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="2_gsj3p"]
+[ext_resource type="PackedScene" uid="uid://dxt75cixtt7y6" path="res://src/gui/widgets/progress_bar_life_points.tscn" id="4_ply85"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfgva"]
 size = Vector2(16, 24)
@@ -26,6 +27,17 @@ color = Color(1, 0, 0, 1)
 visible = false
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_yfgva")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="LifePoints" parent="GUI" node_paths=PackedStringArray("life_points_system") instance=ExtResource("4_ply85")]
+offset_left = -16.0
+offset_top = -37.0
+offset_right = 16.0
+offset_bottom = -33.0
+life_points_system = NodePath("../../Systems/LifePoints")
 
 [node name="Systems" type="Node" parent="."]
 
