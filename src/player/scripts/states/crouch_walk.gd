@@ -57,14 +57,14 @@ func finish_state():
 func _play_animation():
 	player_node.play_animation("crouch" if player_node.get_real_velocity().length() < 20.0 else "crouch_walk")
 
-# @animation
+# @anim
 # @impure
-func fx_step_left():
+func _fx_step_left():
 	footstep_left_audio_stream_player.stream = footstep_left_streams.pick_random()
 	player_node.play_sound_effect(footstep_left_audio_stream_player, 0.0, FX_STEP_RANGE.x, FX_STEP_RANGE.y)
 
-# @animation
+# @anim
 # @impure
-func fx_step_right():
+func _fx_step_right():
 	footstep_right_audio_stream_player.stream = footstep_right_streams.pick_random()
 	player_node.play_sound_effect(footstep_right_audio_stream_player, 0.0, FX_STEP_RANGE.x, FX_STEP_RANGE.y)
