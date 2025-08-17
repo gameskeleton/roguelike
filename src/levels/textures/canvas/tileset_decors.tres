@@ -1,8 +1,6 @@
-[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://cfgnanap5s1bl"]
+[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://cfgnanap5s1bl"]
 
-[ext_resource type="Texture2D" uid="uid://0obpqpceh0km" path="res://src/levels/textures/tileset_decors_d.png" id="1_kpwu2"]
-[ext_resource type="Texture2D" uid="uid://c536j82flnkwm" path="res://src/levels/textures/tileset_decors_n.png" id="2_i6nge"]
+[ext_resource type="Texture2D" uid="uid://0obpqpceh0km" path="res://src/levels/textures/tileset_decors.png" id="1_yiiij"]
 
 [resource]
-diffuse_texture = ExtResource("1_kpwu2")
-normal_texture = ExtResource("2_i6nge")
+diffuse_texture = ExtResource("1_yiiij")

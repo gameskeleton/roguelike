@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c536j82flnkwm"
-path="res://.godot/imported/tileset_decors_n.png-c488075b9a442ce18a3924917ee68dcb.ctex"
+uid="uid://0obpqpceh0km"
+path="res://.godot/imported/tileset_decors.png-3a1bc694b42b95c7b259612c81bdbf93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/levels/textures/tileset_decors_n.png"
-dest_files=["res://.godot/imported/tileset_decors_n.png-c488075b9a442ce18a3924917ee68dcb.ctex"]
+source_file="res://src/levels/textures/tileset_decors.png"
+dest_files=["res://.godot/imported/tileset_decors.png-3a1bc694b42b95c7b259612c81bdbf93.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=44 format=3 uid="uid://lth6na7avtvk"]
+[gd_resource type="TileSet" load_steps=46 format=3 uid="uid://lth6na7avtvk"]
 
 [ext_resource type="Texture2D" uid="uid://doel3pdojspko" path="res://src/levels/textures/canvas/tileset_wall.tres" id="1_02kaa"]
 [ext_resource type="Texture2D" uid="uid://cfgnanap5s1bl" path="res://src/levels/textures/canvas/tileset_decors.tres" id="2_mgcew"]
@@ -94,8 +94,14 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_roo2x"]
 polygon = PackedVector2Array(-8, 0, 8, 8, -8, 8)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lhr16"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o63f7"]
 polygon = PackedVector2Array(8, 2.66667, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_uw4db"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vntiy"]
 polygon = PackedVector2Array(8, -2.66667, 8, 8, -8, 8, -8, 2.66667)
@@ -564,6 +570,7 @@ texture = ExtResource("1_02kaa")
 5:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_roo2x")
 5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, 0)
 5:5/0 = 0
+5:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_lhr16")
 5:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:4/0 = 0
 6:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_o63f7")
@@ -584,6 +591,7 @@ texture = ExtResource("1_02kaa")
 11:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_1p42h")
 11:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2.66667, -8, 8, 8, 8)
 6:5/0 = 0
+6:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_uw4db")
 6:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 11:5/0 = 0
 11:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_dodvo")

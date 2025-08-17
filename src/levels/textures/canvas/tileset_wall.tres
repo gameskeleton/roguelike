@@ -1,6 +1,7 @@
 [gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://doel3pdojspko"]
 
-[ext_resource type="Texture2D" uid="uid://qjn21m0d6awt" path="res://src/levels/textures/tileset_wall_d.png" id="1_5slof"]
+[ext_resource type="Texture2D" uid="uid://qjn21m0d6awt" path="res://src/levels/textures/tileset_wall.png" id="1_5slof"]
+
 
 [resource]
 diffuse_texture = ExtResource("1_5slof")
