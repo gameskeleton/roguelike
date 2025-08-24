@@ -1,9 +1,10 @@
-[gd_scene load_steps=104 format=3 uid="uid://ba5uvg88hin86"]
+[gd_scene load_steps=110 format=3 uid="uid://ba5uvg88hin86"]
 
 [ext_resource type="Script" uid="uid://sxecentfet3b" path="res://src/player/scripts/player.gd" id="1_wluja"]
 [ext_resource type="PackedScene" uid="uid://xyxp6p68n75r" path="res://src/systems/level.tscn" id="2_7w2hd"]
 [ext_resource type="PackedScene" uid="uid://5t2gx7epac85" path="res://src/systems/gold.tscn" id="2_18wbx"]
 [ext_resource type="Texture2D" uid="uid://b6cj4jaq8mxb2" path="res://src/player/textures/stand.png" id="2_a0emx"]
+[ext_resource type="Script" uid="uid://b7p7jqj4bawpt" path="res://addons/net.rootkernel.gameplay/src/manager.gd" id="2_ymg6t"]
 [ext_resource type="AudioStream" uid="uid://bfkiun68kkj5c" path="res://src/items/pickups/sounds/coin_picked_up.wav" id="3_3mvue"]
 [ext_resource type="Script" uid="uid://bkprgy15uimpl" path="res://src/player/scripts/states/stand.gd" id="3_8ll75"]
 [ext_resource type="Script" uid="uid://psmro46atb5s" path="res://src/player/scripts/states/fall.gd" id="3_73fy0"]
@@ -28,9 +29,14 @@
 [ext_resource type="Script" uid="uid://dnl515miobrkn" path="res://src/player/scripts/states/attack.gd" id="9_fb2tt"]
 [ext_resource type="AudioStream" uid="uid://cc30t52mrovey" path="res://src/player/sounds/hit.wav" id="10_m6ytp"]
 [ext_resource type="Script" uid="uid://dap5u4df0mo7s" path="res://src/player/scripts/states/wall_hang.gd" id="10_ml0y4"]
+[ext_resource type="Script" uid="uid://cp8slkgkasmxg" path="res://addons/net.rootkernel.gameplay/src/effect.gd" id="11_8o3kr"]
+[ext_resource type="Script" uid="uid://c12644grcq4k6" path="res://addons/net.rootkernel.gameplay/src/attribute.gd" id="11_jqx1k"]
 [ext_resource type="Script" uid="uid://bd88jncowr6n2" path="res://src/player/scripts/states/bump_into_wall.gd" id="11_nnruh"]
 [ext_resource type="Texture2D" uid="uid://k1jioeppm2bd" path="res://src/player/textures/wall_slide.png" id="11_o6r45"]
+[ext_resource type="Resource" uid="uid://cxx6qk6xoj5" path="res://src/health.tres" id="12_07fph"]
 [ext_resource type="AudioStream" uid="uid://cd17eiunch3uo" path="res://src/player/sounds/stand.wav" id="12_nfhlm"]
+[ext_resource type="Resource" uid="uid://wbd2c4h6f3rm" path="res://src/init.tres" id="12_xmhh8"]
+[ext_resource type="Resource" uid="uid://dgn7qdam3b4g7" path="res://src/max_health.tres" id="13_8o3kr"]
 [ext_resource type="Script" uid="uid://hhpajie5n4no" path="res://src/player/scripts/states/wall_slide.gd" id="13_ma8tw"]
 [ext_resource type="AudioStream" uid="uid://coae4lk6cowab" path="res://src/player/sounds/attack.wav" id="15_8gyqs"]
 [ext_resource type="Script" uid="uid://dsl56jgclnrbg" path="res://src/player/scripts/states/wall_climb.gd" id="16_gdcg3"]
@@ -1549,6 +1555,11 @@ instigator = NodePath("../..")
 [node name="Stamina" parent="Systems" instance=ExtResource("3_kren4")]
 
 [node name="LifePoints" parent="Systems" instance=ExtResource("3_h8vvb")]
+
+[node name="Gameplay" type="Node" parent="."]
+script = ExtResource("2_ymg6t")
+effects = Array[ExtResource("11_8o3kr")]([ExtResource("12_xmhh8")])
+attributes = Array[ExtResource("11_jqx1k")]([ExtResource("12_07fph"), ExtResource("13_8o3kr")])
 
 [node name="StateMachine" type="Node" parent="."]
 

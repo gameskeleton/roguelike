@@ -26,7 +26,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/net.rootkernel.camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/net.rootkernel.camera/plugin.cfg", "res://addons/net.rootkernel.gameplay/plugin.cfg")
 
 [input]
 

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="RkGameplayEffect" load_steps=9 format=3 uid="uid://wbd2c4h6f3rm"]
+
+[ext_resource type="Script" uid="uid://6cnhfn4sogut" path="res://addons/net.rootkernel.gameplay/src/effects/checks/check.gd" id="1_5udty"]
+[ext_resource type="Script" uid="uid://dygt5kue6dqds" path="res://addons/net.rootkernel.gameplay/src/effects/modifiers/modifier.gd" id="2_5bs3c"]
+[ext_resource type="Resource" uid="uid://dgn7qdam3b4g7" path="res://src/max_health.tres" id="3_3wuof"]
+[ext_resource type="Script" uid="uid://cp8slkgkasmxg" path="res://addons/net.rootkernel.gameplay/src/effect.gd" id="3_twvb4"]
+[ext_resource type="Script" uid="uid://5wchbdry8ie2" path="res://addons/net.rootkernel.gameplay/src/effects/modifiers/modifier_attribute.gd" id="4_628un"]
+[ext_resource type="Resource" uid="uid://cxx6qk6xoj5" path="res://src/health.tres" id="5_3wuof"]
+
+[sub_resource type="Resource" id="Resource_wafg1"]
+script = ExtResource("4_628un")
+attribute = ExtResource("3_3wuof")
+operator = 0
+operand = 10.0
+priority = 0
+metadata/_custom_type_script = "uid://5wchbdry8ie2"
+
+[sub_resource type="Resource" id="Resource_x4rgi"]
+script = ExtResource("4_628un")
+attribute = ExtResource("5_3wuof")
+operator = 0
+operand = 10.0
+priority = 0
+metadata/_custom_type_script = "uid://5wchbdry8ie2"
+
+[resource]
+script = ExtResource("3_twvb4")
+checks = Array[ExtResource("1_5udty")]([])
+modifiers = Array[ExtResource("2_5bs3c")]([SubResource("Resource_wafg1"), SubResource("Resource_x4rgi")])
+first_tick = true
+interval_ms = 0.0
+duration_ms = 0.0
+metadata/_custom_type_script = "uid://cp8slkgkasmxg"

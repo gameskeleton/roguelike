@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RkGameplayAttribute" load_steps=2 format=3 uid="uid://cxx6qk6xoj5"]
+
+[ext_resource type="Script" uid="uid://c12644grcq4k6" path="res://addons/net.rootkernel.gameplay/src/attribute.gd" id="1_0kk41"]
+
+[resource]
+script = ExtResource("1_0kk41")
+metadata/_custom_type_script = "uid://c12644grcq4k6"
