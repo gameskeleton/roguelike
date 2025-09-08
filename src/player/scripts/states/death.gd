@@ -12,7 +12,7 @@ func start_state():
 	player_node.animation_player.speed_scale = 1.4
 
 func process_state(delta: float):
-	player_node.handle_gravity(delta, RkPlayer.GRAVITY_MAX_SPEED, RkPlayer.GRAVITY_ACCELERATION)
+	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_deceleration_move(delta, player_node.DEATH_DECELERATION)
 	match _state:
 		State.fall:
