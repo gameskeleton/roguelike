@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdglrkhrt5s43"]
+
+[ext_resource type="Texture2D" uid="uid://bjqs7gv4kcl3v" path="res://src/shared/textures/flame.png" id="1_ge0rx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ge0rx"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_ge0rx"]
+_data = [Vector2(0, 1), 0.0, -1.8, 0, 1, Vector2(0.5, 0.1), -1.8, 0.0, 1, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ge0rx"]
+offsets = PackedFloat32Array(0, 0.1, 0.2, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+metadata/_snap_enabled = true
+
+[node name="Flame" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_ge0rx")
+amount = 15
+texture = ExtResource("1_ge0rx")
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 55.0
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+angle_min = -10.0
+angle_max = 10.0
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_ge0rx")
+color_ramp = SubResource("Gradient_ge0rx")
