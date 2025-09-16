@@ -4,7 +4,7 @@ extends RkStateMachineState
 @export var stand_audio_stream_player: AudioStreamPlayer
 
 func start_state():
-	player_node.play_animation("stand")
+	player_node.play_animation(&"stand")
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall, player_node.fsm.state_nodes.wall_slide]):
 		player_node.play_sound_effect(stand_audio_stream_player)

@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-enum State { fall, hit_floor, dead }
+enum State {fall, hit_floor, dead}
 
 var _state := State.fall
 var _animation_initial_speed_scale := 1.0
@@ -8,7 +8,7 @@ var _animation_initial_speed_scale := 1.0
 func start_state():
 	_state = State.fall
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
-	player_node.play_animation("death_fall")
+	player_node.play_animation(&"death_fall")
 	player_node.animation_player.speed_scale = 1.4
 
 func process_state(delta: float):
@@ -18,7 +18,7 @@ func process_state(delta: float):
 		State.fall:
 			if player_node.is_on_floor() and player_node.is_animation_finished():
 				_state = State.hit_floor
-				player_node.play_animation("death_hit_floor")
+				player_node.play_animation(&"death_hit_floor")
 		State.hit_floor:
 			if player_node.is_stopped() and player_node.is_animation_finished():
 				_state = State.dead

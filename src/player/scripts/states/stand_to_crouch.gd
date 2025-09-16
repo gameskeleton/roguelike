@@ -1,7 +1,7 @@
 extends RkStateMachineState
 
 func start_state():
-	player_node.play_animation("stand_to_crouch")
+	player_node.play_animation(&"stand_to_crouch")
 	player_node.set_one_way_shapecast_active(true)
 
 func process_state(delta: float):

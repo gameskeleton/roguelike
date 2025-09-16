@@ -10,7 +10,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
 	player_node.animation_player.speed_scale = 1.8
-	player_node.play_animation("turn_around")
+	player_node.play_animation(&"turn_around")
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.is_stopped():
 		player_node.set_direction(-player_node.direction)

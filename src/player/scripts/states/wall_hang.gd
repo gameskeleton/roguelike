@@ -9,7 +9,7 @@ func start_state():
 		corner_pos \
 		- Vector2(player_node.direction * 5.0, 6.0) \
 		- Vector2(player_node.direction * absf(player_node.hand_marker.position.x), player_node.hand_marker.position.y)
-	player_node.play_animation("wall_hang")
+	player_node.play_animation(&"wall_hang")
 	player_node.set_wall_hang_raycast_active(true)
 	player_node.set_wall_climb_shapecast_active(true)
 

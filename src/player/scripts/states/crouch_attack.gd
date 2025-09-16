@@ -9,7 +9,7 @@ func start_state():
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.stamina_system.consume(player_node.CROUCH_ATTACK_STAMINA_COST)
 	player_node.animation_player.speed_scale = 1.6
-	player_node.play_animation("crouch_attack")
+	player_node.play_animation(&"crouch_attack")
 	player_node.play_sound_effect(crouch_attack_audio_stream_player)
 
 func process_state(delta: float):

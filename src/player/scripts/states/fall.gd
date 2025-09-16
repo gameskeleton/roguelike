@@ -3,7 +3,7 @@ extends RkStateMachineState
 var _coyote_time := 0.0
 
 func start_state():
-	player_node.play_animation("jump_to_fall")
+	player_node.play_animation(&"jump_to_fall")
 	player_node.set_wall_hang_raycast_active(true)
 	player_node.set_wall_slide_raycast_active(true)
 	_coyote_time = player_node.COYOTE_TIME if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.walk, player_node.fsm.state_nodes.crouch_walk]) else 0.0

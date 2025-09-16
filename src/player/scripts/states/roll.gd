@@ -14,7 +14,7 @@ func start_state():
 	if not player_node.crouched:
 		player_node.crouch()
 	player_node.dash(player_node.ROLL_STRENGTH)
-	player_node.play_animation("roll")
+	player_node.play_animation(&"roll")
 	player_node.play_sound_effect(roll_audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_roll_hitbox_active(true)
 	player_node.set_one_way_shapecast_active(true)

@@ -56,7 +56,7 @@ func finish_state():
 
 # @impure
 func _play_animation():
-	player_node.play_animation("stand" if player_node.get_real_velocity().length() < 0.15 * player_node.WALK_MAX_SPEED else "walk")
+	player_node.play_animation(&"stand" if player_node.get_real_velocity().length() < 0.15 * player_node.WALK_MAX_SPEED else &"walk")
 
 # @anim
 # @impure

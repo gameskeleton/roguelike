@@ -2,7 +2,7 @@ extends RkStateMachineState
 
 func start_state():
 	player_node.velocity = Vector2(player_node.direction, minf(player_node.velocity.y, player_node.WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY))
-	player_node.play_animation("wall_slide")
+	player_node.play_animation(&"wall_slide")
 	player_node.set_wall_hang_raycast_active(true)
 	player_node.set_wall_slide_raycast_active(true)
 

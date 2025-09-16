@@ -6,7 +6,7 @@ func start_state():
 	_timer = 0.0
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.stand_to_crouch]):
 		player_node.crouch()
-	player_node.play_animation("crouch")
+	player_node.play_animation(&"crouch")
 	player_node.set_one_way_shapecast_active(true)
 	player_node.set_uncrouch_shapecast_active(true)
 	if player_node.has_horizontal_input():

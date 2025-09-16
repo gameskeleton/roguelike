@@ -127,6 +127,16 @@ metadata/_edit_lock_ = true
 position = Vector2(224, 256)
 level_node = NodePath("../Level")
 
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("9_kqbth")
+metadata/_custom_type_script = "uid://tkxcqhvo0nde"
+metadata/_edit_lock_ = true
+
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
 position = Vector2(0, -16)
 color = Color(1, 0.27451, 0, 1)
@@ -182,18 +192,6 @@ libraries = {
 stream = ExtResource("6_yr51s")
 volume_db = 10.0
 bus = &"SFX"
-
-[node name="Camera2D" type="Camera2D" parent="Game" node_paths=PackedStringArray("target_node")]
-position = Vector2(224, 256)
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-script = ExtResource("9_kqbth")
-target_node = NodePath("../Player")
-metadata/_custom_type_script = "uid://tkxcqhvo0nde"
-metadata/_edit_lock_ = true
 
 [node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../Level")

@@ -41,7 +41,7 @@ func _ready():
 	player_node.level_system.level_up.connect(func(_level: int):
 		if state == State.game:
 			state = State.level_up
-			level_up_animation_player.play("level_up!")
+			level_up_animation_player.play(&"level_up!")
 		level_up_audio_stream_player.play()
 	)
 
@@ -57,7 +57,7 @@ func _process(delta: float):
 # @impure
 func _process_game(_delta: float):
 	# pause game
-	if Input.is_action_just_pressed("player_pause"):
+	if Input.is_action_just_pressed(&"player_pause"):
 		state = State.pause
 		get_tree().paused = true
 
@@ -65,16 +65,16 @@ func _process_game(_delta: float):
 func _process_debug():
 	if player_node.dead:
 		return
-	if Input.is_action_just_pressed("ui_page_up"):
+	if Input.is_action_just_pressed(&"ui_page_up"):
 		player_node.level_system.earn_experience(ceili(player_node.level_system.experience_required_to_level_up / 10.0))
-	if Input.is_action_just_pressed("ui_page_down"):
+	if Input.is_action_just_pressed(&"ui_page_down"):
 		player_node.life_points_system.invincibility_delay = 0.0
 		player_node.life_points_system.take_damage(ceilf(player_node.life_points_system.life_points.max_value / 10.0))
 
 # @impure
 func _process_pause(_delta: float):
 	# resume game
-	if Input.is_action_just_pressed("player_pause"):
+	if Input.is_action_just_pressed(&"player_pause"):
 		get_tree().paused = false
 		state = State.game
 

@@ -169,7 +169,6 @@ func process(delta: float):
 	process_velocity(delta)
 	process_timeouts(delta)
 	fsm.process_state_machine(delta)
-	if animation_player.is_playing(): animation_player.advance(delta)
 
 # process_input updates player inputs.
 # @impure

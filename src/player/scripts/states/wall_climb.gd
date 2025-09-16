@@ -17,7 +17,7 @@ func start_state():
 	player_node.root_motion = Vector2.ZERO
 	player_node.animation_player.speed_scale = 1.4
 	player_node.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-	player_node.play_animation("wall_climb")
+	player_node.play_animation(&"wall_climb")
 	player_node.play_sound_effect(climb_audio_stream_player, 0.0, 0.7, 0.8)
 	assert(_can_climb_stand or _can_climb_crouch, "cannot climb safely")
 

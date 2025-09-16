@@ -11,10 +11,10 @@ var _tween: Tween
 func start_state():
 	if player_node.crouched:
 		_state = State.hit_crouch
-		player_node.play_animation("hit_crouch")
+		player_node.play_animation(&"hit_crouch")
 	else:
 		_state = State.hit_stand
-		player_node.play_animation("hit_stand")
+		player_node.play_animation(&"hit_stand")
 	_play_hit_effect()
 	_apply_impulse_in_damage_direction()
 	player_node.play_sound_effect(hit_audio_stream_player)

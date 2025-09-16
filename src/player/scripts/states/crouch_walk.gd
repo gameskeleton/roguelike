@@ -55,7 +55,7 @@ func finish_state():
 
 # @impure
 func _play_animation():
-	player_node.play_animation("crouch" if player_node.get_real_velocity().length() < 20.0 else "crouch_walk")
+	player_node.play_animation(&"crouch" if player_node.get_real_velocity().length() < 20.0 else &"crouch_walk")
 
 # @anim
 # @impure

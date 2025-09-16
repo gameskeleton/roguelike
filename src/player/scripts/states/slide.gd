@@ -13,7 +13,7 @@ var _offset := 0.0
 func start_state():
 	_state = State.crouch_to_slide
 	_offset = 0.0
-	player_node.play_animation("crouch_to_slide")
+	player_node.play_animation(&"crouch_to_slide")
 	player_node.play_sound_effect(slide_audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.set_slide_hitbox_active(true)
 	player_node.stamina_system.consume(player_node.SLIDE_STAMINA_COST)
@@ -30,11 +30,11 @@ func process_state(delta: float):
 		State.crouch_to_slide:
 			if player_node.is_animation_finished():
 				_state = State.slide
-				player_node.play_animation("slide")
+				player_node.play_animation(&"slide")
 		State.slide:
 			if player_node.is_stopped():
 				_state = State.slide_to_crouch
-				player_node.play_animation("slide_to_crouch")
+				player_node.play_animation(&"slide_to_crouch")
 		State.slide_to_crouch:
 			if player_node.is_animation_finished():
 				return player_node.fsm.state_nodes.crouch
