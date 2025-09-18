@@ -142,6 +142,177 @@ position = Vector2(704, 80)
 [node name="Candle2" parent="Decors" instance=ExtResource("7_dv8wo")]
 position = Vector2(80, 544)
 
+[node name="Barrel13" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(848, 464)
+
+[node name="Barrel14" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(864, 464)
+
+[node name="Barrel15" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(856, 448)
+
+[node name="Barrel16" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(880, 464)
+
+[node name="Barrel17" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(896, 464)
+
+[node name="Barrel18" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(872, 448)
+
+[node name="Barrel19" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(912, 464)
+
+[node name="Barrel20" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(904, 448)
+
+[node name="Barrel49" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(920, 448)
+
+[node name="Barrel21" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(888, 448)
+
+[node name="Barrel22" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(928, 464)
+
+[node name="Barrel23" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(944, 464)
+
+[node name="Barrel24" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(936, 448)
+
+[node name="Barrel25" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(960, 464)
+
+[node name="Barrel26" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(976, 464)
+
+[node name="Barrel27" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(952, 448)
+
+[node name="Barrel28" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(992, 464)
+
+[node name="Barrel29" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(984, 448)
+
+[node name="Barrel50" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1000, 448)
+
+[node name="Barrel30" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(968, 448)
+
+[node name="Barrel31" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1008, 464)
+
+[node name="Barrel32" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1024, 464)
+
+[node name="Barrel33" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1016, 448)
+
+[node name="Barrel34" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1040, 464)
+
+[node name="Barrel35" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1056, 464)
+
+[node name="Barrel36" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1032, 448)
+
+[node name="Barrel37" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1072, 464)
+
+[node name="Barrel38" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1064, 448)
+
+[node name="Barrel51" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1080, 448)
+
+[node name="Barrel39" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1048, 448)
+
+[node name="Barrel40" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1088, 464)
+
+[node name="Barrel41" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1104, 464)
+
+[node name="Barrel42" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1096, 448)
+
+[node name="Barrel43" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1120, 464)
+
+[node name="Barrel44" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1136, 464)
+
+[node name="Barrel45" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1112, 448)
+
+[node name="Barrel46" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1152, 464)
+
+[node name="Barrel47" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1144, 448)
+
+[node name="Barrel48" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1128, 448)
+
+[node name="Barrel52" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(864, 432)
+
+[node name="Barrel53" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(880, 432)
+
+[node name="Barrel54" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(912, 432)
+
+[node name="Barrel55" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(928, 432)
+
+[node name="Barrel56" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(896, 432)
+
+[node name="Barrel57" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(944, 432)
+
+[node name="Barrel58" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(960, 432)
+
+[node name="Barrel59" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(992, 432)
+
+[node name="Barrel60" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1008, 432)
+
+[node name="Barrel61" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(976, 432)
+
+[node name="Barrel62" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1024, 432)
+
+[node name="Barrel63" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1040, 432)
+
+[node name="Barrel64" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1072, 432)
+
+[node name="Barrel65" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1088, 432)
+
+[node name="Barrel66" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1056, 432)
+
+[node name="Barrel67" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1104, 432)
+
+[node name="Barrel68" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1120, 432)
+
+[node name="Barrel70" parent="Decors" instance=ExtResource("3_aeuny")]
+position = Vector2(1136, 432)
+
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("8_2tyx5")]
@@ -153,7 +324,7 @@ position = Vector2(272, 176)
 visible = false
 offset_right = 1024.0
 offset_bottom = 288.0
-color = Color(1, 1, 1, 0.196078)
+color = Color(1, 1, 1, 0.19607843)
 script = ExtResource("2_54iga")
 metadata/_custom_type_script = "uid://cxd1dhjjlbb1p"
 
@@ -162,7 +333,7 @@ visible = false
 offset_top = 288.0
 offset_right = 1472.0
 offset_bottom = 576.0
-color = Color(1, 1, 1, 0.196078)
+color = Color(1, 1, 1, 0.19607843)
 script = ExtResource("2_54iga")
 metadata/_custom_type_script = "uid://cxd1dhjjlbb1p"
 
@@ -170,6 +341,6 @@ metadata/_custom_type_script = "uid://cxd1dhjjlbb1p"
 visible = false
 offset_left = -192.0
 offset_bottom = 576.0
-color = Color(1, 1, 1, 0.196078)
+color = Color(1, 1, 1, 0.19607843)
 script = ExtResource("2_54iga")
 metadata/_custom_type_script = "uid://cxd1dhjjlbb1p"
