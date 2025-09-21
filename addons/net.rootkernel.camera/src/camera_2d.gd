@@ -24,7 +24,7 @@ func _ready() -> void:
 		var camera_region := node as RkCameraRegion2D
 		for other_camera_region in _camera_regions:
 			if camera_region.get_bounds().intersects(other_camera_region.get_bounds()):
-				push_error("%s intersects with %s" % [camera_region.name, other_camera_region.name])
+				push_error("%s intersects with %s (%s vs %s)" % [camera_region.name, other_camera_region.name, camera_region.get_bounds(), other_camera_region.get_bounds()])
 		_camera_regions.push_back(camera_region as RkCameraRegion2D)
 		if not camera_region and camera_region.get_bounds().has_point(global_position):
 			_camera_region = camera_region
