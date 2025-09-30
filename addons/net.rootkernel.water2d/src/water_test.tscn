@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx7gpd3jq8fpv"]
+
+[ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="1_water"]
+[ext_resource type="Script" uid="uid://bqmh6snelr5a2" path="res://addons/net.rootkernel.water2d/src/scripts/water_test.gd" id="2_test"]
+
+[node name="WaterTest" type="Node2D"]
+script = ExtResource("2_test")
+
+[node name="Water2D" parent="." instance=ExtResource("1_water")]
