@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cudnwymn0dsjl"]
+
+[ext_resource type="Script" uid="uid://gtwll3bi1x5u" path="res://addons/net.rootkernel.water2d/src/scripts/water2d.gd" id="1_q7iyv"]
+
+[node name="Water2D" type="Node2D"]
+script = ExtResource("1_q7iyv")
