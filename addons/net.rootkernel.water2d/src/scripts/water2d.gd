@@ -46,9 +46,8 @@ var heights_image: Image
 var heights_texture: ImageTexture
 var shader_material: ShaderMaterial
 
-# @pure
-static var body_enter := func(water: RkWater2D, body: Node2D):
-	pass
+static var body_exit := func(water: RkWater2D, body: Node2D): pass
+static var body_enter := func(water: RkWater2D, body: Node2D): pass
 
 # @impure
 func splash(index: int, strength: float):
@@ -99,6 +98,7 @@ func _ready():
 	collision_shape_2d.position = Vector2(width / 2.0, height / 2.0)
 	area_2d_node.collision_mask = collision_mask
 	area_2d_node.collision_layer = collision_layer
+	area_2d_node.body_exited.connect(_on_body_exited)
 	area_2d_node.body_entered.connect(_on_body_entered)
 	# create heights texture
 	heights_image = Image.create_empty(width, 1, false, Image.FORMAT_RF)
@@ -182,6 +182,11 @@ func _update_mesh_and_collision():
 	rect_shape.size = Vector2(width, height)
 	mesh_instance_2d.position = Vector2(width / 2.0, height / 2.0)
 	collision_shape_2d.position = Vector2(width / 2.0, height / 2.0)
+
+# @signal
+# @impure
+func _on_body_exited(body: Node2D):
+	RkWater2D.body_exit.call(self, body)
 
 # @signal
 # @impure

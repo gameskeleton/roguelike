@@ -204,9 +204,9 @@ player_camera_node = NodePath("../Player/Camera2D")
 spawn_node = NodePath("../LevelManager/Level_01")
 
 [node name="Water2D" parent="." instance=ExtResource("15_mlv6i")]
-position = Vector2(496, 224)
+position = Vector2(496, 232)
 width = 80
-height = 32
+height = 24
 iterations = 2
 collision_layer = 2048
 collision_mask = 72
