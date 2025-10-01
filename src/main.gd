@@ -25,8 +25,8 @@ var state := State.game
 func _init():
 	RkMain._main_node = self
 	RkWater2D.body_enter = func (water: RkWater2D, body: Node2D):
-		if body is CharacterBody2D:
-			water.splash(clampi(roundi(body.position.x - water.position.x), 0, water.width - 1), -100.0)
+		if body is RigidBody2D or body is CharacterBody2D:
+			water.splash(clampi(roundi(body.position.x - water.position.x), 0, water.width - 1), -35.0)
 
 # @impure
 func _ready():

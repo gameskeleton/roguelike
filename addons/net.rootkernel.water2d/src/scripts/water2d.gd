@@ -84,10 +84,10 @@ func _ready():
 	add_child(area_2d_node)
 	add_child(mesh_instance_2d)
 	area_2d_node.add_child(collision_shape_2d)
-	mesh_instance_2d.position = Vector2(width / 2.0, height / 2.0)
+	mesh_instance_2d.position = Vector2(width / 2.0, 0.0)
 	# create quad mesh
 	var quad_mesh = QuadMesh.new()
-	quad_mesh.size = Vector2(width, height)
+	quad_mesh.size = Vector2(width, height * 2.0)
 	mesh_instance_2d.mesh = quad_mesh
 	# create shader material
 	shader_material = ShaderMaterial.new()
@@ -116,11 +116,22 @@ func _ready():
 func _process(delta: float):
 	if Engine.is_editor_hint():
 		return
-	# apply spring force
+	# apply spring force with edge dampening
 	for i in range(width):
-		accelerations[i] = - tension * heights[i] - velocities[i] * damping
+		# calculate edge dampening factor (stronger near edges)
+		var edge_distance := minf(i, width - 1 - i)
+		var edge_dampening := 1.0
+		var edge_dampening_zone := width * 0.01
+		if edge_distance < edge_dampening_zone:
+			edge_dampening = 0.3 + 0.7 * (edge_distance / edge_dampening_zone)
+		# apply spring force with edge dampening
+		var effective_damping := damping + (1.0 - edge_dampening) * 0.05
+		accelerations[i] = - tension * heights[i] - velocities[i] * effective_damping
 		velocities[i] += accelerations[i]
 		heights[i] += velocities[i]
+		# apply edge dampening to height and velocity
+		heights[i] *= edge_dampening
+		velocities[i] *= edge_dampening
 	# propagate to neighbors
 	for j in range(iterations):
 		for i in range(width):
