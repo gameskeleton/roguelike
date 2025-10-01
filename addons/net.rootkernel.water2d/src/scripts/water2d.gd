@@ -46,13 +46,30 @@ var heights_image: Image
 var heights_texture: ImageTexture
 var shader_material: ShaderMaterial
 
-static var body_exit := func(water: RkWater2D, body: Node2D): pass
-static var body_enter := func(water: RkWater2D, body: Node2D): pass
+static var body_exit := func(water: RkWater2D, body: Node2D): water.splash_physics(body, false)
+static var body_enter := func(water: RkWater2D, body: Node2D): water.splash_physics(body, true)
 
 # @impure
 func splash(index: int, strength: float):
 	assert(index >= 0 && index < width, "splash: index: 0 <= %s < %s" % [index, width])
 	velocities[index] = strength
+
+# @impure
+func splash_physics(body: Node2D, enter: bool):
+	var mass := 0.0
+	var index := clampi(roundi(body.position.x - position.x), 0, width - 1)
+	var velocity := Vector2.ZERO
+	if body is RigidBody2D:
+		var rigid_body := body as RigidBody2D
+		mass = rigid_body.mass
+		velocity = rigid_body.linear_velocity
+	elif body is CharacterBody2D:
+		var character_body := body as CharacterBody2D
+		mass = 1.0
+		velocity = character_body.get_real_velocity()
+	var strength := 3.0 + mass * (absf(velocity.y) * 0.1 + absf(velocity.x) * 0.02) * 0.5
+	var clamped_strength := clampf(strength, -20.0, +20.0) * (1.0 if enter else -1.0)
+	splash(index, strength)
 
 # @impure
 func _draw():

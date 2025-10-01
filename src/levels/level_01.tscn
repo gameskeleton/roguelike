@@ -317,27 +317,29 @@ position = Vector2(1312, 432)
 [node name="Barrel70" parent="Decors" instance=ExtResource("3_aeuny")]
 position = Vector2(1328, 432)
 
-[node name="Water2D" parent="Decors" instance=ExtResource("9_hjd8s")]
-position = Vector2(496, 208)
+[node name="Enemies" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Zombie" parent="Enemies" instance=ExtResource("8_2tyx5")]
+position = Vector2(464, 176)
+
+[node name="Water Areas" type="Node2D" parent="."]
+
+[node name="Water2D" parent="Water Areas" instance=ExtResource("9_hjd8s")]
+position = Vector2(496, 216)
 width = 80
-height = 48
+height = 40
 iterations = 2
 collision_layer = 2048
 collision_mask = 1112
 
-[node name="Water2D2" parent="Decors" instance=ExtResource("9_hjd8s")]
+[node name="Water2D2" parent="Water Areas" instance=ExtResource("9_hjd8s")]
 position = Vector2(0, 528)
 width = 1664
 height = 48
 iterations = 2
 collision_layer = 2048
 collision_mask = 1112
-
-[node name="Enemies" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="Zombie" parent="Enemies" instance=ExtResource("8_2tyx5")]
-position = Vector2(464, 176)
 
 [node name="Camera Regions" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
