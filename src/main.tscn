@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=20 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" uid="uid://dst7pyir2s0uo" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -14,7 +14,6 @@
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="PackedScene" uid="uid://cegviomkjdxqm" path="res://src/gui/widgets/progress_bar.tscn" id="13_srxbw"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
-[ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="15_mlv6i"]
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_jfkim"]
 resource_name = "RichTextEffectOffset"
@@ -202,14 +201,6 @@ player_camera_node = NodePath("../Player/Camera2D")
 
 [node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../LevelManager/Level_01")
-
-[node name="Water2D" parent="." instance=ExtResource("15_mlv6i")]
-position = Vector2(496, 232)
-width = 80
-height = 24
-iterations = 2
-collision_layer = 2048
-collision_mask = 72
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.588235, 0.588235, 0.588235, 1)
