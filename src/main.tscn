@@ -204,12 +204,12 @@ player_camera_node = NodePath("../Player/Camera2D")
 spawn_node = NodePath("../LevelManager/Level_01")
 
 [node name="Water2D" parent="." instance=ExtResource("15_mlv6i")]
-position = Vector2(224, 192)
-width = 224
-height = 64
+position = Vector2(496, 224)
+width = 80
+height = 32
 iterations = 2
 collision_layer = 2048
-collision_mask = 8
+collision_mask = 72
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.588235, 0.588235, 0.588235, 1)

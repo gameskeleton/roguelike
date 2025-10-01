@@ -20,9 +20,7 @@ class_name RkWater2D
 	set(value):
 		assert(value > 0, "height must be strictly positive")
 		height = value
-		if shader_material and is_inside_tree() and not Engine.is_editor_hint():
-			shader_material.set_shader_parameter(&"water_height", height * .25)
-			shader_material.set_shader_parameter(&"wave_amplitude", height * 0.1)
+		if is_inside_tree() and not Engine.is_editor_hint():
 			_update_mesh_and_collision()
 		queue_redraw()
 @export var spread := 0.25
@@ -92,12 +90,7 @@ func _ready():
 	# create shader material
 	shader_material = ShaderMaterial.new()
 	shader_material.shader = preload("res://addons/net.rootkernel.water2d/src/shaders/water2d.gdshader")
-	shader_material.set_shader_parameter(&"smoothness", 5.0)
-	shader_material.set_shader_parameter(&"depth_fade", 0.4)
 	shader_material.set_shader_parameter(&"water_color", color)
-	shader_material.set_shader_parameter(&"water_height", height * .25)
-	shader_material.set_shader_parameter(&"wave_amplitude", height * 0.1)
-	shader_material.set_shader_parameter(&"surface_brightness", 1.3)
 	mesh_instance_2d.material = shader_material
 	# create collision shapes
 	var shape := RectangleShape2D.new()
