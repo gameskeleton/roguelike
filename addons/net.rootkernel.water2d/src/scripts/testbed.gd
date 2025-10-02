@@ -15,5 +15,5 @@ func _input(event):
 		var local_pos := mouse_pos - water.global_position
 		var x_pos_int := int(local_pos.x)
 		if x_pos_int >= 0 and x_pos_int < water.width:
-			print("Splash at position: ", x_pos_int)
-			water.splash(x_pos_int, -100.0)
+			print("React at position: ", x_pos_int)
+			water.react(x_pos_int, -20.0)
