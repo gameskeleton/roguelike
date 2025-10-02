@@ -329,7 +329,6 @@ position = Vector2(464, 176)
 position = Vector2(496, 216)
 width = 80
 height = 40
-iterations = 2
 collision_layer = 2048
 collision_mask = 1112
 
@@ -337,7 +336,6 @@ collision_mask = 1112
 position = Vector2(0, 528)
 width = 1664
 height = 48
-iterations = 2
 collision_layer = 2048
 collision_mask = 1112
 
