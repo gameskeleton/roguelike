@@ -106,6 +106,7 @@ func _ready():
 	# create shader material
 	shader_material = ShaderMaterial.new()
 	shader_material.shader = preload("res://addons/net.rootkernel.water2d/src/shaders/water2d.gdshader")
+	shader_material.set_shader_parameter(&"foam_color", color)
 	shader_material.set_shader_parameter(&"water_color", color)
 	mesh_instance_2d.material = shader_material
 	# create collision shapes
