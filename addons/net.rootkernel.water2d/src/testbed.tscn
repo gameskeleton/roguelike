@@ -3,9 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="1_water"]
 [ext_resource type="Script" uid="uid://bqmh6snelr5a2" path="res://addons/net.rootkernel.water2d/src/scripts/testbed.gd" id="2_test"]
 
-[node name="WaterTest" type="Node2D"]
+[node name="WaterTest" type="Node2D" node_paths=PackedStringArray("water_node")]
 script = ExtResource("2_test")
+water_node = NodePath("Water2D")
 
 [node name="Water2D" parent="." instance=ExtResource("1_water")]
 position = Vector2(0, 144)
 height = 144
+floor_offset = 96

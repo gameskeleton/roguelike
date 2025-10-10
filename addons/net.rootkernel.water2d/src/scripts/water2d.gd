@@ -5,28 +5,36 @@ class_name RkWater2D
 @export var color := Color(0.5, 0.5, 0.82, 0.59):
 	set(value):
 		color = value
-		if shader_material and is_inside_tree() and not Engine.is_editor_hint():
+		if Engine.is_editor_hint():
+			queue_redraw()
+		elif is_inside_tree() and shader_material:
 			shader_material.set_shader_parameter(&"water_color", color)
 		queue_redraw()
 @export var width := 512:
 	set(value):
-		assert(value > 0, "width must be strictly positive")
-		width = value
-		if is_inside_tree() and not Engine.is_editor_hint():
+		width = maxi(value, 8.0)
+		if Engine.is_editor_hint():
+			queue_redraw()
+		elif is_inside_tree():
 			_update_width()
 			_update_mesh_and_collision()
-		queue_redraw()
 @export var height := 288:
 	set(value):
-		assert(value > 0, "height must be strictly positive")
-		height = value
-		if is_inside_tree() and not Engine.is_editor_hint():
+		height = maxi(value, 8.0)
+		floor_offset = clampi(floor_offset, 0.0, height)
+		if Engine.is_editor_hint():
+			queue_redraw()
+		elif is_inside_tree():
 			_update_mesh_and_collision()
-		queue_redraw()
 @export var spread := 0.25
 @export var tension := 0.025
 @export var damping := 0.025
 @export var iterations := 1
+@export var floor_offset := 0:
+	set(value):
+		floor_offset = clampi(value, 0.0, height)
+		if Engine.is_editor_hint():
+			queue_redraw()
 
 @export_group("Collision")
 @export_flags_2d_physics var collision_layer := 0
@@ -75,6 +83,9 @@ func react_physics(body: Node2D, enter: bool):
 func _draw():
 	if Engine.is_editor_hint():
 		draw_rect(Rect2(0, 0, width, height), color)
+		draw_line(Vector2(0, 0), Vector2(width, 0), Color.WHITE, 1.0, false)
+		if floor_offset != 0.0:
+			draw_line(Vector2(0, height - floor_offset), Vector2(width, height - floor_offset), Color.SADDLE_BROWN, 1.0, false)
 
 # @impure
 func _ready():
@@ -159,8 +170,8 @@ func _process(delta: float):
 				heights[i + 1] += right_deltas[i]
 	# clamp the heights
 	for x in range(width):
-		var half_height := height * 0.5
-		heights[x] = clampf(heights[x], -half_height, half_height)
+		var max_height := (height - floor_offset) * 0.5
+		heights[x] = clampf(heights[x], -max_height, max_height) # TODO: normalize velocities instead.
 	# update heights texture
 	_update_heights_texture()
 
@@ -196,9 +207,9 @@ func _update_heights_texture():
 func _update_mesh_and_collision():
 	var quad_mesh := mesh_instance_2d.mesh as QuadMesh
 	var rect_shape := collision_shape_2d.shape as RectangleShape2D
-	quad_mesh.size = Vector2(width, height)
+	quad_mesh.size = Vector2(width, height * 2.0)
 	rect_shape.size = Vector2(width, height)
-	mesh_instance_2d.position = Vector2(width / 2.0, height / 2.0)
+	mesh_instance_2d.position = Vector2(width / 2.0, 0.0)
 	collision_shape_2d.position = Vector2(width / 2.0, height / 2.0)
 
 # @signal
