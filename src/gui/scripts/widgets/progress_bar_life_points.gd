@@ -27,11 +27,13 @@ func fade_out():
 # @impure
 func _ready():
 	super._ready()
+	fade_out()
 	if not Engine.is_editor_hint():
 		life_points_system.life_points_changed.connect(_on_life_points_life_points_changed)
 
 # @impure
 func _process(delta: float):
+	super._process(delta)
 	if _visible:
 		if _fade_in < 1.0:
 			_fade_in += delta * FADE_SPEED

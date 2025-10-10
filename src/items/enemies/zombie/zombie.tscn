@@ -33,6 +33,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="LifePoints" parent="GUI" node_paths=PackedStringArray("life_points_system") instance=ExtResource("4_ply85")]
+layout_mode = 0
 offset_left = -16.0
 offset_top = -37.0
 offset_right = 16.0

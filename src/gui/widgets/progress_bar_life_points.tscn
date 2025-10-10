@@ -4,4 +4,16 @@
 [ext_resource type="Script" uid="uid://bg8e7k3ba5vpu" path="res://src/gui/scripts/widgets/progress_bar_life_points.gd" id="2_o8axf"]
 
 [node name="LifePoints" instance=ExtResource("1_iuoat")]
+modulate = Color(1, 1, 1, 0)
 script = ExtResource("2_o8axf")
+lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
+value_color = Color(0.847059, 0.137255, 0.137255, 1)
+
+[node name="Margin" parent="." index="0"]
+color = Color(1, 0.827451, 0, 0.39215687)
+
+[node name="ProgressBarLag" parent="." index="2"]
+color = Color(0.847059, 0.137255, 0.137255, 0.392157)
+
+[node name="ProgressBarValue" parent="." index="3"]
+color = Color(0.847059, 0.137255, 0.137255, 1)
