@@ -25,7 +25,7 @@ shape = SubResource("CircleShape2D_udfjo")
 
 [node name="Links" type="Node2D" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_062i4")
 volume_db = -5.0
 bus = &"SFX"

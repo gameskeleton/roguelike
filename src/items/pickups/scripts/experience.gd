@@ -31,14 +31,14 @@ func _process(_delta: float):
 		line.clear_points()
 
 # @impure
-func _pick_up(player: RkPlayer):
+func _pick_up(player_node: RkPlayer):
 	if not _picked_up:
 		hide()
-		player.level_system.earn_experience(value)
+		player_node.level_system.earn_experience(value)
 		_picked_up = true
-		if not player.experience_picked_up_audio_stream_player.playing or player.experience_picked_up_audio_stream_player.get_playback_position() > 0.03:
-			player.experience_picked_up_audio_stream_player.pitch_scale = randf_range(0.9, 1.1)
-			player.experience_picked_up_audio_stream_player.play()
+		if not player_node.experience_picked_up_audio_stream_player.playing or player_node.experience_picked_up_audio_stream_player.get_playback_position() > 0.03:
+			player_node.experience_picked_up_audio_stream_player.pitch_scale = randf_range(0.9, 1.1)
+			player_node.experience_picked_up_audio_stream_player.play()
 		await get_tree().create_timer(1.0, false).timeout
 		queue_free()
 

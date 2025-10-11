@@ -49,7 +49,7 @@ extends Node2D
 
 @onready var chain_base := $Base as StaticBody2D
 @onready var chain_links := $Links as Node2D
-@onready var audio_stream_player := $AudioStreamPlayer as AudioStreamPlayer
+@onready var audio_stream_player := $AudioStreamPlayer2D as AudioStreamPlayer2D
 
 var _chain_link_circle_shape := CircleShape2D.new()
 

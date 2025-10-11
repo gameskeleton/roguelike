@@ -154,6 +154,9 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
+[node name="AudioListener2D" type="AudioListener2D" parent="Game/Player"]
+current = true
+
 [node name="LevelUpToast" type="Control" parent="Game/Player"]
 visible = false
 layout_mode = 3
@@ -205,7 +208,7 @@ spawn_node = NodePath("../LevelManager/Level_01")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.588235, 0.588235, 0.588235, 1)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_dn0tp")
 volume_db = -10.0
 autoplay = true

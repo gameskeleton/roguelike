@@ -72,7 +72,7 @@ monitorable = false
 visible = false
 shape = SubResource("RectangleShape2D_wogr8")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_nd0h7")
 volume_db = -5.0
 bus = &"SFX"

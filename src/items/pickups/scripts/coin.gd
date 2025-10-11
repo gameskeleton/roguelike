@@ -31,14 +31,14 @@ func _process(_delta: float):
 		line.clear_points()
 
 # @impure
-func _pick_up(player: RkPlayer):
+func _pick_up(player_node: RkPlayer):
 	if not _picked_up:
 		hide()
-		player.gold_system.earn(value)
+		player_node.gold_system.earn(value)
 		_picked_up = true
-		if not player.coin_picked_up_audio_stream_player.playing or player.coin_picked_up_audio_stream_player.get_playback_position() > 0.05:
-			player.coin_picked_up_audio_stream_player.pitch_scale = randf_range(0.995, 1.005)
-			player.coin_picked_up_audio_stream_player.play()
+		if not player_node.coin_picked_up_audio_stream_player.playing or player_node.coin_picked_up_audio_stream_player.get_playback_position() > 0.05:
+			player_node.coin_picked_up_audio_stream_player.pitch_scale = randf_range(0.995, 1.005)
+			player_node.coin_picked_up_audio_stream_player.play()
 		await get_tree().create_timer(1.0, false).timeout
 		queue_free()
 

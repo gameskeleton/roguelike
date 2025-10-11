@@ -12,10 +12,6 @@ enum State {game, pause, level_up, game_over}
 @export var level_up_animation_player: AnimationPlayer
 @export var level_up_audio_stream_player: AudioStreamPlayer
 
-@export var picked_up_label: RichTextLabel
-@export var picked_up_animation_player: AnimationPlayer
-@export var picked_up_audio_stream_player: AudioStreamPlayer
-
 static var _main_node: RkMain = null
 
 var rng := RandomNumberGenerator.new()

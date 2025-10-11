@@ -1567,9 +1567,9 @@ script = ExtResource("3_73fy0")
 [node name="roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("roll_audio_stream_player")]
 script = ExtResource("4_giqnr")
 offset_curve = SubResource("Curve_8k3oh")
-roll_audio_stream_player = NodePath("AudioStreamPlayer")
+roll_audio_stream_player = NodePath("RollAudioStreamPlayer")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/roll"]
+[node name="RollAudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/roll"]
 stream = ExtResource("9_7l0y8")
 volume_db = -1.0
 bus = &"SFX - Roll"
