@@ -2,7 +2,7 @@ extends RkStateMachineState
 
 enum State {fall, hit_floor, to_stand, to_crouch}
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var bump_audio_stream_player: AudioStreamPlayer
 
 var _state := State.fall

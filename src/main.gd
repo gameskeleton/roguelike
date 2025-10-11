@@ -3,7 +3,7 @@ class_name RkMain
 
 enum State {game, pause, level_up, game_over}
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
 @export var object_spawner_node: RkObjectSpawner

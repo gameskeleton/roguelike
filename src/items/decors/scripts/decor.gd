@@ -3,7 +3,7 @@ extends Node2D
 @export var debris_scene: PackedScene
 @export var coin_spawn_position: Node2D
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var audio_stream_player: AudioStreamPlayer
 
 var _broken := false

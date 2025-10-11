@@ -4,7 +4,7 @@ enum State {crouch_to_slide, slide, slide_to_crouch}
 
 @export var slide_curve: Curve
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var slide_audio_stream_player: AudioStreamPlayer
 
 var _state := State.crouch_to_slide

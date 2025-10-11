@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var stand_audio_stream_player: AudioStreamPlayer
 
 func start_state():

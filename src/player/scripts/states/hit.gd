@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var hit_audio_stream_player: AudioStreamPlayer
 
 enum State {hit_stand, hit_crouch}

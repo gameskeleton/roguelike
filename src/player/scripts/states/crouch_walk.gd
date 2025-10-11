@@ -5,7 +5,7 @@ const FX_STEP_RANGE := Vector2(0.95, 1.05)
 @export var footstep_left_streams: Array[AudioStream]
 @export var footstep_right_streams: Array[AudioStream]
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var footstep_left_audio_stream_player: AudioStreamPlayer
 @export var footstep_right_audio_stream_player: AudioStreamPlayer
 

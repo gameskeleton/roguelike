@@ -2,7 +2,7 @@ extends RkStateMachineState
 
 @export var offset_curve: Curve
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var roll_audio_stream_player: AudioStreamPlayer
 
 var _sprite_initial_offset := Vector2()

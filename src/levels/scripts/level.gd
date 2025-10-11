@@ -5,7 +5,7 @@ class_name RkLevel
 const TILE_SIZE := Vector2i(16, 16)
 const CORNER_CUSTOM_DATA_LAYER_NAME := &"Corner"
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var wall_tile_map_layer: TileMapLayer
 @export var one_way_tile_map_layer: TileMapLayer
 

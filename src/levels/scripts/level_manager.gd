@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
 @export var player_camera_node: RkCamera2D

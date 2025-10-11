@@ -12,7 +12,7 @@ var defence := RkRpgSimpleFloat.create(1.0)
 @export var source: Node
 @export var instigator: Node
 
-@export_group("Damage multipliers", "damage_multiplier")
+@export_group(&"Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_fire := 1.0
 @export var damage_multiplier_roll := 1.0
 @export var damage_multiplier_world := 1.0

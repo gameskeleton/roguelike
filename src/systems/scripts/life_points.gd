@@ -17,11 +17,11 @@ signal life_points_changed(life_points: float, life_points_ratio: float, life_po
 
 const NO_DAMAGE := -1.0
 
-@export_group("Invincible")
+@export_group(&"Invincible")
 @export var invincible := 0
 @export var prevent_take_damage_until_next_frame := 0.0
 
-@export_group("Damage multipliers", "damage_multiplier")
+@export_group(&"Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_fire := 1.0
 @export var damage_multiplier_roll := 1.0
 @export var damage_multiplier_slide := 1.0

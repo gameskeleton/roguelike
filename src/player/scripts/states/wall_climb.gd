@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var climb_audio_stream_player: AudioStreamPlayer
 
 var _can_climb_stand := false

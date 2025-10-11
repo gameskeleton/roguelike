@@ -11,7 +11,7 @@ var direction := 1.0
 @export var damage := 3.0
 @export var damage_type := RkLifePointsSystem.DmgType.physical
 
-@export_group("Systems")
+@export_group(&"Systems")
 @export var attack_system: RkAttackSystem
 @export var life_points_system: RkLifePointsSystem
 

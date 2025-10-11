@@ -36,7 +36,7 @@ class_name RkWater2D
 		if Engine.is_editor_hint():
 			queue_redraw()
 
-@export_group("Collision")
+@export_group(&"Collision")
 @export_flags_2d_physics var collision_layer := 0
 @export_flags_2d_physics var collision_mask := 0
 

@@ -60,7 +60,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 # Nodes
 ###
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var sprite: Sprite2D
 @export var level_node: RkLevel
 @export var hand_marker: Marker2D
@@ -87,7 +87,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var coin_picked_up_audio_stream_player: AudioStreamPlayer
 @export var experience_picked_up_audio_stream_player: AudioStreamPlayer
 
-@export_group("Systems")
+@export_group(&"Systems")
 @export var gold_system: RkGoldSystem
 @export var level_system: RkLevelSystem
 @export var attack_system: RkAttackSystem
@@ -98,7 +98,7 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 # Initial values
 ###
 
-@export_group("Initial values")
+@export_group(&"Initial values")
 @export var direction := 1.0
 @export var base_force := 1.0
 @export var base_stamina := 10.0

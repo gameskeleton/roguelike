@@ -2,7 +2,7 @@ extends RkStateMachineState
 
 var _animation_initial_speed_scale := 1.0
 
-@export_group("Nodes")
+@export_group(&"Nodes")
 @export var crouch_attack_audio_stream_player: AudioStreamPlayer
 
 func start_state():
