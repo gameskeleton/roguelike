@@ -29,7 +29,7 @@ func _ready():
 		var tween := create_tween()
 		tween.parallel().tween_property($CanvasModulate, "color", Color8(0, 0, 0), 1.0)
 		tween.parallel().tween_property($GUI/Widgets, "modulate", Color8(0, 0, 0), 1.0)
-		tween.parallel().tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.0)
+		tween.parallel().tween_property($MusicAudioStreamPlayer, "volume_db", -80.0, 1.0)
 		tween.parallel().tween_callback($DeathAudioStreamPlayer.play).set_delay(0.1)
 		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(0.5)
 	)
@@ -61,6 +61,8 @@ func _process_game(_delta: float):
 func _process_debug():
 	if player_node.dead:
 		return
+	if Input.is_key_pressed(KEY_DELETE):
+		player_node.die()
 	if Input.is_action_just_pressed(&"ui_page_up"):
 		player_node.level_system.earn_experience(ceili(player_node.level_system.experience_required_to_level_up / 10.0))
 	if Input.is_action_just_pressed(&"ui_page_down"):

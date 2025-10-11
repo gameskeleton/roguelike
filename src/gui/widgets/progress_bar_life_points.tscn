@@ -9,9 +9,6 @@ script = ExtResource("2_o8axf")
 lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
 value_color = Color(0.847059, 0.137255, 0.137255, 1)
 
-[node name="Margin" parent="." index="0"]
-color = Color(1, 0.827451, 0, 0.39215687)
-
 [node name="ProgressBarLag" parent="." index="2"]
 color = Color(0.847059, 0.137255, 0.137255, 0.392157)
 

@@ -15,7 +15,7 @@ offset_left = -1.0
 offset_top = -1.0
 offset_right = 81.0
 offset_bottom = 9.0
-color = Color(1, 0.827451, 0, 0.392157)
+color = Color(1, 0.827451, 0, 0.39215687)
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 0
@@ -27,12 +27,12 @@ color = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
-color = Color(0.121569, 0.796078, 0.137255, 0.392157)
+color = Color(0.12156863, 0.79607844, 0.13725491, 0.39215687)
 
 [node name="ProgressBarValue" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
-color = Color(0.121569, 0.796078, 0.137255, 1)
+color = Color(0.12156863, 0.79607844, 0.13725491, 1)
 
 [connection signal="resized" from="." to="." method="_on_resized"]

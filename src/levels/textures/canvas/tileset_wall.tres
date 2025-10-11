@@ -2,6 +2,5 @@
 
 [ext_resource type="Texture2D" uid="uid://qjn21m0d6awt" path="res://src/levels/textures/tileset_wall.png" id="1_5slof"]
 
-
 [resource]
 diffuse_texture = ExtResource("1_5slof")

@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+varying vec4 vertex_color;
 uniform sampler2D wave_heights : hint_default_black, filter_linear;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
@@ -54,6 +55,10 @@ vec3 add_surface_effects(vec2 uv_coordinate, vec3 base_color, float surface_prox
     return enhanced_color;
 }
 
+void vertex() {
+	vertex_color = COLOR;
+}
+
 void fragment() {
     vec2 size = vec2(textureSize(wave_heights, 0));
     vec2 pixel_offset = 1.0 / size;
@@ -74,5 +79,5 @@ void fragment() {
     background_color.rgb = mix(background_color.rgb, foam_color.rgb, foam_intensity_factor * 0.6);
     background_color.rgb = add_surface_effects(UV, background_color.rgb, foam_proximity, foam_intensity_factor);
 
-    COLOR = vec4(background_color.rgb, 1.0);
+    COLOR = vec4(background_color.rgb, 1.0) * vertex_color;
 }
