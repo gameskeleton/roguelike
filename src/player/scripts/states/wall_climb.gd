@@ -6,14 +6,16 @@ extends RkStateMachineState
 var _can_climb_stand := false
 var _can_climb_crouch := false
 var _initial_position := Vector2.ZERO
-var _animation_initial_speed_scale := 1.0
+var _initial_animation_speed_scale := 1.0
+var _initial_physics_interpolation_mode := Node.PHYSICS_INTERPOLATION_MODE_INHERIT
 
 func start_state():
 	player_node.set_wall_climb_shapecast_active(true)
 	_can_climb_stand = not player_node.wall_climb_stand_shapecast.is_colliding()
 	_can_climb_crouch = not player_node.wall_climb_crouch_shapecast.is_colliding()
 	_initial_position = player_node.position
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	_initial_animation_speed_scale = player_node.animation_player.speed_scale
+	_initial_physics_interpolation_mode = player_node.physics_interpolation_mode
 	player_node.root_motion = Vector2.ZERO
 	player_node.animation_player.speed_scale = 1.4
 	player_node.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
@@ -34,6 +36,6 @@ func process_state(_delta: float):
 
 func finish_state():
 	player_node.root_motion = Vector2.ZERO
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
-	player_node.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_INHERIT
+	player_node.animation_player.speed_scale = _initial_animation_speed_scale
+	player_node.physics_interpolation_mode = _initial_physics_interpolation_mode
 	player_node.set_wall_climb_shapecast_active(false)
