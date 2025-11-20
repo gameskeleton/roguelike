@@ -125,6 +125,7 @@ var dead := false
 var crouched := false
 var disable_wall_hang_timeout := 0.0
 @export var root_motion := Vector2.ZERO
+@export_flags_2d_physics var one_way_collision_layer := 0
 
 ###
 # Input
@@ -293,7 +294,9 @@ func handle_deceleration_move(delta: float, deceleration: float):
 # handle_drop_through_one_way positions the player a little down to make it drop through one ways.
 # @impure
 func handle_drop_through_one_way():
-	position.y += ONE_WAY_MARGIN
+	collision_mask &= ~one_way_collision_layer
+	await get_tree().create_timer(0.2).timeout
+	collision_mask |= +one_way_collision_layer
 
 # handle_safe_margin_after_teleport applies a small y velocity after a teleport.
 # this is to make sure the player's safe margin is applied after a teleport (to prevent collision boxes from touching a solid collider).

@@ -1496,6 +1496,7 @@ life_points_system = NodePath("Systems/LifePoints")
 additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")
+one_way_collision_layer = 2
 
 [node name="Hand" type="Marker2D" parent="."]
 visible = false
