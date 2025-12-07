@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dhxqyuajsocl7"]
+[gd_scene load_steps=13 format=4 uid="uid://dhxqyuajsocl7"]
 
 [ext_resource type="Script" uid="uid://bkpy1kpi3wgiu" path="res://src/levels/scripts/level.gd" id="1_ub47v"]
 [ext_resource type="Script" uid="uid://cxd1dhjjlbb1p" path="res://addons/net.rootkernel.camera/src/camera_region_2d.gd" id="2_54iga"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://berv51qihfk8t" path="res://src/items/enemies/zombie/zombie.tscn" id="8_2tyx5"]
 [ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="9_hjd8s"]
 [ext_resource type="PackedScene" uid="uid://4f5krslq71th" path="res://src/items/projectiles/fire_ball_projectile.tscn" id="10_idw2h"]
+[ext_resource type="PackedScene" uid="uid://kpdnahgljl8c" path="res://addons/net.rootkernel.fancy/src/nodes/fog.tscn" id="12_srna5"]
 
 [node name="Level_01" type="Node2D" node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_ub47v")
@@ -76,6 +77,16 @@ position = Vector2(200, 16)
 
 [node name="FireBallProjectile4" parent="Traps" instance=ExtResource("10_idw2h")]
 position = Vector2(200, 32)
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Fog" parent="Effects" instance=ExtResource("12_srna5")]
+z_index = -3
+offset_left = 240.0
+offset_top = 256.0
+offset_right = 832.0
+offset_bottom = 432.0
+color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="Decors" type="Node2D" parent="."]
 metadata/_edit_lock_ = true

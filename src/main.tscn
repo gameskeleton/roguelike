@@ -125,7 +125,7 @@ metadata/_edit_use_anchors_ = true
 process_mode = 1
 
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
-position = Vector2(1664, 464)
+position = Vector2(584, 192)
 level_node = NodePath("../LevelManager/Level_01")
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
