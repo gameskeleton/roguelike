@@ -102,6 +102,7 @@ offset_top = 272.0
 offset_right = 14.0
 offset_bottom = 286.0
 color = Color(1, 0.827451, 0, 0.392157)
+metadata/_edit_use_anchors_ = true
 
 [node name="StaminaProgressBar" parent="GUI/Widgets" instance=ExtResource("13_srxbw")]
 offset_left = 17.0
@@ -109,6 +110,7 @@ offset_top = 281.0
 offset_right = 81.0
 offset_bottom = 285.0
 value_color = Color(0.121569, 0.796078, 0.137255, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="LifePointsProgressBar" parent="GUI/Widgets" instance=ExtResource("13_srxbw")]
 offset_left = 17.0
@@ -117,12 +119,13 @@ offset_right = 81.0
 offset_bottom = 277.0
 lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
 value_color = Color(0.847059, 0.137255, 0.137255, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Game" type="Node2D" parent="."]
 process_mode = 1
 
 [node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
-position = Vector2(360, 160)
+position = Vector2(1664, 464)
 level_node = NodePath("../LevelManager/Level_01")
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
@@ -156,6 +159,7 @@ metadata/_edit_lock_ = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Game/Player"]
 current = true
+metadata/_edit_lock_ = true
 
 [node name="LevelUpToast" type="Control" parent="Game/Player"]
 visible = false
@@ -165,6 +169,7 @@ offset_left = -48.0
 offset_top = -73.0
 offset_right = 48.0
 offset_bottom = -49.0
+metadata/_edit_lock_ = true
 
 [node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player/LevelUpToast"]
 z_index = 1

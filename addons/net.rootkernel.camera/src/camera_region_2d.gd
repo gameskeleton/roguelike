@@ -6,16 +6,20 @@ class_name RkCameraRegion2D
 @export_tool_button("Fill screen", "Marker2D")
 var fill_screen_button := _fill_screen
 
+# @impure
 func _init() -> void:
 	add_to_group(RkCamera2D.CAMERA_REGION_GROUP_NAME, false)
 
+# @impure
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		visible = false
 
+# @impure
 func _enter_tree() -> void:
 	color = Color.from_rgba8(255, 255, 255, 50)
 
+# @impure
 func _fill_screen() -> void:
 	if Engine.is_editor_hint():
 		var interface = Engine.get_singleton("EditorInterface") # safe in exported build, whereas direct access to EditorInterface in a tool would crash the script

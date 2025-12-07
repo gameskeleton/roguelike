@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="9_hjd8s"]
 [ext_resource type="PackedScene" uid="uid://4f5krslq71th" path="res://src/items/projectiles/fire_ball_projectile.tscn" id="10_idw2h"]
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
+[node name="Level_01" type="Node2D" node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_ub47v")
 wall_tile_map_layer = NodePath("Map/Wall")
 one_way_tile_map_layer = NodePath("Map/OneWay")
@@ -324,6 +324,7 @@ metadata/_edit_lock_ = true
 position = Vector2(464, 176)
 
 [node name="Water Areas" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Water2D" parent="Water Areas" instance=ExtResource("9_hjd8s")]
 position = Vector2(496, 216)

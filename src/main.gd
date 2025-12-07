@@ -61,12 +61,16 @@ func _process_game(_delta: float):
 func _process_debug():
 	if player_node.dead:
 		return
+	if Input.is_key_pressed(KEY_E):
+		$Game/LevelManager.set_current_level_node(load("res://src/levels/level_01.tscn").instantiate())
+	if Input.is_key_pressed(KEY_R):
+		$Game/LevelManager.set_current_level_node(load("res://src/levels/level_02.tscn").instantiate(), Vector2(1664.0, 288.0))
 	if Input.is_key_pressed(KEY_DELETE):
 		player_node.die()
 	if Input.is_action_just_pressed(&"ui_page_up"):
 		player_node.level_system.earn_experience(ceili(player_node.level_system.experience_required_to_level_up / 10.0))
 	if Input.is_action_just_pressed(&"ui_page_down"):
-		player_node.life_points_system.invincibility_delay = 0.0
+		player_node.life_points_system.invincible = 0
 		player_node.life_points_system.take_damage(ceilf(player_node.life_points_system.life_points.max_value / 10.0))
 
 # @impure
