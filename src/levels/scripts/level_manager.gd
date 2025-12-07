@@ -4,6 +4,7 @@ extends Node2D
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
 @export var player_camera_node: RkCamera2D
+@export var object_spawner_node: RkObjectSpawner
 
 # @impure
 func _ready() -> void:
@@ -15,6 +16,7 @@ func set_current_level_node(in_level_node: RkLevel, at_pos := Vector2.ZERO, firs
 		_unset_previous_level_node(level_node)
 	level_node = in_level_node
 	player_node.level_node = in_level_node
+	object_spawner_node.spawn_node = in_level_node
 	if not first_level:
 		add_child(in_level_node)
 		level_node.position = at_pos

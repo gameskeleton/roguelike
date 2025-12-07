@@ -199,11 +199,12 @@ stream = ExtResource("6_yr51s")
 volume_db = 10.0
 bus = &"SFX"
 
-[node name="LevelManager" type="Node2D" parent="Game" node_paths=PackedStringArray("level_node", "player_node", "player_camera_node")]
+[node name="LevelManager" type="Node2D" parent="Game" node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node")]
 script = ExtResource("11_d3u4l")
 level_node = NodePath("Level_01")
 player_node = NodePath("../Player")
 player_camera_node = NodePath("../Player/Camera2D")
+object_spawner_node = NodePath("../ObjectSpawner")
 
 [node name="Level_01" parent="Game/LevelManager" instance=ExtResource("4_poqhe")]
 
