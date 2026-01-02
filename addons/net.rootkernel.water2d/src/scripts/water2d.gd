@@ -54,16 +54,16 @@ var heights_image: Image
 var heights_texture: ImageTexture
 var shader_material: ShaderMaterial
 
-static var body_exit := func(water: RkWater2D, body: Node2D): water.react_physics(body, false)
-static var body_enter := func(water: RkWater2D, body: Node2D): water.react_physics(body, true)
+static var body_exit := func(water: RkWater2D, body: Node2D) -> void: water.react_physics(body, false)
+static var body_enter := func(water: RkWater2D, body: Node2D) -> void: water.react_physics(body, true)
 
 # @impure
-func react(index: int, strength: float):
+func react(index: int, strength: float) -> void:
 	assert(index >= 0 && index < width, "react: index: 0 <= %s < %s" % [index, width])
 	velocities[index] = strength
 
 # @impure
-func react_physics(body: Node2D, enter: bool):
+func react_physics(body: Node2D, enter: bool) -> void:
 	var mass := 0.0
 	var index := clampi(roundi(body.global_position.x - global_position.x), 0, width - 1)
 	var velocity := Vector2.ZERO
@@ -80,7 +80,7 @@ func react_physics(body: Node2D, enter: bool):
 	react(index, strength)
 
 # @impure
-func _draw():
+func _draw() -> void:
 	if Engine.is_editor_hint():
 		draw_rect(Rect2(0, 0, width, height), color)
 		draw_line(Vector2(0, 0), Vector2(width, 0), Color.WHITE, 1.0, false)
@@ -88,7 +88,7 @@ func _draw():
 			draw_line(Vector2(0, height - floor_offset), Vector2(width, height - floor_offset), Color.SADDLE_BROWN, 1.0, false)
 
 # @impure
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	# preallocate
@@ -135,7 +135,7 @@ func _ready():
 	_update_heights_texture()
 
 # @impure
-func _process(delta: float):
+func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	# apply spring force with edge dampening
@@ -176,7 +176,7 @@ func _process(delta: float):
 	_update_heights_texture()
 
 # @impure
-func _update_width():
+func _update_width() -> void:
 	heights.resize(width)
 	heights.fill(0.0)
 	velocities.resize(width)
@@ -193,7 +193,7 @@ func _update_width():
 	_update_heights_texture()
 
 # @impure
-func _update_heights_texture():
+func _update_heights_texture() -> void:
 	# update the heights image
 	for x in range(width):
 		var normalized_height := (heights[x] + height * 0.5) / height
@@ -204,7 +204,7 @@ func _update_heights_texture():
 	shader_material.set_shader_parameter(&"wave_heights", heights_texture)
 
 # @impure
-func _update_mesh_and_collision():
+func _update_mesh_and_collision() -> void:
 	var quad_mesh := mesh_instance_2d.mesh as QuadMesh
 	var rect_shape := collision_shape_2d.shape as RectangleShape2D
 	quad_mesh.size = Vector2(width, height * 2.0)
@@ -214,10 +214,10 @@ func _update_mesh_and_collision():
 
 # @signal
 # @impure
-func _on_body_exited(body: Node2D):
+func _on_body_exited(body: Node2D) -> void:
 	RkWater2D.body_exit.call(self, body)
 
 # @signal
 # @impure
-func _on_body_entered(body: Node2D):
+func _on_body_entered(body: Node2D) -> void:
 	RkWater2D.body_enter.call(self, body)

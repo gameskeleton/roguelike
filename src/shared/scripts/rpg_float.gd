@@ -73,26 +73,26 @@ func sub(amount: float, use_earn_multiplier := false) -> float:
 	return prev_value - value
 
 # @impure
-func deplete():
+func deplete() -> void:
 	value = min_value
 
 # @impure
-func resplenish():
+func resplenish() -> void:
 	value = max_value
 
 # @impure
-func reset_modifiers():
+func reset_modifiers() -> void:
 	reset_min_malus()
 	reset_max_bonus()
 	value_earn_multiplier = 1.0
 
 # @impure
-func reset_min_malus():
+func reset_min_malus() -> void:
 	min_value_malus = 0.0
 	min_value_multiplier = 1.0
 
 # @impure
-func reset_max_bonus():
+func reset_max_bonus() -> void:
 	max_value_bonus = 0.0
 	max_value_multiplier = 1.0
 

@@ -11,7 +11,7 @@ func _ready() -> void:
 	set_current_level_node(level_node, Vector2.ZERO, true)
 
 # @impure
-func set_current_level_node(in_level_node: RkLevel, at_pos := Vector2.ZERO, first_level := false):
+func set_current_level_node(in_level_node: RkLevel, at_pos := Vector2.ZERO, first_level := false) -> void:
 	if level_node and not first_level:
 		_unset_previous_level_node(level_node)
 	level_node = in_level_node
@@ -25,6 +25,6 @@ func set_current_level_node(in_level_node: RkLevel, at_pos := Vector2.ZERO, firs
 		player_camera_node.reset_physics_interpolation()
 
 # @impure
-func _unset_previous_level_node(previous_level_node: RkLevel):
+func _unset_previous_level_node(previous_level_node: RkLevel) -> void:
 	remove_child(previous_level_node)
 	previous_level_node.queue_free()

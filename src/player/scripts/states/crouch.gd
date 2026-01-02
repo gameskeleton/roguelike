@@ -2,7 +2,7 @@ extends RkStateMachineState
 
 var _timer := 0.0
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	_timer = 0.0
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.stand_to_crouch]):
 		player_node.crouch()
@@ -11,8 +11,9 @@ func start_state():
 	player_node.set_uncrouch_shapecast_active(true)
 	if player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.crouch_walk
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	_timer += delta
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_direction()
@@ -38,8 +39,9 @@ func process_state(delta: float):
 	if not player_node.input_down.is_down() and player_node.is_able_to_uncrouch() and _timer >= player_node.CROUCH_LOCK_DELAY:
 		player_node.input_down.consume()
 		return player_node.fsm.state_nodes.crouch_to_stand
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch_walk, player_node.fsm.state_nodes.crouch_attack]):
 		player_node.uncrouch()
 	player_node.set_one_way_shapecast_active(false)

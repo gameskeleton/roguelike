@@ -9,7 +9,7 @@ class_name RkProjectile
 @onready var life_points_system := $Systems/LifePoints as RkLifePointsSystem
 
 # @impure
-func destroy_projectile(force := false):
+func destroy_projectile(force := false) -> void:
 	if force:
 		queue_free()
 	# TODO: nice animation
@@ -19,12 +19,12 @@ func destroy_projectile(force := false):
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage: float, _from_source: Node, _from_instigator: Node):
+func _on_life_points_damage_taken(_damage: float, _from_source: Node, _from_instigator: Node) -> void:
 	destroy_projectile()
 
 # @signal
 # @impure
-func _on_attack_hitbox_body_entered(body: Node2D):
+func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	var target := RkLifePointsSystem.find_system_node(body)
 	if target and attack_system.attack(target, damage, damage_type) != RkAttackSystem.NO_DAMAGE:
 		destroy_projectile.call_deferred()

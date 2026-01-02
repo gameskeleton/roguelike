@@ -36,7 +36,7 @@ var last_damage_instigator: Node
 
 # _process makes sure to clear the prevent_take_damage_until_next_frame flag.
 # @impure
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	prevent_take_damage_until_next_frame = false
 
 # take_damage reduces the life points by the amount of damage with respect to damage type multipliers.

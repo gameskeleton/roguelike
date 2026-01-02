@@ -4,13 +4,13 @@ class_name RkStateMachineState
 var player_node: RkPlayer
 
 # @impure
-func start_state():
-	pass
+func start_state() -> RkStateMachineState:
+	return null
 
 # @impure
-func process_state(_delta: float):
-	pass
+func process_state(_delta: float) -> RkStateMachineState:
+	return null
 
 # @impure
-func finish_state():
+func finish_state() -> void:
 	pass

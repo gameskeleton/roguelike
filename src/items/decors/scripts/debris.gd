@@ -8,12 +8,12 @@ const FADE_OUT_SPEED := 1.0
 var _fade_out := 1.0
 var _start_fade_out := 2.0
 
-func _ready():
+func _ready() -> void:
 	for piece in pieces:
 		piece.angular_velocity = randf_range(5.0, 10.0)
 		piece.apply_central_impulse(Vector2.UP.rotated(deg_to_rad(randf_range(-25.0, +25.0))) * force)
 
-func _process(delta: float):
+func _process(delta: float) -> void:
 	if _start_fade_out > 0:
 		_start_fade_out -= delta * FADE_OUT_SPEED
 		return

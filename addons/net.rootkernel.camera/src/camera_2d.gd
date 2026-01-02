@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	limit_bottom = ceili(move_toward(limit_bottom, _target_bounds.position.y + _target_bounds.size.y, CAMERA_TRANSITION_SPEED * delta))
 
 # @impure
-func reset_camera_regions():
+func reset_camera_regions() -> void:
 	var nodes := get_tree().get_nodes_in_group(CAMERA_REGION_GROUP_NAME)
 	_camera_regions.clear()
 	for node in nodes:

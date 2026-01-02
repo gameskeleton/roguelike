@@ -11,13 +11,14 @@ const FX_STEP_RANGE := Vector2(0.95, 1.05)
 
 var _timer := 0.0
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	_timer = 0.0
 	_play_animation()
 	player_node.set_one_way_shapecast_active(true)
 	player_node.set_uncrouch_shapecast_active(true)
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	_timer += delta
 	_play_animation()
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
@@ -46,25 +47,26 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.crouch_attack
 	if not player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.crouch
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.slide, player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.crouch_attack]):
 		player_node.uncrouch()
 	player_node.set_one_way_shapecast_active(false)
 	player_node.set_uncrouch_shapecast_active(false)
 
 # @impure
-func _play_animation():
+func _play_animation() -> void:
 	player_node.play_animation(&"crouch" if player_node.get_real_velocity().length() < 20.0 else &"crouch_walk")
 
 # @anim
 # @impure
-func _fx_step_left():
+func _fx_step_left() -> void:
 	footstep_left_audio_stream_player.stream = footstep_left_streams.pick_random()
 	player_node.play_sound_effect(footstep_left_audio_stream_player, 0.0, FX_STEP_RANGE.x, FX_STEP_RANGE.y)
 
 # @anim
 # @impure
-func _fx_step_right():
+func _fx_step_right() -> void:
 	footstep_right_audio_stream_player.stream = footstep_right_streams.pick_random()
 	player_node.play_sound_effect(footstep_right_audio_stream_player, 0.0, FX_STEP_RANGE.x, FX_STEP_RANGE.y)

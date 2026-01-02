@@ -2,7 +2,7 @@ extends RkStateMachineState
 
 var corner_pos := Vector2.ZERO
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	corner_pos = player_node.get_corner_tile_pos_at_hand()
 	player_node.velocity = Vector2.ZERO
 	player_node.position = \
@@ -13,8 +13,9 @@ func start_state():
 	player_node.set_wall_hang_raycast_active(true)
 	player_node.set_wall_slide_raycast_active(true)
 	player_node.set_wall_climb_shapecast_active(true)
+	return null
 
-func process_state(_delta: float):
+func process_state(_delta: float) -> RkStateMachineState:
 	if player_node.input_up.is_pressed() and player_node.is_able_to_wall_climb():
 		player_node.input_up.consume()
 		return player_node.fsm.state_nodes.wall_climb
@@ -28,8 +29,9 @@ func process_state(_delta: float):
 		player_node.input_jump.consume()
 		player_node.velocity.x = player_node.direction * player_node.WALL_HANG_JUMP_EXPULSE_STRENGTH
 		return player_node.fsm.state_nodes.jump
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.set_wall_hang_raycast_active(false)
 	player_node.set_wall_slide_raycast_active(false)
 	player_node.set_wall_climb_shapecast_active(false)

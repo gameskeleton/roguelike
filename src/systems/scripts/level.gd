@@ -12,7 +12,7 @@ var experience_required_to_level_up: int :
 		return roundi(pow((level.value + 1), 1.8) + (level.value + 1) * 4.0)
 
 # @impure
-func _init(start_level := 0, start_experience := 0):
+func _init(start_level := 0, start_experience := 0) -> void:
 	level.value = start_level
 	earn_experience(start_experience)
 
@@ -23,12 +23,12 @@ func get_xp_ratio() -> float:
 
 # can_level_up returns true if the player has not reached max level.
 # @pure
-func can_level_up():
+func can_level_up() -> bool:
 	return level.value < level.max_value
 
 # earn_experience adds the given amount of experience and level up accordingly.
 # @impure
-func earn_experience(amount_exp: int):
+func earn_experience(amount_exp: int) -> void:
 	experience += amount_exp
 	var experience_required := experience_required_to_level_up
 	while experience >= experience_required:

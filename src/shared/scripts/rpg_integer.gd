@@ -22,11 +22,11 @@ func sub(amount: int) -> int:
 	return prev_value - value
 
 # @impure
-func deplete():
+func deplete() -> void:
 	value = min_value
 
 # @impure
-func resplenish():
+func resplenish() -> void:
 	value = max_value
 
 # @pure

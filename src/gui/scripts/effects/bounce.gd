@@ -5,11 +5,11 @@ class_name RichTextEffectBounce
 var bbcode := "bounce"
 
 # @impure
-func _init():
+func _init() -> void:
 	resource_name = "RichTextEffectBounce"
 
 # @impure
-func _process_custom_fx(char_fx: CharFXTransform):
+func _process_custom_fx(char_fx: CharFXTransform) -> bool:
 	var freq: float = char_fx.env.get("freq", 15.0)
 	char_fx.offset.y = 2.0 * sin(char_fx.relative_index + char_fx.elapsed_time * freq)
 	return true

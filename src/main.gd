@@ -18,13 +18,13 @@ var rng := RandomNumberGenerator.new()
 var state := State.game
 
 # @impure
-func _init():
+func _init() -> void:
 	RkMain._main_node = self
 
 # @impure
-func _ready():
+func _ready() -> void:
 	# setup death animation
-	player_node.death.connect(func():
+	player_node.death.connect(func() -> void:
 		state = State.game_over
 		var tween := create_tween()
 		tween.parallel().tween_property($CanvasModulate, "color", Color8(0, 0, 0), 1.0)
@@ -34,7 +34,7 @@ func _ready():
 		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(0.5)
 	)
 	# setup level up animation
-	player_node.level_system.level_up.connect(func(_level: int):
+	player_node.level_system.level_up.connect(func(_level: int) -> void:
 		if state == State.game:
 			state = State.level_up
 			level_up_animation_player.play(&"level_up!")
@@ -42,7 +42,7 @@ func _ready():
 	)
 
 # @impure
-func _process(delta: float):
+func _process(delta: float) -> void:
 	_process_debug()
 	match state:
 		State.game: _process_game(delta)
@@ -51,14 +51,14 @@ func _process(delta: float):
 		State.game_over: _process_game_over()
 
 # @impure
-func _process_game(_delta: float):
+func _process_game(_delta: float) -> void:
 	# pause game
 	if Input.is_action_just_pressed(&"player_pause"):
 		state = State.pause
 		get_tree().paused = true
 
 # @impure
-func _process_debug():
+func _process_debug() -> void:
 	if player_node.dead:
 		return
 	if Input.is_key_pressed(KEY_E):
@@ -74,20 +74,20 @@ func _process_debug():
 		player_node.life_points_system.take_damage(ceilf(player_node.life_points_system.life_points.max_value / 10.0))
 
 # @impure
-func _process_pause(_delta: float):
+func _process_pause(_delta: float) -> void:
 	# resume game
 	if Input.is_action_just_pressed(&"player_pause"):
 		get_tree().paused = false
 		state = State.game
 
 # @impure
-func _process_level_up():
+func _process_level_up() -> void:
 	if not level_up_animation_player.is_playing():
 		get_tree().paused = false
 		state = State.game
 
 # @impure
-func _process_game_over():
+func _process_game_over() -> void:
 	# reset
 	if Input.is_key_pressed(KEY_ENTER):
 		get_tree().reload_current_scene()

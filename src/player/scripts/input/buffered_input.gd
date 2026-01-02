@@ -5,18 +5,18 @@ var _buffer_time := 0.0
 var _buffer_remaining := 0.0
 
 # @impure
-func _init(action: StringName, buffer_time := 0.0):
+func _init(action: StringName, buffer_time := 0.0) -> void:
 	_action = action
 	_buffer_time = buffer_time
 
 # @impure
-func process(delta: float):
+func process(delta: float) -> void:
 	_buffer_remaining = clampf(_buffer_remaining - delta, 0.0, _buffer_time)
 	if Input.is_action_just_pressed(_action):
 		_buffer_remaining = _buffer_time
 
 # @impure
-func consume():
+func consume() -> void:
 	_buffer_remaining = 0.0
 
 # @pure
@@ -28,7 +28,7 @@ func is_pressed() -> bool:
 	return Input.is_action_just_pressed(_action) or _buffer_remaining > 0.0
 
 # @pure
-func is_released():
+func is_released() -> bool:
 	return Input.is_action_just_released(_action)
 
 # @pure

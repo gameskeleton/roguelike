@@ -14,14 +14,14 @@ func fly(direction := Vector2.UP, cone := 35.0, strength := Vector2(150.0, 180.0
 	return self
 
 # @impure
-func _ready():
+func _ready() -> void:
 	# enable pickup after a while
 	await get_tree().create_timer(PICKUP_DELAY, false).timeout
 	$PlayerHitbox.monitoring = true
 	$PlayerHitbox.monitorable = true
 
 # @impure
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	var line := $Node/Line2D
 	if linear_velocity.length_squared() > 2:
 		line.add_point(global_position)
@@ -31,7 +31,7 @@ func _process(_delta: float):
 		line.clear_points()
 
 # @impure
-func _pick_up(player_node: RkPlayer):
+func _pick_up(player_node: RkPlayer) -> void:
 	if not _picked_up:
 		hide()
 		player_node.level_system.earn_experience(value)
@@ -44,13 +44,13 @@ func _pick_up(player_node: RkPlayer):
 
 # @signal
 # @impure
-func _on_body_entered(body: Node2D):
+func _on_body_entered(body: Node2D) -> void:
 	if not _picked_up and body is TileMap and linear_velocity.length() >= 6.0 and not $AudioStreamPlayer.playing:
 		$AudioStreamPlayer.pitch_scale = randf_range(0.95, 1.05)
 		$AudioStreamPlayer.play(0.1)
 
 # @signal
 # @impure
-func _on_player_hitbox_body_entered(body: Node2D):
+func _on_player_hitbox_body_entered(body: Node2D) -> void:
 	if body is RkPlayer:
 		_pick_up(body)

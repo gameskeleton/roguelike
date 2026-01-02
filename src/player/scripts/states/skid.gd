@@ -1,11 +1,12 @@
 extends RkStateMachineState
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.has_horizontal_input() and player_node.has_invert_direction(player_node.direction, player_node.input_velocity.x):
 		return player_node.fsm.state_nodes.turn_around
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_deceleration_move(delta, player_node.WALK_DECELERATION)
 	if not player_node.is_on_floor():
@@ -28,6 +29,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.turn_around
 	if player_node.is_stopped():
 		return player_node.fsm.state_nodes.stand
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.set_one_way_shapecast_active(false)

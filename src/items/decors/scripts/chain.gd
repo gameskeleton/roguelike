@@ -54,11 +54,11 @@ extends Node2D
 var _chain_link_circle_shape := CircleShape2D.new()
 
 # @impure
-func _ready():
+func _ready() -> void:
 	_create_chain()
 
 # @impure
-func _create_chain():
+func _create_chain() -> void:
 	if length < 1 or not chain_base or not chain_links:
 		return
 	var pin_joints: Array[PinJoint2D] = []
@@ -102,7 +102,7 @@ func _create_chain():
 		if last:
 			chain_link_rigid_body.contact_monitor = true
 			chain_link_rigid_body.max_contacts_reported = 1
-			chain_link_rigid_body.body_entered.connect(func(body: Node):
+			chain_link_rigid_body.body_entered.connect(func(body: Node) -> void:
 				if body is RkPlayer and not audio_stream_player.playing:
 					audio_stream_player.pitch_scale = randf_range(0.95, 1.05)
 					audio_stream_player.play()

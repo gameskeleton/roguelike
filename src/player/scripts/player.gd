@@ -147,7 +147,7 @@ var input_velocity := Vector2.ZERO
 
 # _ready readies the player.
 # @impure
-func _ready():
+func _ready() -> void:
 	# set default values.
 	set_direction(direction)
 	_on_level_level_up(level_system.level.value)
@@ -159,12 +159,12 @@ func _ready():
 
 # _physics_process is called every physics tick and updates the player state.
 # @impure
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	process(delta)
 
 # process updates the player state.
 # @impure
-func process(delta: float):
+func process(delta: float) -> void:
 	process_input(delta)
 	process_velocity(delta)
 	process_timeouts(delta)
@@ -172,7 +172,7 @@ func process(delta: float):
 
 # process_input updates player inputs.
 # @impure
-func process_input(delta: float):
+func process_input(delta: float) -> void:
 	input_up.process(delta)
 	input_down.process(delta)
 	input_left.process(delta)
@@ -186,12 +186,12 @@ func process_input(delta: float):
 
 # process_velocity updates player position after applying velocity.
 # @impure
-func process_velocity(_delta: float):
+func process_velocity(_delta: float) -> void:
 	move_and_slide()
 
 # process_timeouts decreases timeouts.
 # @impure
-func process_timeouts(delta: float):
+func process_timeouts(delta: float) -> void:
 	disable_wall_hang_timeout = maxf(disable_wall_hang_timeout - delta, 0.0)
 
 ###
@@ -200,29 +200,29 @@ func process_timeouts(delta: float):
 
 # die makes the player collapse and emit the death signal
 # @impure
-func die():
+func die() -> void:
 	dead = true
 	death.emit()
 	fsm.set_state_node(fsm.state_nodes.death)
 
 # hit makes the player hit and invincible for a little while.
 # @impure
-func hit():
+func hit() -> void:
 	fsm.set_state_node(fsm.state_nodes.hit)
 
 # dash sets the velocity to the given value scaled by the direction.
 # @impure
-func dash(slide_velocity: float):
+func dash(slide_velocity: float) -> void:
 	velocity.x = slide_velocity * direction
 
 # jump applies an impulse to y-velocity.
 # @impure
-func jump(strength: float):
+func jump(strength: float) -> void:
 	velocity.y = strength
 
 # crouch reduces the collider height to crouch size and makes the player crouch.
 # @impure
-func crouch():
+func crouch() -> void:
 	assert(not crouched)
 	crouched = true
 	collider_stand.disabled = true
@@ -230,7 +230,7 @@ func crouch():
 
 # uncrouch increases the collider height to standing size and makes the player un-crouch.
 # @impure
-func uncrouch():
+func uncrouch() -> void:
 	assert(crouched)
 	crouched = false
 	collider_stand.disabled = false
@@ -238,7 +238,7 @@ func uncrouch():
 
 # set_direction changes the player direction and flips the sprite accordingly.
 # @impure
-func set_direction(new_direction: float):
+func set_direction(new_direction: float) -> void:
 	direction = new_direction
 	sprite.flip_h = new_direction < 0.0
 	sprite.offset.x = -9.0 if new_direction < 0.0 else 1.0
@@ -260,19 +260,19 @@ func set_direction(new_direction: float):
 
 # handle_gravity applies gravity to the velocity.
 # @impure
-func handle_gravity(delta: float, max_speed: float, acceleration: float):
+func handle_gravity(delta: float, max_speed: float, acceleration: float) -> void:
 	velocity.y = move_toward(velocity.y, max_speed, delta * acceleration)
 
 # handle_direction changes the direction depending on the input velocity.
 # @impure
-func handle_direction():
+func handle_direction() -> void:
 	var input_direction := int(signf(input_velocity.x))
 	if input_direction != 0.0:
 		set_direction(input_direction)
 
 # handle_floor_move applies acceleration or deceleration depending on the input_velocity on the floor.
 # @impure
-func handle_floor_move(delta: float, max_speed: float, acceleration: float, deceleration: float):
+func handle_floor_move(delta: float, max_speed: float, acceleration: float, deceleration: float) -> void:
 	if velocity.x == 0.0 or has_same_direction(velocity.x, input_velocity.x):
 		velocity.x = apply_acceleration(delta, velocity.x, max_speed, acceleration)
 	else:
@@ -280,7 +280,7 @@ func handle_floor_move(delta: float, max_speed: float, acceleration: float, dece
 
 # handle_airborne_move applies acceleration or deceleration depending on the input_velocity while airborne.
 # @impure
-func handle_airborne_move(delta: float, max_speed: float, acceleration: float, deceleration: float):
+func handle_airborne_move(delta: float, max_speed: float, acceleration: float, deceleration: float) -> void:
 	if velocity.x == 0.0 or has_same_direction(velocity.x, input_velocity.x):
 		velocity.x = apply_acceleration(delta, velocity.x, max_speed, acceleration, input_velocity.x)
 	else:
@@ -288,12 +288,12 @@ func handle_airborne_move(delta: float, max_speed: float, acceleration: float, d
 
 # handle_deceleration_move applies deceleration.
 # @impure
-func handle_deceleration_move(delta: float, deceleration: float):
+func handle_deceleration_move(delta: float, deceleration: float) -> void:
 	velocity.x = apply_deceleration(delta, velocity.x, deceleration)
 
 # handle_drop_through_one_way positions the player a little down to make it drop through one ways.
 # @impure
-func handle_drop_through_one_way():
+func handle_drop_through_one_way() -> void:
 	collision_mask &= ~one_way_collision_layer
 	await get_tree().create_timer(0.2).timeout
 	collision_mask |= +one_way_collision_layer
@@ -301,7 +301,7 @@ func handle_drop_through_one_way():
 # handle_safe_margin_after_teleport applies a small y velocity after a teleport.
 # this is to make sure the player's safe margin is applied after a teleport (to prevent collision boxes from touching a solid collider).
 # @impure
-func handle_safe_margin_after_teleport():
+func handle_safe_margin_after_teleport() -> void:
 	velocity.y -= safe_margin
 
 ###
@@ -434,12 +434,12 @@ func is_able_to_wall_slide() -> bool:
 
 # stop_sound_effect stops sound effect from playing.
 # @impure
-func stop_sound_effect(audio_stream_player: AudioStreamPlayer):
+func stop_sound_effect(audio_stream_player: AudioStreamPlayer) -> void:
 	audio_stream_player.stop()
 
 # play_sound_effect plays a sound effect and applies a small random pitch variation.
 # @impure
-func play_sound_effect(audio_stream_player: AudioStreamPlayer, from_position := 0.0, low_pitch := 0.98, high_pitch := 1.02):
+func play_sound_effect(audio_stream_player: AudioStreamPlayer, from_position := 0.0, low_pitch := 0.98, high_pitch := 1.02) -> void:
 	audio_stream_player.pitch_scale = randf_range(low_pitch, high_pitch)
 	audio_stream_player.play(from_position)
 
@@ -449,13 +449,13 @@ func play_sound_effect(audio_stream_player: AudioStreamPlayer, from_position := 
 
 # play_animation changes the player animation to the given animation name.
 # @impure
-func play_animation(animation_name: StringName):
+func play_animation(animation_name: StringName) -> void:
 	if not is_animation_playing(animation_name):
 		animation_player.play(animation_name)
 
 # play_animation_then plays a first animation then another one when the first finishes.
 # @impure
-func play_animation_then(start_animation_name: StringName, then_animation_name: StringName):
+func play_animation_then(start_animation_name: StringName, then_animation_name: StringName) -> void:
 	if not is_animation_playing(start_animation_name):
 		play_animation(then_animation_name)
 
@@ -480,37 +480,37 @@ func get_animation_played_ratio() -> float:
 
 # set_roll_hitbox_active activates or deactivates the monitoring for destroying decors when rolling.
 # @impure
-func set_roll_hitbox_active(active: bool):
+func set_roll_hitbox_active(active: bool) -> void:
 	roll_hitbox.monitoring = active
 	roll_hitbox.monitorable = active
 
 # set_slide_hitbox_active activates or deactivates the monitoring for destroying decors when sliding.
 # @impure
-func set_slide_hitbox_active(active: bool):
+func set_slide_hitbox_active(active: bool) -> void:
 	slide_hitbox.monitoring = active
 	slide_hitbox.monitorable = active
 
 # set_attack_hitbox_active activates or deactivates the monitoring for attack collider.
 # @impure
-func set_attack_hitbox_active(active: bool):
+func set_attack_hitbox_active(active: bool) -> void:
 	attack_hitbox.monitoring = active
 	attack_hitbox.monitorable = active
 
 # set_attack_hitbox_active activates or deactivates the monitoring for crouch attack collider.
 # @impure
-func set_crouch_attack_hitbox_active(active: bool):
+func set_crouch_attack_hitbox_active(active: bool) -> void:
 	crouch_attack_hitbox.monitoring = active
 	crouch_attack_hitbox.monitorable = active
 
 # set_wall_hang_raycast_active activates or deactivates the shapecast for hanging to a wall.
 # @impure
-func set_wall_hang_raycast_active(active: bool):
+func set_wall_hang_raycast_active(active: bool) -> void:
 	wall_hang_down_raycast.enabled = active
 	wall_hang_down_raycast.force_raycast_update()
 
 # set_wall_slide_raycast_active activates or deactivates the raycast to check if wall slide is possible and safe.
 # @impure
-func set_wall_slide_raycast_active(active: bool):
+func set_wall_slide_raycast_active(active: bool) -> void:
 	wall_slide_down_raycast.enabled = active
 	wall_slide_down_raycast.force_raycast_update()
 	wall_slide_top_side_raycast.enabled = active
@@ -520,19 +520,19 @@ func set_wall_slide_raycast_active(active: bool):
 
 # set_one_way_shapecast_active activates or deactivates the shapecast for one way colliders.
 # @impure
-func set_one_way_shapecast_active(active: bool):
+func set_one_way_shapecast_active(active: bool) -> void:
 	one_way_shapecast.enabled = active
 	one_way_shapecast.force_shapecast_update()
 
 # set_uncrouch_shapecast_active activates or deactivates the shapecast for crouch colliders.
 # @impure
-func set_uncrouch_shapecast_active(active: bool):
+func set_uncrouch_shapecast_active(active: bool) -> void:
 	uncrouch_shapecast.enabled = active
 	uncrouch_shapecast.force_shapecast_update()
 
 # set_wall_climb_shapecast_active activates or deactivates the shapecast for climbing to a wall.
 # @impure
-func set_wall_climb_shapecast_active(active: bool):
+func set_wall_climb_shapecast_active(active: bool) -> void:
 	wall_climb_stand_shapecast.enabled = active
 	wall_climb_stand_shapecast.force_shapecast_update()
 	wall_climb_crouch_shapecast.enabled = active
@@ -544,19 +544,19 @@ func set_wall_climb_shapecast_active(active: bool):
 
 # @signal
 # @impure
-func _on_level_level_up(_new_level: int):
+func _on_level_level_up(_new_level: int) -> void:
 	attack_system.force.value_base = base_force + additional_force_per_level.sample_baked(level_system.level.ratio)
 	stamina_system.stamina.max_value_base = base_stamina + additional_stamina_per_level.sample_baked(level_system.level.ratio)
 	life_points_system.life_points.max_value_base = base_life_points + additional_life_points_per_level.sample_baked(level_system.level.ratio)
 
 # @signal
 # @impure
-func _on_stamina_stamina_changed(_stamina: float, stamina_ratio: float, _stamina_previous: float):
+func _on_stamina_stamina_changed(_stamina: float, stamina_ratio: float, _stamina_previous: float) -> void:
 	stamina_ratio_changed.emit(stamina_ratio)
 
 # @signal
 # @impure
-func _on_life_points_damage_taken(_damage_taken: float, _from_source: Node, _from_instigator: Node):
+func _on_life_points_damage_taken(_damage_taken: float, _from_source: Node, _from_instigator: Node) -> void:
 	if dead:
 		return
 	hit.call_deferred()
@@ -565,5 +565,5 @@ func _on_life_points_damage_taken(_damage_taken: float, _from_source: Node, _fro
 
 # @signal
 # @impure
-func _on_life_points_life_points_changed(_life_points: float, life_points_ratio: float, _life_points_previous: float):
+func _on_life_points_life_points_changed(_life_points: float, life_points_ratio: float, _life_points_previous: float) -> void:
 	life_points_ratio_changed.emit(life_points_ratio)

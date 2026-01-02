@@ -4,7 +4,7 @@ extends Node2D
 @export var water_node: RkWater2D
 
 # @impure
-func _input(event):
+func _input(event) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_UP:
 			water_node.width += 16

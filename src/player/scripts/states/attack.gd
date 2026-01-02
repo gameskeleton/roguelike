@@ -11,7 +11,7 @@ var _animation_initial_speed_scale := 1.0
 @export_group(&"Nodes")
 @export var attack_audio_stream_player: AudioStreamPlayer
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	_combo = false
 	_air_control = not player_node.is_on_floor()
 	_attack_combo = 0
@@ -20,8 +20,9 @@ func start_state():
 	player_node.animation_player.speed_scale = 1.6
 	player_node.play_animation(&"attack_01")
 	player_node.play_sound_effect(attack_audio_stream_player, SOUND_POSITION_01)
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	# air control
 	if _air_control:
@@ -44,22 +45,23 @@ func process_state(delta: float):
 		else:
 			player_node.animation_player.stop()
 			return player_node.fsm.state_nodes.fall if not player_node.is_on_floor() else player_node.fsm.state_nodes.stand
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_attack_hitbox_active(false)
 
 # @impure
-func _enable_hitbox():
+func _enable_hitbox() -> void:
 	player_node.set_attack_hitbox_active(true)
 
 # @impure
-func _disable_hitbox():
+func _disable_hitbox() -> void:
 	player_node.set_attack_hitbox_active(false)
 
 # @signal
 # @impure
-func _on_attack_hitbox_area_entered(area: Area2D):
+func _on_attack_hitbox_area_entered(area: Area2D) -> void:
 	var target_node := RkLifePointsSystem.find_system_node(area.get_parent())
 	if target_node is RkLifePointsSystem:
 		player_node.attack_system.attack.call_deferred(target_node, player_node.ATTACK_DAMAGE, RkLifePointsSystem.DmgType.physical)

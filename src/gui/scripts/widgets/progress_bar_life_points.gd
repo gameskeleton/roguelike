@@ -7,17 +7,17 @@ const VISIBLE_FOR := 2.5
 
 @export var life_points_system: RkLifePointsSystem
 
-var _fade_in = 0.0
-var _visible = true
-var _visible_for = 0.0
+var _fade_in := 0.0
+var _visible := true
+var _visible_for := 0.0
 
 # @impure
-func fade_in():
+func fade_in() -> void:
 	_visible = true
 	_visible_for = VISIBLE_FOR
 
 # @impure
-func fade_out():
+func fade_out() -> void:
 	_fade_in = 0.0
 	_visible = false
 	_visible_for = VISIBLE_FOR
@@ -25,14 +25,14 @@ func fade_out():
 
 
 # @impure
-func _ready():
+func _ready() -> void:
 	super._ready()
 	fade_out()
 	if not Engine.is_editor_hint():
 		life_points_system.life_points_changed.connect(_on_life_points_life_points_changed)
 
 # @impure
-func _process(delta: float):
+func _process(delta: float) -> void:
 	super._process(delta)
 	if _visible:
 		if _fade_in < 1.0:
@@ -47,12 +47,12 @@ func _process(delta: float):
 	modulate.a = ease(_fade_in, -2.0)
 
 # @impure
-func _exit_tree():
+func _exit_tree() -> void:
 	if not Engine.is_editor_hint():
 		life_points_system.life_points_changed.disconnect(_on_life_points_life_points_changed)
 
 # @signal
 # @impure
-func _on_life_points_life_points_changed(_life_points: float, life_points_ratio: float, _life_points_previous: float):
+func _on_life_points_life_points_changed(_life_points: float, life_points_ratio: float, _life_points_previous: float) -> void:
 	progress = life_points_ratio
 	fade_in()

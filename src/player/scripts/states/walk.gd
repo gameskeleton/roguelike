@@ -12,15 +12,16 @@ const FX_STEP_RANGE := Vector2(0.95, 1.05)
 
 var _animation_initial_speed_scale := 1.0
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	_play_animation()
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.animation_player.speed_scale = 1.2
 	player_node.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall]):
 		player_node.play_sound_effect(stand_audio_stream_player)
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	_play_animation()
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_floor_move(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
@@ -49,23 +50,24 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.turn_around
 	if not player_node.has_horizontal_input():
 		return player_node.fsm.state_nodes.skid if not player_node.is_stopped() else player_node.fsm.state_nodes.stand
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_one_way_shapecast_active(false)
 
 # @impure
-func _play_animation():
+func _play_animation() -> void:
 	player_node.play_animation(&"stand" if player_node.get_real_velocity().length() < 0.15 * player_node.WALK_MAX_SPEED else &"walk")
 
 # @anim
 # @impure
-func _fx_step_left():
+func _fx_step_left() -> void:
 	footstep_left_audio_stream_player.stream = footstep_left_streams.pick_random()
 	player_node.play_sound_effect(footstep_left_audio_stream_player, 0.0, FX_STEP_RANGE.x, FX_STEP_RANGE.y)
 
 # @anim
 # @impure
-func _fx_step_right():
+func _fx_step_right() -> void:
 	footstep_right_audio_stream_player.stream = footstep_right_streams.pick_random()
 	player_node.play_sound_effect(footstep_right_audio_stream_player, 0.0, FX_STEP_RANGE.x, FX_STEP_RANGE.y)

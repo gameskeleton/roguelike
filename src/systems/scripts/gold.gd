@@ -7,7 +7,7 @@ signal earned(amount: float)
 var gold := RkRpgFloat.create(0.0, 0.0, 9999.0)
 
 # @impure
-func earn(amount: float):
+func earn(amount: float) -> void:
 	assert(amount > 0, "amount of gold to earn must be strictly positive")
 	earned.emit(gold.add(amount))
 
@@ -16,7 +16,7 @@ func has_enough(amount: float) -> bool:
 	return gold.value >= amount
 
 # @impure
-func consume(amount: float):
+func consume(amount: float) -> void:
 	gold.sub(amount)
 
 # @impure

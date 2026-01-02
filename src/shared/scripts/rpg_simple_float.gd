@@ -22,7 +22,7 @@ func sub(amount: float, use_earn_multiplier := false) -> float:
 	return total_amount
 
 # @impure
-func reset_modifiers():
+func reset_modifiers() -> void:
 	value_bonus = 0.0
 	value_multiplier = 1.0
 	value_earn_multiplier = 1.0

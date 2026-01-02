@@ -5,7 +5,7 @@ var _animation_initial_speed_scale := 1.0
 
 const TURN_AROUND_OFFSET := -2.0
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	_initial_direction = player_node.direction
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
@@ -15,8 +15,9 @@ func start_state():
 	if player_node.is_stopped():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.stand
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_deceleration_move(delta, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
 	if not player_node.is_on_floor():
@@ -36,8 +37,9 @@ func process_state(delta: float):
 	if player_node.is_animation_finished():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.stand
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
 	player_node.set_one_way_shapecast_active(false)
 	if player_node.direction == _initial_direction:

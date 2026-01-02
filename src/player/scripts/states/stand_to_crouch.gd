@@ -1,10 +1,11 @@
 extends RkStateMachineState
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	player_node.play_animation(&"stand_to_crouch")
 	player_node.set_one_way_shapecast_active(true)
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_deceleration_move(delta, player_node.CROUCH_DECELERATION)
 	if not player_node.is_on_floor():
@@ -16,6 +17,7 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.fall
 	if player_node.is_animation_finished():
 		return player_node.fsm.state_nodes.crouch
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.set_one_way_shapecast_active(false)

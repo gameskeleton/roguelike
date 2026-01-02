@@ -19,7 +19,7 @@ func _run() -> void:
 			print("resource %s saved" % [file])
 
 # @impure
-func _add_files(dir: String):
+func _add_files(dir: String) -> void:
 	for child_file in DirAccess.get_files_at(dir):
 		if RESOURCE_EXTENSIONS.has(child_file.get_extension()):
 			_files.append(dir.path_join(child_file))

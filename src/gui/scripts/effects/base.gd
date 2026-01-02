@@ -3,7 +3,7 @@ extends RichTextEffect
 class_name RichTextEffectBase
 
 # @impure
-func _init():
+func _init() -> void:
 	resource_name = "RichTextEffectBase"
 
 # @pure

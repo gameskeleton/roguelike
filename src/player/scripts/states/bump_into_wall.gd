@@ -8,7 +8,7 @@ enum State {fall, hit_floor, to_stand, to_crouch}
 var _state := State.fall
 var _animation_initial_speed_scale := 1.0
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	_state = State.fall
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.dash(player_node.ROLL_BUMP_STRENGTH)
@@ -16,8 +16,9 @@ func start_state():
 	player_node.play_sound_effect(bump_audio_stream_player, 0.07)
 	player_node.set_uncrouch_shapecast_active(true)
 	player_node.animation_player.speed_scale = 1.8
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_deceleration_move(delta, player_node.ROLL_DECELERATION)
 	match _state:
@@ -42,8 +43,9 @@ func process_state(delta: float):
 		State.to_crouch:
 			if player_node.is_stopped() and player_node.is_animation_finished():
 				return player_node.fsm.state_nodes.crouch
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch]):
 		player_node.uncrouch()
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale

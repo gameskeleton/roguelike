@@ -2,13 +2,14 @@ extends RkStateMachineState
 
 var _coyote_time := 0.0
 
-func start_state():
+func start_state() -> RkStateMachineState:
 	player_node.play_animation(&"jump_to_fall")
 	player_node.set_wall_hang_raycast_active(true)
 	player_node.set_wall_slide_raycast_active(true)
 	_coyote_time = player_node.COYOTE_TIME if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.walk, player_node.fsm.state_nodes.crouch_walk]) else 0.0
+	return null
 
-func process_state(delta: float):
+func process_state(delta: float) -> RkStateMachineState:
 	player_node.play_animation_then("jump_to_fall", "fall")
 	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
 	player_node.handle_direction()
@@ -26,7 +27,8 @@ func process_state(delta: float):
 		return player_node.fsm.state_nodes.wall_hang
 	if player_node.has_same_direction(player_node.input_velocity.x, player_node.direction) and player_node.is_able_to_wall_slide():
 		return player_node.fsm.state_nodes.wall_slide
+	return null
 
-func finish_state():
+func finish_state() -> void:
 	player_node.set_wall_hang_raycast_active(false)
 	player_node.set_wall_slide_raycast_active(false)

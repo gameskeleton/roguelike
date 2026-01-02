@@ -49,18 +49,18 @@ var _lag_delay := lag_delay
 # set_progress changes the progress to the given normalized value.
 # note: use the progress property in script, this is an helper for connecting directly to signals.
 # @impure
-func set_progress(new_progress: float):
+func set_progress(new_progress: float) -> void:
 	progress = new_progress
 
 # @impure
-func _ready():
+func _ready() -> void:
 	_update_lag()
 	_update_size()
 	_update_colors()
 	_update_progress()
 
 # @impure
-func _process(delta: float):
+func _process(delta: float) -> void:
 	if $ProgressBarLag.size.x <= $ProgressBarValue.size.x:
 		_lag_delay = lag_delay
 		$ProgressBarLag.size.x = $ProgressBarValue.size.x
@@ -71,12 +71,12 @@ func _process(delta: float):
 		$ProgressBarLag.size.x = move_toward($ProgressBarLag.size.x, $ProgressBarValue.size.x, delta * lag_speed)
 
 # @impure
-func _update_lag():
+func _update_lag() -> void:
 	set_process(lag)
 	$ProgressBarLag.visible = lag
 
 # @impure
-func _update_size():
+func _update_size() -> void:
 	var rect := get_rect()
 	$Margin.size = rect.size + margin * 2.0
 	$Margin.position = -margin
@@ -85,18 +85,18 @@ func _update_size():
 	$ProgressBarValue.size = Vector2(lerpf(0.0, rect.size.x, progress), rect.size.y)
 
 # @impure
-func _update_colors():
+func _update_colors() -> void:
 	$Margin.color = margin_color
 	$Background.color = background_color
 	$ProgressBarLag.color = lag_color
 	$ProgressBarValue.color = value_color
 
 # @impure
-func _update_progress():
+func _update_progress() -> void:
 	var rect := get_rect()
 	$ProgressBarValue.size = Vector2(lerp(0.0, rect.size.x, progress), rect.size.y)
 
 # @signal
 # @impure
-func _on_resized():
+func _on_resized() -> void:
 	_update_size()
