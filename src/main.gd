@@ -1,8 +1,6 @@
 extends Node2D
 class_name RkMain
 
-const ARROW_PROJECTILE_SCENE = preload("res://src/items/projectiles/arrow_projectile.tscn")
-
 enum State {game, pause, level_up, game_over}
 
 @export_group(&"Nodes")
@@ -13,6 +11,9 @@ enum State {game, pause, level_up, game_over}
 @export var level_up_label: RichTextLabel
 @export var level_up_animation_player: AnimationPlayer
 @export var level_up_audio_stream_player: AudioStreamPlayer
+
+@export_group(&"Scenes")
+@export var arrow_projectile_scene: PackedScene
 
 static var _main_node: RkMain = null
 
@@ -60,7 +61,7 @@ func _process_game(_delta: float) -> void:
 		get_tree().paused = true
 	# shoot debug arrow
 	if Input.is_action_just_pressed(&"player_throw"):
-		var arrow_node := ARROW_PROJECTILE_SCENE.instantiate()
+		var arrow_node := arrow_projectile_scene.instantiate()
 		arrow_node.scale.x = -1 if player_node.direction < 0 else 1
 		arrow_node.direction = Vector2(player_node.direction, 0)
 		arrow_node.global_position = player_node.global_position + Vector2(10.0 * player_node.direction, -24.0)

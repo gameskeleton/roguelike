@@ -1,7 +1,7 @@
 extends RkProjectile
 
 @export var speed := 600.0
-@export var gravity := 800.0
+@export var gravity := 918.0
 @export var bounce_factor := 0.6
 @export var bounce_threshold := 200.0
 

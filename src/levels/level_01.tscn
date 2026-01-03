@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/items/decors/candle.tscn" id="7_dv8wo"]
 [ext_resource type="PackedScene" uid="uid://berv51qihfk8t" path="res://src/items/enemies/zombie/zombie.tscn" id="8_2tyx5"]
 [ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="9_hjd8s"]
-[ext_resource type="PackedScene" uid="uid://4f5krslq71th" path="res://src/items/projectiles/fire_ball_projectile.tscn" id="10_idw2h"]
+[ext_resource type="PackedScene" uid="uid://4f5krslq71th" path="res://src/items/projectiles/projectile_fire_ball.tscn" id="10_idw2h"]
 [ext_resource type="PackedScene" uid="uid://kpdnahgljl8c" path="res://addons/net.rootkernel.fancy/src/nodes/fog.tscn" id="12_srna5"]
+
 
 [node name="Level_01" type="Node2D" node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_ub47v")
