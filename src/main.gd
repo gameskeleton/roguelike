@@ -1,6 +1,8 @@
 extends Node2D
 class_name RkMain
 
+const ARROW_PROJECTILE_SCENE = preload("res://src/items/projectiles/arrow_projectile.tscn")
+
 enum State {game, pause, level_up, game_over}
 
 @export_group(&"Nodes")
@@ -56,6 +58,15 @@ func _process_game(_delta: float) -> void:
 	if Input.is_action_just_pressed(&"player_pause"):
 		state = State.pause
 		get_tree().paused = true
+	# shoot debug arrow
+	if Input.is_action_just_pressed(&"player_throw"):
+		var arrow_node := ARROW_PROJECTILE_SCENE.instantiate()
+		arrow_node.scale.x = -1 if player_node.direction < 0 else 1
+		arrow_node.direction = Vector2(player_node.direction, 0)
+		arrow_node.global_position = player_node.global_position + Vector2(10.0 * player_node.direction, -24.0)
+		$Game.add_child(arrow_node)
+		arrow_node.attack_system.source = player_node
+		arrow_node.attack_system.instigator = player_node
 
 # @impure
 func _process_debug() -> void:

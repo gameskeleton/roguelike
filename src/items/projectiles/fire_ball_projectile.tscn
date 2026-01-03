@@ -72,7 +72,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_xmvir"]
 radius = 6.0
 
-[node name="FireBallProjectile" type="Node2D"]
+[node name="FireBallProjectile" type="CharacterBody2D"]
 script = ExtResource("1_xmvir")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]

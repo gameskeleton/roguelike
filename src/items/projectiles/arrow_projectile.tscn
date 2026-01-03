@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd5vg32imuele"]
+
+[ext_resource type="Script" uid="uid://cqshafomm6h6g" path="res://src/items/projectiles/scripts/arrow_projectile.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="2_attack"]
+[ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="3_lifepoints"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arrow"]
+size = Vector2(18, 1)
+
+[node name="ArrowProjectile" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 3
+safe_margin = 0.01
+script = ExtResource("1_script")
+
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -1.0
+offset_right = 10.0
+offset_bottom = 1.0
+color = Color(0.6, 0.4, 0.2, 1)
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="Attack" parent="Systems" node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_attack")]
+source = NodePath("../..")
+instigator = NodePath("../..")
+
+[node name="LifePoints" parent="Systems" instance=ExtResource("3_lifepoints")]
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_arrow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_arrow")
+
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
