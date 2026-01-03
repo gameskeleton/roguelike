@@ -1,18 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd5vg32imuele"]
+[gd_scene load_steps=7 format=3 uid="uid://dd5vg32imuele"]
 
 [ext_resource type="Script" uid="uid://cqshafomm6h6g" path="res://src/items/projectiles/scripts/projectile_arrow.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="2_attack"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="3_lifepoints"]
 [ext_resource type="Texture2D" uid="uid://dp7rufvwy8w8r" path="res://src/items/projectiles/textures/arrow.png" id="4_xar73"]
+[ext_resource type="AudioStream" uid="uid://jfj5ysc65ltx" path="res://src/items/projectiles/sounds/arrow_impact.tres" id="5_w3u0b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arrow"]
 size = Vector2(14, 1)
 
-[node name="ArrowProjectile" type="CharacterBody2D"]
+[node name="ArrowProjectile" type="CharacterBody2D" node_paths=PackedStringArray("audio_stream_player_2d")]
 collision_layer = 128
 collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_script")
+audio_stream_player_2d = NodePath("AudioStreamPlayer2D")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("4_xar73")
@@ -34,5 +36,9 @@ shape = SubResource("RectangleShape2D_arrow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_arrow")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_w3u0b")
+bus = &"SFX"
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

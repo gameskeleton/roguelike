@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://jfj5ysc65ltx"]
+
+[ext_resource type="AudioStream" uid="uid://b1d4bf53hd5yh" path="res://src/items/projectiles/sounds/arrow_impact_01.ogg" id="1_nan4q"]
+[ext_resource type="AudioStream" uid="uid://cdvhykspcsxqr" path="res://src/items/projectiles/sounds/arrow_impact_02.ogg" id="2_jvwo3"]
+[ext_resource type="AudioStream" uid="uid://dqjej3gy664bo" path="res://src/items/projectiles/sounds/arrow_impact_03.ogg" id="3_jvwo3"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_nan4q")
+stream_1/stream = ExtResource("2_jvwo3")
+stream_2/stream = ExtResource("3_jvwo3")

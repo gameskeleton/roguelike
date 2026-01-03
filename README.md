@@ -12,7 +12,7 @@ knight sprite: aamatniekss (https://aamatniekss.itch.io/)
 
 dungeon tileset: genewheel (https://genewheel.itch.io/)
 
-footsteps sounds: Kenney (www.kenney.nl)
+footsteps sounds: Kenney (https://www.kenney.nl)
 
 dungeons and tunnels music: Eric Matyas (https://soundimage.org/)
 
