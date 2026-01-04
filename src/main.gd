@@ -6,6 +6,7 @@ enum State {game, pause, level_up, game_over}
 @export_group(&"Nodes")
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
+@export var audio_spawner_node: RkAudioSpawner
 @export var object_spawner_node: RkObjectSpawner
 
 @export var level_up_label: RichTextLabel

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://clbn8lb5nh1eq"]
+[gd_scene load_steps=7 format=3 uid="uid://clbn8lb5nh1eq"]
 
 [ext_resource type="Script" uid="uid://d573px1ev4uc" path="res://src/items/decors/scripts/decor.gd" id="1_odu7o"]
 [ext_resource type="PackedScene" uid="uid://dc6pi2hgemcvf" path="res://src/items/decors/barrel_debris.tscn" id="2_f4dmf"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="2_r1rjk"]
+[ext_resource type="AudioStream" uid="uid://bmufwtsd7cedo" path="res://src/items/decors/sounds/wood_break_01.ogg" id="3_if1pn"]
 [ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/items/decors/textures/decors_01.png" id="4_f837b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
@@ -14,7 +15,15 @@ collision_mask = 19
 can_sleep = false
 script = ExtResource("1_odu7o")
 debris_scene = ExtResource("2_f4dmf")
-coin_spawn_position = NodePath("Sprite2D")
+break_audio_stream = ExtResource("3_if1pn")
+coin_spawn_position = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -8)
+texture = ExtResource("4_f837b")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
 
 [node name="Systems" type="Node" parent="."]
 
@@ -22,13 +31,6 @@ coin_spawn_position = NodePath("Sprite2D")
 damage_multiplier_fire = 1000.0
 damage_multiplier_world = 1000.0
 damage_multiplier_physical = 1000.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(0, -8)
-texture = ExtResource("4_f837b")
-region_enabled = true
-region_rect = Rect2(16, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)

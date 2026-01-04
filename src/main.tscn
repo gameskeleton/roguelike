@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene load_steps=22 format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" uid="uid://dst7pyir2s0uo" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dhredeafxscgf" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="PackedScene" uid="uid://cegviomkjdxqm" path="res://src/gui/widgets/progress_bar.tscn" id="13_srxbw"]
+[ext_resource type="PackedScene" uid="uid://bp7rfe661ka8i" path="res://src/shared/audio_spawner.tscn" id="13_tb146"]
 [ext_resource type="AudioStream" uid="uid://djo4m67bvxbuu" path="res://src/shared/musics/game_over.mp3" id="14_pabrm"]
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_jfkim"]
@@ -78,11 +79,12 @@ _data = {
 &"level_up!": SubResource("Animation_jiokg")
 }
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("level_node", "player_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("level_node", "player_node", "audio_spawner_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
 process_mode = 3
 script = ExtResource("1_7kkph")
 level_node = NodePath("Game/LevelManager/Level_01")
 player_node = NodePath("Game/Player")
+audio_spawner_node = NodePath("Game/AudioSpawner")
 object_spawner_node = NodePath("Game/ObjectSpawner")
 level_up_label = NodePath("Game/Player/LevelUpToast/LevelUpLabel")
 level_up_animation_player = NodePath("Game/Player/LevelUpToast/AnimationPlayer")
@@ -209,6 +211,9 @@ player_camera_node = NodePath("../Player/Camera2D")
 object_spawner_node = NodePath("../ObjectSpawner")
 
 [node name="Level_01" parent="Game/LevelManager" instance=ExtResource("4_poqhe")]
+
+[node name="AudioSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("13_tb146")]
+spawn_node = NodePath("..")
 
 [node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../LevelManager/Level_01")
