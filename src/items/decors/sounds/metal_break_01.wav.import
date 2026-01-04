@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://4udt2d4kaghe"
-path="res://.godot/imported/broken_metal.wav-6ac3d9357b5a41e57bd3b3761294a5a2.sample"
+path="res://.godot/imported/metal_break_01.wav-3be5bf6b90db6d0688110663b396d40e.sample"
 
 [deps]
 
-source_file="res://src/items/decors/sounds/broken_metal.wav"
-dest_files=["res://.godot/imported/broken_metal.wav-6ac3d9357b5a41e57bd3b3761294a5a2.sample"]
+source_file="res://src/items/decors/sounds/metal_break_01.wav"
+dest_files=["res://.godot/imported/metal_break_01.wav-3be5bf6b90db6d0688110663b396d40e.sample"]
 
 [params]
 

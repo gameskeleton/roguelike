@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_tlyxk"]
 [ext_resource type="Texture2D" uid="uid://cewo8n0qyvkkc" path="res://src/items/decors/textures/decors_02.png" id="4_ihv35"]
 [ext_resource type="PackedScene" uid="uid://byhxvniv0etp5" path="res://src/items/decors/flame.tscn" id="6_35btn"]
-[ext_resource type="AudioStream" uid="uid://4udt2d4kaghe" path="res://src/items/decors/sounds/broken_metal.wav" id="7_6lu6l"]
+[ext_resource type="AudioStream" uid="uid://4udt2d4kaghe" path="res://src/items/decors/sounds/metal_break_01.wav" id="7_6lu6l"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_imyae"]
 atlas = ExtResource("4_ihv35")

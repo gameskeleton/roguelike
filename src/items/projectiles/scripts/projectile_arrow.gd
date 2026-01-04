@@ -7,7 +7,7 @@ extends RkProjectile
 @export var bounce_min_velocity := 390.0
 
 @export_group(&"Nodes")
-@export var audio_stream_player_2d: AudioStreamPlayer2D
+@export var audio_stream_player: AudioStreamPlayer2D
 
 var stuck := false
 var direction := Vector2.RIGHT
@@ -41,7 +41,7 @@ func stick() -> void:
 	stuck = true
 	attack_hitbox.monitoring = false
 	attack_hitbox.monitorable = false
-	audio_stream_player_2d.play()
+	audio_stream_player.play()
 	set_physics_process(false)
 	await get_tree().create_timer(2.0).timeout
 	destroy_projectile()

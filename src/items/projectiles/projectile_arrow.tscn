@@ -9,12 +9,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arrow"]
 size = Vector2(14, 1)
 
-[node name="ArrowProjectile" type="CharacterBody2D" node_paths=PackedStringArray("audio_stream_player_2d")]
+[node name="ArrowProjectile" type="CharacterBody2D" node_paths=PackedStringArray("audio_stream_player")]
 collision_layer = 128
 collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_script")
-audio_stream_player_2d = NodePath("AudioStreamPlayer2D")
+audio_stream_player = NodePath("AudioStreamPlayer2D")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("4_xar73")
