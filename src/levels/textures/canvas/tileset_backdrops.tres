@@ -1,4 +1,4 @@
-[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://cj3kaln0b1qbc"]
+[gd_resource type="CanvasTexture" format=3 uid="uid://cj3kaln0b1qbc"]
 
 [ext_resource type="Texture2D" uid="uid://bfrdgug53abu8" path="res://src/levels/textures/tileset_backdrops.png" id="1_5apfh"]
 

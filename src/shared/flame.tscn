@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdglrkhrt5s43"]
+[gd_scene format=3 uid="uid://bdglrkhrt5s43"]
 
 [ext_resource type="Texture2D" uid="uid://bjqs7gv4kcl3v" path="res://src/shared/textures/flame.png" id="1_ge0rx"]
 
@@ -15,7 +15,7 @@ offsets = PackedFloat32Array(0, 0.1, 0.2, 0.9, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
 metadata/_snap_enabled = true
 
-[node name="Flame" type="CPUParticles2D"]
+[node name="Flame" type="CPUParticles2D" unique_id=772470852]
 material = SubResource("CanvasItemMaterial_ge0rx")
 amount = 15
 texture = ExtResource("1_ge0rx")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bvc6dvh0vebam"]
+[gd_scene format=3 uid="uid://bvc6dvh0vebam"]
 
 [ext_resource type="Script" uid="uid://dst7pyir2s0uo" path="res://src/main.gd" id="1_7kkph"]
 [ext_resource type="PackedScene" uid="uid://ba5uvg88hin86" path="res://src/player/player.tscn" id="2_ak6nv"]
@@ -79,7 +79,7 @@ _data = {
 &"level_up!": SubResource("Animation_jiokg")
 }
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("level_node", "player_node", "audio_spawner_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
+[node name="Main" type="Node2D" unique_id=1991138898 node_paths=PackedStringArray("level_node", "player_node", "audio_spawner_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
 process_mode = 3
 script = ExtResource("1_7kkph")
 level_node = NodePath("Game/LevelManager/Level_01")
@@ -94,13 +94,13 @@ metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
 
-[node name="GUI" type="CanvasLayer" parent="."]
+[node name="GUI" type="CanvasLayer" parent="." unique_id=1799292593]
 
-[node name="Widgets" type="CanvasGroup" parent="GUI"]
+[node name="Widgets" type="CanvasGroup" parent="GUI" unique_id=480661778]
 fit_margin = 0.0
 clear_margin = 0.0
 
-[node name="Weapon" type="ColorRect" parent="GUI/Widgets"]
+[node name="Weapon" type="ColorRect" parent="GUI/Widgets" unique_id=1631028143]
 offset_left = 2.0
 offset_top = 272.0
 offset_right = 14.0
@@ -108,7 +108,7 @@ offset_bottom = 286.0
 color = Color(1, 0.827451, 0, 0.392157)
 metadata/_edit_use_anchors_ = true
 
-[node name="StaminaProgressBar" parent="GUI/Widgets" instance=ExtResource("13_srxbw")]
+[node name="StaminaProgressBar" parent="GUI/Widgets" unique_id=793868752 instance=ExtResource("13_srxbw")]
 offset_left = 17.0
 offset_top = 281.0
 offset_right = 81.0
@@ -116,7 +116,7 @@ offset_bottom = 285.0
 value_color = Color(0.121569, 0.796078, 0.137255, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="LifePointsProgressBar" parent="GUI/Widgets" instance=ExtResource("13_srxbw")]
+[node name="LifePointsProgressBar" parent="GUI/Widgets" unique_id=926914426 instance=ExtResource("13_srxbw")]
 offset_left = 17.0
 offset_top = 273.0
 offset_right = 81.0
@@ -125,14 +125,14 @@ lag_color = Color(0.847059, 0.137255, 0.137255, 0.392157)
 value_color = Color(0.847059, 0.137255, 0.137255, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Game" type="Node2D" parent="."]
+[node name="Game" type="Node2D" parent="." unique_id=446038312]
 process_mode = 1
 
-[node name="Player" parent="Game" node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
+[node name="Player" parent="Game" unique_id=530030805 node_paths=PackedStringArray("level_node") instance=ExtResource("2_ak6nv")]
 position = Vector2(304, 160)
 level_node = NodePath("../LevelManager/Level_01")
 
-[node name="Camera2D" type="Camera2D" parent="Game/Player"]
+[node name="Camera2D" type="Camera2D" parent="Game/Player" unique_id=1155327152]
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -142,7 +142,7 @@ script = ExtResource("9_kqbth")
 metadata/_custom_type_script = "uid://tkxcqhvo0nde"
 metadata/_edit_lock_ = true
 
-[node name="TorchLight2D" type="PointLight2D" parent="Game/Player"]
+[node name="TorchLight2D" type="PointLight2D" parent="Game/Player" unique_id=1447741114]
 position = Vector2(0, -16)
 color = Color(1, 0.27451, 0, 1)
 shadow_enabled = true
@@ -151,7 +151,7 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="PlayerLight2D" type="PointLight2D" parent="Game/Player"]
+[node name="PlayerLight2D" type="PointLight2D" parent="Game/Player" unique_id=744845727]
 position = Vector2(0, -16)
 energy = 0.5
 range_item_cull_mask = 2
@@ -161,11 +161,11 @@ texture = ExtResource("4_me4t0")
 texture_scale = 0.5
 metadata/_edit_lock_ = true
 
-[node name="AudioListener2D" type="AudioListener2D" parent="Game/Player"]
+[node name="AudioListener2D" type="AudioListener2D" parent="Game/Player" unique_id=804610703]
 current = true
 metadata/_edit_lock_ = true
 
-[node name="LevelUpToast" type="Control" parent="Game/Player"]
+[node name="LevelUpToast" type="Control" parent="Game/Player" unique_id=453765967]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -175,7 +175,7 @@ offset_right = 48.0
 offset_bottom = -49.0
 metadata/_edit_lock_ = true
 
-[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player/LevelUpToast"]
+[node name="LevelUpLabel" type="RichTextLabel" parent="Game/Player/LevelUpToast" unique_id=487953822]
 z_index = 1
 material = ExtResource("6_41hv6")
 layout_mode = 1
@@ -192,42 +192,40 @@ autowrap_mode = 0
 custom_effects = [SubResource("RichTextEffect_jfkim"), SubResource("RichTextEffect_n4utg")]
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpToast"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Player/LevelUpToast" unique_id=867240614]
 root_node = NodePath("../LevelUpLabel")
-libraries = {
-&"": SubResource("AnimationLibrary_gcljl")
-}
+libraries/ = SubResource("AnimationLibrary_gcljl")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpToast"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game/Player/LevelUpToast" unique_id=1412864285]
 stream = ExtResource("6_yr51s")
 volume_db = 10.0
 bus = &"SFX"
 
-[node name="LevelManager" type="Node2D" parent="Game" node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node")]
+[node name="LevelManager" type="Node2D" parent="Game" unique_id=168792385 node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node")]
 script = ExtResource("11_d3u4l")
 level_node = NodePath("Level_01")
 player_node = NodePath("../Player")
 player_camera_node = NodePath("../Player/Camera2D")
 object_spawner_node = NodePath("../ObjectSpawner")
 
-[node name="Level_01" parent="Game/LevelManager" instance=ExtResource("4_poqhe")]
+[node name="Level_01" parent="Game/LevelManager" unique_id=1700218319 instance=ExtResource("4_poqhe")]
 
-[node name="AudioSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("13_tb146")]
+[node name="AudioSpawner" parent="Game" unique_id=1660274501 node_paths=PackedStringArray("spawn_node") instance=ExtResource("13_tb146")]
 spawn_node = NodePath("..")
 
-[node name="ObjectSpawner" parent="Game" node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
+[node name="ObjectSpawner" parent="Game" unique_id=1311887810 node_paths=PackedStringArray("spawn_node") instance=ExtResource("8_o2dbi")]
 spawn_node = NodePath("../LevelManager/Level_01")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1048950896]
 color = Color(0.588235, 0.588235, 0.588235, 1)
 
-[node name="MusicAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=461455695]
 stream = ExtResource("13_dn0tp")
 volume_db = -10.0
 autoplay = true
 bus = &"Music"
 
-[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=893868843]
 stream = ExtResource("14_pabrm")
 volume_db = -10.0
 bus = &"Music"

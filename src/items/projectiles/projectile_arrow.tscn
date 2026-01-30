@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd5vg32imuele"]
+[gd_scene format=3 uid="uid://dd5vg32imuele"]
 
 [ext_resource type="Script" uid="uid://cqshafomm6h6g" path="res://src/items/projectiles/scripts/projectile_arrow.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="2_attack"]
@@ -9,35 +9,35 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arrow"]
 size = Vector2(14, 1)
 
-[node name="ArrowProjectile" type="CharacterBody2D" node_paths=PackedStringArray("audio_stream_player")]
+[node name="ArrowProjectile" type="CharacterBody2D" unique_id=1017697306 node_paths=PackedStringArray("audio_stream_player")]
 collision_layer = 128
 collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_script")
 audio_stream_player = NodePath("AudioStreamPlayer2D")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1599654541]
 texture = ExtResource("4_xar73")
 
-[node name="Systems" type="Node" parent="."]
+[node name="Systems" type="Node" parent="." unique_id=1699606414]
 
-[node name="Attack" parent="Systems" node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_attack")]
+[node name="Attack" parent="Systems" unique_id=479437829 node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_attack")]
 source = NodePath("../..")
 instigator = NodePath("../..")
 
-[node name="LifePoints" parent="Systems" instance=ExtResource("3_lifepoints")]
+[node name="LifePoints" parent="Systems" unique_id=635837972 instance=ExtResource("3_lifepoints")]
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=708711293]
 collision_layer = 128
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1837398931]
 shape = SubResource("RectangleShape2D_arrow")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1422586207]
 shape = SubResource("RectangleShape2D_arrow")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1104832478]
 stream = ExtResource("5_w3u0b")
 bus = &"SFX"
 

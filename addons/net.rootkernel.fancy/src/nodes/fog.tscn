@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://kpdnahgljl8c"]
+[gd_scene format=3 uid="uid://kpdnahgljl8c"]
 
 [ext_resource type="Shader" uid="uid://c7vevp5bnp32b" path="res://addons/net.rootkernel.fancy/src/shaders/fog.gdshader" id="1_p0c0y"]
 
@@ -11,7 +11,7 @@ shader_parameter/noise_scale_1 = 2.0
 shader_parameter/noise_scale_2 = 4.0
 shader_parameter/noise_scale_3 = 8.0
 
-[node name="Fog" type="ColorRect"]
+[node name="Fog" type="ColorRect" unique_id=42400859]
 material = SubResource("ShaderMaterial_8yp7e")
 offset_right = 272.0
 offset_bottom = 48.0

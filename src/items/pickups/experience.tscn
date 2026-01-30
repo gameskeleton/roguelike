@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cehywiepl3boy"]
+[gd_scene format=3 uid="uid://cehywiepl3boy"]
 
 [ext_resource type="Script" uid="uid://7qxqxujcu4l0" path="res://src/items/pickups/scripts/experience.gd" id="1_67vo4"]
 [ext_resource type="Material" uid="uid://d1r7g7d23y3ox" path="res://src/shared/shaders/unshaded.tres" id="2_25co4"]
@@ -30,7 +30,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wogr8"]
 size = Vector2(10, 10)
 
-[node name="Experience" type="RigidBody2D"]
+[node name="Experience" type="RigidBody2D" unique_id=1935948193]
 collision_layer = 256
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_i2lns")
@@ -40,9 +40,9 @@ max_contacts_reported = 1
 angular_damp = 10.0
 script = ExtResource("1_67vo4")
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="." unique_id=600513070]
 
-[node name="Line2D" type="Line2D" parent="Node"]
+[node name="Line2D" type="Line2D" parent="Node" unique_id=424476976]
 z_index = -1
 width = 2.0
 default_color = Color(0, 0.396078, 0.8, 0.784314)
@@ -50,29 +50,29 @@ joint_mode = 2
 round_precision = 16
 antialiased = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260423592]
 visible = false
 shape = SubResource("CircleShape2D_ctdi1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=74216340]
 material = ExtResource("2_25co4")
 sprite_frames = SubResource("SpriteFrames_m2mye")
 
-[node name="WhitePointLight2D" parent="." instance=ExtResource("4_gpaxm")]
+[node name="WhitePointLight2D" parent="." unique_id=1162381622 instance=ExtResource("4_gpaxm")]
 color = Color(0.388235, 0.607843, 1, 1)
 texture_scale = 0.1
 
-[node name="PlayerHitbox" type="Area2D" parent="."]
+[node name="PlayerHitbox" type="Area2D" parent="." unique_id=2124249184]
 collision_layer = 256
 collision_mask = 8
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox" unique_id=1762949755]
 visible = false
 shape = SubResource("RectangleShape2D_wogr8")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=492496335]
 stream = ExtResource("5_nd0h7")
 volume_db = -5.0
 bus = &"SFX"

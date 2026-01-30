@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bteus7x25vbqj"]
+[gd_scene format=3 uid="uid://bteus7x25vbqj"]
 
 [ext_resource type="Script" uid="uid://d573px1ev4uc" path="res://src/items/decors/scripts/decor.gd" id="1_1nc1r"]
 [ext_resource type="PackedScene" uid="uid://cmobbg2dk3rip" path="res://src/systems/life_points.tscn" id="1_4ih4r"]
@@ -53,52 +53,49 @@ _data = {
 &"light_pulse": SubResource("Animation_gvcwi")
 }
 
-[node name="Candelabra" type="Node2D" node_paths=PackedStringArray("coin_spawn_position", "audio_stream_player")]
+[node name="Candelabra" type="Node2D" unique_id=611960566 node_paths=PackedStringArray("coin_spawn_position")]
 script = ExtResource("1_1nc1r")
 debris_scene = ExtResource("2_rwr4d")
 break_audio_stream = ExtResource("7_6lu6l")
 coin_spawn_position = NodePath("Sprite/SpawnPosition")
-audio_stream_player = NodePath("")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1057879843]
 z_index = -1
 position = Vector2(0, -24)
 texture = SubResource("AtlasTexture_imyae")
 
-[node name="Light" parent="Sprite" instance=ExtResource("2_tlyxk")]
+[node name="Light" parent="Sprite" unique_id=552666455 instance=ExtResource("2_tlyxk")]
 position = Vector2(0, -21)
 scale = Vector2(0.75, 0.75)
 texture_scale = 0.25
 
-[node name="Flame" parent="Sprite" instance=ExtResource("6_35btn")]
+[node name="Flame" parent="Sprite" unique_id=1846275214 instance=ExtResource("6_35btn")]
 position = Vector2(-5, -19)
 
-[node name="Flame2" parent="Sprite" instance=ExtResource("6_35btn")]
+[node name="Flame2" parent="Sprite" unique_id=1279342574 instance=ExtResource("6_35btn")]
 position = Vector2(0, -21)
 
-[node name="Flame3" parent="Sprite" instance=ExtResource("6_35btn")]
+[node name="Flame3" parent="Sprite" unique_id=2122121621 instance=ExtResource("6_35btn")]
 position = Vector2(5, -20)
 
-[node name="SpawnPosition" type="Node2D" parent="Sprite"]
+[node name="SpawnPosition" type="Node2D" parent="Sprite" unique_id=1876583338]
 position = Vector2(0, -15)
 
-[node name="Systems" type="Node" parent="."]
+[node name="Systems" type="Node" parent="." unique_id=188088025]
 
-[node name="LifePoints" parent="Systems" instance=ExtResource("1_4ih4r")]
+[node name="LifePoints" parent="Systems" unique_id=382592295 instance=ExtResource("1_4ih4r")]
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=181566974]
 collision_layer = 16
 collision_mask = 136
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1461081095]
 position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_pqnap")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=26941549]
 root_node = NodePath("../Sprite/Light")
-libraries = {
-&"": SubResource("AnimationLibrary_g2w2u")
-}
-autoplay = "light_pulse"
+libraries/ = SubResource("AnimationLibrary_g2w2u")
+autoplay = &"light_pulse"
 
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]

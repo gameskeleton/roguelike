@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cegviomkjdxqm"]
+[gd_scene format=3 uid="uid://cegviomkjdxqm"]
 
 [ext_resource type="Script" uid="uid://dey2qlgc5qce1" path="res://src/gui/scripts/widgets/progress_bar.gd" id="1_uibkm"]
 
-[node name="ProgressBar" type="Control"]
+[node name="ProgressBar" type="Control" unique_id=499944291]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 80.0
 offset_bottom = 8.0
 script = ExtResource("1_uibkm")
 
-[node name="Margin" type="ColorRect" parent="."]
+[node name="Margin" type="ColorRect" parent="." unique_id=968752280]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -1.0
@@ -17,19 +17,19 @@ offset_right = 81.0
 offset_bottom = 9.0
 color = Color(1, 0.827451, 0, 0.39215687)
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=962778774]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
 color = Color(0.2, 0.2, 0.2, 1)
 
-[node name="ProgressBarLag" type="ColorRect" parent="."]
+[node name="ProgressBarLag" type="ColorRect" parent="." unique_id=1360466398]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0
 color = Color(0.12156863, 0.79607844, 0.13725491, 0.39215687)
 
-[node name="ProgressBarValue" type="ColorRect" parent="."]
+[node name="ProgressBarValue" type="ColorRect" parent="." unique_id=1448962483]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 8.0

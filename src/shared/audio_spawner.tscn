@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp7rfe661ka8i"]
+[gd_scene format=3 uid="uid://bp7rfe661ka8i"]
 
 [ext_resource type="Script" uid="uid://mr2crxblp0d" path="res://src/shared/scripts/audio_spawner.gd" id="1_7041t"]
 
-[node name="AudioSpawner" type="Node"]
+[node name="AudioSpawner" type="Node" unique_id=407330377]
 script = ExtResource("1_7041t")

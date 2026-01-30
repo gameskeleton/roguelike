@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://kojbpi6e5oji"]
+[gd_scene format=3 uid="uid://kojbpi6e5oji"]
 
 [ext_resource type="Texture2D" uid="uid://djwyov40iqpnu" path="res://src/items/decors/textures/candle.png" id="1_o3hiu"]
 [ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_l0ky8"]
@@ -71,9 +71,9 @@ _data = {
 &"light_pulse": SubResource("Animation_gvcwi")
 }
 
-[node name="Candle" type="Node2D"]
+[node name="Candle" type="Node2D" unique_id=1147707452]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1235545261]
 z_index = -1
 position = Vector2(-8, -8)
 sprite_frames = SubResource("SpriteFrames_1jb1l")
@@ -81,17 +81,15 @@ autoplay = "default"
 frame_progress = 0.855633
 centered = false
 
-[node name="Light" parent="Sprite" instance=ExtResource("2_l0ky8")]
+[node name="Light" parent="Sprite" unique_id=2128715567 instance=ExtResource("2_l0ky8")]
 position = Vector2(8, -3)
 scale = Vector2(0.75, 0.75)
 texture_scale = 0.25
 
-[node name="Flame" parent="Sprite" instance=ExtResource("3_rauy0")]
+[node name="Flame" parent="Sprite" unique_id=1249699913 instance=ExtResource("3_rauy0")]
 position = Vector2(8, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1713064148]
 root_node = NodePath("../Sprite/Light")
-libraries = {
-&"": SubResource("AnimationLibrary_g2w2u")
-}
-autoplay = "light_pulse"
+libraries/ = SubResource("AnimationLibrary_g2w2u")
+autoplay = &"light_pulse"

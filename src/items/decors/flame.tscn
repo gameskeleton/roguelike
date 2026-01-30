@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://byhxvniv0etp5"]
+[gd_scene format=3 uid="uid://byhxvniv0etp5"]
 
 [ext_resource type="Texture2D" uid="uid://cr1bm3swxqke7" path="res://src/items/decors/textures/flame.png" id="1_sbgjh"]
 
@@ -31,9 +31,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Flame" type="Node2D"]
+[node name="Flame" type="Node2D" unique_id=1597137127]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1201553717]
 z_index = -1
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_1jb1l")

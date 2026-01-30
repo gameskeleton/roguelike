@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://clbn8lb5nh1eq"]
+[gd_scene format=3 uid="uid://clbn8lb5nh1eq"]
 
 [ext_resource type="Script" uid="uid://d573px1ev4uc" path="res://src/items/decors/scripts/decor.gd" id="1_odu7o"]
 [ext_resource type="PackedScene" uid="uid://dc6pi2hgemcvf" path="res://src/items/decors/barrel_debris.tscn" id="2_f4dmf"]
@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
 size = Vector2(16, 16)
 
-[node name="Barrel" type="RigidBody2D" node_paths=PackedStringArray("coin_spawn_position")]
+[node name="Barrel" type="RigidBody2D" unique_id=1142961159 node_paths=PackedStringArray("coin_spawn_position")]
 collision_layer = 16
 collision_mask = 19
 can_sleep = false
@@ -18,30 +18,30 @@ debris_scene = ExtResource("2_f4dmf")
 break_audio_stream = ExtResource("3_if1pn")
 coin_spawn_position = NodePath("Sprite")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1496999724]
 z_index = -1
 position = Vector2(0, -8)
 texture = ExtResource("4_f837b")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
-[node name="Systems" type="Node" parent="."]
+[node name="Systems" type="Node" parent="." unique_id=827675988]
 
-[node name="LifePoints" parent="Systems" instance=ExtResource("2_r1rjk")]
+[node name="LifePoints" parent="Systems" unique_id=1899655304 instance=ExtResource("2_r1rjk")]
 damage_multiplier_fire = 1000.0
 damage_multiplier_world = 1000.0
 damage_multiplier_physical = 1000.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1860959693]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_1quh3")
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1306306036]
 position = Vector2(0, -8)
 collision_layer = 16
 collision_mask = 136
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1579128365]
 shape = SubResource("RectangleShape2D_1quh3")
 
 [connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]

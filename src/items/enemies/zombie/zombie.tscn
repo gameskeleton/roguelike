@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://berv51qihfk8t"]
+[gd_scene format=3 uid="uid://berv51qihfk8t"]
 
 [ext_resource type="Script" uid="uid://b5d6px5i1khr" path="res://src/items/enemies/zombie/scripts/zombie.gd" id="1_6kla0"]
 [ext_resource type="Script" uid="uid://c7ksdj8ywvemg" path="res://src/systems/scripts/life_points.gd" id="1_yfgva"]
@@ -11,28 +11,28 @@ size = Vector2(16, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kla0"]
 size = Vector2(16, 24)
 
-[node name="Zombie" type="CharacterBody2D" node_paths=PackedStringArray("attack_system", "life_points_system")]
+[node name="Zombie" type="CharacterBody2D" unique_id=576311312 node_paths=PackedStringArray("attack_system", "life_points_system")]
 collision_layer = 64
 script = ExtResource("1_6kla0")
 attack_system = NodePath("Systems/Attack")
 life_points_system = NodePath("Systems/LifePoints")
 
-[node name="Sprite" type="ColorRect" parent="."]
+[node name="Sprite" type="ColorRect" parent="." unique_id=1061458988]
 offset_left = -8.0
 offset_top = -24.0
 offset_right = 8.0
 color = Color(1, 0, 0, 1)
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=1576118464]
 visible = false
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_yfgva")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=1641961359]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="LifePoints" parent="GUI" node_paths=PackedStringArray("life_points_system") instance=ExtResource("4_ply85")]
+[node name="LifePoints" parent="GUI" unique_id=1605586106 node_paths=PackedStringArray("life_points_system") instance=ExtResource("4_ply85")]
 layout_mode = 0
 offset_left = -16.0
 offset_top = -37.0
@@ -40,21 +40,21 @@ offset_right = 16.0
 offset_bottom = -33.0
 life_points_system = NodePath("../../Systems/LifePoints")
 
-[node name="Systems" type="Node" parent="."]
+[node name="Systems" type="Node" parent="." unique_id=1976382041]
 
-[node name="Attack" parent="Systems" node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_gsj3p")]
+[node name="Attack" parent="Systems" unique_id=430510520 node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_gsj3p")]
 source = NodePath("../..")
 instigator = NodePath("../..")
 
-[node name="LifePoints" type="Node" parent="Systems"]
+[node name="LifePoints" type="Node" parent="Systems" unique_id=2316117]
 script = ExtResource("1_yfgva")
 metadata/_custom_type_script = "uid://c7ksdj8ywvemg"
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1299045234]
 collision_layer = 64
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1663013445]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_6kla0")
 metadata/_edit_lock_ = true

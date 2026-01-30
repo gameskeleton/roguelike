@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc6pi2hgemcvf"]
+[gd_scene format=3 uid="uid://dc6pi2hgemcvf"]
 
 [ext_resource type="Script" uid="uid://boh1gjjs5485m" path="res://src/items/decors/scripts/debris.gd" id="1_xns7y"]
 [ext_resource type="Texture2D" uid="uid://cndt5h2p6osi8" path="res://src/items/decors/textures/decors_01.png" id="2_iyc10"]
@@ -9,117 +9,117 @@ size = Vector2(12, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1quh3"]
 size = Vector2(1, 10)
 
-[node name="Debris" type="Node2D" node_paths=PackedStringArray("pieces")]
+[node name="Debris" type="Node2D" unique_id=293114377 node_paths=PackedStringArray("pieces")]
 script = ExtResource("1_xns7y")
 force = 120.0
 pieces = [NodePath("BarrelTopPiece"), NodePath("BarrelLeftPiece"), NodePath("BarrelMiddlePiece1"), NodePath("BarrelMiddlePiece2"), NodePath("BarrelMiddlePiece3"), NodePath("BarrelRightPiece"), NodePath("BarrelBottomPiece")]
 
-[node name="BarrelTopPiece" type="RigidBody2D" parent="."]
+[node name="BarrelTopPiece" type="RigidBody2D" parent="." unique_id=1729998751]
 position = Vector2(0, -14)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelTopPiece"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelTopPiece" unique_id=1354878506]
 z_index = -3
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 3)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelTopPiece"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelTopPiece" unique_id=608099121]
 shape = SubResource("RectangleShape2D_pl1ix")
 
-[node name="BarrelLeftPiece" type="RigidBody2D" parent="."]
+[node name="BarrelLeftPiece" type="RigidBody2D" parent="." unique_id=1691860665]
 position = Vector2(-7, -8)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelLeftPiece"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelLeftPiece" unique_id=1918255329]
 z_index = -3
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(16, 0, 2, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelLeftPiece"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelLeftPiece" unique_id=1687672755]
 shape = SubResource("RectangleShape2D_1quh3")
 
-[node name="BarrelMiddlePiece1" type="RigidBody2D" parent="."]
+[node name="BarrelMiddlePiece1" type="RigidBody2D" parent="." unique_id=113526640]
 position = Vector2(-4, -8)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece1"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece1" unique_id=1486451877]
 z_index = -3
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(18, 3, 2, 10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece1" unique_id=2021140806]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_1quh3")
 
-[node name="BarrelMiddlePiece2" type="RigidBody2D" parent="."]
+[node name="BarrelMiddlePiece2" type="RigidBody2D" parent="." unique_id=931861653]
 position = Vector2(0, -8)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece2"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece2" unique_id=270040832]
 z_index = -3
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(18, 3, 2, 10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece2" unique_id=1682843435]
 shape = SubResource("RectangleShape2D_1quh3")
 
-[node name="BarrelMiddlePiece3" type="RigidBody2D" parent="."]
+[node name="BarrelMiddlePiece3" type="RigidBody2D" parent="." unique_id=1465179945]
 position = Vector2(3, -8)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece3"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelMiddlePiece3" unique_id=1646662256]
 z_index = -3
 position = Vector2(1, 0)
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(18, 3, 2, 10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelMiddlePiece3" unique_id=1942096312]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_1quh3")
 
-[node name="BarrelRightPiece" type="RigidBody2D" parent="."]
+[node name="BarrelRightPiece" type="RigidBody2D" parent="." unique_id=386252142]
 position = Vector2(7, -8)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelRightPiece"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelRightPiece" unique_id=1134310035]
 z_index = -3
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(30, 0, 2, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelRightPiece"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelRightPiece" unique_id=207181004]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_1quh3")
 
-[node name="BarrelBottomPiece" type="RigidBody2D" parent="."]
+[node name="BarrelBottomPiece" type="RigidBody2D" parent="." unique_id=729848617]
 position = Vector2(0, -2)
 collision_layer = 32
 collision_mask = 27
 can_sleep = false
 
-[node name="Sprite2D" type="Sprite2D" parent="BarrelBottomPiece"]
+[node name="Sprite2D" type="Sprite2D" parent="BarrelBottomPiece" unique_id=152517209]
 z_index = -3
 position = Vector2(0, 1)
 texture = ExtResource("2_iyc10")
 region_enabled = true
 region_rect = Rect2(16, 13, 16, 3)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelBottomPiece"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelBottomPiece" unique_id=290427847]
 shape = SubResource("RectangleShape2D_pl1ix")

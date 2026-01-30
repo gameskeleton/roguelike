@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpqa0l2rq38dg"]
+[gd_scene format=3 uid="uid://dpqa0l2rq38dg"]
 
 [ext_resource type="Script" uid="uid://co0auxq2xi0bs" path="res://src/systems/scripts/attack.gd" id="1_wdu2j"]
 
-[node name="Attack" type="Node"]
+[node name="Attack" type="Node" unique_id=2145294484]
 script = ExtResource("1_wdu2j")
