@@ -22,7 +22,7 @@ func _ready() -> void:
 
 # @impure
 func _process(_delta: float) -> void:
-	var line := $Node/Line2D
+	var line := $GlobalTransform/Line2D
 	if linear_velocity.length_squared() > 2:
 		line.add_point(global_position)
 		while line.get_point_count() > 20:

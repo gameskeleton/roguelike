@@ -26,7 +26,7 @@ func deplete() -> void:
 	value = min_value
 
 # @impure
-func resplenish() -> void:
+func replenish() -> void:
 	value = max_value
 
 # @pure

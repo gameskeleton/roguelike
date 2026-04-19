@@ -40,9 +40,9 @@ max_contacts_reported = 1
 angular_damp = 10.0
 script = ExtResource("1_67vo4")
 
-[node name="Node" type="Node" parent="." unique_id=600513070]
+[node name="GlobalTransform" type="Node" parent="." unique_id=600513070]
 
-[node name="Line2D" type="Line2D" parent="Node" unique_id=424476976]
+[node name="Line2D" type="Line2D" parent="GlobalTransform" unique_id=424476976]
 z_index = -1
 width = 2.0
 default_color = Color(0, 0.396078, 0.8, 0.784314)

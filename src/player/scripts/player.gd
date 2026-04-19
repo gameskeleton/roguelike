@@ -145,24 +145,21 @@ var input_velocity := Vector2.ZERO
 # Process
 ###
 
-# _ready readies the player.
 # @impure
 func _ready() -> void:
 	# set default values.
 	set_direction(direction)
 	_on_level_level_up(level_system.level.value)
-	# resplenish system values.
-	stamina_system.stamina.resplenish()
-	life_points_system.life_points.resplenish()
+	# replenish system values.
+	stamina_system.stamina.replenish()
+	life_points_system.life_points.replenish()
 	# make sure the collision's are safe.
 	handle_safe_margin_after_teleport()
 
-# _physics_process is called every physics tick and updates the player state.
 # @impure
 func _physics_process(delta: float) -> void:
 	process(delta)
 
-# process updates the player state.
 # @impure
 func process(delta: float) -> void:
 	process_input(delta)
@@ -170,7 +167,6 @@ func process(delta: float) -> void:
 	process_timeouts(delta)
 	fsm.process_state_machine(delta)
 
-# process_input updates player inputs.
 # @impure
 func process_input(delta: float) -> void:
 	input_up.process(delta)
