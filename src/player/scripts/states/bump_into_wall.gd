@@ -10,12 +10,12 @@ var _animation_initial_speed_scale := 1.0
 
 func start_state() -> RkStateMachineState:
 	_state = State.fall
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	_animation_initial_speed_scale = player_node.animation.speed_scale
 	player_node.audio.play_sound_effect(bump_audio_stream_player, 0.07)
 	player_node.movement.dash(player_node.ROLL_BUMP_STRENGTH)
+	player_node.animation.speed_scale = 1.8
 	player_node.animation.play_animation(&"bump_into_wall_fall")
 	player_node.collision.set_uncrouch_shapecast_active(true)
-	player_node.animation_player.speed_scale = 1.8
 	return null
 
 func process_state(delta: float) -> RkStateMachineState:
@@ -31,11 +31,11 @@ func process_state(delta: float) -> RkStateMachineState:
 				if player_node.is_able_to_uncrouch() and not (player_node.input.down.is_down() and player_node.is_able_to_crouch()):
 					_state = State.to_stand
 					player_node.animation.play_animation(&"bump_into_wall_to_stand")
-					player_node.animation_player.speed_scale = 1.2
+					player_node.animation.speed_scale = 1.2
 				else:
 					_state = State.to_crouch
 					player_node.animation.play_animation(&"bump_into_wall_to_crouch")
-					player_node.animation_player.speed_scale = 1.2
+					player_node.animation.speed_scale = 1.2
 		State.to_stand:
 			if player_node.is_stopped() and player_node.animation.is_animation_finished():
 				assert(player_node.is_able_to_uncrouch())
@@ -48,5 +48,5 @@ func process_state(delta: float) -> RkStateMachineState:
 func finish_state() -> void:
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch]):
 		player_node.movement.uncrouch()
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.animation.speed_scale = _animation_initial_speed_scale
 	player_node.collision.set_uncrouch_shapecast_active(false)

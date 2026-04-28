@@ -14,13 +14,13 @@ func start_state() -> RkStateMachineState:
 	_can_climb_stand = not player_node.wall_climb_stand_shapecast.is_colliding()
 	_can_climb_crouch = not player_node.wall_climb_crouch_shapecast.is_colliding()
 	_initial_position = player_node.position
-	_initial_animation_speed_scale = player_node.animation_player.speed_scale
+	_initial_animation_speed_scale = player_node.animation.speed_scale
 	_initial_physics_interpolation_mode = player_node.physics_interpolation_mode
-	player_node.root_motion = Vector2.ZERO
-	player_node.animation_player.speed_scale = 1.4
-	player_node.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	player_node.audio.play_sound_effect(climb_audio_stream_player, 0.0, 0.7, 0.8)
+	player_node.animation.speed_scale = 1.4
 	player_node.animation.play_animation(&"wall_climb")
+	player_node.root_motion = Vector2.ZERO
+	player_node.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	assert(_can_climb_stand or _can_climb_crouch, "cannot climb safely")
 	return null
 
@@ -38,6 +38,6 @@ func process_state(_delta: float) -> RkStateMachineState:
 
 func finish_state() -> void:
 	player_node.root_motion = Vector2.ZERO
-	player_node.animation_player.speed_scale = _initial_animation_speed_scale
+	player_node.animation.speed_scale = _initial_animation_speed_scale
 	player_node.physics_interpolation_mode = _initial_physics_interpolation_mode
 	player_node.collision.set_wall_climb_shapecast_active(false)

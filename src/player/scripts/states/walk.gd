@@ -14,8 +14,8 @@ var _animation_initial_speed_scale := 1.0
 
 func start_state() -> RkStateMachineState:
 	_apply_animation()
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
-	player_node.animation_player.speed_scale = 1.2
+	_animation_initial_speed_scale = player_node.animation.speed_scale
+	player_node.animation.speed_scale = 1.2
 	player_node.collision.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall]):
 		player_node.audio.play_sound_effect(stand_audio_stream_player)
@@ -53,7 +53,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	return null
 
 func finish_state() -> void:
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.animation.speed_scale = _animation_initial_speed_scale
 	player_node.collision.set_one_way_shapecast_active(false)
 
 # @impure

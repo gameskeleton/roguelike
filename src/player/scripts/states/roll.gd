@@ -10,17 +10,17 @@ var _animation_initial_speed_scale := 1.0
 
 func start_state() -> RkStateMachineState:
 	_sprite_initial_offset = player_node.sprite.offset
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	_animation_initial_speed_scale = player_node.animation.speed_scale
 	if not player_node.crouched:
 		player_node.movement.crouch()
 	player_node.audio.play_sound_effect(roll_audio_stream_player, 0.0, 0.85, 0.9)
 	player_node.movement.dash(player_node.ROLL_STRENGTH)
+	player_node.animation.speed_scale = 2.1
 	player_node.animation.play_animation(&"roll")
 	player_node.collision.set_roll_hitbox_active(true)
 	player_node.collision.set_one_way_shapecast_active(true)
 	player_node.collision.set_uncrouch_shapecast_active(true)
 	player_node.stamina_system.consume(player_node.ROLL_STAMINA_COST)
-	player_node.animation_player.speed_scale = 2.1
 	player_node.life_points_system.invincible += 1
 	return null
 
@@ -50,7 +50,7 @@ func finish_state() -> void:
 	if not player_node.fsm.is_next_state_node([player_node.fsm.state_nodes.hit, player_node.fsm.state_nodes.death, player_node.fsm.state_nodes.crouch, player_node.fsm.state_nodes.bump_into_wall]):
 		player_node.movement.uncrouch()
 	player_node.sprite.offset = _sprite_initial_offset
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.animation.speed_scale = _animation_initial_speed_scale
 	player_node.life_points_system.invincible -= 1
 	player_node.audio.stop_sound_effect(roll_audio_stream_player)
 	player_node.collision.set_roll_hitbox_active(false)

@@ -7,9 +7,9 @@ var _animation_initial_speed_scale := 1.0
 
 func start_state() -> RkStateMachineState:
 	_state = State.fall
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	_animation_initial_speed_scale = player_node.animation.speed_scale
+	player_node.animation.speed_scale = 1.4
 	player_node.animation.play_animation(&"death_fall")
-	player_node.animation_player.speed_scale = 1.4
 	return null
 
 func process_state(delta: float) -> RkStateMachineState:
@@ -26,4 +26,4 @@ func process_state(delta: float) -> RkStateMachineState:
 	return null
 
 func finish_state() -> void:
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.animation.speed_scale = _animation_initial_speed_scale

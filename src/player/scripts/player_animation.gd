@@ -2,6 +2,12 @@ class_name RkPlayerAnimation
 
 var player_node: RkPlayer
 
+var speed_scale: float:
+	get:
+		return player_node.animation_player.speed_scale
+	set(value):
+		player_node.animation_player.speed_scale = value
+
 # @impure
 func _init(_player_node: RkPlayer) -> void:
 	player_node = _player_node

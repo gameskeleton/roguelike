@@ -15,9 +15,9 @@ func start_state() -> RkStateMachineState:
 	_combo = false
 	_air_control = not player_node.is_on_floor()
 	_attack_combo = 0
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	_animation_initial_speed_scale = player_node.animation.speed_scale
 	player_node.audio.play_sound_effect(attack_audio_stream_player, SOUND_POSITION_01)
-	player_node.animation_player.speed_scale = 1.6
+	player_node.animation.speed_scale = 1.6
 	player_node.animation.play_animation(&"attack_01")
 	player_node.stamina_system.consume(player_node.ATTACK_STAMINA_COST)
 	return null
@@ -39,7 +39,7 @@ func process_state(delta: float) -> RkStateMachineState:
 		if _combo and player_node.stamina_system.try_consume(player_node.ATTACK_STAMINA_COST):
 			_combo = false
 			_attack_combo += 1
-			player_node.animation_player.speed_scale = minf(3.0, player_node.animation_player.speed_scale + 0.2)
+			player_node.animation.speed_scale = minf(3.0, player_node.animation.speed_scale + 0.2)
 			player_node.animation.play_animation(&"attack_01" if _attack_combo % 2 == 0 else &"attack_02")
 			player_node.audio.play_sound_effect(attack_audio_stream_player, SOUND_POSITION_02)
 		else:
@@ -48,7 +48,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	return null
 
 func finish_state() -> void:
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.animation.speed_scale = _animation_initial_speed_scale
 	player_node.collision.set_attack_hitbox_active(false)
 
 # @anim

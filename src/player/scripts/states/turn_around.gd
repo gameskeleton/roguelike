@@ -7,9 +7,9 @@ const TURN_AROUND_OFFSET := -2.0
 
 func start_state() -> RkStateMachineState:
 	_initial_direction = player_node.direction
-	_animation_initial_speed_scale = player_node.animation_player.speed_scale
+	_animation_initial_speed_scale = player_node.animation.speed_scale
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
-	player_node.animation_player.speed_scale = 1.8
+	player_node.animation.speed_scale = 1.8
 	player_node.animation.play_animation(&"turn_around")
 	player_node.collision.set_one_way_shapecast_active(true)
 	if player_node.is_stopped():
@@ -40,7 +40,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	return null
 
 func finish_state() -> void:
-	player_node.animation_player.speed_scale = _animation_initial_speed_scale
+	player_node.animation.speed_scale = _animation_initial_speed_scale
 	player_node.collision.set_one_way_shapecast_active(false)
 	if player_node.direction == _initial_direction:
 		player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
