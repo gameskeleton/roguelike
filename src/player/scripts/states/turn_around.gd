@@ -10,37 +10,37 @@ func start_state() -> RkStateMachineState:
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET
 	player_node.animation_player.speed_scale = 1.8
-	player_node.play_animation(&"turn_around")
-	player_node.set_one_way_shapecast_active(true)
+	player_node.animation.play_animation(&"turn_around")
+	player_node.collision.set_one_way_shapecast_active(true)
 	if player_node.is_stopped():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.stand
 	return null
 
 func process_state(delta: float) -> RkStateMachineState:
-	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_deceleration_move(delta, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
+	player_node.movement.apply_gravity(delta)
+	player_node.movement.apply_floor_deceleration(delta, player_node.WALK_DECELERATION * player_node.WALK_DECELERATION_BRAKE)
 	if not player_node.is_on_floor():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_jump.is_pressed() and player_node.input_down.is_down() and player_node.is_on_floor_one_way():
-		player_node.input_jump.consume()
-		player_node.input_down.consume()
-		player_node.handle_drop_through_one_way()
+	if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.is_on_floor_one_way():
+		player_node.input.jump.consume()
+		player_node.input.down.consume()
+		player_node.movement.drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_jump.is_pressed() and player_node.is_able_to_jump():
-		player_node.input_jump.consume()
+	if player_node.input.jump.is_pressed() and player_node.is_able_to_jump():
+		player_node.input.jump.consume()
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.jump
-	if player_node.has_same_direction(player_node.velocity.x, player_node.input_velocity.x):
+	if player_node.has_same_direction(player_node.velocity.x, player_node.input.velocity.x):
 		return player_node.fsm.state_nodes.stand
-	if player_node.is_animation_finished():
+	if player_node.animation.is_animation_finished():
 		player_node.set_direction(-player_node.direction)
 		return player_node.fsm.state_nodes.stand
 	return null
 
 func finish_state() -> void:
 	player_node.animation_player.speed_scale = _animation_initial_speed_scale
-	player_node.set_one_way_shapecast_active(false)
+	player_node.collision.set_one_way_shapecast_active(false)
 	if player_node.direction == _initial_direction:
 		player_node.sprite.offset.x += player_node.direction * TURN_AROUND_OFFSET

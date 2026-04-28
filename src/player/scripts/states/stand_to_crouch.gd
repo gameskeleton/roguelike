@@ -1,23 +1,23 @@
 extends RkStateMachineState
 
 func start_state() -> RkStateMachineState:
-	player_node.play_animation(&"stand_to_crouch")
-	player_node.set_one_way_shapecast_active(true)
+	player_node.animation.play_animation(&"stand_to_crouch")
+	player_node.collision.set_one_way_shapecast_active(true)
 	return null
 
 func process_state(delta: float) -> RkStateMachineState:
-	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_deceleration_move(delta, player_node.CROUCH_DECELERATION)
+	player_node.movement.apply_gravity(delta)
+	player_node.movement.apply_floor_deceleration(delta, player_node.CROUCH_DECELERATION)
 	if not player_node.is_on_floor():
 		return player_node.fsm.state_nodes.fall
-	if player_node.input_jump.is_pressed() and player_node.input_down.is_down() and player_node.is_on_floor_one_way():
-		player_node.input_jump.consume()
-		player_node.input_down.consume()
-		player_node.handle_drop_through_one_way()
+	if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.is_on_floor_one_way():
+		player_node.input.jump.consume()
+		player_node.input.down.consume()
+		player_node.movement.drop_through_one_way()
 		return player_node.fsm.state_nodes.fall
-	if player_node.is_animation_finished():
+	if player_node.animation.is_animation_finished():
 		return player_node.fsm.state_nodes.crouch
 	return null
 
 func finish_state() -> void:
-	player_node.set_one_way_shapecast_active(false)
+	player_node.collision.set_one_way_shapecast_active(false)

@@ -9,14 +9,14 @@ func start_state() -> RkStateMachineState:
 	_animation_initial_speed_scale = player_node.animation_player.speed_scale
 	player_node.stamina_system.consume(player_node.CROUCH_ATTACK_STAMINA_COST)
 	player_node.animation_player.speed_scale = 1.6
-	player_node.play_animation(&"crouch_attack")
-	player_node.play_sound_effect(crouch_attack_audio_stream_player)
+	player_node.animation.play_animation(&"crouch_attack")
+	player_node.audio.play_sound_effect(crouch_attack_audio_stream_player)
 	return null
 
 func process_state(delta: float) -> RkStateMachineState:
-	player_node.handle_gravity(delta, player_node.GRAVITY_MAX_SPEED, player_node.GRAVITY_ACCELERATION)
-	player_node.handle_deceleration_move(delta, player_node.CROUCH_DECELERATION)
-	if player_node.is_animation_finished():
+	player_node.movement.apply_gravity(delta)
+	player_node.movement.apply_floor_deceleration(delta, player_node.CROUCH_DECELERATION)
+	if player_node.animation.is_animation_finished():
 		return player_node.fsm.state_nodes.crouch
 	return null
 
@@ -25,11 +25,11 @@ func finish_state() -> void:
 
 # @impure
 func _enable_hitbox() -> void:
-	player_node.set_crouch_attack_hitbox_active(true)
+	player_node.collision.set_crouch_attack_hitbox_active(true)
 
 # @impure
 func _disable_hitbox() -> void:
-	player_node.set_crouch_attack_hitbox_active(false)
+	player_node.collision.set_crouch_attack_hitbox_active(false)
 
 # @signal
 # @impure

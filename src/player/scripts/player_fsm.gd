@@ -1,51 +1,4 @@
-extends RefCounted
 class_name RkStateMachine
-
-class StateNodes extends RefCounted:
-	var hit: RkStateMachineState
-	var fall: RkStateMachineState
-	var jump: RkStateMachineState
-	var roll: RkStateMachineState
-	var skid: RkStateMachineState
-	var walk: RkStateMachineState
-	var death: RkStateMachineState
-	var slide: RkStateMachineState
-	var stand: RkStateMachineState
-	var attack: RkStateMachineState
-	var crouch: RkStateMachineState
-	var wall_hang: RkStateMachineState
-	var wall_climb: RkStateMachineState
-	var wall_slide: RkStateMachineState
-	var crouch_walk: RkStateMachineState
-	var turn_around: RkStateMachineState
-	var crouch_attack: RkStateMachineState
-	var bump_into_wall: RkStateMachineState
-	var crouch_to_stand: RkStateMachineState
-	var stand_to_crouch: RkStateMachineState
-
-	# assert_states checks that all state nodes are set.
-	# @pure
-	func assert_states() -> void:
-		assert(hit, "StateNodes: hit is not set")
-		assert(fall, "StateNodes: fall is not set")
-		assert(jump, "StateNodes: jump is not set")
-		assert(roll, "StateNodes: roll is not set")
-		assert(skid, "StateNodes: skid is not set")
-		assert(walk, "StateNodes: walk is not set")
-		assert(death, "StateNodes: death is not set")
-		assert(slide, "StateNodes: slide is not set")
-		assert(stand, "StateNodes: stand is not set")
-		assert(attack, "StateNodes: attack is not set")
-		assert(crouch, "StateNodes: crouch is not set")
-		assert(wall_hang, "StateNodes: wall_hang is not set")
-		assert(wall_climb, "StateNodes: wall_climb is not set")
-		assert(wall_slide, "StateNodes: wall_slide is not set")
-		assert(crouch_walk, "StateNodes: crouch_walk is not set")
-		assert(turn_around, "StateNodes: turn_around is not set")
-		assert(crouch_attack, "StateNodes: crouch_attack is not set")
-		assert(bump_into_wall, "StateNodes: bump_into_wall is not set")
-		assert(crouch_to_stand, "StateNodes: crouch_to_stand is not set")
-		assert(stand_to_crouch, "StateNodes: stand_to_crouch is not set")
 
 var state_nodes := StateNodes.new()
 
@@ -110,3 +63,49 @@ func is_prev_state_node(in_state_nodes: Array[RkStateMachineState]) -> bool:
 		if in_state_node == prev_state_node:
 			return true
 	return false
+
+class StateNodes:
+	var hit: RkStateMachineState
+	var fall: RkStateMachineState
+	var jump: RkStateMachineState
+	var roll: RkStateMachineState
+	var skid: RkStateMachineState
+	var walk: RkStateMachineState
+	var death: RkStateMachineState
+	var slide: RkStateMachineState
+	var stand: RkStateMachineState
+	var attack: RkStateMachineState
+	var crouch: RkStateMachineState
+	var wall_hang: RkStateMachineState
+	var wall_climb: RkStateMachineState
+	var wall_slide: RkStateMachineState
+	var crouch_walk: RkStateMachineState
+	var turn_around: RkStateMachineState
+	var crouch_attack: RkStateMachineState
+	var bump_into_wall: RkStateMachineState
+	var crouch_to_stand: RkStateMachineState
+	var stand_to_crouch: RkStateMachineState
+
+	# assert_states checks that all state nodes are set.
+	# @pure
+	func assert_states() -> void:
+		assert(hit, "StateNodes: hit is not set")
+		assert(fall, "StateNodes: fall is not set")
+		assert(jump, "StateNodes: jump is not set")
+		assert(roll, "StateNodes: roll is not set")
+		assert(skid, "StateNodes: skid is not set")
+		assert(walk, "StateNodes: walk is not set")
+		assert(death, "StateNodes: death is not set")
+		assert(slide, "StateNodes: slide is not set")
+		assert(stand, "StateNodes: stand is not set")
+		assert(attack, "StateNodes: attack is not set")
+		assert(crouch, "StateNodes: crouch is not set")
+		assert(wall_hang, "StateNodes: wall_hang is not set")
+		assert(wall_climb, "StateNodes: wall_climb is not set")
+		assert(wall_slide, "StateNodes: wall_slide is not set")
+		assert(crouch_walk, "StateNodes: crouch_walk is not set")
+		assert(turn_around, "StateNodes: turn_around is not set")
+		assert(crouch_attack, "StateNodes: crouch_attack is not set")
+		assert(bump_into_wall, "StateNodes: bump_into_wall is not set")
+		assert(crouch_to_stand, "StateNodes: crouch_to_stand is not set")
+		assert(stand_to_crouch, "StateNodes: stand_to_crouch is not set")
