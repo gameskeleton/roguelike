@@ -31,7 +31,7 @@ func process_state(delta: float) -> RkStateMachineState:
 				_state = State.hit_floor
 				player_node.animation.play_animation(&"bump_into_wall_hit_floor")
 		State.hit_floor:
-			if player_node.is_stopped() and player_node.animation.is_animation_finished():
+			if player_node.movement.is_stopped() and player_node.animation.is_animation_finished():
 				if player_node.is_able_to_uncrouch() and not (player_node.input.down.is_down() and player_node.is_able_to_crouch()):
 					_state = State.to_stand
 					player_node.animation.play_animation(&"bump_into_wall_to_stand")
@@ -41,11 +41,11 @@ func process_state(delta: float) -> RkStateMachineState:
 					player_node.animation.play_animation(&"bump_into_wall_to_crouch")
 					player_node.animation.speed_scale = 1.2
 		State.to_stand:
-			if player_node.is_stopped() and player_node.animation.is_animation_finished():
+			if player_node.movement.is_stopped() and player_node.animation.is_animation_finished():
 				assert(player_node.is_able_to_uncrouch())
 				return player_node.fsm.state_nodes.stand
 		State.to_crouch:
-			if player_node.is_stopped() and player_node.animation.is_animation_finished():
+			if player_node.movement.is_stopped() and player_node.animation.is_animation_finished():
 				return player_node.fsm.state_nodes.crouch
 	return null
 

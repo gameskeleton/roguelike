@@ -3,7 +3,7 @@ extends RkStateMachineState
 var corner_pos := Vector2.ZERO
 
 func start_state() -> RkStateMachineState:
-	corner_pos = player_node.get_corner_tile_pos_at_hand()
+	corner_pos = player_node.movement.get_corner_tile_pos_at_hand()
 	player_node.velocity = Vector2.ZERO
 	player_node.position = \
 		corner_pos \
@@ -22,10 +22,10 @@ func process_state(_delta: float) -> RkStateMachineState:
 	if player_node.input.down.is_pressed():
 		player_node.input.down.consume()
 		player_node.disable_wall_hang_timeout = player_node.WALL_HANG_DROP_TIMEOUT
-		if player_node.has_same_direction(player_node.direction, player_node.input.velocity.x) and player_node.is_able_to_wall_slide():
+		if player_node.movement.is_facing_input_direction() and player_node.is_able_to_wall_slide():
 			return player_node.fsm.state_nodes.wall_slide
 		return player_node.fsm.state_nodes.fall
-	if player_node.input.jump.is_pressed() and player_node.is_able_to_jump() and player_node.has_invert_direction(player_node.direction, player_node.input.velocity.x):
+	if player_node.input.jump.is_pressed() and player_node.is_able_to_jump() and player_node.movement.is_facing_away_from_input():
 		player_node.input.jump.consume()
 		player_node.velocity.x = player_node.direction * player_node.WALL_HANG_JUMP_EXPULSE_STRENGTH
 		return player_node.fsm.state_nodes.jump

@@ -36,7 +36,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	if player_node.is_on_wall() and player_node.animation.get_animation_played_ratio() < 0.5:
 		return player_node.fsm.state_nodes.bump_into_wall
 	if player_node.animation.get_animation_played_ratio() > 0.8:
-		if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.is_on_floor_one_way():
+		if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.movement.is_on_floor_one_way():
 			player_node.input.jump.consume()
 			player_node.input.down.consume()
 			player_node.movement.drop_through_one_way()

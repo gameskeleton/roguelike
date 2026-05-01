@@ -39,7 +39,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	if player_node.input.down.is_down() and player_node.is_able_to_crouch():
 		player_node.input.down.consume()
 		return player_node.fsm.state_nodes.stand_to_crouch
-	if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.is_on_floor_one_way():
+	if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.movement.is_on_floor_one_way():
 		player_node.input.jump.consume()
 		player_node.input.down.consume()
 		player_node.movement.drop_through_one_way()
@@ -53,10 +53,10 @@ func process_state(delta: float) -> RkStateMachineState:
 	if player_node.input.attack.is_pressed() and player_node.is_able_to_attack():
 		player_node.input.attack.consume()
 		return player_node.fsm.state_nodes.attack
-	if player_node.input.has_horizontal_input() and player_node.has_invert_direction(player_node.direction, player_node.input.velocity.x):
+	if player_node.input.has_horizontal_input() and player_node.movement.is_facing_away_from_input():
 		return player_node.fsm.state_nodes.turn_around
 	if not player_node.input.has_horizontal_input():
-		return player_node.fsm.state_nodes.skid if not player_node.is_stopped() else player_node.fsm.state_nodes.stand
+		return player_node.fsm.state_nodes.skid if not player_node.movement.is_stopped() else player_node.fsm.state_nodes.stand
 	return null
 
 func finish_state() -> void:

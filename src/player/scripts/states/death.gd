@@ -21,7 +21,7 @@ func process_state(delta: float) -> RkStateMachineState:
 				_state = State.hit_floor
 				player_node.animation.play_animation(&"death_hit_floor")
 		State.hit_floor:
-			if player_node.is_stopped() and player_node.animation.is_animation_finished():
+			if player_node.movement.is_stopped() and player_node.animation.is_animation_finished():
 				_state = State.dead
 	return null
 

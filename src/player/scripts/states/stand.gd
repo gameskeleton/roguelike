@@ -12,7 +12,7 @@ func start_state() -> RkStateMachineState:
 	player_node.collision.set_one_way_shapecast_active(true)
 	if player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.fall, player_node.fsm.state_nodes.wall_slide]):
 		player_node.audio.play_sound_effect(stand_audio_stream_player)
-	if player_node.has_same_direction(player_node.direction, player_node.input.velocity.x) and not player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.wall_climb]):
+	if player_node.movement.is_facing_input_direction() and not player_node.fsm.is_prev_state_node([player_node.fsm.state_nodes.wall_climb]):
 		return player_node.fsm.state_nodes.walk
 	return null
 
@@ -24,7 +24,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	if player_node.input.down.is_down() and player_node.is_able_to_crouch():
 		player_node.input.down.consume()
 		return player_node.fsm.state_nodes.stand_to_crouch
-	if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.is_on_floor_one_way():
+	if player_node.input.jump.is_pressed() and player_node.input.down.is_down() and player_node.movement.is_on_floor_one_way():
 		player_node.input.jump.consume()
 		player_node.input.down.consume()
 		player_node.movement.drop_through_one_way()
@@ -38,9 +38,9 @@ func process_state(delta: float) -> RkStateMachineState:
 	if player_node.input.attack.is_pressed() and player_node.is_able_to_attack():
 		player_node.input.attack.consume()
 		return player_node.fsm.state_nodes.attack
-	if player_node.has_same_direction(player_node.direction, player_node.input.velocity.x):
+	if player_node.movement.is_facing_input_direction():
 		return player_node.fsm.state_nodes.walk
-	if player_node.input.has_horizontal_input() and not player_node.has_same_direction(player_node.direction, player_node.input.velocity.x):
+	if player_node.input.has_horizontal_input() and not player_node.movement.is_facing_input_direction():
 		return player_node.fsm.state_nodes.turn_around
 	return null
 

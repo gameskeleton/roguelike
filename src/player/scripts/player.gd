@@ -194,7 +194,7 @@ func process_timeouts(delta: float) -> void:
 	disable_wall_hang_timeout = maxf(disable_wall_hang_timeout - delta, 0.0)
 
 ###
-# Movement
+# Player
 ###
 
 # die makes the player collapse and emit the death signal.
@@ -230,56 +230,6 @@ func set_direction(new_direction: float) -> void:
 	wall_slide_top_side_raycast.force_raycast_update()
 	wall_slide_down_side_raycast.target_position.x = absf(wall_slide_down_side_raycast.target_position.x) * new_direction
 	wall_slide_down_side_raycast.force_raycast_update()
-
-###
-# Maths utils
-###
-
-# is_nearly returns true if the first given value nearly equals the second given value.
-# @pure
-func is_nearly(value1: float, value2: float, epsilon := 0.001) -> bool:
-	return absf(value1 - value2) < epsilon
-
-# has_same_direction returns true if the two given numbers are non-zero and of the same sign.
-# @pure
-func has_same_direction(dir1: float, dir2: float) -> bool:
-	return dir1 != 0.0 and dir2 != 0.0 and signf(dir1) == signf(dir2)
-
-# has_invert_direction returns true if the two given numbers are non-zero and of the opposed sign.
-# @pure
-func has_invert_direction(dir1: float, dir2: float) -> bool:
-	return dir1 != 0.0 and dir2 != 0.0 and signf(dir1) != signf(dir2)
-
-###
-# Checks
-###
-
-# is_stopped returns true if the player is nearly stopped.
-# @pure
-func is_stopped() -> bool:
-	return get_real_velocity().length_squared() < 1.0
-
-# is_on_floor_one_way returns true if the player is on the floor and standing on a one way collider.
-# @pure
-func is_on_floor_one_way() -> bool:
-	assert(one_way_shapecast.enabled, "is_on_floor_one_way can only be called after calling set_one_way_shapecast_active(true)")
-	return is_on_floor() and one_way_shapecast.is_colliding()
-
-# has_corner_tile_at_hand returns true if there is a corner tile at the wall hang hand's position.
-# @pure
-func has_corner_tile_at_hand() -> bool:
-	if not level_node:
-		# not an assert because this can be called outside of a level (e.g. in the editor when testing).
-		push_warning("has_corner_tile_at_hand should not be called outside of a level")
-		return false
-	return level_node.has_corner_tile(hand_marker.global_position)
-
-# get_corner_tile_pos_at_hand returns the top-center position of the corner tile at the wall hang hand's position.
-# @pure
-func get_corner_tile_pos_at_hand() -> Vector2:
-	assert(level_node, "get_corner_tile_pos_at_hand cannot be called outside of a level")
-	assert(has_corner_tile_at_hand(), "get_corner_tile_pos_at_hand called without checking if has_corner_tile_at_hand")
-	return level_node.get_corner_tile_pos(hand_marker.global_position)
 
 ###
 # Capabilities
@@ -322,8 +272,8 @@ func is_able_to_wall_hang() -> bool:
 	assert(wall_hang_down_raycast.enabled, "is_able_to_wall_hang can only be called after calling collision.set_wall_hang_raycast_active(true)")
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
-	if level_node and has_corner_tile_at_hand():
-		var corner_pos := get_corner_tile_pos_at_hand()
+	if level_node and movement.has_corner_tile_at_hand():
+		var corner_pos := movement.get_corner_tile_pos_at_hand()
 		var distance_to_corner := position.distance_to(corner_pos)
 		return distance_to_corner < 31.0
 	return false
@@ -341,7 +291,7 @@ func is_able_to_wall_slide() -> bool:
 	return is_on_wall() and wall_slide_top_side_raycast.is_colliding() and wall_slide_down_side_raycast.is_colliding() and not wall_slide_down_raycast.is_colliding()
 
 ###
-# Signals
+# Signals handling
 ###
 
 # @signal

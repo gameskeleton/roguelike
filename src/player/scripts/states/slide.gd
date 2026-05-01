@@ -38,7 +38,7 @@ func process_state(delta: float) -> RkStateMachineState:
 				_state = State.slide
 				player_node.animation.play_animation(&"slide")
 		State.slide:
-			if player_node.is_stopped():
+			if player_node.movement.is_stopped():
 				_state = State.slide_to_crouch
 				player_node.animation.play_animation(&"slide_to_crouch")
 		State.slide_to_crouch:
