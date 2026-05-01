@@ -25,7 +25,7 @@ func process_state(delta: float) -> RkStateMachineState:
 		return player_node.fsm.state_nodes.attack
 	if player_node.is_able_to_wall_hang():
 		return player_node.fsm.state_nodes.wall_hang
-	if player_node.movement.is_facing_input_direction() and player_node.is_able_to_wall_slide():
+	if player_node.movement.is_facing_with_input() and player_node.is_able_to_wall_slide():
 		return player_node.fsm.state_nodes.wall_slide
 	return null
 

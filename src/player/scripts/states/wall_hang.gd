@@ -22,10 +22,10 @@ func process_state(_delta: float) -> RkStateMachineState:
 	if player_node.input.down.is_pressed():
 		player_node.input.down.consume()
 		player_node.disable_wall_hang_timeout = player_node.WALL_HANG_DROP_TIMEOUT
-		if player_node.movement.is_facing_input_direction() and player_node.is_able_to_wall_slide():
+		if player_node.movement.is_facing_with_input() and player_node.is_able_to_wall_slide():
 			return player_node.fsm.state_nodes.wall_slide
 		return player_node.fsm.state_nodes.fall
-	if player_node.input.jump.is_pressed() and player_node.is_able_to_jump() and player_node.movement.is_facing_away_from_input():
+	if player_node.input.jump.is_pressed() and player_node.is_able_to_jump() and player_node.movement.is_facing_against_input():
 		player_node.input.jump.consume()
 		player_node.velocity.x = player_node.direction * player_node.WALL_HANG_JUMP_EXPULSE_STRENGTH
 		return player_node.fsm.state_nodes.jump

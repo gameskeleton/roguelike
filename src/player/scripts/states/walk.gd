@@ -53,7 +53,7 @@ func process_state(delta: float) -> RkStateMachineState:
 	if player_node.input.attack.is_pressed() and player_node.is_able_to_attack():
 		player_node.input.attack.consume()
 		return player_node.fsm.state_nodes.attack
-	if player_node.input.has_horizontal_input() and player_node.movement.is_facing_away_from_input():
+	if player_node.input.has_horizontal_input() and player_node.movement.is_facing_against_input():
 		return player_node.fsm.state_nodes.turn_around
 	if not player_node.input.has_horizontal_input():
 		return player_node.fsm.state_nodes.skid if not player_node.movement.is_stopped() else player_node.fsm.state_nodes.stand
