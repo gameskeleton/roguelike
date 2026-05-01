@@ -311,9 +311,9 @@ func _on_stamina_stamina_changed(_stamina: float, stamina_ratio: float, _stamina
 func _on_life_points_damage_taken(_damage_taken: float, _from_source: Node, _from_instigator: Node) -> void:
 	if dead:
 		return
-	hit.call_deferred()
-	if life_points_system.has_lethal_damage():
-		die.call_deferred()
+	match life_points_system.has_lethal_damage():
+		true: die.call_deferred()
+		false: hit.call_deferred()
 
 # @signal
 # @impure
