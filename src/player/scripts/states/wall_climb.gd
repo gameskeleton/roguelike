@@ -1,6 +1,6 @@
 extends RkStateMachineState
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var climb_audio_stream_player: AudioStreamPlayer
 
 var _can_climb_stand := false
@@ -8,6 +8,10 @@ var _can_climb_crouch := false
 var _initial_position := Vector2.ZERO
 var _initial_animation_speed_scale := 1.0
 var _initial_physics_interpolation_mode := Node.PHYSICS_INTERPOLATION_MODE_INHERIT
+
+func _ready() -> void:
+	# references
+	assert(climb_audio_stream_player != null, "climb_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	player_node.collision.set_wall_climb_shapecast_active(true)

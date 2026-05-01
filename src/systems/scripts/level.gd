@@ -1,6 +1,5 @@
 @icon("res://src/shared/icons/system.svg")
-extends Node
-class_name RkLevelSystem
+class_name RkLevelSystem extends Node
 
 signal level_up(level: int) # emitted when levelling up, can be emitted multiple times in a frame.
 

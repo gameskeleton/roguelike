@@ -1,5 +1,4 @@
-extends CharacterBody2D
-class_name RkPlayer
+class_name RkPlayer extends CharacterBody2D
 
 const SIZE := Vector2(14.0, 34.0)
 const CROUCH_SIZE := Vector2(14.0, 24.0)
@@ -57,10 +56,17 @@ const WALL_SLIDE_JUMP_EXPULSE_STRENGTH := -160.0
 const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 
 ###
-# Nodes
+# References
 ###
 
-@export_group(&"Nodes")
+@export_group(&"Systems")
+@export var gold_system: RkGoldSystem
+@export var level_system: RkLevelSystem
+@export var attack_system: RkAttackSystem
+@export var stamina_system: RkStaminaSystem
+@export var life_points_system: RkLifePointsSystem
+
+@export_group(&"References")
 @export var sprite: Sprite2D
 @export var level_node: RkLevel
 @export var hand_marker: Marker2D
@@ -87,13 +93,6 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 @export var coin_picked_up_audio_stream_player: AudioStreamPlayer
 @export var experience_picked_up_audio_stream_player: AudioStreamPlayer
 
-@export_group(&"Systems")
-@export var gold_system: RkGoldSystem
-@export var level_system: RkLevelSystem
-@export var attack_system: RkAttackSystem
-@export var stamina_system: RkStaminaSystem
-@export var life_points_system: RkLifePointsSystem
-
 ###
 # Initial values
 ###
@@ -119,6 +118,16 @@ signal life_points_ratio_changed(life_points_ratio: float)
 # Variables
 ###
 
+var dead := false
+var crouched := false
+var disable_wall_hang_timeout := 0.0
+@export var root_motion := Vector2.ZERO
+@export_flags_2d_physics var one_way_collision_layer := 0
+
+###
+# Components
+###
+
 @onready var fsm := RkStateMachine.new(self, $StateMachine, $StateMachine/stand as RkStateMachineState)
 @onready var audio := RkPlayerAudio.new(self)
 @onready var input := RkPlayerInput.new(self)
@@ -126,14 +135,34 @@ signal life_points_ratio_changed(life_points_ratio: float)
 @onready var animation := RkPlayerAnimation.new(self)
 @onready var collision := RkPlayerCollision.new(self)
 
-var dead := false
-var crouched := false
-var disable_wall_hang_timeout := 0.0
-@export var root_motion := Vector2.ZERO
-@export_flags_2d_physics var one_way_collision_layer := 0
-
 # @impure
 func _ready() -> void:
+	# references
+	assert(sprite != null, "sprite not set")
+	assert(level_node != null, "level_node not set")
+	assert(hand_marker != null, "hand_marker not set")
+	assert(animation_player != null, "animation_player not set")
+	assert(collider_stand != null, "collider_stand not set")
+	assert(collider_crouch != null, "collider_crouch not set")
+	assert(roll_hitbox != null, "roll_hitbox not set")
+	assert(slide_hitbox != null, "slide_hitbox not set")
+	assert(attack_hitbox != null, "attack_hitbox not set")
+	assert(crouch_attack_hitbox != null, "crouch_attack_hitbox not set")
+	assert(wall_hang_down_raycast != null, "wall_hang_down_raycast not set")
+	assert(wall_slide_down_raycast != null, "wall_slide_down_raycast not set")
+	assert(wall_slide_top_side_raycast != null, "wall_slide_top_side_raycast not set")
+	assert(wall_slide_down_side_raycast != null, "wall_slide_down_side_raycast not set")
+	assert(one_way_shapecast != null, "one_way_shapecast not set")
+	assert(uncrouch_shapecast != null, "uncrouch_shapecast not set")
+	assert(wall_climb_stand_shapecast != null, "wall_climb_stand_shapecast not set")
+	assert(wall_climb_crouch_shapecast != null, "wall_climb_crouch_shapecast not set")
+	assert(coin_picked_up_audio_stream_player != null, "coin_picked_up_audio_stream_player not set")
+	assert(experience_picked_up_audio_stream_player != null, "experience_picked_up_audio_stream_player not set")
+	assert(gold_system != null, "gold_system not set")
+	assert(level_system != null, "level_system not set")
+	assert(attack_system != null, "attack_system not set")
+	assert(stamina_system != null, "stamina_system not set")
+	assert(life_points_system != null, "life_points_system not set")
 	# set default values.
 	set_direction(direction)
 	_on_level_level_up(level_system.level.value)

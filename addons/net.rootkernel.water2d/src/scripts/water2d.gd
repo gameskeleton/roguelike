@@ -1,6 +1,5 @@
 @tool
-extends Node2D
-class_name RkWater2D
+class_name RkWater2D extends Node2D
 
 @export var color := Color(0.5, 0.5, 0.82, 0.59):
 	set(value):

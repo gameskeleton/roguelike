@@ -1463,12 +1463,17 @@ _data = {
 &"wall_slide": SubResource("Animation_v4465")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1728270528 node_paths=PackedStringArray("sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_hitbox", "slide_hitbox", "attack_hitbox", "crouch_attack_hitbox", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player", "gold_system", "level_system", "attack_system", "stamina_system", "life_points_system")]
+[node name="Player" type="CharacterBody2D" unique_id=1728270528 node_paths=PackedStringArray("gold_system", "level_system", "attack_system", "stamina_system", "life_points_system", "sprite", "hand_marker", "animation_player", "collider_stand", "collider_crouch", "roll_hitbox", "slide_hitbox", "attack_hitbox", "crouch_attack_hitbox", "wall_hang_down_raycast", "wall_slide_down_raycast", "wall_slide_top_side_raycast", "wall_slide_down_side_raycast", "one_way_shapecast", "uncrouch_shapecast", "wall_climb_stand_shapecast", "wall_climb_crouch_shapecast", "coin_picked_up_audio_stream_player", "experience_picked_up_audio_stream_player")]
 collision_layer = 8
 collision_mask = 3
 floor_constant_speed = true
 floor_snap_length = 5.0
 script = ExtResource("1_wluja")
+gold_system = NodePath("Systems/Gold")
+level_system = NodePath("Systems/Level")
+attack_system = NodePath("Systems/Attack")
+stamina_system = NodePath("Systems/Stamina")
+life_points_system = NodePath("Systems/LifePoints")
 sprite = NodePath("Sprite")
 hand_marker = NodePath("Hand")
 animation_player = NodePath("AnimationPlayer")
@@ -1488,11 +1493,6 @@ wall_climb_stand_shapecast = NodePath("WallClimbStandShapecast")
 wall_climb_crouch_shapecast = NodePath("WallClimbCrouchShapecast")
 coin_picked_up_audio_stream_player = NodePath("Sounds/CoinPickedUpAudioStreamPlayer")
 experience_picked_up_audio_stream_player = NodePath("Sounds/ExperiencePickedUpAudioStreamPlayer")
-gold_system = NodePath("Systems/Gold")
-level_system = NodePath("Systems/Level")
-attack_system = NodePath("Systems/Attack")
-stamina_system = NodePath("Systems/Stamina")
-life_points_system = NodePath("Systems/LifePoints")
 additional_force_per_level = SubResource("Curve_egsaa")
 additional_stamina_per_level = SubResource("Curve_5ghgr")
 additional_life_points_per_level = SubResource("Curve_gr7ew")

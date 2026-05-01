@@ -1,13 +1,22 @@
 extends Node2D
 
-@export var debris_scene: PackedScene
+@export_group(&"Audio")
 @export var break_audio_stream: AudioStream
+
+@export_group(&"Scenes")
+@export var debris_scene: PackedScene
+
+@export_group(&"References")
 @export var coin_spawn_position: Node2D
 
-@export_group(&"Nodes")
-@export var audio_stream_player: AudioStreamPlayer2D
-
 var _broken := false
+
+# @impure
+func _ready() -> void:
+	# references
+	assert(debris_scene != null, "debris_scene not set")
+	assert(break_audio_stream != null, "break_audio_stream not set")
+	assert(coin_spawn_position != null, "coin_spawn_position not set")
 
 # @signal
 # @impure

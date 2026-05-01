@@ -82,6 +82,7 @@ _data = {
 [node name="Main" type="Node2D" unique_id=1991138898 node_paths=PackedStringArray("level_node", "player_node", "audio_spawner_node", "object_spawner_node", "level_up_label", "level_up_animation_player", "level_up_audio_stream_player")]
 process_mode = 3
 script = ExtResource("1_7kkph")
+arrow_projectile_scene = ExtResource("2_mlv6i")
 level_node = NodePath("Game/LevelManager/Level_01")
 player_node = NodePath("Game/Player")
 audio_spawner_node = NodePath("Game/AudioSpawner")
@@ -89,7 +90,6 @@ object_spawner_node = NodePath("Game/ObjectSpawner")
 level_up_label = NodePath("Game/Player/LevelUpToast/LevelUpLabel")
 level_up_animation_player = NodePath("Game/Player/LevelUpToast/AnimationPlayer")
 level_up_audio_stream_player = NodePath("Game/Player/LevelUpToast/AudioStreamPlayer")
-arrow_projectile_scene = ExtResource("2_mlv6i")
 metadata/_edit_lock_ = true
 metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []

@@ -1,6 +1,5 @@
 @tool
-extends RichTextEffectBase
-class_name RichTextEffectBounce
+class_name RichTextEffectBounce extends RichTextEffectBase
 
 var bbcode := "bounce"
 

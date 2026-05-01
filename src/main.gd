@@ -1,9 +1,11 @@
-extends Node2D
-class_name RkMain
+class_name RkMain extends Node2D
 
 enum State {game, pause, level_up, game_over}
 
-@export_group(&"Nodes")
+@export_group(&"Scenes")
+@export var arrow_projectile_scene: PackedScene
+
+@export_group(&"References")
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
 @export var audio_spawner_node: RkAudioSpawner
@@ -12,9 +14,6 @@ enum State {game, pause, level_up, game_over}
 @export var level_up_label: RichTextLabel
 @export var level_up_animation_player: AnimationPlayer
 @export var level_up_audio_stream_player: AudioStreamPlayer
-
-@export_group(&"Scenes")
-@export var arrow_projectile_scene: PackedScene
 
 static var _main_node: RkMain = null
 
@@ -27,6 +26,16 @@ func _init() -> void:
 
 # @impure
 func _ready() -> void:
+	# scenes
+	assert(arrow_projectile_scene != null, "arrow_projectile_scene not set")
+	# references
+	assert(level_node != null, "level_node not set")
+	assert(player_node != null, "player_node not set")
+	assert(audio_spawner_node != null, "audio_spawner_node not set")
+	assert(object_spawner_node != null, "object_spawner_node not set")
+	assert(level_up_label != null, "level_up_label not set")
+	assert(level_up_animation_player != null, "level_up_animation_player not set")
+	assert(level_up_audio_stream_player != null, "level_up_audio_stream_player not set")
 	# setup death animation
 	player_node.death.connect(func() -> void:
 		state = State.game_over

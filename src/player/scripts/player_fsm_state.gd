@@ -1,5 +1,4 @@
-extends Node
-class_name RkStateMachineState
+class_name RkStateMachineState extends Node
 
 var player_node: RkPlayer
 

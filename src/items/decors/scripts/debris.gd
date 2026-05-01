@@ -10,6 +10,9 @@ var _start_fade_out := 2.0
 
 # @impure
 func _ready() -> void:
+	# references
+	assert(pieces != null, "pieces not set")
+	# apply impulse to pieces
 	for piece in pieces:
 		piece.angular_velocity = randf_range(5.0, 10.0)
 		piece.apply_central_impulse(Vector2.UP.rotated(deg_to_rad(randf_range(-25.0, +25.0))) * force)

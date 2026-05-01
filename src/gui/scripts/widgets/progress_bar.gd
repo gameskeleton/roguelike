@@ -1,6 +1,5 @@
 @tool
-extends Control
-class_name RkGuiProgressBar
+class_name RkGuiProgressBar extends Control
 
 @export var margin := Vector2.ONE :
 	get:

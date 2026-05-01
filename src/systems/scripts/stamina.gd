@@ -1,6 +1,5 @@
 @icon("res://src/shared/icons/system.svg")
-extends Node
-class_name RkStaminaSystem
+class_name RkStaminaSystem extends Node
 
 var stamina := RkRpgFloat.create_with_min(10.0, 0.0)
 var regeneration := RkRpgSimpleFloat.create(5.0)

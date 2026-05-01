@@ -1,6 +1,5 @@
 @icon("res://addons/net.rootkernel.camera/plugin.svg")
-extends Camera2D
-class_name RkCamera2D
+class_name RkCamera2D extends Camera2D
 
 const CAMERA_TRANSITION_SPEED := 400.0
 const CAMERA_REGION_GROUP_NAME := &"rk_camera_region_2d"

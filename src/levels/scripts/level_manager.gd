@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var level_node: RkLevel
 @export var player_node: RkPlayer
 @export var player_camera_node: RkCamera2D
@@ -8,6 +8,12 @@ extends Node2D
 
 # @impure
 func _ready() -> void:
+	# references
+	assert(level_node != null, "level_node not set")
+	assert(player_node != null, "player_node not set")
+	assert(player_camera_node != null, "player_camera_node not set")
+	assert(object_spawner_node != null, "object_spawner_node not set")
+	# load first level
 	set_current_level_node(level_node, Vector2.ZERO, true)
 
 # @impure

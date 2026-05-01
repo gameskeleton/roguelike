@@ -2,15 +2,22 @@ extends RkStateMachineState
 
 const FX_STEP_RANGE := Vector2(0.95, 1.05)
 
+@export_group(&"Audio")
 @export var footstep_left_streams: Array[AudioStream]
 @export var footstep_right_streams: Array[AudioStream]
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var stand_audio_stream_player: AudioStreamPlayer
 @export var footstep_left_audio_stream_player: AudioStreamPlayer
 @export var footstep_right_audio_stream_player: AudioStreamPlayer
 
 var _animation_initial_speed_scale := 1.0
+
+func _ready() -> void:
+	# references
+	assert(stand_audio_stream_player != null, "stand_audio_stream_player not set")
+	assert(footstep_left_audio_stream_player != null, "footstep_left_audio_stream_player not set")
+	assert(footstep_right_audio_stream_player != null, "footstep_right_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	_apply_animation()

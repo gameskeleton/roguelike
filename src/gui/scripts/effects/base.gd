@@ -1,6 +1,5 @@
 @tool
-extends RichTextEffect
-class_name RichTextEffectBase
+class_name RichTextEffectBase extends RichTextEffect
 
 # @impure
 func _init() -> void:

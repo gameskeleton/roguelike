@@ -1,13 +1,18 @@
 @tool
-extends Node2D
-class_name RkLevel
+class_name RkLevel extends Node2D
 
 const TILE_SIZE := Vector2i(16, 16)
 const CORNER_CUSTOM_DATA_LAYER_NAME := &"Corner"
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var wall_tile_map_layer: TileMapLayer
 @export var one_way_tile_map_layer: TileMapLayer
+
+# @pure
+func _ready() -> void:
+	# references
+	assert(wall_tile_map_layer != null, "wall_tile_map_layer not set")
+	assert(one_way_tile_map_layer != null, "one_way_tile_map_layer not set")
 
 # has_corner_tile returns true if there is a corner tile at the given position.
 # @pure

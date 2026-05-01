@@ -1,12 +1,16 @@
 extends RkStateMachineState
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var hit_audio_stream_player: AudioStreamPlayer
 
 enum State {hit_stand, hit_crouch}
 
 var _state := State.hit_stand
 var _tween: Tween
+
+func _ready() -> void:
+	# references
+	assert(hit_audio_stream_player != null, "hit_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	if player_node.crouched:

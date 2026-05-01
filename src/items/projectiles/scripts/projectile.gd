@@ -1,5 +1,4 @@
-extends CharacterBody2D
-class_name RkProjectile
+class_name RkProjectile extends CharacterBody2D
 
 @export var damage := 1.0
 @export var damage_type := RkLifePointsSystem.DmgType.fire

@@ -1,5 +1,4 @@
-extends RigidBody2D
-class_name RkPickupExperience
+class_name RkPickupExperience extends RigidBody2D
 
 const PICKUP_DELAY := 0.35
 

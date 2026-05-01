@@ -2,11 +2,15 @@ extends RkStateMachineState
 
 enum State {fall, hit_floor, to_stand, to_crouch}
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var bump_audio_stream_player: AudioStreamPlayer
 
 var _state := State.fall
 var _animation_initial_speed_scale := 1.0
+
+func _ready() -> void:
+	# references
+	assert(bump_audio_stream_player != null, "bump_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	_state = State.fall

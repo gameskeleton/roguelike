@@ -1,6 +1,5 @@
 @icon("res://src/shared/icons/system.svg")
-extends Node
-class_name RkLifePointsSystem
+class_name RkLifePointsSystem extends Node
 
 enum DmgType {
 	none = 0,

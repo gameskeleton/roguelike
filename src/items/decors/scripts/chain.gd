@@ -55,6 +55,11 @@ var _chain_link_circle_shape := CircleShape2D.new()
 
 # @impure
 func _ready() -> void:
+	# references
+	assert(chain_base != null, "chain_base not set")
+	assert(chain_links != null, "chain_links not set")
+	assert(audio_stream_player != null, "audio_stream_player not set")
+	# create chain
 	_create_chain()
 
 # @impure

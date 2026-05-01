@@ -6,7 +6,7 @@ extends RkProjectile
 @export var bounce_max_angle := 35.0
 @export var bounce_min_velocity := 390.0
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var audio_stream_player: AudioStreamPlayer2D
 
 var stuck := false
@@ -14,6 +14,9 @@ var direction := Vector2.RIGHT
 
 # @impure
 func _ready() -> void:
+	# references
+	assert(audio_stream_player != null, "audio_stream_player not set")
+	# apply initial velocity and rotation
 	velocity = direction * speed
 	if scale.x < 0:
 		scale.x = 1.0

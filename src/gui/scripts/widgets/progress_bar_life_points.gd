@@ -1,6 +1,5 @@
 @tool
-extends RkGuiProgressBar
-class_name RkGuiProgressBarLifePoints
+class_name RkGuiProgressBarLifePoints extends RkGuiProgressBar
 
 const FADE_SPEED := 2.0
 const VISIBLE_FOR := 2.5
@@ -23,10 +22,12 @@ func fade_out() -> void:
 	_visible_for = VISIBLE_FOR
 	modulate.a = 0.0
 
-
 # @impure
 func _ready() -> void:
 	super._ready()
+	# references
+	assert(life_points_system != null, "life_points_system not set")
+	# start hidden
 	fade_out()
 	if not Engine.is_editor_hint():
 		life_points_system.life_points_changed.connect(_on_life_points_life_points_changed)

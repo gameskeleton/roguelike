@@ -1,6 +1,5 @@
 @icon("res://src/shared/icons/system.svg")
-extends Node
-class_name RkGoldSystem
+class_name RkGoldSystem extends Node
 
 signal earned(amount: float)
 

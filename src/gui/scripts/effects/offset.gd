@@ -1,6 +1,5 @@
 @tool
-extends RichTextEffectBase
-class_name RichTextEffectOffset
+class_name RichTextEffectOffset extends RichTextEffectBase
 
 var bbcode := "offset"
 

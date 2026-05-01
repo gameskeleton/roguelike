@@ -16,6 +16,12 @@ var direction := 1.0
 @export var life_points_system: RkLifePointsSystem
 
 # @impure
+func _ready() -> void:
+	# references
+	assert(attack_system != null, "attack_system not set")
+	assert(life_points_system != null, "life_points_system not set")
+
+# @impure
 func _physics_process(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, MAX_SPEED * direction, delta * ACCELERATION)
 	velocity.y = move_toward(velocity.y, GRAVITY_MAX_SPEED, delta * GRAVITY_ACCELERATION)

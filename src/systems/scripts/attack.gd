@@ -1,6 +1,5 @@
 @icon("res://src/shared/icons/system.svg")
-extends Node
-class_name RkAttackSystem
+class_name RkAttackSystem extends Node
 
 signal attacked(target_life_points: RkLifePointsSystem, damage: float, damage_type: RkLifePointsSystem.DmgType)
 
@@ -22,6 +21,12 @@ var defence := RkRpgSimpleFloat.create(1.0)
 var last_target: RkLifePointsSystem
 var last_damage := RkLifePointsSystem.NO_DAMAGE
 var last_damage_type := RkLifePointsSystem.DmgType.none
+
+# @impure
+func _ready() -> void:
+	# references
+	assert(source != null, "source not set")
+	assert(instigator != null, "instigator not set")
 
 # attack deals the given amount of damages to the given target.
 # @impure

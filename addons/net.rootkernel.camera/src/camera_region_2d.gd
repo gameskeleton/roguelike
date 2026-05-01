@@ -1,7 +1,6 @@
 @tool
 @icon("res://addons/net.rootkernel.camera/plugin.svg")
-extends ColorRect
-class_name RkCameraRegion2D
+class_name RkCameraRegion2D extends ColorRect
 
 @export_tool_button("Fill screen", "Marker2D")
 var fill_screen_button := _fill_screen

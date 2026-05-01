@@ -4,11 +4,16 @@ enum State {crouch_to_slide, slide, slide_to_crouch}
 
 @export var slide_curve: Curve
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var slide_audio_stream_player: AudioStreamPlayer
 
 var _state := State.crouch_to_slide
 var _offset := 0.0
+
+func _ready() -> void:
+	# references
+	assert(slide_curve != null, "slide_curve not set")
+	assert(slide_audio_stream_player != null, "slide_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	_state = State.crouch_to_slide

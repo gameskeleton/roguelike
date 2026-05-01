@@ -8,8 +8,12 @@ var _air_control := false
 var _attack_combo := 0
 var _animation_initial_speed_scale := 1.0
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var attack_audio_stream_player: AudioStreamPlayer
+
+func _ready() -> void:
+	# references
+	assert(attack_audio_stream_player != null, "attack_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	_combo = false

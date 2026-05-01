@@ -2,11 +2,16 @@ extends RkStateMachineState
 
 @export var offset_curve: Curve
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var roll_audio_stream_player: AudioStreamPlayer
 
 var _sprite_initial_offset := Vector2()
 var _animation_initial_speed_scale := 1.0
+
+func _ready() -> void:
+	# references
+	assert(offset_curve != null, "offset_curve not set")
+	assert(roll_audio_stream_player != null, "roll_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	_sprite_initial_offset = player_node.sprite.offset

@@ -1,7 +1,11 @@
 extends RkStateMachineState
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var stand_audio_stream_player: AudioStreamPlayer
+
+func _ready() -> void:
+	# references
+	assert(stand_audio_stream_player != null, "stand_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	player_node.animation.play_animation(&"stand")

@@ -2,8 +2,12 @@ extends RkStateMachineState
 
 var _animation_initial_speed_scale := 1.0
 
-@export_group(&"Nodes")
+@export_group(&"References")
 @export var crouch_attack_audio_stream_player: AudioStreamPlayer
+
+func _ready() -> void:
+	# references
+	assert(crouch_attack_audio_stream_player != null, "crouch_attack_audio_stream_player not set")
 
 func start_state() -> RkStateMachineState:
 	_animation_initial_speed_scale = player_node.animation.speed_scale

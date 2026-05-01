@@ -1,10 +1,14 @@
-extends Node
-class_name RkObjectSpawner
+class_name RkObjectSpawner extends Node
 
 const COIN_PICKUP_SCENE: PackedScene = preload("res://src/items/pickups/coin.tscn")
 const EXPERIENCE_PICKUP_SCENE: PackedScene = preload("res://src/items/pickups/experience.tscn")
 
 @export var spawn_node: Node
+
+# @impure
+func _ready() -> void:
+	# references
+	assert(spawn_node != null, "spawn_node not set")
 
 # @impure
 static func spawn_coin(from_node: Node, global_position: Vector2) -> RkPickupCoin:
