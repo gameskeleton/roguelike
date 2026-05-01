@@ -58,21 +58,15 @@ func apply_direction() -> void:
 
 # @impure
 func apply_floor_move_input(delta: float, max_speed: float, acceleration: float, deceleration: float) -> void:
-	if player_node.velocity.x == 0.0 or is_moving_with_input():
-		player_node.velocity.x = move_toward(player_node.velocity.x, max_speed * signf(player_node.direction), acceleration * delta)
-	else:
-		player_node.velocity.x = move_toward(player_node.velocity.x, 0.0, deceleration * delta)
+	var target := max_speed * signf(player_node.direction)
+	var accelerate := player_node.input.has_horizontal_input()
+	player_node.velocity.x = move_toward(player_node.velocity.x, target if accelerate else 0.0, (acceleration if accelerate else deceleration) * delta)
 
 # @impure
 func apply_airborne_move_input(delta: float, max_speed: float, acceleration: float, deceleration: float) -> void:
-	if not player_node.input.has_horizontal_input():
-		player_node.velocity.x = move_toward(player_node.velocity.x, 0.0, deceleration * delta)
-	elif player_node.velocity.x == 0.0:
-		player_node.velocity.x = move_toward(player_node.velocity.x, max_speed * signf(player_node.input.velocity.x), acceleration * delta)
-	elif is_moving_with_input():
-		player_node.velocity.x = move_toward(player_node.velocity.x, max_speed * signf(player_node.input.velocity.x), acceleration * delta)
-	else:
-		player_node.velocity.x = move_toward(player_node.velocity.x, 0.0, deceleration * delta)
+	var target := max_speed * signf(player_node.input.velocity.x)
+	var accelerate := player_node.input.has_horizontal_input()
+	player_node.velocity.x = move_toward(player_node.velocity.x, target if accelerate else 0.0, (acceleration if accelerate else deceleration) * delta)
 
 # @impure
 func apply_floor_deceleration(delta: float, deceleration: float) -> void:
@@ -97,22 +91,22 @@ func is_on_floor_one_way() -> bool:
 	assert(player_node.one_way_shapecast.enabled, "is_on_floor_one_way can only be called after calling set_one_way_shapecast_active(true)")
 	return player_node.is_on_floor() and player_node.one_way_shapecast.is_colliding()
 
-# Returns true if player velocity aligns with input direction.
+# is_moving_with_input returns true if player velocity aligns with input direction.
 # @pure
 func is_moving_with_input() -> bool:
 	return player_node.velocity.x != 0.0 and player_node.input.velocity.x != 0.0 and signf(player_node.velocity.x) == signf(player_node.input.velocity.x)
 
-# Returns true if player velocity opposes input direction.
+# is_moving_against_input returns true if player velocity opposes input direction.
 # @pure
 func is_moving_against_input() -> bool:
 	return player_node.velocity.x != 0.0 and player_node.input.velocity.x != 0.0 and signf(player_node.velocity.x) != signf(player_node.input.velocity.x)
 
-# Returns true if player is facing the same direction as input.
+# is_facing_with_input returns true if player is facing the same direction as input.
 # @pure
 func is_facing_with_input() -> bool:
 	return player_node.direction != 0.0 and player_node.input.velocity.x != 0.0 and signf(player_node.direction) == signf(player_node.input.velocity.x)
 
-# Returns true if player is facing opposite to input direction.
+# is_facing_against_input returns true if player is facing opposite to input direction.
 # @pure
 func is_facing_against_input() -> bool:
 	return player_node.direction != 0.0 and player_node.input.velocity.x != 0.0 and signf(player_node.direction) != signf(player_node.input.velocity.x)
