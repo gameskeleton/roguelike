@@ -44,8 +44,8 @@ func _play_hit_effect() -> void:
 	if _tween:
 		_tween.kill()
 	_tween = get_tree().create_tween().set_loops()
-	_tween.tween_property(player_node.sprite, "self_modulate", Color.RED, 0.1)
-	_tween.tween_property(player_node.sprite, "self_modulate", Color.WHITE, 0.1)
+	_tween.tween_property(player_node.sprite, ^"self_modulate", Color.RED, 0.1)
+	_tween.tween_property(player_node.sprite, ^"self_modulate", Color.WHITE, 0.1)
 
 func _stop_hit_effect() -> void:
 	_tween.kill()

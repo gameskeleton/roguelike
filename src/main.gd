@@ -40,11 +40,11 @@ func _ready() -> void:
 	player_node.death.connect(func() -> void:
 		state = State.game_over
 		var tween := create_tween()
-		tween.parallel().tween_property($CanvasModulate, "color", Color8(0, 0, 0), 1.0)
-		tween.parallel().tween_property($GUI/Widgets, "modulate", Color8(0, 0, 0), 1.0)
-		tween.parallel().tween_property($MusicAudioStreamPlayer, "volume_db", -80.0, 1.0)
+		tween.parallel().tween_property($CanvasModulate, ^"color", Color8(0, 0, 0), 1.0)
+		tween.parallel().tween_property($GUI/Widgets, ^"modulate", Color8(0, 0, 0), 1.0)
+		tween.parallel().tween_property($MusicAudioStreamPlayer, ^"volume_db", -80.0, 1.0)
 		tween.parallel().tween_callback($DeathAudioStreamPlayer.play).set_delay(0.1)
-		tween.tween_property($Game, "modulate", Color8(0, 0, 0), 2.0).set_delay(0.5)
+		tween.tween_property($Game, ^"modulate", Color8(0, 0, 0), 2.0).set_delay(0.5)
 	)
 	# setup level up animation
 	player_node.level_system.level_up.connect(func(_level: int) -> void:
