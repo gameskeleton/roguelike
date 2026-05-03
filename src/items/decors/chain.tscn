@@ -12,13 +12,14 @@ radius = 4.0
 script = ExtResource("1_ks50i")
 chain_link_texture = ExtResource("2_4mfh3")
 last_chain_link_texture = ExtResource("3_fx4eq")
+chain_link_collision_mask = 9
 chain_link_collision_layer = 1024
 last_chain_link_collision_mask = 9
 last_chain_link_collision_layer = 1024
 
 [node name="Base" type="StaticBody2D" parent="." unique_id=1878298196]
 collision_layer = 1024
-collision_mask = 0
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Base" unique_id=2034245209]
 shape = SubResource("CircleShape2D_udfjo")

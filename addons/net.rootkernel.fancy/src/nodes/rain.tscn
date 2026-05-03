@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://lnlxosejriif"]
+
+[ext_resource type="Shader" uid="uid://dp3r866ofbrlb" path="res://addons/net.rootkernel.fancy/src/shaders/rain.gdshader" id="1_uj3dy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7lu8"]
+shader = ExtResource("1_uj3dy")
+shader_parameter/rain_color = Color(0.8, 0.8, 0.8, 0.5)
+shader_parameter/slant = -0.2
+shader_parameter/rain_amount = 100.0
+shader_parameter/base_rain_speed = 1.0
+shader_parameter/additional_rain_speed = 1.0
+shader_parameter/far_rain_length = 0.1
+shader_parameter/near_rain_length = 0.2
+shader_parameter/far_rain_width = 0.1
+shader_parameter/near_rain_width = 0.2
+shader_parameter/far_rain_transparency = 0.75
+shader_parameter/near_rain_transparency = 0.5
+
+[node name="Rain" type="ColorRect" unique_id=2093250758]
+material = SubResource("ShaderMaterial_e7lu8")
+offset_right = 512.0
+offset_bottom = 288.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 1, 1, 0)

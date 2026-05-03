@@ -1,4 +1,4 @@
-extends Node2D
+class_name RkLevelManager extends Node2D
 
 @export_group(&"References")
 @export var level_node: RkLevel
@@ -21,7 +21,6 @@ func set_current_level_node(in_level_node: RkLevel, at_pos := Vector2.ZERO, firs
 	if level_node and not first_level:
 		_unset_previous_level_node(level_node)
 	level_node = in_level_node
-	player_node.level_node = in_level_node
 	object_spawner_node.spawn_node = in_level_node
 	if not first_level:
 		add_child(in_level_node)

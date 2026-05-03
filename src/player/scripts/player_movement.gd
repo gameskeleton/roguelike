@@ -114,14 +114,14 @@ func is_facing_against_input() -> bool:
 # has_corner_tile_at_hand returns true if there is a corner tile at the wall hang hand's position.
 # @pure
 func has_corner_tile_at_hand() -> bool:
-	if not player_node.level_node:
+	if not player_node.level_manager_node.level_node:
 		push_warning("has_corner_tile_at_hand should not be called outside of a level")
 		return false
-	return player_node.level_node.has_corner_tile(player_node.hand_marker.global_position)
+	return player_node.level_manager_node.level_node.has_corner_tile(player_node.hand_marker.global_position)
 
 # get_corner_tile_pos_at_hand returns the top-center position of the corner tile at the wall hang hand's position.
 # @pure
 func get_corner_tile_pos_at_hand() -> Vector2:
-	assert(player_node.level_node, "get_corner_tile_pos_at_hand cannot be called outside of a level")
+	assert(player_node.level_manager_node.level_node, "get_corner_tile_pos_at_hand cannot be called outside of a level")
 	assert(has_corner_tile_at_hand(), "get_corner_tile_pos_at_hand called without checking if has_corner_tile_at_hand")
-	return player_node.level_node.get_corner_tile_pos(player_node.hand_marker.global_position)
+	return player_node.level_manager_node.level_node.get_corner_tile_pos(player_node.hand_marker.global_position)

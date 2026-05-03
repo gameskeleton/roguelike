@@ -6,8 +6,8 @@ enum State {game, pause, level_up, game_over}
 @export var arrow_projectile_scene: PackedScene
 
 @export_group(&"References")
-@export var level_node: RkLevel
 @export var player_node: RkPlayer
+@export var level_manager_node: RkLevelManager
 @export var audio_spawner_node: RkAudioSpawner
 @export var object_spawner_node: RkObjectSpawner
 
@@ -29,8 +29,8 @@ func _ready() -> void:
 	# scenes
 	assert(arrow_projectile_scene != null, "arrow_projectile_scene not set")
 	# references
-	assert(level_node != null, "level_node not set")
 	assert(player_node != null, "player_node not set")
+	assert(level_manager_node != null, "level_manager_node not set")
 	assert(audio_spawner_node != null, "audio_spawner_node not set")
 	assert(object_spawner_node != null, "object_spawner_node not set")
 	assert(level_up_label != null, "level_up_label not set")

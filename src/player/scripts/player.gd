@@ -68,9 +68,9 @@ const WALL_SLIDE_ENTER_MAX_VERTICAL_VELOCITY := 20.0
 
 @export_group(&"References")
 @export var sprite: Sprite2D
-@export var level_node: RkLevel
 @export var hand_marker: Marker2D
 @export var animation_player: AnimationPlayer
+@export var level_manager_node: RkLevelManager
 
 @export var collider_stand: CollisionShape2D
 @export var collider_crouch: CollisionShape2D
@@ -139,9 +139,9 @@ var disable_wall_hang_timeout := 0.0
 func _ready() -> void:
 	# references
 	assert(sprite != null, "sprite not set")
-	assert(level_node != null, "level_node not set")
 	assert(hand_marker != null, "hand_marker not set")
 	assert(animation_player != null, "animation_player not set")
+	assert(level_manager_node != null, "level_manager_node not set")
 	assert(collider_stand != null, "collider_stand not set")
 	assert(collider_crouch != null, "collider_crouch not set")
 	assert(roll_hitbox != null, "roll_hitbox not set")
@@ -272,7 +272,7 @@ func is_able_to_wall_hang() -> bool:
 	assert(wall_hang_down_raycast.enabled, "is_able_to_wall_hang can only be called after calling collision.set_wall_hang_raycast_active(true)")
 	if disable_wall_hang_timeout > 0.0 or wall_hang_down_raycast.is_colliding():
 		return false
-	if level_node and movement.has_corner_tile_at_hand():
+	if level_manager_node.level_node and movement.has_corner_tile_at_hand():
 		var corner_pos := movement.get_corner_tile_pos_at_hand()
 		var distance_to_corner := position.distance_to(corner_pos)
 		return distance_to_corner < 31.0
