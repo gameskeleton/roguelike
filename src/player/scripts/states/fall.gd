@@ -10,10 +10,10 @@ func start_state() -> RkStateMachineState:
 	return null
 
 func process_state(delta: float) -> RkStateMachineState:
-	player_node.animation.play_animation_then("jump_to_fall", "fall")
 	player_node.movement.apply_gravity(delta)
 	player_node.movement.apply_direction()
 	player_node.movement.apply_airborne_move_input(delta, player_node.WALK_MAX_SPEED, player_node.WALK_ACCELERATION, player_node.WALK_DECELERATION)
+	player_node.animation.play_animation_then(&"jump_to_fall", &"fall")
 	_coyote_time -= delta
 	if player_node.is_on_floor():
 		return player_node.fsm.state_nodes.stand if player_node.movement.is_stopped() else player_node.fsm.state_nodes.walk
