@@ -14,8 +14,8 @@ collision_layer = 16
 collision_mask = 19
 can_sleep = false
 script = ExtResource("1_odu7o")
-debris_scene = ExtResource("2_f4dmf")
 break_audio_stream = ExtResource("3_if1pn")
+debris_scene = ExtResource("2_f4dmf")
 coin_spawn_position = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1496999724]

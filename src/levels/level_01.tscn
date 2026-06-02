@@ -63,22 +63,22 @@ tile_set = ExtResource("2_aeuny")
 metadata/_edit_lock_ = true
 
 [node name="Traps" type="Node2D" parent="." unique_id=1989975398]
-position = Vector2(464, 56)
 metadata/_edit_lock_ = true
 
 [node name="FireBallProjectile" parent="Traps" unique_id=2006040320 instance=ExtResource("10_idw2h")]
-position = Vector2(200, -16)
+position = Vector2(664, 40)
 
 [node name="FireBallProjectile2" parent="Traps" unique_id=1053317478 instance=ExtResource("10_idw2h")]
-position = Vector2(200, 0)
+position = Vector2(664, 56)
 
 [node name="FireBallProjectile3" parent="Traps" unique_id=688914714 instance=ExtResource("10_idw2h")]
-position = Vector2(200, 16)
+position = Vector2(664, 72)
 
 [node name="FireBallProjectile4" parent="Traps" unique_id=1286726033 instance=ExtResource("10_idw2h")]
-position = Vector2(200, 32)
+position = Vector2(664, 88)
 
 [node name="Effects" type="Node2D" parent="." unique_id=222639199]
+metadata/_edit_lock_ = true
 
 [node name="Fog" parent="Effects" unique_id=917185066 instance=ExtResource("12_srna5")]
 z_index = -3

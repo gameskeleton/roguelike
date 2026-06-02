@@ -4,9 +4,27 @@
 [ext_resource type="TileSet" uid="uid://lth6na7avtvk" path="res://src/levels/tileset.tres" id="2_6xtjv"]
 [ext_resource type="PackedScene" uid="uid://lnlxosejriif" path="res://addons/net.rootkernel.fancy/src/nodes/rain.tscn" id="3_n8bnh"]
 [ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/items/decors/candelabra.tscn" id="4_bkalu"]
+[ext_resource type="Shader" uid="uid://dp3r866ofbrlb" path="res://addons/net.rootkernel.fancy/src/shaders/rain.gdshader" id="4_ryrsy"]
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/items/decors/crate.tscn" id="5_ryrsy"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/items/decors/candle.tscn" id="6_1tsn7"]
 [ext_resource type="Script" uid="uid://cxd1dhjjlbb1p" path="res://addons/net.rootkernel.camera/src/camera_region_2d.gd" id="11_mwqve"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ryrsy"]
+resource_local_to_scene = true
+shader = ExtResource("4_ryrsy")
+shader_parameter/rain_color = Color(0.8, 0.8, 0.8, 0.5)
+shader_parameter/canvas_size = Vector2(512, 288)
+shader_parameter/reference_size = Vector2(512, 288)
+shader_parameter/slant = -0.2
+shader_parameter/rain_amount = 100.0
+shader_parameter/base_rain_speed = 1.0
+shader_parameter/additional_rain_speed = 1.0
+shader_parameter/far_rain_length = 0.1
+shader_parameter/near_rain_length = 0.2
+shader_parameter/far_rain_width = 0.5
+shader_parameter/near_rain_width = 1.0
+shader_parameter/far_rain_transparency = 0.75
+shader_parameter/near_rain_transparency = 0.5
 
 [node name="Level_02" type="Node2D" unique_id=1663175758 node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_8suem")
@@ -54,13 +72,14 @@ tile_set = ExtResource("2_6xtjv")
 metadata/_edit_lock_ = true
 
 [node name="Traps" type="Node2D" parent="." unique_id=1530094893]
-position = Vector2(464, 56)
 metadata/_edit_lock_ = true
 
 [node name="Effects" type="Node2D" parent="." unique_id=1978671120]
+metadata/_edit_lock_ = true
 
 [node name="Rain" parent="Effects" unique_id=2093250758 instance=ExtResource("3_n8bnh")]
 z_index = -4
+material = SubResource("ShaderMaterial_ryrsy")
 
 [node name="Decors" type="Node2D" parent="." unique_id=1802902047]
 metadata/_edit_lock_ = true

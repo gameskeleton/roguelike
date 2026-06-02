@@ -25,12 +25,12 @@ func fade_out() -> void:
 # @impure
 func _ready() -> void:
 	super._ready()
-	# references
-	assert(life_points_system != null, "life_points_system not set")
+	if not Engine.is_editor_hint():
+		# references
+		assert(life_points_system != null, "life_points_system not set")
+		life_points_system.life_points_changed.connect(_on_life_points_life_points_changed)
 	# start hidden
 	fade_out()
-	if not Engine.is_editor_hint():
-		life_points_system.life_points_changed.connect(_on_life_points_life_points_changed)
 
 # @impure
 func _process(delta: float) -> void:

@@ -33,6 +33,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="LifePoints" parent="GUI" unique_id=1605586106 node_paths=PackedStringArray("life_points_system") instance=ExtResource("4_ply85")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = -16.0
 offset_top = -37.0

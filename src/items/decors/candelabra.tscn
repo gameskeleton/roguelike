@@ -55,8 +55,8 @@ _data = {
 
 [node name="Candelabra" type="Node2D" unique_id=611960566 node_paths=PackedStringArray("coin_spawn_position")]
 script = ExtResource("1_1nc1r")
-debris_scene = ExtResource("2_rwr4d")
 break_audio_stream = ExtResource("7_6lu6l")
+debris_scene = ExtResource("2_rwr4d")
 coin_spawn_position = NodePath("Sprite/SpawnPosition")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1057879843]
