@@ -143,6 +143,7 @@ metadata/_custom_type_script = "uid://tkxcqhvo0nde"
 metadata/_edit_lock_ = true
 
 [node name="TorchLight2D" type="PointLight2D" parent="Game/Player" unique_id=1447741114]
+visible = false
 position = Vector2(0, -16)
 color = Color(1, 0.27451, 0, 1)
 shadow_enabled = true

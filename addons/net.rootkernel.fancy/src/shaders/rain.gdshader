@@ -15,15 +15,15 @@ uniform float far_rain_transparency : hint_range(0.1, 1.0) = 0.75;
 uniform float near_rain_transparency : hint_range(0.1, 1.0) = 0.5;
 
 void fragment() {
-	vec2 norm_uv = UV * canvas_size / reference_size;
+	vec2 uv = UV * canvas_size / reference_size;
 	float time = 10000.0 + TIME;
 
-	float col_edge = mod(norm_uv.x - norm_uv.y * slant, 1.0 / rain_amount);
-	float slanted_uv = (norm_uv.x - norm_uv.y * slant) - col_edge;
+	float col_edge = mod(uv.x - uv.y * slant, 1.0 / rain_amount);
+	float slanted_uv = (uv.x - uv.y * slant) - col_edge;
 	float random_noise = fract(sin(slanted_uv * rain_amount));
 
 	float drop_speed = base_rain_speed + additional_rain_speed * random_noise;
-	float animated_uv_y = fract(norm_uv.y + random_noise - time * drop_speed);
+	float animated_uv_y = fract(uv.y + random_noise - time * drop_speed);
 
 	float drop_width = mix(far_rain_width, near_rain_width, random_noise);
 	float drop_length = mix(far_rain_length, near_rain_length, random_noise);

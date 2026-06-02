@@ -1,5 +1,8 @@
 shader_type canvas_item;
 
+uniform vec2 canvas_size = vec2(512.0, 288.0);
+uniform vec2 reference_size = vec2(512.0, 288.0);
+
 uniform vec2 fog_direction = vec2(1.0, 0.2);
 uniform float fog_speed : hint_range(0.0, 0.1) = 0.05;
 uniform float fog_density : hint_range(0.0, 1.0) = 0.85;
@@ -43,7 +46,7 @@ float fbm(vec2 p) {
 }
 
 void fragment() {
-    vec2 uv = UV;
+    vec2 uv = UV * canvas_size / reference_size;
     vec2 offset = normalize(fog_direction) * TIME * fog_speed;
     
     float fog_noise_1 = fbm((uv + offset) * noise_scale_1);

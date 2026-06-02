@@ -6,12 +6,37 @@
 [ext_resource type="PackedScene" uid="uid://clbn8lb5nh1eq" path="res://src/items/decors/barrel.tscn" id="3_aeuny"]
 [ext_resource type="PackedScene" uid="uid://bteus7x25vbqj" path="res://src/items/decors/candelabra.tscn" id="4_deqfd"]
 [ext_resource type="PackedScene" uid="uid://co15ct8otqtpv" path="res://src/items/decors/chain.tscn" id="5_dv8wo"]
+[ext_resource type="Shader" uid="uid://c7vevp5bnp32b" path="res://addons/net.rootkernel.fancy/src/shaders/fog.gdshader" id="5_hxe3b"]
 [ext_resource type="PackedScene" uid="uid://d4fd720bg2n0h" path="res://src/items/decors/crate.tscn" id="6_2tyx5"]
 [ext_resource type="PackedScene" uid="uid://kojbpi6e5oji" path="res://src/items/decors/candle.tscn" id="7_dv8wo"]
 [ext_resource type="PackedScene" uid="uid://berv51qihfk8t" path="res://src/items/enemies/zombie/zombie.tscn" id="8_2tyx5"]
 [ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="9_hjd8s"]
 [ext_resource type="PackedScene" uid="uid://4f5krslq71th" path="res://src/items/projectiles/projectile_fire_ball.tscn" id="10_idw2h"]
 [ext_resource type="PackedScene" uid="uid://kpdnahgljl8c" path="res://addons/net.rootkernel.fancy/src/nodes/fog.tscn" id="12_srna5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwoac"]
+resource_local_to_scene = true
+shader = ExtResource("5_hxe3b")
+shader_parameter/fog_direction = Vector2(1, 0.2)
+shader_parameter/fog_speed = 0.05
+shader_parameter/fog_density = 0.85
+shader_parameter/canvas_size = Vector2(1584, 224)
+shader_parameter/reference_size = Vector2(512, 288)
+shader_parameter/noise_scale_1 = 2.0
+shader_parameter/noise_scale_2 = 4.0
+shader_parameter/noise_scale_3 = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vujb"]
+resource_local_to_scene = true
+shader = ExtResource("5_hxe3b")
+shader_parameter/fog_direction = Vector2(1, 0.2)
+shader_parameter/fog_speed = 0.05
+shader_parameter/fog_density = 0.85
+shader_parameter/canvas_size = Vector2(1664, 96)
+shader_parameter/reference_size = Vector2(512, 288)
+shader_parameter/noise_scale_1 = 2.0
+shader_parameter/noise_scale_2 = 4.0
+shader_parameter/noise_scale_3 = 8.0
 
 [node name="Level_01" type="Node2D" unique_id=1072277778 node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_ub47v")
@@ -82,6 +107,7 @@ metadata/_edit_lock_ = true
 
 [node name="Fog" parent="Effects" unique_id=917185066 instance=ExtResource("12_srna5")]
 z_index = -3
+material = SubResource("ShaderMaterial_iwoac")
 offset_left = 80.0
 offset_top = 256.0
 offset_right = 1664.0
@@ -90,6 +116,7 @@ color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="Fog2" parent="Effects" unique_id=42400859 instance=ExtResource("12_srna5")]
 z_index = -3
+material = SubResource("ShaderMaterial_1vujb")
 offset_top = 480.0
 offset_right = 1664.0
 offset_bottom = 576.0
