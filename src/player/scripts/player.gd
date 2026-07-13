@@ -209,6 +209,13 @@ func die() -> void:
 func hit() -> void:
 	fsm.set_state_node(fsm.state_nodes.hit)
 
+# teleport moves suddenly the player at the given position.
+# @impure
+func teleport(to_position: Vector2, global_teleport := false) -> void:
+	self["position" if not global_teleport else "global_position"] = to_position
+	movement.reset_safe_margin_after_teleport()
+	reset_physics_interpolation()
+
 # set_direction changes the player direction and flips the sprite accordingly.
 # @impure
 func set_direction(new_direction: float) -> void:

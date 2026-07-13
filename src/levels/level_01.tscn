@@ -12,31 +12,41 @@
 [ext_resource type="PackedScene" uid="uid://berv51qihfk8t" path="res://src/items/enemies/zombie/zombie.tscn" id="8_2tyx5"]
 [ext_resource type="PackedScene" uid="uid://cudnwymn0dsjl" path="res://addons/net.rootkernel.water2d/src/water2d.tscn" id="9_hjd8s"]
 [ext_resource type="PackedScene" uid="uid://4f5krslq71th" path="res://src/items/projectiles/projectile_fire_ball.tscn" id="10_idw2h"]
+[ext_resource type="PackedScene" uid="uid://2g3n2x2ny2r8" path="res://src/items/teleporters/teleporter.tscn" id="12_iwoac"]
 [ext_resource type="PackedScene" uid="uid://kpdnahgljl8c" path="res://addons/net.rootkernel.fancy/src/nodes/fog.tscn" id="12_srna5"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwoac"]
-resource_local_to_scene = true
-shader = ExtResource("5_hxe3b")
-shader_parameter/fog_direction = Vector2(1, 0.2)
-shader_parameter/fog_speed = 0.05
-shader_parameter/fog_density = 0.85
-shader_parameter/canvas_size = Vector2(1584, 224)
-shader_parameter/reference_size = Vector2(512, 288)
-shader_parameter/noise_scale_1 = 2.0
-shader_parameter/noise_scale_2 = 4.0
-shader_parameter/noise_scale_3 = 8.0
+[ext_resource type="Script" uid="uid://6jaj8l863n21" path="res://src/items/teleporters/scripts/targets/target_blank.gd" id="13_1vujb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vujb"]
 resource_local_to_scene = true
 shader = ExtResource("5_hxe3b")
+shader_parameter/canvas_size = Vector2(1584, 224)
+shader_parameter/reference_size = Vector2(512, 288)
 shader_parameter/fog_direction = Vector2(1, 0.2)
 shader_parameter/fog_speed = 0.05
 shader_parameter/fog_density = 0.85
-shader_parameter/canvas_size = Vector2(1664, 96)
-shader_parameter/reference_size = Vector2(512, 288)
 shader_parameter/noise_scale_1 = 2.0
 shader_parameter/noise_scale_2 = 4.0
 shader_parameter/noise_scale_3 = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68m7i"]
+resource_local_to_scene = true
+shader = ExtResource("5_hxe3b")
+shader_parameter/canvas_size = Vector2(1664, 96)
+shader_parameter/reference_size = Vector2(512, 288)
+shader_parameter/fog_direction = Vector2(1, 0.2)
+shader_parameter/fog_speed = 0.05
+shader_parameter/fog_density = 0.85
+shader_parameter/noise_scale_1 = 2.0
+shader_parameter/noise_scale_2 = 4.0
+shader_parameter/noise_scale_3 = 8.0
+
+[sub_resource type="Resource" id="Resource_iwoac"]
+script = ExtResource("13_1vujb")
+metadata/_custom_type_script = "uid://6jaj8l863n21"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7tag"]
+resource_local_to_scene = true
+size = Vector2(32, 64)
 
 [node name="Level_01" type="Node2D" unique_id=1072277778 node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_ub47v")
@@ -107,7 +117,7 @@ metadata/_edit_lock_ = true
 
 [node name="Fog" parent="Effects" unique_id=917185066 instance=ExtResource("12_srna5")]
 z_index = -3
-material = SubResource("ShaderMaterial_iwoac")
+material = SubResource("ShaderMaterial_1vujb")
 offset_left = 80.0
 offset_top = 256.0
 offset_right = 1664.0
@@ -116,7 +126,7 @@ color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="Fog2" parent="Effects" unique_id=42400859 instance=ExtResource("12_srna5")]
 z_index = -3
-material = SubResource("ShaderMaterial_1vujb")
+material = SubResource("ShaderMaterial_68m7i")
 offset_top = 480.0
 offset_right = 1664.0
 offset_bottom = 576.0
@@ -408,6 +418,16 @@ metadata/_edit_lock_ = true
 [node name="Zombie" parent="Enemies" unique_id=1604692419 instance=ExtResource("8_2tyx5")]
 position = Vector2(464, 176)
 
+[node name="Teleporters" type="Node2D" parent="." unique_id=644948696]
+
+[node name="Teleporter" parent="Teleporters" unique_id=2024076099 instance=ExtResource("12_iwoac")]
+position = Vector2(208, 64)
+id = &"there"
+target = SubResource("Resource_iwoac")
+
+[node name="CollisionShape2D" parent="Teleporters/Teleporter" index="0" unique_id=854814747]
+shape = SubResource("RectangleShape2D_a7tag")
+
 [node name="Water Areas" type="Node2D" parent="." unique_id=1526228133]
 metadata/_edit_lock_ = true
 
@@ -456,3 +476,5 @@ offset_bottom = 576.0
 color = Color(1, 1, 1, 0.19607843)
 script = ExtResource("2_54iga")
 metadata/_custom_type_script = "uid://cxd1dhjjlbb1p"
+
+[editable path="Teleporters/Teleporter"]

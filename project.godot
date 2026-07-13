@@ -136,6 +136,7 @@ player_pause_previous={
 2d_physics/layer_10="Chest"
 2d_physics/layer_11="PhysicsDecor"
 2d_physics/layer_12="Water"
+2d_physics/layer_13="Trigger"
 
 [physics]
 
