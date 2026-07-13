@@ -13,8 +13,9 @@ class_name RkTeleportTargetSameScene extends RkTeleportTarget
 # @impure
 func teleport(from: RkTeleporter, player_node: RkPlayer) -> void:
 	var offset := from.offset_position(player_node.position)
-	var level_node := RkMain.get_main_node().level_manager_node.level_node
+	var level_node := RkMain.get_level_node()
 	var target_teleporter_node := from.find_teleporter_node(level_node, target_id)
+	assert(target_teleporter_node != null, "target_teleporter_node not found in %s" % [level_node.name])
 	player_node.teleport(target_teleporter_node.position - offset)
 
 # get_configuration_warnings returns editor warnings for this target.

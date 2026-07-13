@@ -117,3 +117,7 @@ func _process_game_over() -> void:
 # @pure
 static func get_main_node() -> RkMain:
 	return _main_node
+
+# @pure
+static func get_level_node() -> RkLevel:
+	return get_main_node().level_manager_node.level_node
