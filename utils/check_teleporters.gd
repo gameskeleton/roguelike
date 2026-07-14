@@ -48,36 +48,7 @@ func _check_scene(scene_path: String) -> void:
 		seen_ids[teleporter.id] = true
 		for warning in teleporter.target.get_configuration_warnings(teleporter):
 			_report(scene_path, teleporter, warning)
-		_check_target(scene_path, teleporter)
 	root.free()
-
-# @impure
-func _check_target(scene_path: String, teleporter: RkTeleporter) -> void:
-	var target := teleporter.target
-	if target is RkTeleportTargetSameScene:
-		var target_id: StringName = target.target_id
-		if not target_id.is_empty() and not _has_teleporter_id(scene_path, target_id):
-			_report(scene_path, teleporter, "same-scene target id \"%s\" not found in this scene" % [target_id])
-	elif target is RkTeleportTargetSceneChange:
-		var target_id: StringName = target.target_id
-		var level_scene_path: String = target.level_scene_path
-		if not target_id.is_empty() and not level_scene_path.is_empty() and ResourceLoader.exists(level_scene_path):
-			if not _has_teleporter_id(level_scene_path, target_id):
-				_report(scene_path, teleporter, "scene-change target id \"%s\" not found in %s" % [target_id, level_scene_path])
-
-# @pure
-func _has_teleporter_id(scene_path: String, teleporter_id: StringName) -> bool:
-	var packed := load(scene_path) as PackedScene
-	if packed == null:
-		return false
-	var root := packed.instantiate()
-	var found := false
-	for teleporter in _collect_teleporters(root):
-		if teleporter.id == teleporter_id:
-			found = true
-			break
-	root.free()
-	return found
 
 # @pure
 func _collect_teleporters(node: Node) -> Array[RkTeleporter]:

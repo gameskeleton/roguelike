@@ -75,6 +75,7 @@ func _draw() -> void:
 	var bottom_center := Vector2(0, _rect.size.y / 2.0) + direction_limit_offset
 	draw_line(top_center, bottom_center, Color.DARK_RED, 2.0)
 
+# @impure
 func _enter_tree() -> void:
 	# only sample while a player overlaps this teleporter.
 	set_physics_process(false)
@@ -102,18 +103,21 @@ func _get_configuration_warnings() -> PackedStringArray:
 	warnings.append_array(target.get_configuration_warnings(self))
 	return warnings
 
+# @signal
 # @impure
 func _on_body_entered(body: PhysicsBody2D) -> void:
 	assert(body is RkPlayer, "body must be a RkPlayer")
 	_player_node = body as RkPlayer
 	set_physics_process(true)
 
+# @signal
 # @impure
 func _on_body_exited(body: PhysicsBody2D) -> void:
 	assert(body is RkPlayer, "body must be a RkPlayer")
 	_player_node = null
 	set_physics_process(false)
 
+# @signal
 # @impure
 func _on_target_changed() -> void:
 	update_configuration_warnings()
@@ -121,6 +125,16 @@ func _on_target_changed() -> void:
 # @pure
 func offset_position(to_position: Vector2) -> Vector2:
 	return position + direction_limit_offset - to_position
+
+# find_level_node walks up the tree to find the level this teleporter belongs to.
+# @pure
+func find_level_node() -> RkLevel:
+	var node := get_parent()
+	while node != null:
+		if node is RkLevel:
+			return node as RkLevel
+		node = node.get_parent()
+	return null
 
 # @pure
 func get_teleporter_nodes(in_level_node: RkLevel) -> Array[RkTeleporter]:

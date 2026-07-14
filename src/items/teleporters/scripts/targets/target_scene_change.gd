@@ -29,7 +29,7 @@ func teleport(from: RkTeleporter, player_node: RkPlayer) -> void:
 
 # get_configuration_warnings returns editor warnings for this target.
 # @pure
-func get_configuration_warnings(_from: RkTeleporter) -> PackedStringArray:
+func get_configuration_warnings(from: RkTeleporter) -> PackedStringArray:
 	var warnings := PackedStringArray()
 	if target_id == null or target_id.is_empty():
 		warnings.push_back("target_id must be set")
@@ -37,4 +37,10 @@ func get_configuration_warnings(_from: RkTeleporter) -> PackedStringArray:
 		warnings.push_back("level_scene_path must be set")
 	elif not FileAccess.file_exists(level_scene_path):
 		warnings.push_back("level_scene_path does not exist")
+	elif not target_id.is_empty():
+		var packed := load(level_scene_path) as PackedScene
+		var level_node := packed.instantiate() as RkLevel
+		if from.find_teleporter_node(level_node, target_id) == null:
+			warnings.push_back("target_id \"%s\" not found in %s" % [target_id, packed.resource_path])
+		level_node.free()
 	return warnings

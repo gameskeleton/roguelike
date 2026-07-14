@@ -20,8 +20,11 @@ func teleport(from: RkTeleporter, player_node: RkPlayer) -> void:
 
 # get_configuration_warnings returns editor warnings for this target.
 # @pure
-func get_configuration_warnings(_from: RkTeleporter) -> PackedStringArray:
+func get_configuration_warnings(from: RkTeleporter) -> PackedStringArray:
 	var warnings := PackedStringArray()
+	var level_node := from.find_level_node()
 	if target_id == null or target_id.is_empty():
 		warnings.push_back("target_id must be set")
+	elif level_node and from.find_teleporter_node(level_node, target_id) == null:
+		warnings.push_back("target_id \"%s\" not found in this scene" % [target_id])
 	return warnings
