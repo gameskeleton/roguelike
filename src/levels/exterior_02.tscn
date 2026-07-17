@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cint3d02d538e" path="res://src/items/teleporters/scripts/targets/target_scene_change.gd" id="8_clcew"]
 [ext_resource type="Script" uid="uid://cxd1dhjjlbb1p" path="res://addons/net.rootkernel.camera/src/camera_region_2d.gd" id="10_1eb2i"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_clcew"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_641ct"]
 resource_local_to_scene = true
 shader = ExtResource("4_wyrv8")
 shader_parameter/canvas_size = Vector2(512, 288)
@@ -22,7 +22,7 @@ shader_parameter/noise_scale_1 = 2.0
 shader_parameter/noise_scale_2 = 4.0
 shader_parameter/noise_scale_3 = 8.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qaswr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ewmv"]
 resource_local_to_scene = true
 shader = ExtResource("6_nylke")
 shader_parameter/rain_color = Color(0.8, 0.8, 0.8, 0.5)
@@ -45,7 +45,7 @@ target_id = &"there"
 level_scene_path = "uid://dhxqyuajsocl7"
 metadata/_custom_type_script = "uid://cint3d02d538e"
 
-[node name="Level_02" type="Node2D" unique_id=1663175758 node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
+[node name="Exterior_02" type="Node2D" unique_id=1663175758 node_paths=PackedStringArray("wall_tile_map_layer", "one_way_tile_map_layer")]
 script = ExtResource("1_48ldq")
 wall_tile_map_layer = NodePath("Map/Wall")
 one_way_tile_map_layer = NodePath("Map/OneWay")
@@ -98,13 +98,13 @@ metadata/_edit_lock_ = true
 
 [node name="Fog" parent="Effects" unique_id=42400859 instance=ExtResource("3_ygcp3")]
 z_index = -3
-material = SubResource("ShaderMaterial_clcew")
+material = SubResource("ShaderMaterial_641ct")
 color = Color(1, 0.11764706, 0.11764706, 1)
 metadata/_edit_lock_ = true
 
 [node name="Rain" parent="Effects" unique_id=2093250758 instance=ExtResource("5_upsfa")]
 z_index = -4
-material = SubResource("ShaderMaterial_qaswr")
+material = SubResource("ShaderMaterial_8ewmv")
 metadata/_edit_lock_ = true
 
 [node name="Decors" type="Node2D" parent="." unique_id=1802902047]

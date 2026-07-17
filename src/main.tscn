@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://tkxcqhvo0nde" path="res://addons/net.rootkernel.camera/src/camera_2d.gd" id="9_kqbth"]
 [ext_resource type="Script" uid="uid://0t28ien32pa3" path="res://src/gui/scripts/effects/offset.gd" id="11_61oyc"]
 [ext_resource type="Script" uid="uid://bvhoq8yuooghu" path="res://src/levels/scripts/level_manager.gd" id="11_d3u4l"]
-[ext_resource type="PackedScene" uid="uid://bh18pnnl0bv4a" path="res://src/levels/level_02.tscn" id="12_e7lu8"]
+[ext_resource type="PackedScene" uid="uid://bh18pnnl0bv4a" path="res://src/levels/exterior_01.tscn" id="12_e7lu8"]
 [ext_resource type="Script" uid="uid://dhredeafxscgf" path="res://src/gui/scripts/effects/bounce.gd" id="12_phjov"]
 [ext_resource type="AudioStream" uid="uid://dxeuasnehxoae" path="res://src/shared/musics/dungeons_and_tunnels.mp3" id="13_dn0tp"]
 [ext_resource type="PackedScene" uid="uid://cegviomkjdxqm" path="res://src/gui/widgets/progress_bar.tscn" id="13_srxbw"]
@@ -204,12 +204,12 @@ bus = &"SFX"
 
 [node name="LevelManager" type="Node2D" parent="Game" unique_id=168792385 node_paths=PackedStringArray("level_node", "player_node", "player_camera_node", "object_spawner_node")]
 script = ExtResource("11_d3u4l")
-level_node = NodePath("Level_02")
+level_node = NodePath("Exterior_01")
 player_node = NodePath("../Player")
 player_camera_node = NodePath("../Player/Camera2D")
 object_spawner_node = NodePath("../ObjectSpawner")
 
-[node name="Level_02" parent="Game/LevelManager" unique_id=1663175758 instance=ExtResource("12_e7lu8")]
+[node name="Exterior_01" parent="Game/LevelManager" unique_id=1663175758 instance=ExtResource("12_e7lu8")]
 
 [node name="AudioSpawner" parent="Game" unique_id=1660274501 node_paths=PackedStringArray("spawn_node") instance=ExtResource("13_tb146")]
 spawn_node = NodePath("..")
