@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://kpdnahgljl8c" path="res://addons/net.rootkernel.fancy/src/nodes/fog.tscn" id="12_srna5"]
 [ext_resource type="Script" uid="uid://6jaj8l863n21" path="res://src/items/teleporters/scripts/targets/target_blank.gd" id="13_1vujb"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nkpc7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yee4w"]
 resource_local_to_scene = true
 shader = ExtResource("5_hxe3b")
 shader_parameter/canvas_size = Vector2(1584, 224)
@@ -28,7 +28,7 @@ shader_parameter/noise_scale_1 = 2.0
 shader_parameter/noise_scale_2 = 4.0
 shader_parameter/noise_scale_3 = 8.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6n3uv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nkpc7"]
 resource_local_to_scene = true
 shader = ExtResource("5_hxe3b")
 shader_parameter/canvas_size = Vector2(1664, 96)
@@ -44,11 +44,11 @@ shader_parameter/noise_scale_3 = 8.0
 script = ExtResource("13_1vujb")
 metadata/_custom_type_script = "uid://6jaj8l863n21"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6ii3"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6n3uv"]
 resource_local_to_scene = true
 size = Vector2(32, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qamtt"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6ii3"]
 resource_local_to_scene = true
 size = Vector2(32, 96)
 
@@ -121,7 +121,7 @@ metadata/_edit_lock_ = true
 
 [node name="Fog" parent="Effects" unique_id=917185066 instance=ExtResource("12_srna5")]
 z_index = -3
-material = SubResource("ShaderMaterial_nkpc7")
+material = SubResource("ShaderMaterial_yee4w")
 offset_left = 80.0
 offset_top = 256.0
 offset_right = 1664.0
@@ -130,7 +130,7 @@ color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="Fog2" parent="Effects" unique_id=42400859 instance=ExtResource("12_srna5")]
 z_index = -3
-material = SubResource("ShaderMaterial_6n3uv")
+material = SubResource("ShaderMaterial_nkpc7")
 offset_top = 480.0
 offset_right = 1664.0
 offset_bottom = 576.0
@@ -430,7 +430,7 @@ id = &"there"
 target = SubResource("Resource_iwoac")
 
 [node name="CollisionShape2D" parent="Teleporters/Left" index="0" unique_id=854814747]
-shape = SubResource("RectangleShape2D_t6ii3")
+shape = SubResource("RectangleShape2D_6n3uv")
 
 [node name="Right" parent="Teleporters" unique_id=770512044 instance=ExtResource("12_iwoac")]
 position = Vector2(1664, 416)
@@ -438,7 +438,7 @@ id = &"right"
 direction = 1
 
 [node name="CollisionShape2D" parent="Teleporters/Right" index="0" unique_id=854814747]
-shape = SubResource("RectangleShape2D_qamtt")
+shape = SubResource("RectangleShape2D_t6ii3")
 
 [node name="Water Areas" type="Node2D" parent="." unique_id=1526228133]
 metadata/_edit_lock_ = true

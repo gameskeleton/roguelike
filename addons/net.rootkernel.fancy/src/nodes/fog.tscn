@@ -6,11 +6,11 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yp7e"]
 resource_local_to_scene = true
 shader = ExtResource("1_p0c0y")
+shader_parameter/canvas_size = Vector2(512, 288)
+shader_parameter/reference_size = Vector2(512, 288)
 shader_parameter/fog_direction = Vector2(1, 0.2)
 shader_parameter/fog_speed = 0.05
 shader_parameter/fog_density = 0.85
-shader_parameter/canvas_size = Vector2(512, 288)
-shader_parameter/reference_size = Vector2(512, 288)
 shader_parameter/noise_scale_1 = 2.0
 shader_parameter/noise_scale_2 = 4.0
 shader_parameter/noise_scale_3 = 8.0
