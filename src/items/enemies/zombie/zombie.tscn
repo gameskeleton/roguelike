@@ -11,9 +11,10 @@ size = Vector2(16, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kla0"]
 size = Vector2(16, 24)
 
-[node name="Zombie" type="CharacterBody2D" unique_id=576311312 node_paths=PackedStringArray("attack_system", "life_points_system")]
+[node name="Zombie" type="CharacterBody2D" unique_id=576311312 node_paths=PackedStringArray("sprite", "attack_system", "life_points_system")]
 collision_layer = 64
 script = ExtResource("1_6kla0")
+sprite = NodePath("Sprite")
 attack_system = NodePath("Systems/Attack")
 life_points_system = NodePath("Systems/LifePoints")
 

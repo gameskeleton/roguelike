@@ -12,6 +12,7 @@ const GRAVITY_ACCELERATION := 850.0
 const GRAVITY_FAST_ACCELERATION := 1200.0
 
 const HIT_IMPULSE := Vector2(140.0, 0.0)
+const HITSTOP_DURATION := 0.07
 
 const WALK_MAX_SPEED := 126.0
 const WALK_ACCELERATION := 410.0
@@ -120,6 +121,7 @@ signal life_points_ratio_changed(life_points_ratio: float)
 
 var dead := false
 var crouched := false
+var hitstop_timeout := 0.0
 var disable_wall_hang_timeout := 0.0
 @export var root_motion := Vector2.ZERO
 @export_flags_2d_physics var one_way_collision_layer := 0
@@ -137,6 +139,12 @@ var disable_wall_hang_timeout := 0.0
 
 # @impure
 func _ready() -> void:
+	# systems
+	assert(gold_system != null, "gold_system not set")
+	assert(level_system != null, "level_system not set")
+	assert(attack_system != null, "attack_system not set")
+	assert(stamina_system != null, "stamina_system not set")
+	assert(life_points_system != null, "life_points_system not set")
 	# references
 	assert(sprite != null, "sprite not set")
 	assert(hand_marker != null, "hand_marker not set")
@@ -158,11 +166,6 @@ func _ready() -> void:
 	assert(wall_climb_crouch_shapecast != null, "wall_climb_crouch_shapecast not set")
 	assert(coin_picked_up_audio_stream_player != null, "coin_picked_up_audio_stream_player not set")
 	assert(experience_picked_up_audio_stream_player != null, "experience_picked_up_audio_stream_player not set")
-	assert(gold_system != null, "gold_system not set")
-	assert(level_system != null, "level_system not set")
-	assert(attack_system != null, "attack_system not set")
-	assert(stamina_system != null, "stamina_system not set")
-	assert(life_points_system != null, "life_points_system not set")
 	# set default values.
 	set_direction(direction)
 	_on_level_level_up(level_system.level.value)
@@ -171,10 +174,14 @@ func _ready() -> void:
 	life_points_system.life_points.replenish()
 	# make sure the collision's are safe.
 	movement.reset_safe_margin_after_teleport()
+	# connect attack system signal to trigger hitstop.
+	attack_system.attacked.connect(_on_attack_system_attacked)
 
 # @impure
 func _physics_process(delta: float) -> void:
-	process(delta)
+	var scaled_delta := delta if hitstop_timeout <= 0.0 else 0.0
+	hitstop_timeout = maxf(hitstop_timeout - delta, 0.0) # decrease the timeout using the unscaled delta time
+	process(scaled_delta)
 
 # @impure
 func process(delta: float) -> void:
@@ -182,6 +189,7 @@ func process(delta: float) -> void:
 	process_velocity(delta)
 	process_timeouts(delta)
 	fsm.process_state_machine(delta)
+	animation_player.advance(delta)
 
 # process_velocity updates player position after applying velocity.
 # @impure
@@ -208,6 +216,11 @@ func die() -> void:
 # @impure
 func hit() -> void:
 	fsm.set_state_node(fsm.state_nodes.hit)
+
+# hitstop briefly freezes the player in place to sell the impact of a hit.
+# @impure
+func hitstop(duration: float) -> void:
+	hitstop_timeout = maxf(hitstop_timeout, duration)
 
 # teleport moves suddenly the player at the given position.
 # @impure
@@ -307,6 +320,11 @@ func _on_level_level_up(_new_level: int) -> void:
 	attack_system.force.value_base = base_force + additional_force_per_level.sample_baked(level_system.level.ratio)
 	stamina_system.stamina.max_value_base = base_stamina + additional_stamina_per_level.sample_baked(level_system.level.ratio)
 	life_points_system.life_points.max_value_base = base_life_points + additional_life_points_per_level.sample_baked(level_system.level.ratio)
+
+# @signal
+# @impure
+func _on_attack_system_attacked(_target_life_points: RkLifePointsSystem, _damage: float, _damage_type: RkLifePointsSystem.DmgType) -> void:
+	hitstop(HITSTOP_DURATION)
 
 # @signal
 # @impure
