@@ -16,9 +16,15 @@ signal life_points_changed(life_points: float, life_points_ratio: float, life_po
 
 const NO_DAMAGE := -1.0
 
+@export_group(&"Reactions")
+## Whether damaging this entity should trigger hitstun/hitstop.
+@export var hitstun := false
+
 @export_group(&"Invincible")
+## When greater than zero, makes this entity impervious to damage.
 @export var invincible := 0
-@export var prevent_take_damage_until_next_frame := 0.0
+## When true: makes this entity impervious to damage, useful to prevent multiple damage in a single frame.
+@export var prevent_take_damage_until_next_frame := false
 
 @export_group(&"Damage multipliers", "damage_multiplier")
 @export var damage_multiplier_fire := 1.0

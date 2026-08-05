@@ -49,6 +49,7 @@ instigator = NodePath("../..")
 
 [node name="LifePoints" type="Node" parent="Systems" unique_id=2316117]
 script = ExtResource("1_yfgva")
+hitstun = true
 metadata/_custom_type_script = "uid://c7ksdj8ywvemg"
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=1299045234]

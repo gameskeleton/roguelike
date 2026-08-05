@@ -324,8 +324,9 @@ func _on_level_level_up(_new_level: int) -> void:
 
 # @signal
 # @impure
-func _on_attack_system_attacked(_target_life_points: RkLifePointsSystem, _damage: float, _damage_type: RkLifePointsSystem.DmgType) -> void:
-	hitstop(HITSTOP_DURATION)
+func _on_attack_system_attacked(target_life_points: RkLifePointsSystem, _damage: float, _damage_type: RkLifePointsSystem.DmgType) -> void:
+	if target_life_points.hitstun:
+		hitstop(HITSTOP_DURATION)
 
 # @signal
 # @impure

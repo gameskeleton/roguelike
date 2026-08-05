@@ -1510,6 +1510,7 @@ instigator = NodePath("../..")
 [node name="Stamina" parent="Systems" unique_id=850396820 instance=ExtResource("3_kren4")]
 
 [node name="LifePoints" parent="Systems" unique_id=2009531407 instance=ExtResource("3_h8vvb")]
+hitstun = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=522812420]
 
