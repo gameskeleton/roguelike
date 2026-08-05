@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://cxd1dhjjlbb1p" path="res://addons/net.rootkernel.camera/src/camera_region_2d.gd" id="11_mwqve"]
 [ext_resource type="Script" uid="uid://cint3d02d538e" path="res://src/items/teleporters/scripts/targets/target_scene_change.gd" id="12_8swow"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhmkp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8twuo"]
 resource_local_to_scene = true
 shader = ExtResource("6_nyqd6")
 shader_parameter/canvas_size = Vector2(512, 288)
@@ -26,7 +26,7 @@ shader_parameter/noise_scale_1 = 2.0
 shader_parameter/noise_scale_2 = 4.0
 shader_parameter/noise_scale_3 = 8.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8twuo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0i864"]
 resource_local_to_scene = true
 shader = ExtResource("4_ryrsy")
 shader_parameter/rain_color = Color(0.8, 0.8, 0.8, 0.5)
@@ -102,13 +102,13 @@ metadata/_edit_lock_ = true
 
 [node name="Fog" parent="Effects" unique_id=42400859 instance=ExtResource("3_1tsn7")]
 z_index = -3
-material = SubResource("ShaderMaterial_qhmkp")
+material = SubResource("ShaderMaterial_8twuo")
 color = Color(1, 0.11764706, 0.11764706, 1)
 metadata/_edit_lock_ = true
 
 [node name="Rain" parent="Effects" unique_id=2093250758 instance=ExtResource("3_n8bnh")]
 z_index = -4
-material = SubResource("ShaderMaterial_8twuo")
+material = SubResource("ShaderMaterial_0i864")
 metadata/_edit_lock_ = true
 
 [node name="Decors" type="Node2D" parent="." unique_id=1802902047]

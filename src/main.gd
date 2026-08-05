@@ -84,9 +84,11 @@ func _process_debug() -> void:
 	if player_node.dead:
 		return
 	if Input.is_key_pressed(KEY_E):
-		$Game/LevelManager.set_current_level_node(load("res://src/levels/level_01.tscn").instantiate())
+		$Game/LevelManager.set_current_level_node(load("res://src/levels/interior.tscn").instantiate())
+		player_node.teleport(Vector2(360.0, 160.0))
 	if Input.is_key_pressed(KEY_R):
-		$Game/LevelManager.set_current_level_node(load("res://src/levels/level_02.tscn").instantiate(), Vector2(1664.0, 288.0))
+		$Game/LevelManager.set_current_level_node(load("res://src/levels/exterior_01.tscn").instantiate())
+		player_node.teleport(Vector2(24.0, 256.0))
 	if Input.is_key_pressed(KEY_DELETE):
 		player_node.die()
 	if Input.is_action_just_pressed(&"ui_page_up"):
