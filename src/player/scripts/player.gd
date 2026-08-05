@@ -189,7 +189,8 @@ func process(delta: float) -> void:
 	process_velocity(delta)
 	process_timeouts(delta)
 	fsm.process_state_machine(delta)
-	animation_player.advance(delta)
+	if animation_player.is_playing():
+		animation_player.advance(delta)
 
 # process_velocity updates player position after applying velocity.
 # @impure
