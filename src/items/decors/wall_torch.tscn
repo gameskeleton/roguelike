@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://pp6hn6ab52xh"]
+
+[ext_resource type="Texture2D" uid="uid://bpse1c7773lcm" path="res://src/items/decors/textures/wall_torch.png" id="1_yp5ty"]
+[ext_resource type="PackedScene" uid="uid://p4mmc2y4h6hq" path="res://src/shared/warm_point_light.tscn" id="2_crhkk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jj4e"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crhkk"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y8qr"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgccu"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp2q1"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lb6s"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp5ty"]
+atlas = ExtResource("1_yp5ty")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jb1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jj4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crhkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6y8qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgccu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wp2q1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lb6s")
+}],
+"loop": 1,
+"name": &"lit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yp5ty")
+}],
+"loop": 1,
+"name": &"unlit",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_fo7qc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.25]
+}
+
+[sub_resource type="Animation" id="Animation_gvcwi"]
+resource_name = "light_pulse"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.25, 0.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g2w2u"]
+_data = {
+&"RESET": SubResource("Animation_fo7qc"),
+&"light_pulse": SubResource("Animation_gvcwi")
+}
+
+[node name="WallTorch" type="Node2D" unique_id=1147707452]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1235545261]
+z_index = -1
+position = Vector2(0, -32)
+sprite_frames = SubResource("SpriteFrames_1jb1l")
+animation = &"lit"
+autoplay = "lit"
+centered = false
+
+[node name="Light" parent="Sprite" unique_id=2128715567 instance=ExtResource("2_crhkk")]
+position = Vector2(8, 16)
+scale = Vector2(0.75, 0.75)
+texture_scale = 0.25
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1713064148]
+root_node = NodePath("../Sprite/Light")
+libraries/ = SubResource("AnimationLibrary_g2w2u")
+autoplay = &"light_pulse"
