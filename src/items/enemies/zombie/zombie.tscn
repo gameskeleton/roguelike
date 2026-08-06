@@ -9,7 +9,7 @@
 size = Vector2(16, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kla0"]
-size = Vector2(16, 24)
+size = Vector2(16, 32)
 
 [node name="Zombie" type="CharacterBody2D" unique_id=576311312 node_paths=PackedStringArray("sprite", "attack_system", "life_points_system")]
 collision_layer = 64
@@ -20,7 +20,7 @@ life_points_system = NodePath("Systems/LifePoints")
 
 [node name="Sprite" type="ColorRect" parent="." unique_id=1061458988]
 offset_left = -8.0
-offset_top = -24.0
+offset_top = -32.0
 offset_right = 8.0
 color = Color(1, 0, 0, 1)
 
@@ -57,7 +57,7 @@ collision_layer = 64
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1663013445]
-position = Vector2(0, -12)
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_6kla0")
 metadata/_edit_lock_ = true
 

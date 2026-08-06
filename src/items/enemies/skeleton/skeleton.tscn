@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://d31a1viufsssl"]
+
+[ext_resource type="Script" uid="uid://bwmkplir4nxwy" path="res://src/items/enemies/skeleton/scripts/skeleton.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://c7ksdj8ywvemg" path="res://src/systems/scripts/life_points.gd" id="1_yfgva"]
+[ext_resource type="PackedScene" uid="uid://dpqa0l2rq38dg" path="res://src/systems/attack.tscn" id="2_gsj3p"]
+[ext_resource type="PackedScene" uid="uid://dd5vg32imuele" path="res://src/items/projectiles/projectile_arrow.tscn" id="3_arrow"]
+[ext_resource type="PackedScene" uid="uid://dxt75cixtt7y6" path="res://src/gui/widgets/progress_bar_life_points.tscn" id="4_ply85"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detection"]
+size = Vector2(220, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(16, 32)
+
+[node name="Skeleton" type="CharacterBody2D" unique_id=602358795 node_paths=PackedStringArray("sprite", "bow_marker", "detection_area", "line_of_sight_raycast", "attack_system", "life_points_system")]
+collision_layer = 64
+script = ExtResource("1_script")
+arrow_scene = ExtResource("3_arrow")
+sprite = NodePath("Sprite")
+bow_marker = NodePath("BowMarker")
+detection_area = NodePath("DetectionArea")
+line_of_sight_raycast = NodePath("LineOfSightRayCast2D")
+attack_system = NodePath("Systems/Attack")
+life_points_system = NodePath("Systems/LifePoints")
+
+[node name="Sprite" type="ColorRect" parent="." unique_id=1599032224]
+offset_left = -8.0
+offset_top = -32.0
+offset_right = 8.0
+color = Color(0.85, 0.83, 0.72, 1)
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=1111068870]
+visible = false
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="BowMarker" type="Marker2D" parent="." unique_id=1270795216]
+position = Vector2(10, -20)
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1902584554]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1932292329]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_detection")
+metadata/_edit_lock_ = true
+
+[node name="LineOfSightRayCast2D" type="RayCast2D" parent="." unique_id=866855934]
+position = Vector2(0, -12)
+target_position = Vector2(100, 0)
+
+[node name="GUI" type="Control" parent="." unique_id=944438892]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="LifePoints" parent="GUI" unique_id=2125587873 node_paths=PackedStringArray("life_points_system") instance=ExtResource("4_ply85")]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -37.0
+offset_right = 16.0
+offset_bottom = -33.0
+life_points_system = NodePath("../../Systems/LifePoints")
+
+[node name="Systems" type="Node" parent="." unique_id=1790573031]
+
+[node name="Attack" parent="Systems" unique_id=1203281582 node_paths=PackedStringArray("source", "instigator") instance=ExtResource("2_gsj3p")]
+source = NodePath("../..")
+instigator = NodePath("../..")
+
+[node name="LifePoints" type="Node" parent="Systems" unique_id=738398410]
+script = ExtResource("1_yfgva")
+hitstun = true
+metadata/_custom_type_script = "uid://c7ksdj8ywvemg"
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1532131010]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1726960461]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_hitbox")
+metadata/_edit_lock_ = true
+
+[connection signal="damage_taken" from="Systems/LifePoints" to="." method="_on_life_points_damage_taken"]
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
